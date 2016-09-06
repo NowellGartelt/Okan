@@ -1,0 +1,6 @@
+<IfModule mod_rewrite.c>
+	RewriteEngine on
+	Rewritebase /Okan
+#	RewriteRule ^$ controller/ [L]
+#	RewriteRule (.*) controller/$1 [L]
+</IfModule>
