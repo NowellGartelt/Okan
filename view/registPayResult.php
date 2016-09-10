@@ -7,8 +7,9 @@
 　 <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
+  <center>
   <p>Okan：登録完了</p><br>
-  <p>xxにxx円ね？</p>
+  <p><?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
   <p>しょうがないわね、今日だけよ</p><br>
   <img src="../lib/img/カーチャン.gif">
   <br><br>
@@ -19,5 +20,6 @@
   <form action="../controller/menu.php" method="post">
    <input type="submit" value="戻る">
   </form>
+  </center>
 　</body>
 </html>

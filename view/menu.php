@@ -7,6 +7,7 @@
  　<meta name="keywords" content="収支管理,おかん">
 　</head>
  <body>
+  <center>
   <p>Okan：メニュー</p><br>
   <p>何にお金使ったのか教えなさいよ</p>
   <p>ムダ遣いするんじゃないわよ</p><br>
@@ -14,18 +15,17 @@
   <br> <br>
   <p>やれること：</p>
   <table>
-　 　<thead>
-   </thead>
 　 　<tbody>
 　 　　<tr>
-　 　　　<td>お金を使う：</td>
+　 　　　<td>使ったお金を記録する：</td>
 　 　　　<td><a href="../controller/registPayForm.php">オカンに教える</a></td>
 　 　　</tr>
 　 　　<tr>
-　 　　　<td>使ったものを見る：</td>
-　 　　　<td><a href="../controller/referencePay.php">オカンに訊く</a></td>
+　 　　　<td>使ったお金を見る：</td>
+　 　　　<td><a href="../controller/referencePayForm.php">オカンに訊く</a></td>
 　 　　</tr>
 　 　</tbody>
 　 </table>
+  </center>
 　</body>
 </html>

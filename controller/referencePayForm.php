@@ -1,3 +1,3 @@
 <?php
-include '../view/referencePay.php';
+include '../view/referencePayForm.php';
 ?>

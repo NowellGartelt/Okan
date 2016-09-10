@@ -7,6 +7,7 @@
 　 <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
+  <center>
   <p>Okan：登録</p><br>
   <p>いったい、何に使ったの？？</p>
   <p>まーた変なものに使ったんじゃないでしょうね</p><br>
@@ -40,5 +41,6 @@
   <form action="../controller/menu.php" method="post">
    <input type="submit" value="戻る">
   </form>
+  </center>
 　</body>
 </html>
