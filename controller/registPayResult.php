@@ -6,6 +6,16 @@ $payDate = $_POST['payDate'];
 
 include '../model/databaseConnect.php';
 
+if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
+ // 入力項目不足でエラー、入力画面に戻す
+ $errorInput = true;
+
+}
+
+$payName = htmlspecialchars($payName, ENT_QUOTES);
+$payment = htmlspecialchars($payment, ENT_QUOTES);
+$payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
+
 $registDate = date("Y-m-d H:i:s");
 
 $query_registPay = "INSERT INTO paymentTable (payName, payment, payCategory, payDate, registDate, updateDate) 
