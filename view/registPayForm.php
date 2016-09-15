@@ -9,10 +9,10 @@
  <body>
   <center>
   <p>Okan：登録</p><br>
-<?php if($errorInputPay == true) { ?>
+<?php if($errorInputPay == false) { ?>
   <p>いったい、何に使ったの？？</p>
   <p>まーた変なものに使ったんじゃないでしょうね</p><br>
-<?php } else { ?>
+<?php } elseif ($errorInputPay == true) { ?>
   <p>ちょっと、項目が足りてないわよ？</p>
   <p>もういっかい確認しなさいよね</p><br>
 <?php } ?>
