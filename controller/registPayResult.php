@@ -1,12 +1,15 @@
 <?php
 session_start();
 
+include '../model/tools/judgeIsLogined.php';
+$judgeIsLoginedAction = new judgeIsLogined();
+
+include '../model/tools/databaseConnect.php';
+
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
 $payDate = $_POST['payDate'];
-
-include '../model/databaseConnect.php';
 
 if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
  // 入力項目不足でエラー、入力画面に戻す

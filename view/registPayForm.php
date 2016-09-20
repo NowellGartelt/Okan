@@ -7,6 +7,11 @@
 　 <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
+　<div align="right">
+   <form action="../controller/logout.php" method="post">
+    <input type="submit" value="ログアウト">
+   </form>
+  </div>
   <center>
   <p>Okan：登録</p><br>
 <?php if($errorInputPay == false) { ?>
