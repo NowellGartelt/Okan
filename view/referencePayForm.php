@@ -31,13 +31,26 @@
       <td><input type="text" name="payCategory"></td>
      </tr>
      <tr>
-      <td>いつから？：</td>
-      <td><input type="date" name="payDateFrom"></td>
+      <td>どこで？：</td>
+      <td><input type="text" name="payState"></td>
      </tr>
      <tr>
-      <td>いつまで？：</td>
-      <td><input type="date" name="payDateTo"></td>
+      <td>いつからいつまで？：</td>
+      <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>></td>
+      <td><input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
      </tr>
+<!--
+     <tr>
+      <td>結果のまとめ方は？：</td>
+      <td>
+       <select name="sortBy">
+        <option selected value="none">まとめない</option>
+        <option value="none">日ごと</option>
+        <option value="none">月ごと</option>
+       </select>
+      </td>
+     </tr>
+-->
     </tbody>
    </table>
    <br>

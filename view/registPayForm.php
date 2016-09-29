@@ -41,7 +41,11 @@
      </tr>
      <tr>
       <td>いつ？：</td>
-      <td><input type="date" name="payDate"></td>
+      <td><input type="date" name="payDate" value=<?php echo date("Y-m-d"); ?>></td>
+     </tr>
+     <tr>
+      <td>どこで？：</td>
+      <td><input type="text" name="payState"></td>
      </tr>
     </tbody>
    </table>

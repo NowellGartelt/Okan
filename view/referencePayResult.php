@@ -27,17 +27,46 @@
        <th>名前</th>
        <th>金額</th>
        <th>カテゴリ</th>
+       <th>場所</th>
+<!--
+       <th></th>
+       <th></th>
+-->
       </tr>
       <?php $j = 1; ?>
-      <?php while ($j <= $i) { ?>
+      <?php while ($j < $i) { ?>
       <tr>
        <td><?php echo $payment[$j]['payDate']; ?></td>
        <td><?php echo $payment[$j]['payName']; ?></td>
        <td><?php echo $payment[$j]['payment']; ?></td>
        <td><?php echo $payment[$j]['payCategory']; ?></td>
+       <td><?php echo $payment[$j]['payState']; ?></td>
+<!--
+       <td>
+        <form action="../controller/updatePayForm.php" method="post">
+         <input type="submit" value="教えなおす">
+         <input type="hidden" value=<?php echo $payment[$j]['paymentID']; ?>>
+        </form>
+       </td>
+       <td>
+        <form action="../controller/deletePayForm.php" method="post">
+         <input type="submit" value="取り消してもらう">
+         <input type="hidden" value=<?php echo $payment[$j]['paymentID']; ?>>
+        </form>
+       </td>
+-->
       </tr>
       <?php $j++; ?>
       <?php } ?>
+      <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+      </tr>
      </tbody>
    </table>
    <br>

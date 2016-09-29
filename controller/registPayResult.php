@@ -9,6 +9,7 @@ include '../model/tools/databaseConnect.php';
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
+$payState = $_POST['payState'];
 $payDate = $_POST['payDate'];
 
 if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
@@ -19,20 +20,23 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
  include '../view/registPayForm.php';
 
 } else {
- $_SESSION["errorInputPay"] = flase;
+ $_SESSION["errorInputPay"] = false;
  $errorInputPay = $_SESSION["errorInputPay"];
 
  $payName = htmlspecialchars($payName, ENT_QUOTES);
  $payment = htmlspecialchars($payment, ENT_QUOTES);
+ $payState = htmlspecialchars($payState, ENT_QUOTES);
  $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  
  $registDate = date("Y-m-d H:i:s");
  
- $query_registPay = "INSERT INTO paymentTable (payName, payment, payCategory, payDate, registDate, updateDate) 
-                      VALUES ('$payName', '$payment', '$payCategory', '$payDate', '$registDate', null)";
+ $query_registPay = "INSERT INTO paymentTable (payName, payment, payCategory, payState, payDate, registDate, updateDate) 
+                      VALUES ('$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
  $result = mysqli_query($link, $query_registPay);
 
  include '../view/registPayResult.php';
 
 }
+$_SESSION["errorInputPay"] = "";
+
 ?>

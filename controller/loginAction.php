@@ -15,7 +15,7 @@ if(empty($loginID) || empty($loginPassword)){
 
 } else {
  $checkLoginAction = new searchMemberByLogIdAndPass();
- $login = $checkLoginAction -> searchMemberByLogIdAndPass($loginId, $loginPassword);
+ $login = $checkLoginAction -> searchMemberByLogIdAndPass($loginID, $loginPassword);
 
  if($login == 'login'){
   $_SESSION['login'] = 'login';
