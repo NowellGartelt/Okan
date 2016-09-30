@@ -14,8 +14,16 @@
   </div>
   <center>
   <p>Okan：参照</p><br>
+<?php if ($errorReferencePayCount == true) { ?>
+  <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
+  <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>
+<?php } elseif ($errorReferencePayNone == true) { ?>
+  <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
+  <p>条件を見直しなさいよね</p><br>
+<?php } else { ?>
   <p>いつのを見たいの？？</p>
   <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
+<?php }?>
   <img src="../lib/img/カーチャン.gif">
   <br><br>
   <p></p>

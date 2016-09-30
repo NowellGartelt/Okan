@@ -172,15 +172,30 @@ while ($row = mysqli_fetch_array($result_referencePay)) {
 }
 
 if($i >= 102){
- $_SESSION['errorReferencePayCount'] = true;
+ $errorReferencePayCount = true;
+
+ $_SESSION['payName'] = "";
+ $_SESSION['payCategory'] = "";
+ $_SESSION['payDateFrom'] = "";
+ $_SESSION['payDateTo'] = "";
+ $_SESSION['payState'] = "";
+
  include '../view/referencePayForm.php';
 
 } elseif ($i == 1) {
- $_SESSION['errorReferencePayNone'] = true;
+ $errorReferencePayNone = true;
+
+ $_SESSION['payName'] = "";
+ $_SESSION['payCategory'] = "";
+ $_SESSION['payDateFrom'] = "";
+ $_SESSION['payDateTo'] = "";
+ $_SESSION['payState'] = "";
+
  include '../view/referencePayForm.php';
 
 } else {
  $sumPayment[0] = mysqli_fetch_array($result_sumPay);
+
  include '../view/referencePayResult.php';
 
 }

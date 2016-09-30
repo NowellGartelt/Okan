@@ -1,7 +1,7 @@
 <!-- view/menu.php -->
 <html>
 　<head>
-　 <title>Okan：登録</title>
+　 <title>Okan：更新</title>
 　 <meta charset="UTF-8">
 　 <meta name="description" content="収支管理システム「Okan」の登録画面。">
 　 <meta name="keywords" content="収支管理,おかん">

@@ -29,9 +29,7 @@
        <th>カテゴリ</th>
        <th>場所</th>
        <th></th>
-<!--
        <th></th>
--->
       </tr>
       <?php $j = 1; ?>
       <?php while ($j < $i) { ?>
@@ -47,14 +45,12 @@
          <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
         </form>
        </td>
-<!--
        <td>
         <form action="../controller/deletePayForm.php" method="post">
          <input type="submit" value="取り消してもらう">
-         <input type="hidden" value=<?php echo $payment[$j]['paymentID']; ?>>
+         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
         </form>
        </td>
--->
       </tr>
       <?php $j++; ?>
       <?php } ?>
@@ -65,9 +61,7 @@
         <td></td>
         <td></td>
         <td></td>
-<!--
         <td></td>
--->
       </tr>
      </tbody>
    </table>

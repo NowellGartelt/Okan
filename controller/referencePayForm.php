@@ -10,5 +10,8 @@ $_SESSION['payDateFrom'] = "";
 $_SESSION['payDateTo'] = "";
 $_SESSION['payState'] = "";
 
+$errorReferencePayCount = "";
+$errorReferencePayNone = "";
+
 include '../view/referencePayForm.php';
 ?>
