@@ -28,8 +28,8 @@
        <th>金額</th>
        <th>カテゴリ</th>
        <th>場所</th>
-<!--
        <th></th>
+<!--
        <th></th>
 -->
       </tr>
@@ -41,13 +41,13 @@
        <td><?php echo $payment[$j]['payment']; ?></td>
        <td><?php echo $payment[$j]['payCategory']; ?></td>
        <td><?php echo $payment[$j]['payState']; ?></td>
-<!--
        <td>
         <form action="../controller/updatePayForm.php" method="post">
          <input type="submit" value="教えなおす">
-         <input type="hidden" value=<?php echo $payment[$j]['paymentID']; ?>>
+         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
         </form>
        </td>
+<!--
        <td>
         <form action="../controller/deletePayForm.php" method="post">
          <input type="submit" value="取り消してもらう">
@@ -65,7 +65,9 @@
         <td></td>
         <td></td>
         <td></td>
+<!--
         <td></td>
+-->
       </tr>
      </tbody>
    </table>

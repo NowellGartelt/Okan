@@ -4,17 +4,33 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-$payName = $_POST['payName'];
-$payCategory = $_POST['payCategory'];
-$payDateFrom = $_POST['payDateFrom'];
-$payDateTo = $_POST['payDateTo'];
-$payState = $_POST['payState'];
+if ($_SESSION['payment'] == "" && $_SESSION['payCategory'] == "" && $_SESSION['payDateFrom'] == "" && $_SESSION['payDateTo'] == "" && $_SESSION['payState'] == ""){
+ $payName = $_POST['payName'];
+ $payCategory = $_POST['payCategory'];
+ $payDateFrom = $_POST['payDateFrom'];
+ $payDateTo = $_POST['payDateTo'];
+ $payState = $_POST['payState'];
+ 
+ $payName = htmlspecialchars($payName, ENT_QUOTES);
+ $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
+ $payState = htmlspecialchars($payState, ENT_QUOTES);
+
+ $_SESSION['payName'] = $payName;
+ $_SESSION['payCategory'] = $payCategory;
+ $_SESSION['payDateFrom'] = $payDateFrom;
+ $_SESSION['payDateTo'] = $payDateTo;
+ $_SESSION['payState'] = $payState;
+
+} else {
+ $payName = $_SESSION['payName'];
+ $payCategory = $_SESSION['payCategory'];
+ $payDateFrom = $_SESSION['payDateFrom'];
+ $payDateTo = $_SESSION['payDateTo'];
+ $payState = $_SESSION['payState'];
+
+}
 
 include '../model/tools/databaseConnect.php';
-
-$payName = htmlspecialchars($payName, ENT_QUOTES);
-$payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
-$payState = htmlspecialchars($payState, ENT_QUOTES);
 
 // 5つすべて入力されている場合
 // 5から5を選択する組み合わせ
@@ -168,5 +184,6 @@ if($i >= 102){
  include '../view/referencePayResult.php';
 
 }
+
 mysqli_close($link);
 ?>
