@@ -22,10 +22,6 @@ $query_updatePayInfo = "UPDATE paymentTable SET payName = '$payName', payment = 
 $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
 $paymentInfo = mysqli_fetch_array($result_updatePayInfo);
 
-var_dump($query_updatePayInfo);
-var_dump($result_updatePayInfo);
-var_dump($paymentInfo);
-
 include '../view/updatePayResult.php';
 
 mysqli_close($link);
