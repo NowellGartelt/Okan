@@ -3,7 +3,7 @@
 　<head>
 　 <title>Okan：更新</title>
 　 <meta charset="UTF-8">
-　 <meta name="description" content="収支管理システム「Okan」の登録画面。">
+　 <meta name="description" content="収支管理システム「Okan」の更新画面。">
 　 <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
