@@ -44,8 +44,8 @@
      </tr>
      <tr>
       <td>いつからいつまで？：</td>
-      <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>></td>
-      <td><input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
+      <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
+      <input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
      </tr>
 <!--
      <tr>
