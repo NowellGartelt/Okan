@@ -14,12 +14,14 @@ if(empty($loginID) || empty($loginPassword)){
  include '../controller/login.php';
 
 } else {
- $checkLoginAction = new searchMemberByLogIdAndPass();
+ $checkLoginAction = new searchMemberByLogIdAndPass($loginID, $loginPassword);
  $login = $checkLoginAction -> searchMemberByLogIdAndPass($loginID, $loginPassword);
 
  if($login == 'login'){
   $_SESSION['login'] = 'login';
-  include '../controller/menu.php';
+  $_SESSION["errorInputPay"] = false;
+
+  include '../view/menu.php';
 
  } else {
   $_SESSION['login'] = 'noRegistration';
@@ -27,6 +29,4 @@ if(empty($loginID) || empty($loginPassword)){
  
  }
 }
-
-mysqli_close($link);
 ?>
