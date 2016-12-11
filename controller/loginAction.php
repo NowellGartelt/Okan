@@ -1,3 +1,4 @@
+<!-- controller/loginAction.php -->
 <?php
 session_start();
 

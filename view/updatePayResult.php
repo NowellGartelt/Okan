@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/updatePayResult.php -->
 <html>
 　<head>
 　 <title>Okan：更新完了</title>
@@ -16,7 +16,7 @@
   <p>Okan：更新完了</p><br>
   <p><?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
   <p>覚えなおしたわよ</p><br>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/referencePayResult.php" method="post">

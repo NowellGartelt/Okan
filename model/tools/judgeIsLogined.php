@@ -1,3 +1,4 @@
+<!-- model/tools/judgeIsLogined.php -->
 <?php 
 // model/tools/judgeIsLogined.php
 class judgeIsLogined {

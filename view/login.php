@@ -1,3 +1,4 @@
+<!-- view/login.php -->
 <center>
 <p>ログイン</p><br>
 <form action="../controller/loginAction.php" method="post">

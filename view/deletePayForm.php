@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/deletePayForm.php -->
 <html>
 　<head>
 　 <title>Okan：削除</title>
@@ -16,7 +16,7 @@
   <p>Okan：削除</p><br>
   <p>前の支払いを取り消したいの？？</p>
   <p>取り消す内容と対象があってるか、確認しなさいよね</p><br>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/deletePayResult.php" method="post">

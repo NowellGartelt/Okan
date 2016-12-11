@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/referencePayForm.php -->
 <html>
 　<head>
 　 <title>Okan：参照</title>
@@ -24,7 +24,7 @@
   <p>いつのを見たいの？？</p>
   <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
 <?php }?>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/referencePayResult.php" method="post">
@@ -47,18 +47,16 @@
       <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
       <input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
      </tr>
-<!--
      <tr>
       <td>結果のまとめ方は？：</td>
       <td>
        <select name="sortBy">
         <option selected value="none">まとめない</option>
-        <option value="none">日ごと</option>
-        <option value="none">月ごと</option>
+        <option value="byDay">日ごと</option>
+        <option value="byMonth">月ごと</option>
        </select>
       </td>
      </tr>
--->
     </tbody>
    </table>
    <br>

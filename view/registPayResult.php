@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/registPayResult.php -->
 <html>
 　<head>
 　 <title>Okan：登録完了</title>
@@ -16,7 +16,7 @@
   <p>Okan：登録完了</p><br>
   <p><?php echo $payState; ?>で、<?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
   <p>しょうがないわね、今日だけよ</p><br>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/registPayForm.php" method="post">

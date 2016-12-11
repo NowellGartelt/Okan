@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/registPayForm.php -->
 <html>
 　<head>
 　 <title>Okan：登録</title>
@@ -21,7 +21,7 @@
   <p>ちょっと、項目が足りてないわよ？</p>
   <p>もういっかい確認しなさいよね</p><br>
 <?php } ?>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/registPayResult.php" method="post">

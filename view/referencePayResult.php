@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/referencePayResult.php -->
 <html>
  <head>
   <title>Okan：検索結果</title>
@@ -15,9 +15,9 @@
   </div>
   <center>
    <p>Okan：検索結果</p><br>
-   <p>探したら、合計<?php echo $sumPayment[0]['SUM(payment)']; ?>円だったわよ</p>
+   <p>探したら、合計<?php echo $sumPayment; ?>円だったわよ</p>
    <p>無駄遣いばっかりして...しょうがないわねー</p><br>
-   <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
    <table>
@@ -31,14 +31,14 @@
        <th></th>
        <th></th>
       </tr>
-      <?php $j = 1; ?>
-      <?php while ($j < $i) { ?>
+      <?php $displayCount = 0; ?>
+      <?php while ($displayCount < $payCount) { ?>
       <tr>
-       <td><?php echo $payment[$j]['payDate']; ?></td>
-       <td><?php echo $payment[$j]['payName']; ?></td>
-       <td><?php echo $payment[$j]['payment']; ?></td>
-       <td><?php echo $payment[$j]['payCategory']; ?></td>
-       <td><?php echo $payment[$j]['payState']; ?></td>
+       <td><?php echo $payment[$displayCount]['payDate']; ?></td>
+       <td><?php echo $payment[$displayCount]['payName']; ?></td>
+       <td><?php echo $payment[$displayCount]['payment']; ?></td>
+       <td><?php echo $payment[$displayCount]['payCategory']; ?></td>
+       <td><?php echo $payment[$displayCount]['payState']; ?></td>
        <td>
         <form action="../controller/updatePayForm.php" method="post">
          <input type="submit" value="教えなおす">
@@ -52,7 +52,7 @@
         </form>
        </td>
       </tr>
-      <?php $j++; ?>
+      <?php $displayCount++; ?>
       <?php } ?>
       <tr>
         <td></td>

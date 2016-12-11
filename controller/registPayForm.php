@@ -1,3 +1,4 @@
+<!-- controller/registPayForm.php -->
 <?php
 session_start();
 

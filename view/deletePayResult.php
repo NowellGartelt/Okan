@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/deletePayResult.php -->
 <html>
 　<head>
 　 <title>Okan：削除完了</title>
@@ -16,7 +16,7 @@
   <p>Okan：削除完了</p><br>
   <p><?php echo $payState; ?>で、<?php echo $payName; ?>に<?php echo $payment; ?>円使ったヤツね？</p>
   <p>取り消しといたたわよ</p><br>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/referencePayResult.php" method="post">

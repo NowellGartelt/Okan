@@ -16,7 +16,7 @@
   <p>Okan：メニュー</p><br>
   <p>何にお金使ったのか教えなさいよ</p>
   <p>ムダ遣いするんじゃないわよ</p><br>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br> <br>
   <p>やれること：</p>
   <table>

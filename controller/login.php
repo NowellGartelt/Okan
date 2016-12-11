@@ -1,3 +1,4 @@
+<!-- controller/login.php -->
 <?php
 $hat = array(
   'title' => 'Fuen-Works：ログイン',

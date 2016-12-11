@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/updatePayForm.php -->
 <html>
 　<head>
 　 <title>Okan：更新</title>
@@ -21,7 +21,7 @@
   <p>ちょっと、項目が間違ってるわよ？</p>
   <p>もういっかい確認しなさいよね</p><br>
 <?php } ?>
-  <img src="../lib/img/カーチャン.gif">
+  <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
   <form action="../controller/updatePayResult.php" method="post">

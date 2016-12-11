@@ -1,3 +1,4 @@
+<!-- controller/deletePayResult.php -->
 <?php
 session_start();
 

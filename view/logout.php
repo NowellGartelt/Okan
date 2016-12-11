@@ -1,4 +1,4 @@
-<!-- view/menu.php -->
+<!-- view/logout.php -->
 <html>
 　<head>
  　<title>Fuen-Works：ログアウト</title>
