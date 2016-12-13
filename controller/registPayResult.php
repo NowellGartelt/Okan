@@ -35,6 +35,14 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
                       VALUES ('$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
  $result = mysqli_query($link, $query_registPay);
 
+ $query_kogotoList = <<<__SQL
+SELECT *
+FROM `kogoto`
+WHERE $payment <= `kogoto`.`lower_payment`
+ORDER BY `lower_payment` ASC
+__SQL;
+ $kogoto = mysqli_fetch_assoc(mysqli_query($link, $query_kogotoList));
+
  include '../view/registPayResult.php';
 
 }
