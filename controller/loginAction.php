@@ -20,6 +20,7 @@ if(empty($loginID) || empty($loginPassword)){
 
  if($login == 'login'){
   $_SESSION['login'] = 'login';
+  $_SESSION['loginID'] = $loginID;
   $_SESSION["errorInputPay"] = false;
 
   include '../view/menu.php';
