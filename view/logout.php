@@ -7,12 +7,12 @@
  　<meta name="keywords" content="Fuen-Works">
 　</head>
  <body>
-  <center>
+  <div align="center">
    <p>ログアウト</p><br>
    <p>ログアウトしました。</p><br>
    <form action="../controller/login.php" method="post">
     <input type="submit" value="ログイン画面へ">
    </form>
-  </center>
+  </div>
 　</body>
 </html>

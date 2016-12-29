@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+  <div align="center">
   <p>Okan：メニュー</p><br>
   <p>何にお金使ったのか教えなさいよ</p>
   <p>ムダ遣いするんじゃないわよ</p><br>
@@ -31,6 +31,6 @@
 　 　　</tr>
 　 　</tbody>
 　 </table>
-  </center>
+  </div>
 　</body>
 </html>

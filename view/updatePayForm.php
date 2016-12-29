@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+  <div align="center">
   <p>Okan：更新</p><br>
 <?php if($errorInputPay == false) { ?>
   <p>前の支払いを直したいの？？</p>
@@ -56,6 +56,6 @@
   <form action="../controller/referencePayResult.php" method="post">
    <input type="submit" value="戻る">
   </form>
-  </center>
+  </div>
 　</body>
 </html>

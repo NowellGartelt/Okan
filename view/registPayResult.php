@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+  <div align="center">
   <p>Okan：登録完了</p><br>
   <p><?php echo $payState; ?>で、<?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
   <p><?php echo $kogoto['message']; ?></p><br>
@@ -25,6 +25,6 @@
   <form action="../controller/menu.php" method="post">
    <input type="submit" value="戻る">
   </form>
-  </center>
+  </div>
 　</body>
 </html>

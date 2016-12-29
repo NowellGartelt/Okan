@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+　<div align="center">
   <p>Okan：削除</p><br>
   <p>前の支払いを取り消したいの？？</p>
   <p>取り消す内容と対象があってるか、確認しなさいよね</p><br>
@@ -58,6 +58,6 @@
   <form action="../controller/referencePayResult.php" method="post">
    <input type="submit" value="戻る">
   </form>
-  </center>
+  </div>
 　</body>
 </html>

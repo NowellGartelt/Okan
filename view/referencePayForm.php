@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+  <div align="center">
   <p>Okan：参照</p><br>
 <?php if ($errorReferencePayCount == true) { ?>
   <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
@@ -65,6 +65,6 @@
   <form action="../controller/menu.php" method="post">
    <input type="submit" value="戻る">
   </form>
-  </center>
+  </div>
 　</body>
 </html>

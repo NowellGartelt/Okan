@@ -13,7 +13,7 @@
    <input type="submit" value="ログアウト">
   </form>
   </div>
-  <center>
+  <div align="center">
    <p>Okan：検索結果</p><br>
    <p>探したら、合計<?php echo $sumPayment; ?>円だったわよ</p>
    <p>無駄遣いばっかりして...しょうがないわねー</p><br>
@@ -72,6 +72,6 @@
    <form action="../controller/menu.php" method="post">
     <input type="submit" value="戻る">
    </form>
-  </center>
+  </div>
  </body>
 </html>

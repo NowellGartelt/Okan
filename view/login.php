@@ -1,5 +1,5 @@
 <!-- view/login.php -->
-<center>
+<div align="center">
 <p>ログイン</p><br>
 <form action="../controller/loginAction.php" method="post">
   <table>
@@ -17,4 +17,4 @@
   <br>
   <input type="submit" value="ログインする">
 </form>
-</center>
+</div>

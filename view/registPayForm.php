@@ -12,7 +12,7 @@
     <input type="submit" value="ログアウト">
    </form>
   </div>
-  <center>
+  <div align="center">
   <p>Okan：登録</p><br>
 <?php if($errorInputPay == false) { ?>
   <p>いったい、何に使ったの？？</p>
@@ -28,33 +28,35 @@
    <table>
     <tbody>
      <tr>
-      <td>使ったものは？：</td>
+      <td>使ったものは？※：</td>
       <td><input type="text" name="payName"></td>
      </tr>
      <tr>
-      <td>いくら？：</td>
+      <td>いくら？※：</td>
       <td><input type="text" name="payment"></td>
      </tr>
      <tr>
-      <td>カテゴリは？：</td>
+      <td>カテゴリは？※：</td>
       <td><input type="text" name="payCategory"></td>
      </tr>
      <tr>
-      <td>いつ？：</td>
+      <td>いつ？※：</td>
       <td><input type="date" name="payDate" value=<?php echo date("Y-m-d"); ?>></td>
      </tr>
      <tr>
-      <td>どこで？：</td>
+      <td>一言メモ：</td>
       <td><input type="text" name="payState"></td>
      </tr>
     </tbody>
    </table>
+   <br>
+   <a>※は必須項目よ。</a>
    <br>
    <input type="submit" value="オカンに教える">
   </form>
   <form action="../controller/menu.php" method="post">
    <input type="submit" value="戻る">
   </form>
-  </center>
+  </div>
 　</body>
 </html>
