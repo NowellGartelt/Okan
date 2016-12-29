@@ -10,8 +10,7 @@ class judgeIsLogined {
 		}
 		
 		if ($loginID == "") {
-			header( "Location: /Okan/controller/login.php" ) ;
-//			echo "Login Error.";
+			header( 'Location: /Okan/controller/login.php' );
 			exit();
 		}
 	}
