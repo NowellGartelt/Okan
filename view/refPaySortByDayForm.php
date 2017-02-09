@@ -7,9 +7,9 @@
 　 <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
-　<div align="right">
+  <div align="right">
    <form action="../controller/logout.php" method="post">
-    <input type="submit" value="ログアウト">
+    <button type="submit">ログアウト</button>
    </form>
   </div>
   <div align="center">
@@ -20,27 +20,61 @@
 <?php } elseif ($errorReferencePayNone == true) { ?>
   <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
   <p>条件を見直しなさいよね</p><br>
+<?php } elseif ($errorNecessaryInfo == true) { ?>
+  <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
+  <p>条件を見直しなさいよね</p><br>
 <?php } else { ?>
   <p>いつのを見たいの？？</p>
   <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
 <?php }?>
   <img src="../cosmetics/img/カーチャン.gif">
-  <br><br>
-  <p></p>
-  <form action="../controller/referencePayResult.php" method="post">
+   <br><br>
    <table>
     <tbody>
      <tr>
-      <td>使ったものの名前は？：</td>
-      <td><input type="text" name="payName"></td>
+      <td>
+       <form action="../controller/refPaySortByDayForm.php" method="post">
+        <button type="submit" disabled="disabled">日ごと</button>
+       </form>
+      </td>
+      <td>
+       <form action="../controller/refPaySortByMonthForm.php" method="post">
+        <button type="submit">月ごと</button>
+       </form>
+      </td>
+     </tr>
+    </tbody>
+   </table>
+  <br>
+  <form action="../controller/refPaySortByDayResult.php" method="post">
+   <table>
+    <tbody>
+     <tr>
+      <td>
+       <input type="radio" name="choiceKey" value="payName" checked="checked">
+       名前で探す：
+      </td>
+      <td>
+       <input type="text" name="payName">
+      </td>
      </tr>
      <tr>
-      <td>見たいカテゴリは？：</td>
-      <td><input type="text" name="payCategory"></td>
+      <td>
+       <input type="radio" name="choiceKey" value="payCategory">
+       カテゴリで探す：
+      </td>
+      <td>
+       <input type="text" name="payCategory">
+      </td>
      </tr>
      <tr>
-      <td>どこで？：</td>
-      <td><input type="text" name="payState"></td>
+      <td>
+       <input type="radio" name="choiceKey" value="all">
+       ぜんぶ
+      </td>
+     </tr>
+     <tr>
+      <td><br></td>
      </tr>
      <tr>
       <td>いつからいつまで？：</td>
@@ -50,11 +84,10 @@
     </tbody>
    </table>
    <br>
-   <input type="hidden" name="page" value="refrence">
-   <input type="submit" value="オカンに訊く">
+   <button type="submit">オカンに訊く</button>
   </form>
   <form action="../controller/menu.php" method="post">
-   <input type="submit" value="戻る">
+   <button type="submit">戻る</button>
   </form>
   </div>
 　</body>

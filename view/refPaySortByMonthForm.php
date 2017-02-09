@@ -27,7 +27,7 @@
   <img src="../cosmetics/img/カーチャン.gif">
   <br><br>
   <p></p>
-  <form action="../controller/referencePayResult.php" method="post">
+  <form action="../controller/referencePaySortByResult.php" method="post">
    <table>
     <tbody>
      <tr>
@@ -47,10 +47,18 @@
       <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
       <input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
      </tr>
+     <tr>
+      <td>結果のまとめ方は？：</td>
+      <td>
+       <select name="sortBy">
+        <option value="byDay">日ごと</option>
+        <option value="byMonth">月ごと</option>
+       </select>
+      </td>
+     </tr>
     </tbody>
    </table>
    <br>
-   <input type="hidden" name="page" value="refrence">
    <input type="submit" value="オカンに訊く">
   </form>
   <form action="../controller/menu.php" method="post">

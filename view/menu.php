@@ -29,6 +29,10 @@
 　 　　　<td>使ったお金を見る：</td>
 　 　　　<td><a href="../controller/referencePayForm.php">オカンに訊く</a></td>
 　 　　</tr>
+　 　　<tr>
+　 　　　<td>使ったお金をまとめて見る：</td>
+　 　　　<td><a href="../controller/refPaySortByForm.php">オカンに訊く</a></td>
+　 　　</tr>
 　 　</tbody>
 　 </table>
   </div>

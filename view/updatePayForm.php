@@ -54,6 +54,7 @@
    <input type="submit" value="オカンに教え直す">
   </form>
   <form action="../controller/referencePayResult.php" method="post">
+   <input type="hidden" name="page" value="update">
    <input type="submit" value="戻る">
   </form>
   </div>

@@ -1,4 +1,4 @@
-<!-- controller/referencePayForm.php -->
+<!-- controller/refePaySortByDayForm.php -->
 <?php
 session_start();
 
@@ -14,5 +14,5 @@ $_SESSION['payState'] = "";
 $errorReferencePayCount = "";
 $errorReferencePayNone = "";
 
-include '../view/referencePayForm.php';
+include '../view/refPaySortByDayForm.php';
 ?>

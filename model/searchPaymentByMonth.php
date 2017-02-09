@@ -9,9 +9,11 @@ class searchPaymentByTransaction {
  private $payState = '';
  private $payDateFrom = '';
  private $payDateTo = '';
-  
+ 
+ private $query_referencePay = '';
+ 
  public function searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo){
- 	// DB接続情報取得
+  // DB接続情報取得
   include '../model/tools/databaseConnect.php';
   
   $this->payName = $payName;

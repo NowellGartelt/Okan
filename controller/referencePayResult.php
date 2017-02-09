@@ -6,44 +6,51 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-// セッション関数のチェック
-// セッション関数が空の場合、入力された値をセッション関数に入れる
-// セッション関数が空でない場合、セッション関数から値を取得する
-// if ($_SESSION['payName'] == "" && $_SESSION['payCategory'] == "" && $_SESSION['payDateFrom'] == "" && $_SESSION['payDateTo'] == "" && $_SESSION['payState'] == "" && $_SESSION['sortBy'] == ""){
+// 変数初期化
+$payName = null;
+$payCategory = null;
+$payDateFrom = null;
+$payDateTo = null;
+$payState = null;
+$page = null;
+
+// 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
+if ($page == "reference") {
+ // ポストされた値の取得
  $payName = $_POST['payName'];
  $payCategory = $_POST['payCategory'];
  $payDateFrom = $_POST['payDateFrom'];
  $payDateTo = $_POST['payDateTo'];
  $payState = $_POST['payState'];
- $sortBy = $_POST['sortBy'];
  
+ // エスケープ処理
  $payName = htmlspecialchars($payName, ENT_QUOTES);
  $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  $payState = htmlspecialchars($payState, ENT_QUOTES);
-
+ 
+ // セッション関数へのセット
  $_SESSION['payName'] = $payName;
  $_SESSION['payCategory'] = $payCategory;
  $_SESSION['payDateFrom'] = $payDateFrom;
  $_SESSION['payDateTo'] = $payDateTo;
  $_SESSION['payState'] = $payState;
- $_SESSION['sortBy'] = $sortBy;
 
-// } else {
- /*
+// 参照の検索初期画面以外からの遷移の場合、セッション関数から値を取得する
+} else {
+ // セッション関数からの値の読み込み
  $payName = $_SESSION['payName'];
  $payCategory = $_SESSION['payCategory'];
  $payDateFrom = $_SESSION['payDateFrom'];
  $payDateTo = $_SESSION['payDateTo'];
  $payState = $_SESSION['payState'];
- $sortBy = $_SESSION['sortBy'];
-*/
-//}
+	
+}
 
 include '../model/searchPaymentByTransaction.php';
-include '../model/searchPaySumByTransaction.php';
 
-$test = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $test->searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo);
+$result = new searchPaymentByTransaction();
+$searchPaymentByTransaction = $result->searchPaymentByTransaction($payName, 
+ $payCategory, $payState, $payDateFrom, $payDateTo);
 
 $payment = $searchPaymentByTransaction;
 $payCount = count($searchPaymentByTransaction);

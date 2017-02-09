@@ -42,19 +42,13 @@
        <td>
         <form action="../controller/updatePayForm.php" method="post">
          <input type="submit" value="教えなおす">
-<!-- 
-         <input type="hidden" name="ID" value=<?php // echo $payment[$j]['paymentID']; ?>>
--->
-         <input type="hidden" name="ID" value=<?php echo $payment[$displayCount]['paymentID']; ?>>
-         </form>
+         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
+        </form>
        </td>
        <td>
         <form action="../controller/deletePayForm.php" method="post">
          <input type="submit" value="取り消してもらう">
-<!-- 
-         <input type="hidden" name="ID" value=<?php // echo $payment[$j]['paymentID']; ?>>
- -->
-         <input type="hidden" name="ID" value=<?php echo $payment[$displayCount]['paymentID']; ?>>
+         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
         </form>
        </td>
       </tr>

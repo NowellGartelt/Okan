@@ -14,7 +14,7 @@
   </div>
   <div align="center">
   <p>Okan：登録完了</p><br>
-  <p><?php echo $payState; ?>で、<?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
+  <p><?php echo $payName; ?>に<?php echo $payment; ?>円ね？</p>
   <p><?php echo $kogoto['message']; ?></p><br>
   <img src="../cosmetics/img/カーチャン.gif">
   <br><br>

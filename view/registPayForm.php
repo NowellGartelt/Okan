@@ -52,6 +52,7 @@
    <br>
    <a>※は必須項目よ。</a>
    <br>
+   <br>
    <input type="submit" value="オカンに教える">
   </form>
   <form action="../controller/menu.php" method="post">
