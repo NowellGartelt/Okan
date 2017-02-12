@@ -28,11 +28,11 @@ if (($choiceKey == "payName" && $payName == "")
  || ($choiceKey == "payCategory" && $payCategory == "")) {
  $errorNecessaryInfo = true;
  	
- $_SESSION['payName'] = "";
- $_SESSION['payCategory'] = "";
- $_SESSION['payDateFrom'] = "";
- $_SESSION['payDateTo'] = "";
- $_SESSION['choiceKey'] = "";
+ $_SESSION['payName'] = null;
+ $_SESSION['payCategory'] = null;
+ $_SESSION['payDateFrom'] = null;
+ $_SESSION['payDateTo'] = null;
+ $_SESSION['choiceKey'] = null;
  	
  include '../view/refPaySortByDayForm.php';
  
@@ -48,11 +48,11 @@ if (($choiceKey == "payName" && $payName == "")
 if ($payCount >= 101) {
  $errorReferencePayCount = true;
 
- $_SESSION['payName'] = "";
- $_SESSION['payCategory'] = "";
- $_SESSION['payDateFrom'] = "";
- $_SESSION['payDateTo'] = "";
- $_SESSION['choiceKey'] = "";
+ $_SESSION['payName'] = null;
+ $_SESSION['payCategory'] = null;
+ $_SESSION['payDateFrom'] = null;
+ $_SESSION['payDateTo'] = null;
+ $_SESSION['choiceKey'] = null;
 
  include '../view/refPaySortByDayForm.php';
 
@@ -60,17 +60,17 @@ if ($payCount >= 101) {
 } elseif ($payCount == 0) {
  $errorReferencePayNone = true;
 
- $_SESSION['payName'] = "";
- $_SESSION['payCategory'] = "";
- $_SESSION['payDateFrom'] = "";
- $_SESSION['payDateTo'] = "";
- $_SESSION['choiceKey'] = "";
+ $_SESSION['payName'] = null;
+ $_SESSION['payCategory'] = null;
+ $_SESSION['payDateFrom'] = null;
+ $_SESSION['payDateTo'] = null;
+ $_SESSION['choiceKey'] = null;
 
  include '../view/refPaySortByDayForm.php';
  
 // エラーとならなかった場合は結果を表示する
 } else {
- $sumPayment = 0;
+ $sumPayment = null;
  foreach ($payment as $SumPay) {
    $sumPayment += $SumPay['SUM(payment)'];
  }

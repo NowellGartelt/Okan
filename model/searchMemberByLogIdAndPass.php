@@ -2,9 +2,9 @@
 <?php
 // session_start();
 
-class searchMemberByLogIdAndPass{
- private $loginID = '';
- private $loginPassword = '';
+class searchMemberByLogIdAndPass {
+ private $loginID = null;
+ private $loginPassword = null;
  
  public function searchMemberByLogIdAndPass($loginID, $loginPassword){
   include '../model/tools/databaseConnect.php';
@@ -17,7 +17,7 @@ class searchMemberByLogIdAndPass{
   $row = mysqli_fetch_array($result);
   $getLoginPassword = $row['loginPassword'];
 
-  if($getLoginPassword !== $loginPassword){
+  if ($getLoginPassword !== $loginPassword) {
    return 'noRegistration';
 
   } elseif ($getLoginPassword == $loginPassword) {

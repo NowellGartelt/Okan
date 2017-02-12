@@ -3,12 +3,12 @@
 // session_start();
 
 class searchPaymentByTransaction {
- private $query_referencePay = '';
- private $payName = '';
- private $payCategory = '';
- private $payState = '';
- private $payDateFrom = '';
- private $payDateTo = '';
+ private $query_referencePay = null;
+ private $payName = null;
+ private $payCategory = null;
+ private $payState = null;
+ private $payDateFrom = null;
+ private $payDateTo = null;
   
  public function searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo){
  	// DB接続情報取得
@@ -27,7 +27,9 @@ class searchPaymentByTransaction {
   // x = 120 /120
   // x = 1
   if($payName !== ""  && $payCategory !== "" && $payState !=="" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payState LIKE '%{$payState}%' AND payCategory LIKE '%{$payCategory}%' 
+   　AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
     
   // 4つ入力されている場合
   // 5から4を選択する組み合わせ
@@ -36,15 +38,25 @@ class searchPaymentByTransaction {
   // x = 120 / 24
   // x = 5
   } elseif($payName !== ""  && $payCategory !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
+   　AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payName !== ""  && $payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' 
+   　AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+   　AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' 
+   　AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payName !== ""  && $payCategory !== "" && $payState !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+   　AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payName !== ""  && $payCategory !== "" && $payDateFrom !== "" && $payState !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
+   　AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
  
   // 3つ入力されている場合
   // 5から3を選択する組み合わせ
@@ -53,25 +65,45 @@ class searchPaymentByTransaction {
   // x = 120 / 12
   // x = 10
   } elseif($payName !== "" && $payCategory !== "" && $payState !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+   　ORDER BY payDate ASC";
   } elseif($payName !== "" && $payCategory !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateFrom' 
+   　ORDER BY payDate ASC";
   } elseif($payName !== "" && $payState !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+   　AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' 
+   　ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payState !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' 
+    ORDER BY payDate ASC";
   } elseif($payName !== "" && $payCategory !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
   } elseif($payName !== "" && $payState !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payState !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
   } elseif($payName !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
   } elseif($payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
+    AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+    ORDER BY payDate ASC";
  
   // 2つ入力されている場合
   // 5から2を選択する組み合わせ
@@ -80,25 +112,35 @@ class searchPaymentByTransaction {
   // x = 120 / 12
   // x = 10
   } elseif($payName !== "" && $payCategory !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payCategory LIKE '%{$payCategory}%' ORDER BY payDate ASC";
   } elseif($payName !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payDate >= '$payDateFrom' ORDER BY payDate ASC";
   } elseif($payName !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payDateFrom !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payDate >= '$payDateFrom' 
+    AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   } elseif($payName !== "" && $payState !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+    AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
   } elseif($payCategory !== "" && $payState !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
+    AND payState LIKE '%{$payState}%' ORDER BY payDate ASC";
   } elseif($payState !== "" && $payDateFrom !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
+    AND payDate <= '$payDateFrom' ORDER BY payDate ASC";
   } elseif($payState !== "" && $payDateTo !== ""){
-   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+   $query_referencePay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
+    AND payDate <= '$payDateTo' ORDER BY payDate ASC";
   
   // 1つ入力されている場合
   // 5から1を選択する組み合わせ

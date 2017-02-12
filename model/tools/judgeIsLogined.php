@@ -6,10 +6,10 @@ class judgeIsLogined {
 		if (isset($_SESSION['loginID'])) {
 			$loginID = $_SESSION['loginID'];
 		} else {
-			$loginID = "";
+			$loginID = null;
 		}
 		
-		if ($loginID == "") {
+		if ($loginID == null) {
 			header( 'Location: /Okan/controller/login.php' );
 			exit();
 		}

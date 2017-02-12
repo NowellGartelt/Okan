@@ -1,18 +1,16 @@
 <!-- model/searchPaymentByDay.php -->
 <?php
-// session_start();
-
 class searchPaymentByDay {
- private $query_referencePay = '';
- private $payName = '';
- private $payCategory = '';
- private $payDateFrom = '';
- private $payDateTo = '';
- private $choiceKey = '';
+ private $query_referencePay = null;
+ private $payName = null;
+ private $payCategory = null;
+ private $payDateFrom = null;
+ private $payDateTo = null;
+ private $choiceKey = null;
  
- private $query_refPay = '';
+ private $query_refPay = null;
  
- public function searchPaymentByDay($payName, $payCategory, $payDateFrom, $payDateTo, $choiceKey){
+ public function searchPaymentByDay($payName, $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
   // DB接続情報取得
   include '../model/tools/databaseConnect.php';
   

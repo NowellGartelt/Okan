@@ -14,7 +14,8 @@
   </div>
   <div align="center">
   <p>Okan：削除完了</p><br>
-  <p><?php echo $payState; ?>で、<?php echo $payName; ?>に<?php echo $payment; ?>円使ったヤツね？</p>
+  <p><?php echo $payState; ?>で、<?php echo $payName; ?>に
+   <?php echo $payment; ?>円使ったヤツね？</p>
   <p>取り消しといたたわよ</p><br>
   <img src="../cosmetics/img/カーチャン.gif">
   <br><br>

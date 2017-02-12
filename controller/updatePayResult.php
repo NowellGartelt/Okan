@@ -31,7 +31,10 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
  $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  $payState = htmlspecialchars($payState, ENT_QUOTES);
 
- $query_updatePayInfo = "UPDATE paymentTable SET payName = '$payName', payment = '$payment', payCategory = '$payCategory', payDate = '$payDate', payState = '$payState' WHERE paymentID = '$id'";
+ $query_updatePayInfo = 
+  "UPDATE paymentTable SET payName = 
+  '$payName', payment = '$payment', payCategory = '$payCategory', 
+  payDate = '$payDate', payState = '$payState' WHERE paymentID = '$id'";
  $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
  $paymentInfo = mysqli_fetch_array($result_updatePayInfo);
  

@@ -6,13 +6,14 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
+$page = $_POST['page'];
+
 // 変数初期化
 $payName = null;
 $payCategory = null;
 $payDateFrom = null;
 $payDateTo = null;
 $payState = null;
-$page = null;
 
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
 if ($page == "reference") {
@@ -49,7 +50,7 @@ if ($page == "reference") {
 include '../model/searchPaymentByTransaction.php';
 
 $result = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $result->searchPaymentByTransaction($payName, 
+$searchPaymentByTransaction = $result -> searchPaymentByTransaction($payName, 
  $payCategory, $payState, $payDateFrom, $payDateTo);
 
 $payment = $searchPaymentByTransaction;
@@ -59,11 +60,11 @@ $payCount = count($searchPaymentByTransaction);
 if($payCount >= 101){
  $errorReferencePayCount = true;
 
- $_SESSION['payName'] = "";
- $_SESSION['payCategory'] = "";
- $_SESSION['payDateFrom'] = "";
- $_SESSION['payDateTo'] = "";
- $_SESSION['payState'] = "";
+ $_SESSION['payName'] = null;
+ $_SESSION['payCategory'] = null;
+ $_SESSION['payDateFrom'] = null;
+ $_SESSION['payDateTo'] = null;
+ $_SESSION['payState'] = null;
 
  include '../view/referencePayForm.php';
 
@@ -71,17 +72,17 @@ if($payCount >= 101){
 } elseif ($payCount == 0) {
  $errorReferencePayNone = true;
 
- $_SESSION['payName'] = "";
- $_SESSION['payCategory'] = "";
- $_SESSION['payDateFrom'] = "";
- $_SESSION['payDateTo'] = "";
- $_SESSION['payState'] = "";
+ $_SESSION['payName'] = null;
+ $_SESSION['payCategory'] = null;
+ $_SESSION['payDateFrom'] = null;
+ $_SESSION['payDateTo'] = null;
+ $_SESSION['payState'] = null;
 
  include '../view/referencePayForm.php';
 
 // エラーとならなかった場合は結果を表示する
 } else {
- $sumPayment = 0;
+ $sumPayment = null;
  foreach ($payment as $SumPay) {
    $sumPayment += $SumPay['payment'];
  }

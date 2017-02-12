@@ -50,7 +50,7 @@
     </tbody>
    </table>
    <br>
-   <input type="hidden" name="page" value="refrence">
+   <input type="hidden" name="page" value="reference">
    <input type="submit" value="オカンに訊く">
   </form>
   <form action="../controller/menu.php" method="post">

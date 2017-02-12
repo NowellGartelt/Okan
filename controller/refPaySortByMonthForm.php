@@ -5,14 +5,14 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-$_SESSION['payName'] = "";
-$_SESSION['payCategory'] = "";
-$_SESSION['payDateFrom'] = "";
-$_SESSION['payDateTo'] = "";
-$_SESSION['payState'] = "";
+$_SESSION['payName'] = null;
+$_SESSION['payCategory'] = null;
+$_SESSION['payDateFrom'] = null;
+$_SESSION['payDateTo'] = null;
+$_SESSION['payState'] = null;
 
-$errorReferencePayCount = "";
-$errorReferencePayNone = "";
+$errorReferencePayCount = null;
+$errorReferencePayNone = null;
 
 include '../view/refPaySortByMonthForm.php';
 ?>

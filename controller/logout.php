@@ -2,7 +2,7 @@
 <?php
 session_start();
 
-$_SESSION["login"] = "";
+$_SESSION["login"] = null;
 
 session_destroy();
 

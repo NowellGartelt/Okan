@@ -28,8 +28,8 @@ $_SESSION['sortBy'] = $sortBy;
 include '../model/searchPaymentByDay.php';
 include '../model/searchPaymentByMonth.php';
 
-$test = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $test->searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo, $sortBy);
+$result = new searchPaymentByTransaction();
+$searchPaymentByTransaction = $result -> searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo);
 
 $payment = $searchPaymentByTransaction;
 $payCount = count($searchPaymentByTransaction);

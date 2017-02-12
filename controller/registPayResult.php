@@ -31,8 +31,11 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
  
  $registDate = date("Y-m-d H:i:s");
  
- $query_registPay = "INSERT INTO paymentTable (payName, payment, payCategory, payState, payDate, registDate, updateDate) 
-                      VALUES ('$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
+ $query_registPay = 
+  "INSERT INTO paymentTable (
+  payName, payment, payCategory, payState, payDate, registDate, updateDate) 
+  VALUES (
+  '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
  $result = mysqli_query($link, $query_registPay);
 
  $query_kogotoList = <<<__SQL

@@ -36,7 +36,9 @@
      </tr>
      <tr>
       <td>いつ？：</td>
-      <td><?php echo $paymentInfoDateYear; ?>年<?php echo $paymentInfoDateMonth; ?>月<?php echo $paymentInfoDateDay; ?>日</td>
+      <td><?php echo $paymentInfoDateYear; ?>年
+       <?php echo $paymentInfoDateMonth; ?>月
+       <?php echo $paymentInfoDateDay; ?>日</td>
      </tr>
      <tr>
       <td>どこで？：</td>
