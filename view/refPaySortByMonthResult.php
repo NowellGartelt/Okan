@@ -23,50 +23,25 @@
    <table>
      <tbody>
       <tr>
-       <th>日付</th>
-       <th>名前</th>
+       <th>月</th>
        <th>金額</th>
-       <th>カテゴリ</th>
-       <th>場所</th>
-       <th></th>
-       <th></th>
       </tr>
       <?php $displayCount = 0; ?>
       <?php while ($displayCount < $payCount) { ?>
       <tr>
-       <td><?php echo $payment[$displayCount]['payDate']; ?></td>
-       <td><?php echo $payment[$displayCount]['payName']; ?></td>
-       <td><?php echo $payment[$displayCount]['payment']; ?></td>
-       <td><?php echo $payment[$displayCount]['payCategory']; ?></td>
-       <td><?php echo $payment[$displayCount]['payState']; ?></td>
-       <td>
-        <form action="../controller/updatePayForm.php" method="post">
-         <input type="submit" value="教えなおす">
-         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
-        </form>
-       </td>
-       <td>
-        <form action="../controller/deletePayForm.php" method="post">
-         <input type="submit" value="取り消してもらう">
-         <input type="hidden" name="ID" value=<?php echo $payment[$j]['paymentID']; ?>>
-        </form>
-       </td>
+       <td><?php echo $payment[$displayCount]['payDateMonth']; ?></td>
+       <td><?php echo $payment[$displayCount]['SUM(payment)']; ?></td>
       </tr>
       <?php $displayCount++; ?>
       <?php } ?>
       <tr>
         <td></td>
         <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
-        <td></td>
       </tr>
      </tbody>
    </table>
    <br>
-   <form action="../controller/referencePayForm.php" method="post">
+   <form action="../controller/refPaySortByMonthForm.php" method="post">
     <input type="submit" value="もういっかい訊く">
    </form>
    <form action="../controller/menu.php" method="post">

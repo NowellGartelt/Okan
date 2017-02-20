@@ -1,6 +1,5 @@
 <!-- model/tools/judgeIsLogined.php -->
 <?php 
-// model/tools/judgeIsLogined.php
 class judgeIsLogined {
 	public function judgeIsLogined() {
 		if (isset($_SESSION['loginID'])) {
