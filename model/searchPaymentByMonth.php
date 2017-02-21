@@ -1,7 +1,7 @@
 <!-- model/searchPaymentByMonth.php -->
 <?php
 class searchPaymentByMonth {
- // 変数初期化
+    // 変数初期化
     private $query_referencePay = null;
     private $payName = null;
     private $payCategory = null;

@@ -1,7 +1,5 @@
 <!-- model/searchMemberByLogIdAndPass.php-->
 <?php
-// session_start();
-
 class searchMemberByLogIdAndPass {
     private $loginID = null;
     private $loginPassword = null;
