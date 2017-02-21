@@ -8,6 +8,7 @@ class searchPaymentByDay {
 	private $payDateTo = null;
 	private $choiceKey = null;
 	private $query_refPay = null;
+	
 	public function searchPaymentByDay($payName, $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
 		// DB接続情報取得
 		include '../model/tools/databaseConnect.php';
@@ -38,7 +39,8 @@ class searchPaymentByDay {
         while ( $row = mysqli_fetch_assoc ( $result_refPay ) ) {
             array_push ( $result_list, $row );
         }
-		
+        mysqli_close($link);
+
         return $result_list;
     }
 }

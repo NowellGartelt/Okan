@@ -89,6 +89,4 @@ if($payCount >= 101){
 
     include '../view/referencePayResult.php';
 }
-
-mysqli_close($link);
 ?>

@@ -75,6 +75,4 @@ if ($payCount >= 101) {
 
     include '../view/refPaySortByMonthResult.php';
 }
-
-mysqli_close($link);
 ?>

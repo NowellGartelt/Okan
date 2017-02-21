@@ -76,6 +76,4 @@ if ($payCount >= 101) {
 
     include '../view/refPaySortByDayResult.php';
 }
-
-mysqli_close($link);
 ?>

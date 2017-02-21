@@ -9,26 +9,26 @@ class searchPaymentByTransaction {
     private $payDateFrom = null;
     private $payDateTo = null;
   
- public function searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo){
-    // DB接続情報取得
-    include '../model/tools/databaseConnect.php';
-  
-    $this->payName = $payName;
-    $this->payCategory = $payCategory;
-    $this->payState = $payState;
-    $this->payDateFrom = $payDateFrom;
-    $this->payDateTo = $payDateTo;
+    public function searchPaymentByTransaction($payName, $payCategory, $payState, $payDateFrom, $payDateTo){
+        // DB接続情報取得
+        include '../model/tools/databaseConnect.php';
 
-    // 5つすべて入力されている場合
-    // 5から5を選択する組み合わせ
-    // x = 5! / 5! * (5 - 5)!
-    // x = 5 * 4 * 3 * 2 * 1 / 5 * 4 * 3 * 2 * 1 * 1
-    // x = 120 /120
-    // x = 1
-    if($payName !== ""  && $payCategory !== "" && $payState !=="" && $payDateFrom !== "" && $payDateTo !== ""){
-        $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-            AND payState LIKE '%{$payState}%' AND payCategory LIKE '%{$payCategory}%' 
-            AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
+        $this->payName = $payName;
+        $this->payCategory = $payCategory;
+        $this->payState = $payState;
+        $this->payDateFrom = $payDateFrom;
+        $this->payDateTo = $payDateTo;
+
+        // 5つすべて入力されている場合
+        // 5から5を選択する組み合わせ
+        // x = 5! / 5! * (5 - 5)!
+        // x = 5 * 4 * 3 * 2 * 1 / 5 * 4 * 3 * 2 * 1 * 1
+        // x = 120 /120
+        // x = 1
+        if($payName !== ""  && $payCategory !== "" && $payState !=="" && $payDateFrom !== "" && $payDateTo !== ""){
+            $query_referencePay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
+                AND payState LIKE '%{$payState}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' ORDER BY payDate ASC";
 
         // 4つ入力されている場合
         // 5から4を選択する組み合わせ
@@ -170,6 +170,7 @@ class searchPaymentByTransaction {
         while($row = mysqli_fetch_assoc($result_referencePay)) {
             array_push($result_list, $row);
         }
+        mysqli_close($link);
 
         return $result_list;
     }

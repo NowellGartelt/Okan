@@ -49,5 +49,4 @@ __SQL;
 
 }
 $_SESSION["errorInputPay"] = "";
-
 ?>
