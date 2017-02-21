@@ -9,9 +9,9 @@
  </head>
  <body>
   <div align="right">
-  <form action="../controller/logout.php" method="post">
-   <input type="submit" value="ログアウト">
-  </form>
+   <form action="../controller/logout.php" method="post">
+    <input type="submit" value="ログアウト">
+   </form>
   </div>
   <div align="center">
    <p>Okan：検索結果</p><br>

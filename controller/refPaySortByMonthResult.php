@@ -25,58 +25,55 @@ $_SESSION['choiceKey'] = $choiceKey;
 include '../model/searchPaymentByMonth.php';
 
 if (($choiceKey == "payName" && $payName == "") 
- || ($choiceKey == "payCategory" && $payCategory == "")) {
- $errorNecessaryInfo = true;
+        || ($choiceKey == "payCategory" && $payCategory == "")) {
+    $errorNecessaryInfo = true;
  	
- $_SESSION['payName'] = null;
- $_SESSION['payCategory'] = null;
- $_SESSION['payDateFrom'] = null;
- $_SESSION['payDateTo'] = null;
- $_SESSION['choiceKey'] = null;
+    $_SESSION['payName'] = null;
+    $_SESSION['payCategory'] = null;
+    $_SESSION['payDateFrom'] = null;
+    $_SESSION['payDateTo'] = null;
+    $_SESSION['choiceKey'] = null;
  	
- include '../view/refPaySortByMonthForm.php';
- 
+    include '../view/refPaySortByMonthForm.php';
 } else {
- $result = new searchPaymentByMonth();
- $searchPaymentByMonth = $result->searchPaymentByMonth($payName, 
-  $payCategory, $payDateFrom, $payDateTo, $choiceKey);
+    $result = new searchPaymentByMonth();
+    $searchPaymentByMonth = $result->searchPaymentByMonth($payName, 
+         $payCategory, $payDateFrom, $payDateTo, $choiceKey);
  
- $payment = $searchPaymentByMonth;
- $payCount = count($searchPaymentByMonth);
+    $payment = $searchPaymentByMonth;
+    $payCount = count($searchPaymentByMonth);
 }
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if ($payCount >= 101) {
- $errorReferencePayCount = true;
+    $errorReferencePayCount = true;
 
- $_SESSION['payName'] = null;
- $_SESSION['payCategory'] = null;
- $_SESSION['payDateFrom'] = null;
- $_SESSION['payDateTo'] = null;
- $_SESSION['choiceKey'] = null;
+    $_SESSION['payName'] = null;
+    $_SESSION['payCategory'] = null;
+    $_SESSION['payDateFrom'] = null;
+    $_SESSION['payDateTo'] = null;
+    $_SESSION['choiceKey'] = null;
 
- include '../view/refPaySortByMonthForm.php';
+    include '../view/refPaySortByMonthForm.php';
 
 // 結果が0行だった場合、検索結果なしでエラーとする
 } elseif ($payCount == 0) {
- $errorReferencePayNone = true;
+    $errorReferencePayNone = true;
 
- $_SESSION['payName'] = null;
- $_SESSION['payCategory'] = null;
- $_SESSION['payDateFrom'] = null;
- $_SESSION['payDateTo'] = null;
- $_SESSION['choiceKey'] = null;
+    $_SESSION['payName'] = null;
+    $_SESSION['payCategory'] = null;
+    $_SESSION['payDateFrom'] = null;
+    $_SESSION['payDateTo'] = null;
+    $_SESSION['choiceKey'] = null;
 
- include '../view/refPaySortByDayMonth.php';
- 
+    include '../view/refPaySortByDayMonth.php';
 // エラーとならなかった場合は結果を表示する
 } else {
- $sumPayment = null;
- foreach ($payment as $SumPay) {
-   $sumPayment += $SumPay['SUM(payment)'];
- }
+    $sumPayment = null;
+    foreach ($payment as $SumPay) {
+        $sumPayment += $SumPay['SUM(payment)'];
+    }
 
- include '../view/refPaySortByMonthResult.php';
-
+    include '../view/refPaySortByMonthResult.php';
 }
 
 mysqli_close($link);

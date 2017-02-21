@@ -17,26 +17,26 @@
    <p>Okan：検索結果</p><br>
    <p>探したら、合計<?php echo $sumPayment; ?>円だったわよ</p>
    <p>無駄遣いばっかりして...しょうがないわねー</p><br>
-  <img src="../cosmetics/img/カーチャン.gif">
+   <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
    <table>
-     <tbody>
+    <tbody>
+     <tr>
+      <th>日付</th>
+      <th>金額</th>
+     </tr>
+<?php $displayCount = 0; ?>
+<?php while ($displayCount < $payCount) { ?>
+     <tr>
+      <td><?php echo $payment[$displayCount]['payDate']; ?></td>
+      <td><?php echo $payment[$displayCount]['SUM(payment)']; ?></td>
+     </tr>
+<?php $displayCount++; ?>
+<?php } ?>
       <tr>
-       <th>日付</th>
-       <th>金額</th>
-      </tr>
-      <?php $displayCount = 0; ?>
-      <?php while ($displayCount < $payCount) { ?>
-      <tr>
-       <td><?php echo $payment[$displayCount]['payDate']; ?></td>
-       <td><?php echo $payment[$displayCount]['SUM(payment)']; ?></td>
-      </tr>
-      <?php $displayCount++; ?>
-      <?php } ?>
-      <tr>
-        <td></td>
-        <td></td>
+       <td></td>
+       <td></td>
       </tr>
      </tbody>
    </table>

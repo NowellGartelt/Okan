@@ -1,10 +1,10 @@
 <!-- view/referencePayForm.php -->
 <html>
-　<head>
-　 <title>Okan：参照</title>
-　 <meta charset="UTF-8">
-　 <meta name="description" content="収支管理システム「Okan」の参照画面。">
-　 <meta name="keywords" content="収支管理,おかん">
+ <head>
+  <title>Okan：参照</title>
+  <meta charset="UTF-8">
+  <meta name="description" content="収支管理システム「Okan」の参照画面。">
+  <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
 　<div align="right">
