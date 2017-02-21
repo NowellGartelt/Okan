@@ -2,14 +2,14 @@
 <html>
  <head>
   <title>Okan：メニュー</title>
-   <meta charset="UTF-8">
-   <meta name="description" content="収支管理システム「Okan」のメニューを表示。">
-   <meta name="keywords" content="収支管理,おかん">
+  <meta charset="UTF-8">
+  <meta name="description" content="収支管理システム「Okan」のメニューを表示。">
+  <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
   <div align="right">
    <form action="../controller/logout.php" method="post">
-    <input type="submit" value="ログアウト">
+    <button type="submit">ログアウト</button>
    </form>
   </div>
   <div align="center">

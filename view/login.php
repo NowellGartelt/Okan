@@ -15,6 +15,11 @@
    </tbody>
   </table>
   <br>
-  <input type="submit" value="ログインする">
+  <button type="submit">ログインする</button>
  </form>
+<!--
+ <form action="../controller/" method="post">
+  <button type="submit">新規登録</button>
+ </form>
+-->
 </div>

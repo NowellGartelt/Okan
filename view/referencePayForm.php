@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <form action="../controller/logout.php" method="post">
-    <input type="submit" value="ログアウト">
+    <button type="submit">ログアウト</button>
    </form>
   </div>
   <div align="center">
@@ -51,10 +51,10 @@
     </table>
     <br>
     <input type="hidden" name="page" value="reference">
-    <input type="submit" value="オカンに訊く">
+    <button type="submit">オカンに訊く</button>
    </form>
    <form action="../controller/menu.php" method="post">
-    <input type="submit" value="戻る">
+    <button type="submit">戻る</button>
    </form>
   </div>
  </body>
