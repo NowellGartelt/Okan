@@ -30,14 +30,15 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  
     $registDate = date("Y-m-d H:i:s");
- 
-    $query_registPay = 
-        "INSERT INTO paymentTable (
-        payName, payment, payCategory, payState, payDate, registDate, updateDate) 
-        VALUES (
-        '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
-    $result = mysqli_query($link, $query_registPay);
 
+    include '../model/registPaymentByTransaction.php';
+    
+    $result = new registPaymentByTransaction();
+    $registPaymentByTransaction =
+    $result -> registPaymentByTransaction($payName, $payment,
+            $payCategory, $payState, $payDate, $registDate);
+    $paymentInfo = $registPaymentByTransaction;
+    
 $query_kogotoList = <<<__SQL
     SELECT * FROM `kogoto`
     WHERE $payment <= `kogoto`.`lower_payment`
