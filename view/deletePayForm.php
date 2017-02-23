@@ -41,7 +41,7 @@
         <?php echo $paymentInfoDateDay; ?>日</td>
       </tr>
       <tr>
-       <td>どこで？：</td>
+       <td>一言メモ：</td>
        <td><?php echo $paymentInfo['payState']; ?></td>
       </tr>
      </tbody>
