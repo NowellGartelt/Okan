@@ -5,8 +5,6 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-include '../model/tools/databaseConnect.php';
-
 $loginID = $_SESSION['loginID'];
 
 $payName = $_POST['payName'];
@@ -38,7 +36,7 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     
     $result = new updatePaymentByTransaction();
     $updatePaymentByTransaction = 
-        $result -> updatePaymentByTransaction($payName, $payment, 
+        $result -> updatePaymentByTransaction($loginID, $payName, $payment, 
                                               $payCategory, $payDate, $payState, $id);
     $paymentInfo = $updatePaymentByTransaction;
     

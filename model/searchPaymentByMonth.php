@@ -2,19 +2,20 @@
 <?php
 class searchPaymentByMonth {
     // 変数初期化
-    private $query_referencePay = null;
+    private $loginID = null;
+    private $query_refPay = null;
     private $payName = null;
     private $payCategory = null;
     private $payDateFrom = null;
     private $payDateTo = null;
     private $choiceKey = null;
-
-    private $query_refPay = null;
  
-    public function searchPaymentByMonth($payName, $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
+    public function searchPaymentByMonth($loginID, $payName, $payCategory, 
+            $payDateFrom, $payDateTo, $choiceKey) {
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
 
+        $this->loginID = $loginID;
         $this->payName = $payName;
         $this->payCategory = $payCategory;
         $this->payDateFrom = $payDateFrom;
@@ -45,15 +46,17 @@ class searchPaymentByMonth {
             // 名前で検索
             if ($choiceKey == "payName") {
                 $query_refPay = "SELECT SUM(payment) FROM paymenttable
-                    WHERE payName LIKE '%{$payName}%' AND payDate LIKE '%{$payDateFrom}%'";
+                    WHERE payName LIKE '%{$payName}%' AND payDate LIKE '%{$payDateFrom}%' 
+                    AND loginID = '$loginID'";
             // カテゴリで検索
             } elseif ($choiceKey == "payCategory") {
                 $query_refPay = "SELECT SUM(payment) FROM paymenttable
-                    WHERE payName LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%'";
+                    WHERE payName LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%' 
+                    AND loginID = '$loginID'";
             // 全件検索
             } else {
                 $query_refPay = "SELECT SUM(payment) FROM paymenttable
-                    WHERE payDate LIKE '{$payDateFrom}%'";
+                    WHERE payDate LIKE '{$payDateFrom}%' AND loginID = '$loginID'";
             }
 
             $result_refPay = mysqli_query($link, $query_refPay);

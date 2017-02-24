@@ -8,6 +8,7 @@
  </head>
  <body>
   <div align="right">
+   <p>LoginID：<?php echo $loginID; ?></p>
    <form action="../controller/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>

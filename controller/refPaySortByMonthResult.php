@@ -6,6 +6,8 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
+$loginID = $_SESSION['loginID'];
+
 // セッション関数へのセット
 $payName = $_POST['payName'];
 $payCategory = $_POST['payCategory'];
@@ -37,8 +39,9 @@ if (($choiceKey == "payName" && $payName == "")
     include '../view/refPaySortByMonthForm.php';
 } else {
     $result = new searchPaymentByMonth();
-    $searchPaymentByMonth = $result->searchPaymentByMonth($payName, 
-         $payCategory, $payDateFrom, $payDateTo, $choiceKey);
+    $searchPaymentByMonth = $result->searchPaymentByMonth(
+         $loginID, $payName, $payCategory, 
+         $payDateFrom, $payDateTo, $choiceKey);
  
     $payment = $searchPaymentByMonth;
     $payCount = count($searchPaymentByMonth);

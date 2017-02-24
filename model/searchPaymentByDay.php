@@ -1,35 +1,39 @@
 <!-- model/searchPaymentByDay.php -->
 <?php
 class searchPaymentByDay {
-	private $query_referencePay = null;
-	private $payName = null;
-	private $payCategory = null;
-	private $payDateFrom = null;
-	private $payDateTo = null;
-	private $choiceKey = null;
-	private $query_refPay = null;
-	
-	public function searchPaymentByDay($payName, $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
-		// DB接続情報取得
+    private $loginID = NULL;
+    private $query_refPay = null;
+    private $payName = null;
+    private $payCategory = null;
+    private $payDateFrom = null;
+    private $payDateTo = null;
+    private $choiceKey = null;
+    
+    public function searchPaymentByDay($loginID, $payName, 
+	        $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
+	    // DB接続情報取得
 		include '../model/tools/databaseConnect.php';
 		
-		$this->payName = $payName;
-		$this->payCategory = $payCategory;
-		$this->payDateFrom = $payDateFrom;
-		$this->payDateTo = $payDateTo;
-		$this->choiceKey = $choiceKey;
-		
-		if ($choiceKey == "payName") {
-			$query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable 
+		$this->loginID = $loginID;
+        $this->payName = $payName;
+        $this->payCategory = $payCategory;
+        $this->payDateFrom = $payDateFrom;
+        $this->payDateTo = $payDateTo;
+        $this->choiceKey = $choiceKey;
+        
+        if ($choiceKey == "payName") {
+            $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable 
                 WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' GROUP BY payDate";
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                GROUP BY payDate";
         } elseif ($choiceKey == "payCategory") {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable 
                 WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' GROUP BY payDate";
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                GROUP BY payDate";
         } else {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable
-                WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
         }
 

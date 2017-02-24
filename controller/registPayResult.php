@@ -7,6 +7,8 @@ $judgeIsLoginedAction = new judgeIsLogined();
 
 include '../model/tools/databaseConnect.php';
 
+$loginID = $_SESSION['loginID'];
+
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
@@ -30,12 +32,12 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  
     $registDate = date("Y-m-d H:i:s");
-
+    
     include '../model/registPaymentByTransaction.php';
     
     $result = new registPaymentByTransaction();
     $registPaymentByTransaction =
-    $result -> registPaymentByTransaction($payName, $payment,
+    $result -> registPaymentByTransaction($loginID, $payName, $payment,
             $payCategory, $payState, $payDate, $registDate);
     $paymentInfo = $registPaymentByTransaction;
     
@@ -50,4 +52,6 @@ __SQL;
 
 }
 $_SESSION["errorInputPay"] = "";
+
+mysqli_close($link);
 ?>

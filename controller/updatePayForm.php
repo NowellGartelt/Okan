@@ -5,14 +5,14 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-include '../model/tools/databaseConnect.php';
+$loginID = $_SESSION['loginID'];
 
 $id = $_POST['ID'];
 
 include '../model/searchPaymentByID.php';
 
 $result = new searchPaymentByID();
-$searchPaymentByID = $result -> searchPaymentByID($id);
+$searchPaymentByID = $result -> searchPaymentByID($loginID, $id);
 $paymentInfo = $searchPaymentByID;
 
 include '../view/updatePayForm.php';

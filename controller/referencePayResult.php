@@ -6,6 +6,8 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
+$loginID = $_SESSION['loginID'];
+
 $page = $_POST['page'];
 
 // 変数初期化
@@ -50,8 +52,8 @@ if ($page == "reference") {
 include '../model/searchPaymentByTransaction.php';
 
 $result = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $result -> searchPaymentByTransaction($payName, 
-        $payCategory, $payState, $payDateFrom, $payDateTo);
+$searchPaymentByTransaction = $result -> searchPaymentByTransaction(
+        $loginID, $payName, $payCategory, $payState, $payDateFrom, $payDateTo);
 
 $payment = $searchPaymentByTransaction;
 $payCount = count($searchPaymentByTransaction);

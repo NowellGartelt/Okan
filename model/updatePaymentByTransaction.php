@@ -1,6 +1,7 @@
 <!-- model/updatePaymentByTransaction.php -->
 <?php
 class updatePaymentByTransaction {
+    private $loginID = null;
     private $query_updatePayInfo = null;
     private $payName = null;
     private $payment = null;
@@ -9,10 +10,12 @@ class updatePaymentByTransaction {
     private $payState = null;
     private $id = null;
   
-    public function updatePaymentByTransaction($payName, $payment, $payCategory, $payDate, $payState, $id){
+    public function updatePaymentByTransaction($loginID, $payName, 
+            $payment, $payCategory, $payDate, $payState, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
-      
+        
+        $this->loginID = $loginID;
         $this->payName = $payName;
         $this->payment = $payment;
         $this->payCategory = $payCategory;
@@ -23,7 +26,7 @@ class updatePaymentByTransaction {
         $query_updatePayInfo =
             "UPDATE paymentTable 
             SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
-            payDate = '$payDate', payState = '$payState' WHERE paymentID = '$id'";
+            payDate = '$payDate', payState = '$payState' WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
         $paymentInfo = mysqli_fetch_array($result_updatePayInfo);
         
