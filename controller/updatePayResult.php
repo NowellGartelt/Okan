@@ -7,6 +7,8 @@ $judgeIsLoginedAction = new judgeIsLogined();
 
 include '../model/tools/databaseConnect.php';
 
+$loginID = $_SESSION['loginID'];
+
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
@@ -19,10 +21,12 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $_SESSION["errorInputPay"] = true;
     $errorInputPay = $_SESSION["errorInputPay"];
 
-    $query_getPayInfo = "SELECT * FROM paymentTable WHERE paymentID = '$id'";
-    $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
-    $paymentInfo = mysqli_fetch_array($result_getPayInfo);
-
+    include '../model/searchPaymentByID.php';
+    
+    $result = new searchPaymentByID();
+    $searchPaymentByID = $result -> searchPaymentByID($id);
+    $paymentInfo = $searchPaymentByID;
+    
     include '../view/updatePayForm.php';
 } else {
     $payName = htmlspecialchars($payName, ENT_QUOTES);
