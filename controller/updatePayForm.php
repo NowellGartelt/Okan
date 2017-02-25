@@ -9,11 +9,11 @@ $loginID = $_SESSION['loginID'];
 
 $id = $_POST['ID'];
 
-include '../model/searchPaymentByID.php';
+include '../model/searchPayByID.php';
 
-$result = new searchPaymentByID();
-$searchPaymentByID = $result -> searchPaymentByID($loginID, $id);
-$paymentInfo = $searchPaymentByID;
+$result = new searchPayByID();
+$searchPayByID = $result -> searchPayByID($loginID, $id);
+$payInfo = $searchPayByID;
 
 include '../view/updatePayForm.php';
 ?>

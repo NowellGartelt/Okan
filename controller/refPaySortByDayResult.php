@@ -24,7 +24,7 @@ $_SESSION['payDateFrom'] = $payDateFrom;
 $_SESSION['payDateTo'] = $payDateTo;
 $_SESSION['choiceKey'] = $choiceKey;
 
-include '../model/searchPaymentByDay.php';
+include '../model/searchPayByDay.php';
 
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
@@ -38,13 +38,13 @@ if (($choiceKey == "payName" && $payName == "")
  	
     include '../view/refPaySortByDayForm.php';
 } else {
-    $result = new searchPaymentByDay();
-    $searchPaymentByDay = $result->searchPaymentByDay(
-         $loginID, $payName, $payCategory, 
-         $payDateFrom, $payDateTo, $choiceKey);
+    $result = new searchPayByDay();
+    $searchPayByDay = $result->searchPayByDay(
+            $loginID, $payName, $payCategory, 
+            $payDateFrom, $payDateTo, $choiceKey);
  
-    $payment = $searchPaymentByDay;
-    $payCount = count($searchPaymentByDay);
+    $payment = $searchPayByDay;
+    $payCount = count($searchPayByDay);
 }
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if ($payCount >= 101) {

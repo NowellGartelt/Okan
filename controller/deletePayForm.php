@@ -9,15 +9,15 @@ $loginID = $_SESSION['loginID'];
 
 $id = $_POST['ID'];
 
-include '../model/searchPaymentByID.php';
+include '../model/searchPayByID.php';
 
-$result = new searchPaymentByID();
-$searchPaymentByID = $result -> searchPaymentByID($loginID, $id);
-$paymentInfo = $searchPaymentByID;
+$result = new searchPayByID();
+$searchPayByID = $result -> searchPayByID($loginID, $id);
+$payInfo = $searchPayByID;
 
-$paymentInfoDateYear = mb_substr($paymentInfo['payDate'], 0, 4);
-$paymentInfoDateMonth = mb_substr($paymentInfo['payDate'], 5, 2);
-$paymentInfoDateDay = mb_substr($paymentInfo['payDate'], 8, 2);
+$payInfoDateYear = mb_substr($payInfo['payDate'], 0, 4);
+$payInfoDateMonth = mb_substr($payInfo['payDate'], 5, 2);
+$payInfoDateDay = mb_substr($payInfo['payDate'], 8, 2);
 
 include '../view/deletePayForm.php';
 ?>

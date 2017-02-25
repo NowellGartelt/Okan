@@ -1,6 +1,6 @@
-<!-- model/registPaymentByTransaction.php -->
+<!-- model/registPayByTrans.php -->
 <?php
-class registPaymentByTransaction {
+class registPayByTrans {
     private $loginID = null;
     private $query_registPayInfo = null;
     private $payName = null;
@@ -10,8 +10,8 @@ class registPaymentByTransaction {
     private $payDate = null;
     private $registDate = null;
   
-    public function registPaymentByTransaction($loginID, $payName, $payment, 
-            $payCategory, $payState, $payDate, $registDate){
+    public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
+            $payState, $payDate, $registDate){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         

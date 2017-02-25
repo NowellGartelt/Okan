@@ -11,12 +11,12 @@ $id = $_POST['ID'];
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 
-include '../model/deletePaymentByTransaction.php';
+include '../model/deletePayByTrans.php';
 
-$result = new deletePaymentByTransaction();
-$deletePaymentByTransaction =
-$result -> deletePaymentByTransaction($loginID, $id);
-$paymentInfo = $deletePaymentByTransaction;
+$result = new deletePayByTrans();
+$deletePayByTrans =
+$result -> deletePayByTrans($loginID, $id);
+$payInfo = $deletePayByTrans;
 
 include '../view/deletePayResult.php';
 ?>

@@ -1,6 +1,6 @@
-<!-- model/searchPaymentByMonth.php -->
+<!-- model/searchPayByMonth.php -->
 <?php
-class searchPaymentByMonth {
+class searchPayByMonth {
     // 変数初期化
     private $loginID = null;
     private $query_refPay = null;
@@ -10,7 +10,7 @@ class searchPaymentByMonth {
     private $payDateTo = null;
     private $choiceKey = null;
  
-    public function searchPaymentByMonth($loginID, $payName, $payCategory, 
+    public function searchPayByMonth($loginID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey) {
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';

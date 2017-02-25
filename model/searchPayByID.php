@@ -1,12 +1,12 @@
-<!-- model/searchPaymentByID.php -->
+<!-- model/searchPayByID.php -->
 <?php
-class searchPaymentByID {
+class searchPayByID {
     // 変数初期化
     private $loginID = null;
     private $query_getPayInfo = null;
     private $id = null;
   
-    public function searchPaymentByID($loginID, $id){
+    public function searchPayByID($loginID, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         

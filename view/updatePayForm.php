@@ -30,23 +30,23 @@
      <tbody>
       <tr>
        <td>使ったものは？：</td>
-       <td><input type="text" name="payName" value=<?php echo $paymentInfo['payName']; ?>></td>
+       <td><input type="text" name="payName" value=<?php echo $payInfo['payName']; ?>></td>
       </tr>
       <tr>
        <td>いくら？：</td>
-       <td><input type="text" name="payment" value=<?php echo $paymentInfo['payment']; ?>></td>
+       <td><input type="text" name="payment" value=<?php echo $payInfo['payment']; ?>></td>
       </tr>
       <tr>
        <td>カテゴリは？：</td>
-       <td><input type="text" name="payCategory" value=<?php echo $paymentInfo['payCategory']; ?>></td>
+       <td><input type="text" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>></td>
       </tr>
       <tr>
        <td>いつ？：</td>
-       <td><input type="date" name="payDate" value=<?php echo $paymentInfo['payDate']; ?>></td>
+       <td><input type="date" name="payDate" value=<?php echo $payInfo['payDate']; ?>></td>
       </tr>
       <tr>
        <td>どこで？：</td>
-       <td><input type="text" name="payState" value=<?php echo $paymentInfo['payState']; ?>></td>
+       <td><input type="text" name="payState" value=<?php echo $payInfo['payState']; ?>></td>
       </tr>
      </tbody>
     </table>

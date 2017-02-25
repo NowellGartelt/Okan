@@ -1,11 +1,11 @@
-<!-- model/deletePaymentByTransaction.php -->
+<!-- model/deletePayByTrans.php -->
 <?php
-class deletePaymentByTransaction {
+class deletePayByTrans {
     private $loginID = null;
     private $query_registPayInfo = null;
     private $id = null;
   
-    public function deletePaymentByTransaction($loginID, $id){
+    public function deletePayByTrans($loginID, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
 

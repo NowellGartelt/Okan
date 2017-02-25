@@ -21,9 +21,9 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
 
     include '../model/searchPaymentByID.php';
     
-    $result = new searchPaymentByID();
-    $searchPaymentByID = $result -> searchPaymentByID($id);
-    $paymentInfo = $searchPaymentByID;
+    $result = new searchPayByID();
+    $searchPayByID = $result -> searchPayByID($id);
+    $payInfo = $searchPayByID;
     
     include '../view/updatePayForm.php';
 } else {
@@ -32,13 +32,13 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
 
-    include '../model/updatePaymentByTransaction.php';
+    include '../model/updatePayByTrans.php';
     
-    $result = new updatePaymentByTransaction();
-    $updatePaymentByTransaction = 
-        $result -> updatePaymentByTransaction($loginID, $payName, $payment, 
-                                              $payCategory, $payDate, $payState, $id);
-    $paymentInfo = $updatePaymentByTransaction;
+    $result = new updatePayByTrans();
+    $updatePayByTrans = 
+        $result -> updatePayByTrans($loginID, $payName, $payment, 
+                $payCategory, $payDate, $payState, $id);
+    $payInfo = $updatePayByTrans;
     
     include '../view/updatePayResult.php';
 }

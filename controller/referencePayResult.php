@@ -49,14 +49,14 @@ if ($page == "reference") {
 
 }
 
-include '../model/searchPaymentByTransaction.php';
+include '../model/searchPayByTrans.php';
 
-$result = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $result -> searchPaymentByTransaction(
+$result = new searchPayByTrans();
+$searchPayByTrans = $result -> searchPayByTrans(
         $loginID, $payName, $payCategory, $payState, $payDateFrom, $payDateTo);
 
-$payment = $searchPaymentByTransaction;
-$payCount = count($searchPaymentByTransaction);
+$payment = $searchPayByTrans;
+$payCount = count($searchPayByTrans);
 
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if($payCount >= 101){

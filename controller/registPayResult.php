@@ -33,13 +33,13 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
  
     $registDate = date("Y-m-d H:i:s");
     
-    include '../model/registPaymentByTransaction.php';
+    include '../model/registPayByTrans.php';
     
-    $result = new registPaymentByTransaction();
-    $registPaymentByTransaction =
-    $result -> registPaymentByTransaction($loginID, $payName, $payment,
-            $payCategory, $payState, $payDate, $registDate);
-    $paymentInfo = $registPaymentByTransaction;
+    $result = new registPayByTrans();
+    $registPayByTrans =
+    $result -> registPayByTrans($loginID, $payName, $payment, $payCategory, 
+            $payState, $payDate, $registDate);
+    $payInfo = $registPayByTrans;
     
 $query_kogotoList = <<<__SQL
     SELECT * FROM `kogoto`

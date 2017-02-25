@@ -1,6 +1,6 @@
-<!-- model/searchPaymentByDay.php -->
+<!-- model/searchPayByDay.php -->
 <?php
-class searchPaymentByDay {
+class searchPayByDay {
     private $loginID = NULL;
     private $query_refPay = null;
     private $payName = null;
@@ -9,8 +9,8 @@ class searchPaymentByDay {
     private $payDateTo = null;
     private $choiceKey = null;
     
-    public function searchPaymentByDay($loginID, $payName, 
-	        $payCategory, $payDateFrom, $payDateTo, $choiceKey) {
+    public function searchPayByDay($loginID, $payName, $payCategory, 
+            $payDateFrom, $payDateTo, $choiceKey) {
 	    // DB接続情報取得
 		include '../model/tools/databaseConnect.php';
 		

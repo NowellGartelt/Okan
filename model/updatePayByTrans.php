@@ -1,6 +1,6 @@
-<!-- model/updatePaymentByTransaction.php -->
+<!-- model/updatePayByTrans.php -->
 <?php
-class updatePaymentByTransaction {
+class updatePayByTrans {
     private $loginID = null;
     private $query_updatePayInfo = null;
     private $payName = null;
@@ -10,8 +10,8 @@ class updatePaymentByTransaction {
     private $payState = null;
     private $id = null;
   
-    public function updatePaymentByTransaction($loginID, $payName, 
-            $payment, $payCategory, $payDate, $payState, $id){
+    public function updatePayByTrans($loginID, $payName, $payment, $payCategory, 
+            $payDate, $payState, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         

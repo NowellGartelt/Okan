@@ -1,6 +1,6 @@
-<!-- model/searchPaymentByTransaction.php -->
+<!-- model/searchPayByTrans.php -->
 <?php
-class searchPaymentByTransaction {
+class searchPayByTrans {
     // 変数初期化
     private $loginID = null;
     private $query_refPay = null;
@@ -10,8 +10,8 @@ class searchPaymentByTransaction {
     private $payDateFrom = null;
     private $payDateTo = null;
   
-    public function searchPaymentByTransaction($loginID, 
-            $payName, $payCategory, $payState, $payDateFrom, $payDateTo){
+    public function searchPayByTrans($loginID, $payName, $payCategory, 
+            $payState, $payDateFrom, $payDateTo){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
 
