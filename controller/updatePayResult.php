@@ -19,7 +19,7 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $_SESSION["errorInputPay"] = true;
     $errorInputPay = $_SESSION["errorInputPay"];
 
-    include '../model/searchPaymentByID.php';
+    include '../model/searchPayByID.php';
     
     $result = new searchPayByID();
     $searchPayByID = $result -> searchPayByID($id);
