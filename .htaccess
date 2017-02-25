@@ -1,6 +1,5 @@
-<IfModule mod_rewrite.c>
-	RewriteEngine on
-	Rewritebase /Okan
-#	RewriteRule ^$ controller/ [L]
-#	RewriteRule (.*) controller/$1 [L]
-</IfModule>
+RewriteEngine on
+
+RewriteBase /
+RewriteRule ^$ Okan/controller/login.php [R=301,L]
+
