@@ -15,8 +15,6 @@ class registIncByTrans {
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         
-        echo "YYYY";
-        
         $this->loginID = $loginID;
         $this->incName = $incName;
         $this->income = $Income;
@@ -34,8 +32,6 @@ class registIncByTrans {
         $incomeInfo = mysqli_fetch_array($result_registIncInfo);
         
         mysqli_close($link);
-        
-        var_dump($incomeInfo);
         
         return $incomeInfo;
     }

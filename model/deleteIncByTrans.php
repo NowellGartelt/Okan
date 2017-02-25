@@ -1,6 +1,6 @@
 <!-- model/deleteIncByTrans.php -->
 <?php
-class deleteIncByTrans {
+class deleteincByTrans {
     private $loginID = null;
     private $query_registIncInfo = null;
     private $id = null;
