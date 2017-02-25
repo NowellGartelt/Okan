@@ -6,6 +6,8 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
+$loginID = $_SESSION['loginID'];
+
 $page = $_POST['page'];
 
 // 変数初期化
@@ -47,14 +49,14 @@ if ($page == "reference") {
 
 }
 
-include '../model/searchPaymentByTransaction.php';
+include '../model/searchPayByTrans.php';
 
-$result = new searchPaymentByTransaction();
-$searchPaymentByTransaction = $result -> searchPaymentByTransaction($payName, 
-        $payCategory, $payState, $payDateFrom, $payDateTo);
+$result = new searchPayByTrans();
+$searchPayByTrans = $result -> searchPayByTrans(
+        $loginID, $payName, $payCategory, $payState, $payDateFrom, $payDateTo);
 
-$payment = $searchPaymentByTransaction;
-$payCount = count($searchPaymentByTransaction);
+$payment = $searchPayByTrans;
+$payCount = count($searchPayByTrans);
 
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if($payCount >= 101){
@@ -89,6 +91,4 @@ if($payCount >= 101){
 
     include '../view/referencePayResult.php';
 }
-
-mysqli_close($link);
 ?>

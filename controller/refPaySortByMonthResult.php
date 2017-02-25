@@ -6,6 +6,8 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
+$loginID = $_SESSION['loginID'];
+
 // セッション関数へのセット
 $payName = $_POST['payName'];
 $payCategory = $_POST['payCategory'];
@@ -22,7 +24,7 @@ $_SESSION['payDateFrom'] = $payDateFrom;
 $_SESSION['payDateTo'] = $payDateTo;
 $_SESSION['choiceKey'] = $choiceKey;
 
-include '../model/searchPaymentByMonth.php';
+include '../model/searchPayByMonth.php';
 
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
@@ -36,12 +38,13 @@ if (($choiceKey == "payName" && $payName == "")
  	
     include '../view/refPaySortByMonthForm.php';
 } else {
-    $result = new searchPaymentByMonth();
-    $searchPaymentByMonth = $result->searchPaymentByMonth($payName, 
-         $payCategory, $payDateFrom, $payDateTo, $choiceKey);
+    $result = new searchPayByMonth();
+    $searchPayByMonth = $result->searchPayByMonth(
+            $loginID, $payName, $payCategory, 
+            $payDateFrom, $payDateTo, $choiceKey);
  
-    $payment = $searchPaymentByMonth;
-    $payCount = count($searchPaymentByMonth);
+    $payment = $searchPayByMonth;
+    $payCount = count($searchPayByMonth);
 }
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if ($payCount >= 101) {
@@ -75,6 +78,4 @@ if ($payCount >= 101) {
 
     include '../view/refPaySortByMonthResult.php';
 }
-
-mysqli_close($link);
 ?>

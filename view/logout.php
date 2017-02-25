@@ -11,7 +11,7 @@
    <p>ログアウト</p><br>
    <p>ログアウトしました。</p><br>
    <form action="../controller/login.php" method="post">
-    <input type="submit" value="ログイン画面へ">
+    <button type="submit">ログイン画面へ</button>
    </form>
   </div>
  </body>

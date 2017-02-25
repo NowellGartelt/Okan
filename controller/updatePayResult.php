@@ -5,7 +5,7 @@ session_start();
 include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
-include '../model/tools/databaseConnect.php';
+$loginID = $_SESSION['loginID'];
 
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
@@ -19,10 +19,12 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $_SESSION["errorInputPay"] = true;
     $errorInputPay = $_SESSION["errorInputPay"];
 
-    $query_getPayInfo = "SELECT * FROM paymentTable WHERE paymentID = '$id'";
-    $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
-    $paymentInfo = mysqli_fetch_array($result_getPayInfo);
-
+    include '../model/searchPaymentByID.php';
+    
+    $result = new searchPayByID();
+    $searchPayByID = $result -> searchPayByID($id);
+    $payInfo = $searchPayByID;
+    
     include '../view/updatePayForm.php';
 } else {
     $payName = htmlspecialchars($payName, ENT_QUOTES);
@@ -30,14 +32,14 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
 
-    $query_updatePayInfo = 
-        "UPDATE paymentTable SET payName = 
-        '$payName', payment = '$payment', payCategory = '$payCategory', 
-        payDate = '$payDate', payState = '$payState' WHERE paymentID = '$id'";
-    $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
-    $paymentInfo = mysqli_fetch_array($result_updatePayInfo);
- 
+    include '../model/updatePayByTrans.php';
+    
+    $result = new updatePayByTrans();
+    $updatePayByTrans = 
+        $result -> updatePayByTrans($loginID, $payName, $payment, 
+                $payCategory, $payDate, $payState, $id);
+    $payInfo = $updatePayByTrans;
+    
     include '../view/updatePayResult.php';
 }
-mysqli_close($link);
 ?>

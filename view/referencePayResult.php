@@ -9,8 +9,9 @@
  </head>
  <body>
   <div align="right">
+   <p>LoginID：<?php echo $loginID; ?></p>
    <form action="../controller/logout.php" method="post">
-    <input type="submit" value="ログアウト">
+    <button type="submit">ログアウト</button>
    </form>
   </div>
   <div align="center">
@@ -67,10 +68,10 @@
    </table>
    <br>
    <form action="../controller/referencePayForm.php" method="post">
-    <input type="submit" value="もういっかい訊く">
+    <button type="submit">もういっかい訊く</button>
    </form>
    <form action="../controller/menu.php" method="post">
-    <input type="submit" value="戻る">
+    <button type="submit">戻る</button>
    </form>
   </div>
  </body>

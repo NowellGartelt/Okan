@@ -7,6 +7,8 @@ $judgeIsLoginedAction = new judgeIsLogined();
 
 include '../model/tools/databaseConnect.php';
 
+$loginID = $_SESSION['loginID'];
+
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
@@ -30,14 +32,15 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
  
     $registDate = date("Y-m-d H:i:s");
- 
-    $query_registPay = 
-        "INSERT INTO paymentTable (
-        payName, payment, payCategory, payState, payDate, registDate, updateDate) 
-        VALUES (
-        '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null)";
-    $result = mysqli_query($link, $query_registPay);
-
+    
+    include '../model/registPayByTrans.php';
+    
+    $result = new registPayByTrans();
+    $registPayByTrans =
+    $result -> registPayByTrans($loginID, $payName, $payment, $payCategory, 
+            $payState, $payDate, $registDate);
+    $payInfo = $registPayByTrans;
+    
 $query_kogotoList = <<<__SQL
     SELECT * FROM `kogoto`
     WHERE $payment <= `kogoto`.`lower_payment`
@@ -50,4 +53,5 @@ __SQL;
 }
 $_SESSION["errorInputPay"] = "";
 
+mysqli_close($link);
 ?>

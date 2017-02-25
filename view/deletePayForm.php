@@ -8,8 +8,9 @@
  </head>
  <body>
   <div align="right">
+   <p>LoginID：<?php echo $loginID; ?></p>
    <form action="../controller/logout.php" method="post">
-    <input type="submit" value="ログアウト">
+    <button type="submit">ログアウト</button>
    </form>
   </div>
   <div align="center">
@@ -24,41 +25,41 @@
      <tbody>
       <tr>
        <td>使ったものは？：</td>
-       <td><?php echo $paymentInfo['payName']; ?></td>
+       <td><?php echo $payInfo['payName']; ?></td>
       </tr>
       <tr>
        <td>いくら？：</td>
-       <td><?php echo $paymentInfo['payment']; ?>円</td>
+       <td><?php echo $payInfo['payment']; ?>円</td>
       </tr>
       <tr>
        <td>カテゴリは？：</td>
-       <td><?php echo $paymentInfo['payCategory']; ?></td>
+       <td><?php echo $payInfo['payCategory']; ?></td>
       </tr>
       <tr>
        <td>いつ？：</td>
-       <td><?php echo $paymentInfoDateYear; ?>年
-        <?php echo $paymentInfoDateMonth; ?>月
-        <?php echo $paymentInfoDateDay; ?>日</td>
+       <td><?php echo $payInfoDateYear; ?>年
+        <?php echo $payInfoDateMonth; ?>月
+        <?php echo $payInfoDateDay; ?>日</td>
       </tr>
       <tr>
-       <td>どこで？：</td>
+       <td>一言メモ：</td>
        <td><?php echo $paymentInfo['payState']; ?></td>
       </tr>
      </tbody>
     </table>
     <br>
     <input type="hidden" name="ID" value=<?php echo $id; ?>>
-    <input type="hidden" name="payName" value=<?php echo $paymentInfo['payName']; ?>>
-    <input type="hidden" name="payment" value=<?php echo $paymentInfo['payment']; ?>>
-    <input type="hidden" name="payCategory" value=<?php echo $paymentInfo['payCategory']; ?>>
-    <input type="hidden" name="payDateYear" value=<?php echo $paymentInfoDateYear; ?>>
-    <input type="hidden" name="payDateMonth" value=<?php echo $paymentInfoDateMonth; ?>>
-    <input type="hidden" name="payDateDay" value=<?php echo $paymentInfoDateDay; ?>>
-    <input type="hidden" name="payState" value=<?php echo $paymentInfo['payState']; ?>>
-    <input type="submit" value="オカンに取り消してもらう">
+    <input type="hidden" name="payName" value=<?php echo $payInfo['payName']; ?>>
+    <input type="hidden" name="payment" value=<?php echo $payInfo['payment']; ?>>
+    <input type="hidden" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>>
+    <input type="hidden" name="payDateYear" value=<?php echo $payInfoDateYear; ?>>
+    <input type="hidden" name="payDateMonth" value=<?php echo $payInfoDateMonth; ?>>
+    <input type="hidden" name="payDateDay" value=<?php echo $payInfoDateDay; ?>>
+    <input type="hidden" name="payState" value=<?php echo $payInfo['payState']; ?>>
+    <button type="submit">オカンに取り消してもらう</button>
    </form>
    <form action="../controller/referencePayResult.php" method="post">
-    <input type="submit" value="戻る">
+    <button type="submit">戻る</button>
    </form>
   </div>
  </body>
