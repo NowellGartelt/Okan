@@ -34,13 +34,21 @@
       <td>使ったお金をまとめて探す：</td>
       <td><a href="../controller/refPaySortByForm.php">オカンに訊く</a></td>
      </tr>
+     <tr>
+      <td>もらったお金を記録する：</td>
+      <td><a href="../controller/registIncForm.php">オカンに教える</a></td>
+     </tr>
 <!--
      <tr>
-      <td>もらったお金を教える：</td>
-      <td><a href="../controller/">オカンに教える</a></td>
+      <td>もらったお金を探す：</td>
+      <td><a href="../controller/referenceIncForm.php">オカンに教える</a></td>
      </tr>
      <tr>
-      <td>使ったお金をまとめる：</td>
+      <td>もらったお金をまとめて探す：</td>
+      <td><a href="../controller/refIncSortByForm.php">オカンに教える</a></td>
+     </tr>
+     <tr>
+      <td>おこづかいとむだづかいをまとめる：</td>
       <td><a href="../controller/">オカンに教える</a></td>
      </tr>
      <tr>
