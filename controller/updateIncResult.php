@@ -35,9 +35,8 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
     include '../model/updateIncByTrans.php';
     
     $result = new updateIncByTrans();
-    $updateIncByTrans = 
-        $result -> updateIncByTrans($loginID, $incName, $income, 
-                $incCategory, $incDate, $incState, $id);
+    $updateIncByTrans = $result -> updateIncByTrans($loginID, 
+            $incName, $income, $incCategory, $incDate, $incState, $id);
     $incInfo = $updateIncByTrans;
     
     include '../view/updateIncResult.php';

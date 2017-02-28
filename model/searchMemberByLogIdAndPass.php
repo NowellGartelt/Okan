@@ -15,12 +15,13 @@ class searchMemberByLogIdAndPass {
         $row = mysqli_fetch_array($result);
         $getLoginPassword = $row['loginPassword'];
 
-        if ($getLoginPassword !== $loginPassword) {
-            return 'noRegistration';
-        } elseif ($getLoginPassword == $loginPassword) {
+        if (password_verify($loginPassword, $getLoginPassword)) {
             return 'login';
+            
+        } else {
+            return 'noRegistration';
+            
         }
-    
         mysqli_close($link);
     }
 }

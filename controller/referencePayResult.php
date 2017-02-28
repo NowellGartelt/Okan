@@ -52,8 +52,8 @@ if ($page == "reference") {
 include '../model/searchPayByTrans.php';
 
 $result = new searchPayByTrans();
-$searchPayByTrans = $result -> searchPayByTrans(
-        $loginID, $payName, $payCategory, $payState, $payDateFrom, $payDateTo);
+$searchPayByTrans = $result -> searchPayByTrans($loginID, $payName, 
+        $payCategory, $payState, $payDateFrom, $payDateTo);
 
 $payment = $searchPayByTrans;
 $payCount = count($searchPayByTrans);

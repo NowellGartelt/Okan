@@ -36,9 +36,8 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
     include '../model/registIncByTrans.php';
     
     $result = new registIncByTrans();
-    $registIncByTrans =
-    $result -> registIncByTrans($loginID, $incName, $income, $incCategory, 
-            $incState, $incDate, $registDate);
+    $registIncByTrans = $result -> registIncByTrans($loginID, $incName, 
+            $income, $incCategory, $incState, $incDate, $registDate);
     $incInfo = $registIncByTrans;
     
 $query_kogotoList = <<<__SQL

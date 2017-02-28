@@ -52,8 +52,8 @@ if ($page == "reference") {
 include '../model/searchIncByTrans.php';
 
 $result = new searchIncByTrans();
-$searchIncByTrans = $result -> searchIncByTrans(
-        $loginID, $incName, $incCategory, $incState, $incDateFrom, $incDateTo);
+$searchIncByTrans = $result -> searchIncByTrans($loginID, $incName, 
+        $incCategory, $incState, $incDateFrom, $incDateTo);
 
 $income = $searchIncByTrans;
 $incCount = count($searchIncByTrans);

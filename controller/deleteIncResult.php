@@ -14,8 +14,7 @@ $income = $_POST['income'];
 include '../model/deleteIncByTrans.php';
 
 $result = new deleteIncByTrans();
-$deleteIncByTrans =
-$result -> deleteIncByTrans($loginID, $id);
+$deleteIncByTrans = $result -> deleteIncByTrans($loginID, $id);
 $incInfo = $deleteIncByTrans;
 
 include '../view/deleteIncResult.php';

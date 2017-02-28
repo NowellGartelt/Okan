@@ -14,8 +14,7 @@ $payment = $_POST['payment'];
 include '../model/deletePayByTrans.php';
 
 $result = new deletePayByTrans();
-$deletePayByTrans =
-$result -> deletePayByTrans($loginID, $id);
+$deletePayByTrans = $result -> deletePayByTrans($loginID, $id);
 $payInfo = $deletePayByTrans;
 
 include '../view/deletePayResult.php';

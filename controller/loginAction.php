@@ -15,10 +15,8 @@ if(empty($loginID) || empty($loginPassword)){
     include '../controller/login.php';
 
 } else {
-    $checkLoginAction = 
-        new searchMemberByLogIdAndPass($loginID, $loginPassword);
-    $login = 
-        $checkLoginAction -> searchMemberByLogIdAndPass($loginID, $loginPassword);
+    $checkLoginAction = new searchMemberByLogIdAndPass($loginID, $loginPassword);
+    $login = $checkLoginAction -> searchMemberByLogIdAndPass($loginID, $loginPassword);
 
     if ($login == 'login') {
         $_SESSION['login'] = 'login';

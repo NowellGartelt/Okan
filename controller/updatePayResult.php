@@ -35,9 +35,8 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     include '../model/updatePayByTrans.php';
     
     $result = new updatePayByTrans();
-    $updatePayByTrans = 
-        $result -> updatePayByTrans($loginID, $payName, $payment, 
-                $payCategory, $payDate, $payState, $id);
+    $updatePayByTrans = $result -> updatePayByTrans($loginID, $payName, 
+            $payment, $payCategory, $payDate, $payState, $id);
     $payInfo = $updatePayByTrans;
     
     include '../view/updatePayResult.php';

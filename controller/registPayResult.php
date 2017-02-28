@@ -36,9 +36,8 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     include '../model/registPayByTrans.php';
     
     $result = new registPayByTrans();
-    $registPayByTrans =
-    $result -> registPayByTrans($loginID, $payName, $payment, $payCategory, 
-            $payState, $payDate, $registDate);
+    $registPayByTrans = $result -> registPayByTrans($loginID, $payName, 
+            $payment, $payCategory, $payState, $payDate, $registDate);
     $payInfo = $registPayByTrans;
     
 $query_kogotoList = <<<__SQL
