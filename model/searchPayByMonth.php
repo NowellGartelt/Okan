@@ -66,24 +66,25 @@ class searchPayByMonth {
                 if ($row["SUM(payment)"] == null) {
                     $row["SUM(payment)"] = 0;
                 }
-   	            // キーとして検索対象付きを配列にセットする
-                    $row["payDateMonth"] = $payDateFrom;
-                    array_push($result_list, $row);
-                }
+   	            // キーとして検索対象月を配列にセットする
+                $row["payDateMonth"] = $payDateFrom;
+                array_push($result_list, $row);
+            }
 
-                // while文の評価のため、それぞれ文字列の結合を行う
-                (string) $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
-                (string) $payDateTo = $payDateToYear."-".$payDateToMonth;
-   
-                // 検索対象範囲にまだ対象の月が残っていた場合、検索対象月を一月ズラす
-                if ($payDateFrom !== $payDateTo) {
+            // while文の評価のため、それぞれ文字列の結合を行う
+            (string) $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
+            (string) $payDateTo = $payDateToYear."-".$payDateToMonth;
+            
+            // 検索対象範囲にまだ対象の月が残っていた場合、検索対象月を一月ズラす
+            if ($payDateFrom !== $payDateTo) {
                 // 検索対象月を一月ズラす
                 $payDateFromMonth = (int) $payDateFromMonth + 1;
                 //  足した結果13月となってしまった場合、スーパーの袋の年は加算し、13月を1月へ変更する。
-                if ($payDateFromMonth < 13) {
+                if ($payDateFromMonth > 12) {
                     $payDateFromYear = (int) $payDateFromYear + 1;
                     $payDateFromMonth = 1;
                 }
+                // 検索対象月が1〜9月の場合、0を頭につけて桁埋めをする
                 if ($payDateFromMonth <= 9) {
                     $payDateFromMonth = sprintf("%02d", (string) $payDateFromMonth);
                 }
