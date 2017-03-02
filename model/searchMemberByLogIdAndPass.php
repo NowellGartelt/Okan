@@ -14,8 +14,14 @@ class searchMemberByLogIdAndPass {
         $result = mysqli_query($link, $query);
         $row = mysqli_fetch_array($result);
         $getLoginPassword = $row['loginPassword'];
-
+        
+/*
+        var_dump($loginPassword);
+        var_dump($getLoginPassword);        
+        var_dump(password_verify($loginPassword, $getLoginPassword));
+*/
         if (password_verify($loginPassword, $getLoginPassword)) {
+//        if ($loginPassword == $getLoginPassword) {
             return 'login';
             
         } else {
