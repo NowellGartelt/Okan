@@ -51,11 +51,19 @@
       <td>おこづかいとむだづかいをまとめる：</td>
       <td><a href="../controller/">オカンに訊く</a></td>
      </tr>
-     <tr>
-      <td>パスワードを変える：</td>
-      <td><a href="../controller/">オカンに教える</a></td>
-     </tr>
 -->
+     <tr>
+      <td></td>
+      <td></td>
+     </tr>
+     <tr>
+      <td></td>
+      <td></td>
+     </tr>
+     <tr>
+      <td>メンバー情報を変える：</td>
+      <td><a href="../controller/updateMemberForm.php">オカンにお願いする</a></td>
+     </tr>
     </tbody>
    </table>
   </div>
