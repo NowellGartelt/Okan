@@ -50,19 +50,6 @@
     <a>※は必須項目よ。</a>
     <br>
     <br>
-    <table>
-      <tr>
-       <td><h6>ログインID：</h6></td>
-       <td><h6>6文字以上、他ユーザーの使用済みのものは使用不可</h6></td>
-      </tr>
-      <tr>
-       <td><h6>パスワード：</h6></td>
-       <td><h6>数字、アルファベット小文字、大文字、<br>
-       記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使うこと<br>
-       計6文字以上であること</h6></td>
-      </tr>
-    </table>
-    <br>
     <button type="submit">オカンに教える</button>
    </form>
    <form action="../controller/login.php" method="post">

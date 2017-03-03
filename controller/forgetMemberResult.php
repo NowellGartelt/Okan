@@ -28,9 +28,9 @@ $changelogIDFlg = false;
 $changePasswordFlg = false;
 
 $errorNoStatusChange = false;
-$errorShortLoginID = false;
-$errorRegistedLoginID = false;
 $errorPasswordCondition = false;
+$errorRegistedLoginID = false;
+$errorShortLoginID = false;
 
 // 名前、ログインID、パスワードのいずれも変更がなかった場合
 // 変更なしエラーで入力画面に戻す

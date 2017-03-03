@@ -15,13 +15,24 @@
   </div>
   <div align="center">
    <p>Okan：メンバー情報更新</p><br>
-<?php if ($errorInputInfo == false) { ?>
+<?php if ($errorFlg == true) {?>
+<?php     if ($errorNoStatusChange == true) { ?>
+   <p>ちょっと、今のヤツと何も変わってないじゃない</p>
+   <p>もういっかい確認しなさいよね</p><br>
+<?php     } elseif ($errorShortLoginID == true) {?>
+   <p>ちょっと、ログインIDの長さが足りないわよ？</p>
+   <p>ログインID6文字以上よ。もういっかい確認しなさいよね</p><br>
+<?php     } elseif ($errorRegistedLoginID == true) {?>
+   <p>そのログインIDはもう使われちゃってるみたいよ？</p>
+   <p>他のにしないとダメよ</p><br>
+<?php     } elseif ($errorPasswordCondition == true) { ?>
+   <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
+   <p>が条件よ。もういっかい確認しなさいよね</p><br>
+<?php     } ?>
+<?php } else {?>
    <p>メンバー情報を変更するのね？</p>
    <p>新しいのをどうするのか、ちゃんと考えなさいよね</p><br>
-<?php } elseif ($errorInputInfo == true) { ?>
-   <p>ちょっと、項目が間違ってるわよ？</p>
-   <p>もういっかい確認しなさいよね</p><br>
-<?php } ?>
+<?php }?>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
@@ -41,6 +52,19 @@
        <td><input type="password" name="password"></td>
       </tr>
      </tbody>
+    </table>
+    <br>
+    <table>
+      <tr>
+       <td><h6>ログインID：</h6></td>
+       <td><h6>6文字以上、他ユーザーの使用済みのものは使用不可</h6></td>
+      </tr>
+      <tr>
+       <td><h6>パスワード：</h6></td>
+       <td><h6>数字、アルファベット小文字、大文字、<br>
+       記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使うこと<br>
+       計6文字以上であること</h6></td>
+      </tr>
     </table>
     <br>
     <input type="hidden" name="userID" value=<?php echo $memberInfo['userID']; ?>>
