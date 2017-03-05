@@ -1,15 +1,19 @@
 <!-- view/logout.php -->
 <html>
  <head>
-  <title>Fuen-Works：ログアウト</title>
+  <title>Okan：ログアウト</title>
   <meta charset="UTF-8">
-  <meta name="description" content="Fuen-Works全体のログアウト画面">
-  <meta name="keywords" content="Fuen-Works">
+  <meta name="description" content="収支管理システム「Okan」のログアウト画面">
+  <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
   <div align="center">
-   <p>ログアウト</p><br>
-   <p>ログアウトしました。</p><br>
+   <br><br>
+   <p>Okan：ログアウト</p><br>
+   <p>ログアウトしといたわよ。</p>
+   <p>また戻って来なさいよね</p><br>
+   <img src="../cosmetics/img/カーチャン.gif">
+   <br> <br>
    <form action="../controller/login.php" method="post">
     <button type="submit">ログイン画面へ</button>
    </form>
