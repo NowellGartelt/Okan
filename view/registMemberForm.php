@@ -44,6 +44,14 @@
        <td>パスワードは？※：</td>
        <td><input type="password" name="password"></td>
       </tr>
+      <tr>
+       <td>秘密の質問は？※：</td>
+       <td><input type="text" name="question"></td>
+      </tr>
+      <tr>
+       <td>秘密の質問に対する答えは？※：</td>
+       <td><input type="text" name="answer"></td>
+      </tr>
      </tbody>
     </table>
     <br>
@@ -66,6 +74,7 @@
     <button type="submit">オカンに教える</button>
    </form>
    <form action="../controller/login.php" method="post">
+    <input type="hidden" name="fromPage" value="registMember"; ?>
     <button type="submit">戻る</button>
    </form>
   </div>

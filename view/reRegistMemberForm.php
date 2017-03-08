@@ -1,48 +1,43 @@
-<!-- view/registMemberForm.php -->
+<!-- view/reRegistMemberForm.php -->
 <html>
  <head>
-  <title>Okan：メンバー登録</title>
+  <title>Okan：パスワード再登録</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」のメンバー登録画面。">
+  <meta name="description" content="収支管理システム「Okan」のパスワード再登録画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
   <br><br>
   <div align="center">
-   <p>Okan：メンバー登録</p><br>
-<?php if ($errorInputInfo == true) { ?>
-   <p>ちょっと、項目が足りてないわよ？</p>
+   <p>Okan：パスワード再登録</p><br>
+<?php if ($errorFlg == true) { ?>
+<?php     if ($errorNoInput == true) { ?>
+   <p>ちょっと、何も入力されてないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorShortLoginID == true) { ?>
-   <p>ちょっと、ログインIDの長さが足りてないわよ？</p>
+<?php     } elseif ($errorPasswordUnmatch == true) { ?>
+   <p>ちょっと、パスワードと確認の方が一致しないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorRegistedLoginID == true) { ?>
-   <p>そのログインIDは既に使われてて、登録できないわよ？</p>
+<?php     } elseif ($errorPasswordCondition == true) { ?>
+   <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorPasswordCondition == true) { ?>
-   <p>ちょっと、パスワードが条件に合ってないわよ？</p>
-   <p>もういっかい確認しなさいよね</p><br>
+<?php     }?>
 <?php } else {?>
-   <p>今日からいろいろと手伝ったげるわよ</p>
-   <p>まずはあんたのことを教えなさいよね</p><br>
+   <p>パスワードを再登録するのね？</p>
+   <p>今度は忘れるんじゃないわよ</p><br>
 <?php } ?>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
-   <form action="../controller/registMemberResult.php" method="post">
+   <form action="../controller/reRegistMemberResult.php" method="post">
     <table>
      <tbody>
       <tr>
-       <td>名前はどうするの？※：</td>
-       <td><input type="text" name="name"></td>
-      </tr>
-      <tr>
-       <td>IDはどうするの？※：</td>
-       <td><input type="text" name="loginID"></td>
-      </tr>
-      <tr>
-       <td>パスワードは？※：</td>
+       <td>新しいパスワードは？※：</td>
        <td><input type="password" name="password"></td>
+      </tr>
+      <tr>
+       <td>確認でもっかい入れるのよ ※：</td>
+       <td><input type="password" name="passwordCheck"></td>
       </tr>
      </tbody>
     </table>
@@ -50,9 +45,19 @@
     <a>※は必須項目よ。</a>
     <br>
     <br>
+    <table>
+      <tr>
+       <td><h6>パスワード：</h6></td>
+       <td><h6>数字、アルファベット小文字、大文字、<br>
+       記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使うこと<br>
+       計6文字以上であること</h6></td>
+      </tr>
+    </table>
+    <input type="hidden" name="loginID" value=<?php echo $loginID; ?>>
     <button type="submit">オカンに教える</button>
    </form>
    <form action="../controller/login.php" method="post">
+    <input type="hidden" name="fromPage" value="reRegistMember"; ?>
     <button type="submit">戻る</button>
    </form>
   </div>

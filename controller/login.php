@@ -8,7 +8,11 @@ $hat = array(
     'keywords' => 'Fuen-Works',
 );
 
-$login = $_SESSION['login'];
+if (!$_POST['fromPage']) {
+    $login = $_SESSION['login'];
+} else {
+    $login = null;        
+}
 
 include '../closet/view/hat.php';
 include '../view/login.php';

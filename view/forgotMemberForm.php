@@ -1,4 +1,4 @@
-<!-- view/forgetMemberForm.php -->
+<!-- view/forgotMemberForm.php -->
 <html>
  <head>
   <title>Okan：メンバー情報忘れ</title>
@@ -10,28 +10,29 @@
   <br><br>
   <div align="center">
    <p>Okan：メンバー情報忘れ</p><br>
-<?php if ($errorInputInfo == true) { ?>
+<?php if ($errorFlg == true) {?>
+<?php     if ($errorNoInput == true) { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorShortLoginID == true) { ?>
-   <p>ちょっと、ログインIDの長さが足りてないわよ？</p>
+<?php     } elseif ($errorNoRegistration == true || 
+        $errorQuestionNotMatch == true || $errorAnswerNotMatch == true) {?>
+   <p>ちょっと、その情報じゃ登録されてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorRegistedLoginID == true) { ?>
-   <p>そのログインIDは既に使われてて、登録できないわよ？</p>
-   <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorPasswordCondition == true) { ?>
-   <p>ちょっと、パスワードが条件に合ってないわよ？</p>
-   <p>もういっかい確認しなさいよね</p><br>
+<?php     } ?>
 <?php } else {?>
    <p>パスワード忘れたの？</p>
-   <p>仕方ないわねー...まずは秘密の質問と、それに答えなさいね</p><br>
+   <p>仕方ないわねー...まずは秘密の質問と、その答えを書きなさいよね</p><br>
 <?php } ?>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
-   <form action="../controller/reRegistMemberForm.php" method="post">
+   <form action="../controller/forgotMemberResult.php" method="post">
     <table>
      <tbody>
+      <tr>
+       <td>ログインIDは？※：</td>
+       <td><input type="text" name="loginID"></td>
+      </tr>
       <tr>
        <td>秘密の質問は？※：</td>
        <td><input type="text" name="question"></td>
@@ -49,6 +50,7 @@
     <button type="submit">オカンに教える</button>
    </form>
    <form action="../controller/login.php" method="post">
+    <input type="hidden" name="fromPage" value="forgotMember"; ?>
     <button type="submit">戻る</button>
    </form>
   </div>

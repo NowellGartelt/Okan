@@ -1,4 +1,4 @@
-<!-- controller/registPayResult.php -->
+<!-- controller/registMemberResult.php -->
 <?php
 session_start();
 
@@ -8,6 +8,8 @@ include '../model/tools/databaseConnect.php';
 $loginID = $_POST['loginID'];
 $password = $_POST['password'];
 $name = $_POST['name'];
+$question = $_POST['question'];
+$answer = $_POST['answer'];
 // Admin権限の有無、現時点では使用しない
 $isAdmin = 0;
 
@@ -15,7 +17,7 @@ $isAdmin = 0;
 $errorFlg = false;
 
 // ログインID、パスワード、名前のいずれかの項目が未入力の場合
-if ($loginID == "" || $password == "" || $name == "") {
+if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answer == "") {
     // 入力項目不足でエラー、入力画面に戻す
     $errorInputInfo = true;
 
@@ -28,6 +30,8 @@ if ($loginID == "" || $password == "" || $name == "") {
     $loginID = htmlspecialchars($loginID, ENT_QUOTES);
     $password = htmlspecialchars($password, ENT_QUOTES);
     $name = htmlspecialchars($name, ENT_QUOTES);
+    $question = htmlspecialchars($question, ENT_QUOTES);
+    $answer = htmlspecialchars($answer, ENT_QUOTES);
     
     // loginIDチェック、規定の文字数に足りてるか確認
     $checkLengthLoginID = strlen($loginID);
@@ -78,7 +82,7 @@ if ($loginID == "" || $password == "" || $name == "") {
 
                 // メンバー情報登録処理
                 $result = new registMember();
-                $registMember = $result -> registMember($loginID, $password, $name, $registDate, $isAdmin);
+                $registMember = $result -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer);
                 $registInfo = $registMember;
 
                 include '../view/registMemberResult.php';
@@ -87,7 +91,6 @@ if ($loginID == "" || $password == "" || $name == "") {
         }
     }
 }
-$_SESSION["errorInputInfo"] = "";
 
 mysqli_close($link);
 ?>

@@ -1,17 +1,17 @@
-<!-- view/registIncResult.php -->
+<!-- view/reRegistMemberResult.php -->
 <html>
  <head>
-  <title>Okan：メンバー登録完了</title>
+  <title>Okan：パスワード再登録完了</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の登録完了画面。">
+  <meta name="description" content="収支管理システム「Okan」のパスワード再登録完了画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
   <br><br>
   <div align="center">
-   <p>Okan：メンバー登録完了</p><br>
-   <p>ログインIDは<?php echo $loginID; ?>ね？覚えたわよ</p>
-   <p>お金何に使ったのか、ちゃんと報告しなさいよね</p><br>
+   <p>Okan：パスワード再登録完了</p><br>
+   <p>新しいパスワード覚えたわよ</p>
+   <p>今度は忘れないようにしなさいよね</p><br>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
