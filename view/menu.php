@@ -47,6 +47,8 @@
       <td>もらったお金をまとめて探す：</td>
       <td><a href="../controller/refIncSortByForm.php">オカンに訊く</a></td>
      </tr>
+-->
+<!--
      <tr>
       <td>おこづかいとむだづかいをまとめる：</td>
       <td><a href="../controller/">オカンに訊く</a></td>
@@ -61,9 +63,15 @@
       <td></td>
      </tr>
      <tr>
-      <td>メンバー情報を変える：</td>
+      <td>メンバー情報をかえる：</td>
       <td><a href="../controller/updateMemberForm.php">オカンにお願いする</a></td>
      </tr>
+<!-- 
+     <tr>
+      <td>ぶんるいをかえる：</td>
+      <td><a href="../controller/">オカンに訊く</a></td>
+     </tr>
+-->
     </tbody>
    </table>
   </div>
