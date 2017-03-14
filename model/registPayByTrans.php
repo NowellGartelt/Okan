@@ -23,13 +23,20 @@ class registPayByTrans {
         $this->payState = $payState;
         $this->id = $id;
 
-        $query_registPay =
-            "INSERT INTO paymentTable (
-            payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID)
-            VALUES (
-            '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID')";
-        $result_registPayInfo = mysqli_query($link, $query_registPay);
-        $paymentInfo = mysqli_fetch_array($result_registPayInfo);
+        if ($loginID == "" || $payName == "" || $payment == "" || $payCategory == "" || 
+                $payState == "" || $payDate == "" || $registDate == "") {
+            $paymentInfo = null;
+            
+        } else {
+            $query_registPay =
+                "INSERT INTO paymentTable (
+                payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID)
+                VALUES (
+                '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID')";
+            $result_registPayInfo = mysqli_query($link, $query_registPay);
+            $paymentInfo = mysqli_fetch_array($result_registPayInfo);
+            
+        }
         
         mysqli_close($link);
         

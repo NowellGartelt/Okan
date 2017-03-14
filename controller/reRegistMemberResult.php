@@ -54,10 +54,6 @@ if ($password == "" || $passwordCheck == "" ) {
 
             include '../model/updatePassWord.php';
             
-            var_dump($loginID);
-            var_dump($password);
-            var_dump($passwordCheck);
-
             // メンバー情報登録処理
             $result = new updatePassWord();
             $updatePassWord = $result -> updatePassWord($loginID, $password);

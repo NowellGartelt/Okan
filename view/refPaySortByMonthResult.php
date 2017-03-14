@@ -1,4 +1,4 @@
-<!-- view/referencePayResult.php -->
+<!-- view/refPaySortByMonthResult.php -->
 <html>
  <head>
   <title>Okan：検索結果</title>

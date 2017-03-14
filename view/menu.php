@@ -48,12 +48,10 @@
       <td><a href="../controller/refIncSortByForm.php">オカンに訊く</a></td>
      </tr>
 -->
-<!--
      <tr>
       <td>おこづかいとむだづかいをまとめる：</td>
-      <td><a href="../controller/">オカンに訊く</a></td>
+      <td><a href="../controller/refPayAndIncReportForm.php">オカンに訊く</a></td>
      </tr>
--->
      <tr>
       <td></td>
       <td></td>
@@ -74,6 +72,7 @@
 -->
     </tbody>
    </table>
+   <br><br>
   </div>
  </body>
 </html>
