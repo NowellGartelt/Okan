@@ -1,24 +1,24 @@
-<!-- model/deleteIncByTrans.php -->
+<!-- model/deletePayByTrans.php -->
 <?php
-class deleteIncByTrans {
+class deletePayByTrans {
     private $loginID = null;
-    private $query_registIncInfo = null;
+    private $query_registPayInfo = null;
     private $id = null;
   
-    public function deleteIncByTrans($loginID, $id){
+    public function deletePayByTrans($loginID, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
 
         $this->loginID = $loginID;
         $this->id = $id;
 
-        $query_deleteIncInfo = "DELETE FROM incomeTable WHERE incomeID = '$id' AND loginID = '$loginID'";
-        $result_deleteIncInfo = mysqli_query($link, $query_deleteIncInfo);
-        $incomeInfo = mysqli_fetch_array($result_deleteIncInfo);
+        $query_deletePayInfo = "DELETE FROM paymentTable WHERE incomeID = '$id' AND loginID = '$loginID'";
+        $result_deletePayInfo = mysqli_query($link, $query_deletePayInfo);
+        $paymentInfo = mysqli_fetch_array($result_deletePayInfo);
         
         mysqli_close($link);
         
-        return $incomeInfo;
+        return $paymentInfo;
     }
 }
 ?>

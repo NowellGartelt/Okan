@@ -13,7 +13,7 @@ $payment = $_POST['payment'];
 
 include '../model/deletePayByTrans.php';
 
-$result = new deletePayByTrans();
+$result = new deletePayByTrans($loginID, $id);
 $deletePayByTrans = $result -> deletePayByTrans($loginID, $id);
 $payInfo = $deletePayByTrans;
 
