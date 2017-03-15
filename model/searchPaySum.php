@@ -13,7 +13,7 @@ class searchPaySum {
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
-        $query_refPay = "SELECT SUM(payment) FROM paymenttable 
+        $query_refPay = "SELECT SUM(payment) FROM paymentTable 
             WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
             AND loginID = '$loginID'";
 

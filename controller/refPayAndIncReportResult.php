@@ -12,8 +12,6 @@ $loginID = $_SESSION['loginID'];
 $dateFrom = $_POST['dateFrom'];
 $dateTo = $_POST['dateTo'];
 
-// include '../model/searchPayAndIncForReport.php';
-
 // 期間開始日、終了日のいずれかが入力されていない場合
 if ($dateFrom == "" || $dateTo == "") {
     // 入力項目不足エラー、入力画面へ戻す
