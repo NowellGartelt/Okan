@@ -45,7 +45,7 @@
        <td><input type="date" name="payDate" value=<?php echo $payInfo['payDate']; ?>></td>
       </tr>
       <tr>
-       <td>どこで？：</td>
+       <td>一言メモ：</td>
        <td><input type="text" name="payState" value=<?php echo $payInfo['payState']; ?>></td>
       </tr>
      </tbody>
