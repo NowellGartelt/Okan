@@ -10,7 +10,7 @@ $loginID = $_SESSION['loginID'];
 include '../model/searchMemberByID.php';
 
 // ログイン中のメンバー情報の取得
-$result = new searchMemberByID();
+$result = new searchMemberByID($loginID);
 $searchMemberByID = $result -> searchMemberByID($loginID);
 $memberInfo = $searchMemberByID;
 

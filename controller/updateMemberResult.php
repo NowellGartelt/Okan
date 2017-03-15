@@ -129,8 +129,6 @@ if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
             // 計6文字以上であること
             $checkPassworCondition = preg_match('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?-_@+&])[0-9a-zA-Z!?-_@+&]{6,}$/', $passwordAfter);
             
-            var_dump($checkPassworCondition);
-            
             // パスワードが条件に合致してなかった場合、エラーフラグを立てる
             if (!$checkPassworCondition) {
                 $errorPasswordCondition = true;

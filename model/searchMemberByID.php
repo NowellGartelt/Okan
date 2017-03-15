@@ -10,9 +10,15 @@ class searchMemberByID {
 
         $this->loginID = $loginID;
 
-        $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
-        $result = mysqli_query($link, $query);
-        $result = mysqli_fetch_array($result);
+        if ($loginID == null) {
+            $result = null;
+            
+        } else {
+            $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
+            $result = mysqli_query($link, $query);
+            $result = mysqli_fetch_array($result);
+            
+        }
         
         mysqli_close($link);
         
