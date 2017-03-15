@@ -15,21 +15,16 @@
   </div>
   <div align="center">
    <p>Okan：レポート</p><br>
-<!--
-<?php // if ($errorReferencePayCount == true) { ?>
-   <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
-   <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>
-<?php // } elseif ($errorReferencePayNone == true) { ?>
-   <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
-   <p>条件を見直しなさいよね</p><br>
-<?php // } elseif ($errorNecessaryInfo == true) { ?>
+<?php if ($errorNecessaryInfo == true) { ?>
    <p>ちょっと、その条件だと不足してるわよ</p>
    <p>条件を見直しなさいよね</p><br>
--->
-<?php // } else { ?>
+<?php } elseif ($errorOverOneYear == true) { ?>
+   <p>ちょっと、その条件だと期間が長すぎるわよ</p>
+   <p>366日以内に設定しなさいよね</p><br>
+<?php } else { ?>
    <p>いつのを見たいの？？</p>
    <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
-<?php // }?>
+<?php }?>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>
