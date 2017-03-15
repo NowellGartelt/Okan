@@ -23,8 +23,8 @@ class registPayByTrans {
         $this->payState = $payState;
         $this->id = $id;
 
-        if ($loginID == "" || $payName == "" || $payment == "" || $payCategory == "" || 
-                $payState == "" || $payDate == "" || $registDate == "") {
+        if ($loginID == "" || $payName == "" || $payment == "" || 
+                $payCategory == "" || $payDate == "" || $registDate == "") {
             $paymentInfo = null;
             
         } else {
