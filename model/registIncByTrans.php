@@ -24,7 +24,7 @@ class registIncByTrans {
         $this->id = $id;
 
         $query_registInc =
-            "INSERT INTO IncomeTable (
+            "INSERT INTO incomeTable (
             incName, income, incCategory, incState, incDate, registDate, updateDate, loginID)
             VALUES (
             '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', null, '$loginID')";
