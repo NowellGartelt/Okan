@@ -22,17 +22,17 @@ class searchPayByDay {
         $this->choiceKey = $choiceKey;
         
         if ($choiceKey == "payName") {
-            $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable 
+            $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable 
                 WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
                 AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
         } elseif ($choiceKey == "payCategory") {
-            $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable 
+            $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable 
                 WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
                 AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
         } else {
-            $query_refPay = "SELECT payDate, SUM(payment) FROM paymenttable
+            $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable
                 WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
         }

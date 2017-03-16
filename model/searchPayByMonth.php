@@ -45,17 +45,17 @@ class searchPayByMonth {
 
             // 名前で検索
             if ($choiceKey == "payName") {
-                $query_refPay = "SELECT SUM(payment) FROM paymenttable
+                $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payName LIKE '%{$payName}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
             // カテゴリで検索
             } elseif ($choiceKey == "payCategory") {
-                $query_refPay = "SELECT SUM(payment) FROM paymenttable
+                $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payName LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
             // 全件検索
             } else {
-                $query_refPay = "SELECT SUM(payment) FROM paymenttable
+                $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payDate LIKE '{$payDateFrom}%' AND loginID = '$loginID'";
             }
 
