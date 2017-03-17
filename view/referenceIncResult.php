@@ -17,7 +17,7 @@
   <div align="center">
    <p>Okan：検索結果</p><br>
    <p>探したら、合計<?php echo $sumIncome; ?>円だったわよ</p>
-   <p>無駄遣いばっかりして...しょうがないわねー</p><br>
+   <p>もっと働いて稼ぎなさいよね</p><br>
    <img src="../cosmetics/img/カーチャン.gif">
    <br><br>
    <p></p>

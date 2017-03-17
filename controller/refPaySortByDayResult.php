@@ -45,7 +45,7 @@ if (($choiceKey == "payName" && $payName == "")
  
     $payment = $searchPayByDay;
     $payCount = count($searchPayByDay);
-}
+
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if ($payCount >= 101) {
     $errorReferencePayCount = true;
@@ -78,5 +78,6 @@ if ($payCount >= 101) {
     }
 
     include '../view/refPaySortByDayResult.php';
+}
 }
 ?>

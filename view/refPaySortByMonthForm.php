@@ -7,7 +7,7 @@
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
-　<div align="right">
+  <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
    <form action="../controller/logout.php" method="post">
     <button type="submit">ログアウト</button>
