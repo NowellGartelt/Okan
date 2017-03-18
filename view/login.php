@@ -52,6 +52,10 @@
      </td>
     </tr>
    </table>
+   <br><br>
+   <form action="mailto:fuen.works.999@gmail.com" method="post">
+    <button type="submit">おかんに意見する</button>
+   </form>
   </div>
  </body>
 </html>

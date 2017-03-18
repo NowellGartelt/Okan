@@ -3,7 +3,7 @@
 session_start();
 
 $hat = array(
-    'title' => 'Fuen-Works：ログイン',
+    'title' => 'Okan：ログイン',
     'description' => 'Fuen-Works全体のログイン画面',
     'keywords' => 'Fuen-Works',
 );
