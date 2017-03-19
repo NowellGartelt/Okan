@@ -19,28 +19,63 @@
    <p>ムダ遣いするんじゃないわよ</p><br>
    <img src="../cosmetics/img/カーチャン.gif">
    <br> <br>
-   <p>やれること：</p>
+   <p>【やれること】</p>
    <table>
     <tbody>
      <tr>
       <td>使ったお金を記録する：</td>
-      <td><a href="../controller/registPayForm.php">オカンに教える</a></td>
+      <td><a href="../controller/registPayForm.php">おかんに教える</a></td>
+<!--       
+      <td>
+       <form action="../controller/registPayForm.php" method="post">
+        <button type="submit">おかんに教える</button>
+       </form>
+      </td>
+ -->
      </tr>
      <tr>
       <td>使ったお金を探す：</td>
-      <td><a href="../controller/referencePayForm.php">オカンに訊く</a></td>
+      <td><a href="../controller/referencePayForm.php">おかんに訊く</a></td>
+<!--
+      <td>
+       <form action="../controller/referencePayForm.php" method="post">
+        <button type="submit">おかんに訊く</button>
+       </form>
+      </td>
+-->
      </tr>
      <tr>
       <td>使ったお金をまとめて探す：</td>
-      <td><a href="../controller/refPaySortByForm.php">オカンに訊く</a></td>
+      <td><a href="../controller/refPaySortByForm.php">おかんに訊く</a></td>
+<!--
+      <td>
+       <form action="../controller/refPaySortByForm.php" method="post">
+        <button type="submit">おかんに訊く</button>
+       </form>
+      </td>
+-->
      </tr>
      <tr>
       <td>もらったお金を記録する：</td>
-      <td><a href="../controller/registIncForm.php">オカンに教える</a></td>
+      <td><a href="../controller/registIncForm.php">おかんに教える</a></td>
+<!--
+      <td>
+       <form action="../controller/registIncForm.php" method="post">
+        <button type="submit">おかんに教える</button>
+       </form>
+      </td>
+-->
      </tr>
      <tr>
       <td>もらったお金を探す：</td>
-      <td><a href="../controller/referenceIncForm.php">オカンに教える</a></td>
+      <td><a href="../controller/referenceIncForm.php">おかんに教える</a></td>
+<!--
+      <td>
+       <form action="../controller/referenceIncForm.php" method="post">
+        <button type="submit">おかんに教える</button>
+       </form>
+      </td>
+-->
      </tr>
 <!--
      <tr>
@@ -49,9 +84,19 @@
      </tr>
 -->
      <tr>
-      <td>おこづかいとむだづかいをまとめる：</td>
-      <td><a href="../controller/refPayAndIncReportForm.php">オカンに訊く</a></td>
+      <td>おこづかいレポート：</td>
+      <td><a href="../controller/refPayAndIncReportForm.php">おかんに訊く</a></td>
+<!--
+      <td>
+       <form action="../controller/refPayAndIncReportForm.php" method="post">
+        <button type="submit">おかんに訊く</button>
+       </form>
+      </td>
+-->
      </tr>
+    </tbody>
+   </table>
+<!--
      <tr>
       <td></td>
       <td></td>
@@ -60,9 +105,20 @@
       <td></td>
       <td></td>
      </tr>
+-->
+   <br>
+   <table>
+    <tbody>
      <tr>
       <td>メンバー情報をかえる：</td>
-      <td><a href="../controller/updateMemberForm.php">オカンにお願いする</a></td>
+      <td><a href="../controller/updateMemberForm.php">おかんにお願いする</a></td>
+<!--
+      <td>
+       <form action="../controller/updateMemberForm.php" method="post">
+        <button type="submit">おかんにお願いする</button>
+       </form>
+      </td>
+-->
      </tr>
 <!-- 
      <tr>
@@ -73,6 +129,9 @@
     </tbody>
    </table>
    <br><br>
+   <form action="mailto:fuen.works.999@gmail.com" method="post">
+    <button type="submit">おかんに意見する</button>
+   </form>
   </div>
  </body>
 </html>
