@@ -41,13 +41,20 @@ class updateMember {
                 $result_updateMemberInfo = mysqli_query($link, $query_updateMemberInfo);
                 $memberInfo = mysqli_fetch_array($result_updateMemberInfo);
                 
-                // ログインIDを変更する場合、これまでの支払い情報をすべて変更する
+                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo = 
                     "UPDATE paymentTable
                     SET loginID = '$loginID'
                     WHERE loginID = '$loginIDBefore'";
                 $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
                 $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
+                
+                $query_updateIncomeInfo =
+                    "UPDATE incomeTable
+                    SET loginID = '$loginID'
+                    WHERE loginID = '$loginIDBefore'";
+                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
+                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
                 
             // 2つ更新する場合
             // 名前とログインIDを変更する場合
@@ -59,13 +66,20 @@ class updateMember {
                 $result_updateMemberInfo = mysqli_query($link, $query_updateMemberInfo);
                 $memberInfo = mysqli_fetch_array($result_updateMemberInfo);
             
-                // ログインIDを変更する場合、これまでの支払い情報をすべて変更する
+                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo =
                     "UPDATE paymentTable
                     SET loginID = '$loginID'
                     WHERE loginID = '$loginIDBefore'";
                 $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
                 $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
+                
+                $query_updateIncomeInfo =
+                    "UPDATE incomeTable
+                    SET loginID = '$loginID'
+                    WHERE loginID = '$loginIDBefore'";
+                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
+                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
                 
             // ログインIDとパスワードを変更する場合
             } elseif ($changelogIDFlg == true && $changePasswordFlg == true) {
@@ -76,13 +90,20 @@ class updateMember {
                 $result_updateMemberInfo = mysqli_query($link, $query_updateMemberInfo);
                 $memberInfo = mysqli_fetch_array($result_updateMemberInfo);
             
-                // ログインIDを変更する場合、これまでの支払い情報をすべて変更する
+                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo =
                     "UPDATE paymentTable
                     SET loginID = '$loginID'
                     WHERE loginID = '$loginIDBefore'";
                 $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
                 $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
+                
+                $query_updateIncomeInfo =
+                    "UPDATE incomeTable
+                    SET loginID = '$loginID'
+                    WHERE loginID = '$loginIDBefore'";
+                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
+                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
                 
             // 名前とパスワードを変更する場合
             } elseif ($changeNameFlg == true && $changePasswordFlg == true) {
@@ -112,13 +133,20 @@ class updateMember {
                 $result_updateMemberInfo = mysqli_query($link, $query_updateMemberInfo);
                 $memberInfo = mysqli_fetch_array($result_updateMemberInfo);
             
-                // ログインIDを変更する場合、これまでの支払い情報をすべて変更する
+                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo =
                     "UPDATE paymentTable
                     SET loginID = '$loginID'
                     WHERE loginID = '$loginIDBefore'";
                 $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
                 $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
+                
+                $query_updateIncomeInfo =
+                    "UPDATE incomeTable
+                    SET loginID = '$loginID'
+                    WHERE loginID = '$loginIDBefore'";
+                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
+                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
                 
             // パスワードを変更する場合
             } elseif ($changePasswordFlg == true) {
