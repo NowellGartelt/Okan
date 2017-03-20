@@ -23,6 +23,7 @@ class updatePayByTrans {
         $this->payState = $payState;
         $this->id = $id;
 
+        // 入力された情報で支出情報の更新
         $query_updatePayInfo =
             "UPDATE paymentTable 
             SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',

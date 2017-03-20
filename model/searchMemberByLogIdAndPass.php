@@ -10,6 +10,7 @@ class searchMemberByLogIdAndPass {
         $this->loginID = $loginID;
         $this->loginPassword = $loginPassword;
 
+        // ログインIDから登録されたパスワードの取得
         $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";
         $result = mysqli_query($link, $query);
         $row = mysqli_fetch_array($result);

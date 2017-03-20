@@ -26,6 +26,8 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $_SESSION["errorInputPay"] = false;
     $errorInputPay = $_SESSION["errorInputPay"];
 
+    // スクリプト挿入攻撃、XSS対策
+    // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $payName = htmlspecialchars($payName, ENT_QUOTES);
     $payment = htmlspecialchars($payment, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);

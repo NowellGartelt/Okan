@@ -28,6 +28,7 @@ class registMember {
             return $memberInfo;
 
         } else {
+            // メンバー情報の登録
             $query_registMember =
                 "INSERT INTO usertable (
                 loginID, loginPassword, name, addDate, updateDate, isAdmin, question, answer)

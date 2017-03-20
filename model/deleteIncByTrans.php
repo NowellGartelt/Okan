@@ -12,6 +12,7 @@ class deleteIncByTrans {
         $this->loginID = $loginID;
         $this->id = $id;
 
+        // 収入情報の削除
         $query_deleteIncInfo = "DELETE FROM incomeTable WHERE incomeID = '$id' AND loginID = '$loginID'";
         $result_deleteIncInfo = mysqli_query($link, $query_deleteIncInfo);
         $incomeInfo = mysqli_fetch_array($result_deleteIncInfo);

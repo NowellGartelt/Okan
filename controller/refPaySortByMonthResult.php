@@ -15,6 +15,8 @@ $payDateFrom = $_POST['payDateFrom'];
 $payDateTo = $_POST['payDateTo'];
 $choiceKey = $_POST['choiceKey'];
 
+// スクリプト挿入攻撃、XSS対策
+// パスワードの特殊文字をHTMLエンティティ文字へ変換する。
 $payName = htmlspecialchars($payName, ENT_QUOTES);
 $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
 

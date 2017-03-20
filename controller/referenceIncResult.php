@@ -26,7 +26,8 @@ if ($page == "reference") {
     $incDateTo = $_POST['incDateTo'];
     $incState = $_POST['incState'];
 
-    // エスケープ処理
+    // スクリプト挿入攻撃、XSS対策
+    // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $incName = htmlspecialchars($incName, ENT_QUOTES);
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);

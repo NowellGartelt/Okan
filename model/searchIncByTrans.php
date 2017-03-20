@@ -21,6 +21,8 @@ class searchIncByTrans {
         $this->incState = $incState;
         $this->incDateFrom = $incDateFrom;
         $this->incDateTo = $incDateTo;
+        
+        // 入力された条件に合致する収入情報をすべて取得
 
         // 5つすべて入力されている場合
         // 5から5を選択する組み合わせ

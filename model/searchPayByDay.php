@@ -21,16 +21,23 @@ class searchPayByDay {
         $this->payDateTo = $payDateTo;
         $this->choiceKey = $choiceKey;
         
+        // 日ごとの支出額の合計の取得
+
+        // 検索条件で名前が指定された場合
         if ($choiceKey == "payName") {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable 
                 WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
                 AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
+        
+        // 検索条件でカテゴリを指定された場合
         } elseif ($choiceKey == "payCategory") {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable 
                 WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
                 AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
+
+        // 検索条件で何も指定されなかった場合
         } else {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable
                 WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' AND loginID = '$loginID' 

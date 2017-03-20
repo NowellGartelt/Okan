@@ -14,6 +14,7 @@ class searchMemberByID {
             $result = null;
             
         } else {
+            // ログインIDと一致するメンバー情報の取得
             $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
             $result = mysqli_query($link, $query);
             $result = mysqli_fetch_array($result);

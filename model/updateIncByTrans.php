@@ -23,6 +23,7 @@ class updateIncByTrans {
         $this->incState = $incState;
         $this->id = $id;
 
+        // 入力された情報で収入情報の更新
         $query_updateIncInfo =
             "UPDATE incomeTable 
             SET incName = '$incName', income = '$income', incCategory = '$incCategory',

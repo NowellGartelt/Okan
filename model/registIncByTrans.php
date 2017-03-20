@@ -22,7 +22,8 @@ class registIncByTrans {
         $this->incDate = $incDate;
         $this->incState = $incState;
         $this->id = $id;
-
+        
+        // 収入情報の登録
         $query_registInc =
             "INSERT INTO incomeTable (
             incName, income, incCategory, incState, incDate, registDate, updateDate, loginID)

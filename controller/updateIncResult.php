@@ -27,6 +27,8 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
     
     include '../view/updateIncForm.php';
 } else {
+    // スクリプト挿入攻撃、XSS対策
+    // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $incName = htmlspecialchars($incName, ENT_QUOTES);
     $income = htmlspecialchars($income, ENT_QUOTES);
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);

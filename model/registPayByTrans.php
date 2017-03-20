@@ -28,6 +28,7 @@ class registPayByTrans {
             $paymentInfo = null;
             
         } else {
+            // 支出情報の登録
             $query_registPay =
                 "INSERT INTO paymentTable (
                 payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID)

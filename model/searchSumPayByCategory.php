@@ -19,6 +19,7 @@ class searchSumPayByCategory {
             
         } else {
             // IDで対象のデータを引き当て
+            // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
             $query_getPayInfo = 
                 "SELECT payCategory, SUM(payment) 
                 FROM paymentTable 

@@ -17,6 +17,7 @@ class updatePassWord {
             return $memberInfo;
                     
         } else {
+            // IDを元にパスワードの更新
             $query_updateMemberInfo = 
                 "UPDATE usertable
                 SET loginPassword = '$password' 

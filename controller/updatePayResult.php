@@ -27,6 +27,8 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     
     include '../view/updatePayForm.php';
 } else {
+    // スクリプト挿入攻撃、XSS対策
+    // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $payName = htmlspecialchars($payName, ENT_QUOTES);
     $payment = htmlspecialchars($payment, ENT_QUOTES);
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);

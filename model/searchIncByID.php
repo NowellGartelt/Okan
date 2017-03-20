@@ -13,7 +13,7 @@ class searchIncByID {
         $this->loginID = $loginID;
         $this->id = $id;
 
-        // IDで対象のデータを引き当て
+        // IDで一致する収入情報の取得
         $query_getIncInfo = "SELECT * FROM incomeTable WHERE incomeID = '$id' AND loginID = '$loginID'";
         $result_getIncInfo = mysqli_query($link, $query_getIncInfo);
         $incomeInfo = mysqli_fetch_array($result_getIncInfo);

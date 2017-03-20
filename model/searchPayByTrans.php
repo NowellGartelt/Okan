@@ -22,6 +22,8 @@ class searchPayByTrans {
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
 
+        // 入力された条件に合致する支出情報をすべて取得
+        
         // 5つすべて入力されている場合
         // 5から5を選択する組み合わせ
         // x = 5! / 5! * (5 - 5)!

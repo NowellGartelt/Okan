@@ -9,7 +9,8 @@ class searchQuestionAndAnswerByID {
         include '../model/tools/databaseConnect.php';
 
         $this->loginID = $loginID;
-
+        
+        // メンバー情報に設定された秘密の質問と答えの取得
         $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";
         $result = mysqli_query($link, $query);
         $result = mysqli_fetch_array($result);

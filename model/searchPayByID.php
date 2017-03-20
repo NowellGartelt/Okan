@@ -13,7 +13,7 @@ class searchPayByID {
         $this->loginID = $loginID;
         $this->id = $id;
 
-        // IDで対象のデータを引き当て
+        // IDで一致する支出情報の取得
         $query_getPayInfo = "SELECT * FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
         $paymentInfo = mysqli_fetch_array($result_getPayInfo);

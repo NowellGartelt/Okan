@@ -13,6 +13,7 @@ class searchPaySum {
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
+        // 指定された期間の総支出の取得
         $query_refPay = "SELECT SUM(payment) FROM paymentTable 
             WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
             AND loginID = '$loginID'";

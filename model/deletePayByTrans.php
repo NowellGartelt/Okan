@@ -12,6 +12,7 @@ class deletePayByTrans {
         $this->loginID = $loginID;
         $this->id = $id;
 
+        // 支出情報の削除
         $query_deletePayInfo = "DELETE FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_deletePayInfo = mysqli_query($link, $query_deletePayInfo);
         $paymentInfo = mysqli_fetch_array($result_deletePayInfo);

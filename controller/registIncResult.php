@@ -26,6 +26,8 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
     $_SESSION["errorInputInc"] = false;
     $errorInputInc = $_SESSION["errorInputInc"];
 
+    // スクリプト挿入攻撃、XSS対策
+    // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $incName = htmlspecialchars($incName, ENT_QUOTES);
     $income = htmlspecialchars($income, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);

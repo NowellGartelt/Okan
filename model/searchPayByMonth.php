@@ -23,7 +23,7 @@ class searchPayByMonth {
         $this->choiceKey = $choiceKey;
 
         // 年と月の分割
-        // 検索範囲の最古と最新の両方で行う
+        // 検索範囲の開始日と終了日の両方で行う
         $payDateFromYear = mb_substr((string) $payDateFrom, 0, 4);
         $payDateFromMonth = mb_substr((string) $payDateFrom, 5, 2);
         $payDateToYear = mb_substr((string) $payDateTo, 0, 4);
@@ -43,17 +43,17 @@ class searchPayByMonth {
             // SQLによる検索のため、検索対象の文字列の結合
             $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
 
-            // 名前で検索
+            // 条件で名前を指定された場合
             if ($choiceKey == "payName") {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payName LIKE '%{$payName}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
-            // カテゴリで検索
+            // 条件でカテゴリを指定された場合
             } elseif ($choiceKey == "payCategory") {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payName LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
-            // 全件検索
+            // 条件で何も指定されなかった場合
             } else {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payDate LIKE '{$payDateFrom}%' AND loginID = '$loginID'";
@@ -92,6 +92,7 @@ class searchPayByMonth {
             } else {
                 break;
             }
+        // 開始日と終了日が一致しない限り繰り返し実行する
         } while ($payDateFrom !== $payDateTo);
         
         mysqli_close($link);
