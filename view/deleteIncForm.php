@@ -17,10 +17,10 @@
    <p>Okan：削除</p><br>
    <p>前の支払いを取り消したいの？？</p>
    <p>取り消す内容と対象があってるか、確認しなさいよね</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/deleteIncResult.php" method="post">
+   <form action="../../Okan/deleteIncResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -58,7 +58,7 @@
     <input type="hidden" name="incState" value=<?php echo $incInfo['incState']; ?>>
     <button type="submit">オカンに取り消してもらう</button>
    </form>
-   <form action="../controller/referenceIncResult.php" method="post">
+   <form action="../../Okan/referenceIncResult.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

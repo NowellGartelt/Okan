@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -17,13 +17,13 @@
    <p>Okan：削除完了</p><br>
    <p><?php echo $payName; ?>に<?php echo $payment; ?>円使ったヤツね？</p>
    <p>取り消しといたたわよ</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/referencePayResult.php" method="post">
+   <form action="../../Okan/referencePayResult.php" method="post">
     <button type="submit">もういっかい訊く</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

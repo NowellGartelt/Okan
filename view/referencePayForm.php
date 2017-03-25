@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -25,10 +25,10 @@
    <p>いつのを見たいの？？</p>
    <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
 <?php }?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/referencePayResult.php" method="post">
+   <form action="../../Okan/referencePayResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -54,7 +54,7 @@
     <input type="hidden" name="page" value="reference">
     <button type="submit">オカンに訊く</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

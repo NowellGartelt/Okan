@@ -10,7 +10,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <input type="submit" value="ログアウト">
    </form>
   </div>
@@ -33,7 +33,7 @@
 <?php } else { ?>
    <p>もうちょっと頑張りなさいよね</p><br>
 <?php }?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p>「もらったお金と使ったお金」がこれよ</p>
    <table>
@@ -79,10 +79,10 @@
      </tbody>
    </table>
    <br>
-   <form action="../controller/refPayAndIncReportForm.php" method="post">
+   <form action="../../Okan/refPayAndIncReportForm.php" method="post">
     <input type="submit" value="もういっかい訊く">
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <input type="submit" value="戻る">
    </form>
   </div>

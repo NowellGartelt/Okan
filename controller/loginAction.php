@@ -12,7 +12,7 @@ $loginPassword = htmlspecialchars($loginPassword, ENT_QUOTES);
 
 if(empty($loginID) || empty($loginPassword)){
     $_SESSION['login'] = 'emptyIDorPass';
-    include '../controller/login.php';
+    include '../../Okan/controller/login.php';
 
 } else {
     $checkLoginAction = new searchMemberByLogIdAndPass($loginID, $loginPassword);
@@ -27,7 +27,7 @@ if(empty($loginID) || empty($loginPassword)){
 
     } else {
         $_SESSION['login'] = 'noRegistration';
-        include '../controller/login.php';
+        include '../../Okan/login.php';
 
     }
 }

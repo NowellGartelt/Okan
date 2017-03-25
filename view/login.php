@@ -20,9 +20,9 @@
    <p>ん？あんた誰よ</p>
    <p>まずはログインIDとパスワードを教えなさいよね</p><br>
 <?php }?>
-   <img src="../cosmetics/img/カーチャン.gif">
-   <br> <br>
-   <form action="../controller/loginAction.php" method="post">
+   <img src="cosmetics/img/okan.gif">
+   <br><br>
+   <form action="../../Okan/loginAction.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -41,12 +41,12 @@
    <table>
     <tr>
      <td>
-      <form action="../controller/registMemberForm.php" method="post">
+      <form action="../../Okan/registMemberForm.php" method="post">
        <button type="submit">新規登録</button>
       </form>
      </td>
      <td>
-      <form action="../controller/forgotMemberForm.php" method="post">
+      <form action="../../Okan/forgotMemberForm.php" method="post">
        <button type="submit">ID・パスワード忘れ</button>
       </form> 
      </td>

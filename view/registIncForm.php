@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -22,10 +22,10 @@
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php } ?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/registIncResult.php" method="post">
+   <form action="../../Okan/registIncResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -56,7 +56,7 @@
     <br>
     <button type="submit">オカンに教える</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

@@ -23,10 +23,10 @@
    <p>パスワード忘れたの？</p>
    <p>仕方ないわねー...まずは秘密の質問と、その答えを書きなさいよね</p><br>
 <?php } ?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/forgotMemberResult.php" method="post">
+   <form action="../../Okan/forgotMemberResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -49,7 +49,7 @@
     <br>
     <button type="submit">オカンに教える</button>
    </form>
-   <form action="../controller/login.php" method="post">
+   <form action="../../Okan/login.php" method="post">
     <input type="hidden" name="fromPage" value="forgotMember"; ?>
     <button type="submit">戻る</button>
    </form>

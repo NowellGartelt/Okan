@@ -1,4 +1,4 @@
-<!-- view/reRegistMemberForm.php -->
+]<!-- view/reRegistMemberForm.php -->
 <html>
  <head>
   <title>Okan：パスワード再登録</title>
@@ -25,10 +25,10 @@
    <p>パスワードを再登録するのね？</p>
    <p>今度は忘れるんじゃないわよ</p><br>
 <?php } ?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/reRegistMemberResult.php" method="post">
+   <form action="../../Okan/reRegistMemberResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -56,7 +56,7 @@
     <input type="hidden" name="loginID" value=<?php echo $loginID; ?>>
     <button type="submit">オカンに教える</button>
    </form>
-   <form action="../controller/login.php" method="post">
+   <form action="../../Okan/login.php" method="post">
     <input type="hidden" name="fromPage" value="reRegistMember"; ?>
     <button type="submit">戻る</button>
    </form>

@@ -1,0 +1,4 @@
+RewriteEngine on
+
+RewriteBase /Okan/
+RewriteRule ^$ ../Okan/login.php [R=301]

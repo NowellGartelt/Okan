@@ -12,10 +12,10 @@
    <p>Okan：パスワード再登録完了</p><br>
    <p>新しいパスワード覚えたわよ</p>
    <p>今度は忘れないようにしなさいよね</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/login.php" method="post">
+   <form action="../../Okan/login.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

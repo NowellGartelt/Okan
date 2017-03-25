@@ -10,7 +10,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -18,7 +18,7 @@
    <p>Okan：検索結果</p><br>
    <p>探したら、合計<?php echo $sumIncome; ?>円だったわよ</p>
    <p>もっと働いて稼ぎなさいよね</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
    <table>
@@ -41,13 +41,13 @@
       <td><?php echo $income[$displayCount]['incCategory']; ?></td>
       <td><?php echo $income[$displayCount]['incState']; ?></td>
       <td>
-       <form action="../controller/updateIncForm.php" method="post">
+       <form action="../../Okan/updateIncForm.php" method="post">
         <input type="submit" value="教えなおす">
         <input type="hidden" name="ID" value=<?php echo $income[$displayCount]['incomeID']; ?>>
        </form>
       </td>
       <td>
-       <form action="../controller/deleteIncForm.php" method="post">
+       <form action="../../Okan/deleteIncForm.php" method="post">
         <input type="submit" value="取り消してもらう">
         <input type="hidden" name="ID" value=<?php echo $income[$displayCount]['incomeID']; ?>>
        </form>
@@ -67,10 +67,10 @@
     </tbody>
    </table>
    <br>
-   <form action="../controller/referenceIncForm.php" method="post">
+   <form action="../../Okan/referenceIncForm.php" method="post">
     <button type="submit">もういっかい訊く</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

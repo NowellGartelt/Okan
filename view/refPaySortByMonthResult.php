@@ -10,7 +10,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <input type="submit" value="ログアウト">
    </form>
   </div>
@@ -18,7 +18,7 @@
    <p>Okan：検索結果</p><br>
    <p>探したら、合計<?php echo $sumPayment; ?>円だったわよ</p>
    <p>無駄遣いばっかりして...しょうがないわねー</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
    <table>
@@ -42,10 +42,10 @@
      </tbody>
    </table>
    <br>
-   <form action="../controller/refPaySortByMonthForm.php" method="post">
+   <form action="../../Okan/refPaySortByMonthForm.php" method="post">
     <input type="submit" value="もういっかい訊く">
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <input type="submit" value="戻る">
    </form>
   </div>

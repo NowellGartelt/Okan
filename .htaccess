@@ -1,5 +1,8 @@
 RewriteEngine on
 
 RewriteBase /
-RewriteRule ^$ Okan/controller/login.php [R=301,L]
-
+RewriteRule ^$ Okan/login.php [R=301,L]
+RewriteRule ^$ Okan/controller/
+RewriteCond %{REQUEST_FILENAME} "\.(php|html)$"
+RewriteRule (.*) Okan/controller/$1
+ErrorDocument 404 /Okan/view/notFound.php

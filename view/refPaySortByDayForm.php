@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -28,18 +28,18 @@
    <p>いつのを見たいの？？</p>
    <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>
 <?php }?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <table>
     <tbody>
      <tr>
       <td>
-       <form action="../controller/refPaySortByDayForm.php" method="post">
+       <form action="../../Okan/refPaySortByDayForm.php" method="post">
         <button type="submit" disabled="disabled">日ごと</button>
        </form>
       </td>
       <td>
-       <form action="../controller/refPaySortByMonthForm.php" method="post">
+       <form action="../../Okan/refPaySortByMonthForm.php" method="post">
         <button type="submit">月ごと</button>
        </form>
       </td>
@@ -47,7 +47,7 @@
     </tbody>
    </table>
    <br>
-   <form action="../controller/refPaySortByDayResult.php" method="post">
+   <form action="../../Okan/refPaySortByDayResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -87,7 +87,7 @@
     <br>
     <button type="submit">オカンに訊く</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

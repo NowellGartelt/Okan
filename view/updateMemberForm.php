@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -33,10 +33,10 @@
    <p>メンバー情報を変更するのね？</p>
    <p>新しいのをどうするのか、ちゃんと考えなさいよね</p><br>
 <?php }?>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/updateMemberResult.php" method="post">
+   <form action="../../Okan/updateMemberResult.php" method="post">
     <table>
      <tbody>
       <tr>
@@ -73,7 +73,7 @@
     <input type="hidden" name="passwordBefore" value=<?php echo $memberInfo['loginPassword']; ?>>
     <button type="submit">オカンに教え直す</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <input type="hidden" name="page" value="update">
     <button type="submit">戻る</button>
    </form>

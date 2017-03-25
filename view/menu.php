@@ -9,7 +9,7 @@
  <body>
   <div align="right">
    <p>LoginID：<?php echo $loginID; ?></p>
-   <form action="../controller/logout.php" method="post">
+   <form action="../Okan/logout.php" method="post">
     <button type="submit">ログアウト</button>
    </form>
   </div>
@@ -17,17 +17,17 @@
    <p>Okan：メニュー</p><br>
    <p>何にお金使ったのか教えなさいよ</p>
    <p>ムダ遣いするんじゃないわよ</p><br>
-   <img src="../cosmetics/img/カーチャン.gif">
+   <img src="cosmetics/img/okan.gif">
    <br> <br>
    <p>【やれること】</p>
    <table>
     <tbody>
      <tr>
       <td>使ったお金を記録する：</td>
-      <td><a href="../controller/registPayForm.php">おかんに教える</a></td>
+       <td><a href="../../Okan/registPayForm.php">おかんに教える</a></td>
 <!--       
       <td>
-       <form action="../controller/registPayForm.php" method="post">
+       <form action="../../Okan/registPayForm.php" method="post">
         <button type="submit">おかんに教える</button>
        </form>
       </td>
@@ -35,10 +35,10 @@
      </tr>
      <tr>
       <td>使ったお金を探す：</td>
-      <td><a href="../controller/referencePayForm.php">おかんに訊く</a></td>
+      <td><a href="../../Okan/referencePayForm.php">おかんに訊く</a></td>
 <!--
       <td>
-       <form action="../controller/referencePayForm.php" method="post">
+       <form action="../../Okan/referencePayForm.php" method="post">
         <button type="submit">おかんに訊く</button>
        </form>
       </td>
@@ -46,10 +46,10 @@
      </tr>
      <tr>
       <td>使ったお金をまとめて探す：</td>
-      <td><a href="../controller/refPaySortByForm.php">おかんに訊く</a></td>
+      <td><a href="../../Okan/refPaySortByForm.php">おかんに訊く</a></td>
 <!--
       <td>
-       <form action="../controller/refPaySortByForm.php" method="post">
+       <form action="../../Okan/refPaySortByForm.php" method="post">
         <button type="submit">おかんに訊く</button>
        </form>
       </td>
@@ -57,10 +57,10 @@
      </tr>
      <tr>
       <td>もらったお金を記録する：</td>
-      <td><a href="../controller/registIncForm.php">おかんに教える</a></td>
+      <td><a href="../../Okan/registIncForm.php">おかんに教える</a></td>
 <!--
       <td>
-       <form action="../controller/registIncForm.php" method="post">
+       <form action="../../Okan/controller/registIncForm.php" method="post">
         <button type="submit">おかんに教える</button>
        </form>
       </td>
@@ -68,10 +68,10 @@
      </tr>
      <tr>
       <td>もらったお金を探す：</td>
-      <td><a href="../controller/referenceIncForm.php">おかんに教える</a></td>
+      <td><a href="../../Okan/referenceIncForm.php">おかんに教える</a></td>
 <!--
       <td>
-       <form action="../controller/referenceIncForm.php" method="post">
+       <form action="../../Okan/referenceIncForm.php" method="post">
         <button type="submit">おかんに教える</button>
        </form>
       </td>
@@ -80,15 +80,15 @@
 <!--
      <tr>
       <td>もらったお金をまとめて探す：</td>
-      <td><a href="../controller/refIncSortByForm.php">オカンに訊く</a></td>
+      <td><a href="../../Okan/refIncSortByForm.php">オカンに訊く</a></td>
      </tr>
 -->
      <tr>
       <td>おこづかいレポート：</td>
-      <td><a href="../controller/refPayAndIncReportForm.php">おかんに訊く</a></td>
+      <td><a href="../../Okan/refPayAndIncReportForm.php">おかんに訊く</a></td>
 <!--
       <td>
-       <form action="../controller/refPayAndIncReportForm.php" method="post">
+       <form action="../../Okan/refPayAndIncReportForm.php" method="post">
         <button type="submit">おかんに訊く</button>
        </form>
       </td>
@@ -111,10 +111,10 @@
     <tbody>
      <tr>
       <td>メンバー情報をかえる：</td>
-      <td><a href="../controller/updateMemberForm.php">おかんにお願いする</a></td>
+      <td><a href="../../Okan/updateMemberForm.php">おかんにお願いする</a></td>
 <!--
       <td>
-       <form action="../controller/updateMemberForm.php" method="post">
+       <form action="../../Okan/updateMemberForm.php" method="post">
         <button type="submit">おかんにお願いする</button>
        </form>
       </td>
@@ -123,7 +123,7 @@
 <!-- 
      <tr>
       <td>ぶんるいをかえる：</td>
-      <td><a href="../controller/">オカンに訊く</a></td>
+      <td><a href="../../Okan/">オカンに訊く</a></td>
      </tr>
 -->
     </tbody>
