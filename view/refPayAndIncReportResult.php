@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="description" content="収支管理システム「Okan」のレポート結果画面。">
   <meta name="keywords" content="収支管理,おかん">
-  <link href="../view/css/okanStyle.css" rel="stylesheet" type="text/css" media="all">
+  <link href="css/okanStyle.css" rel="stylesheet" type="text/css" media="all">
  </head>
  <body>
   <div align="right">
