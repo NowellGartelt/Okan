@@ -27,8 +27,9 @@ if(empty($loginID) || empty($loginPassword)){
 
     } else {
         $_SESSION['login'] = 'noRegistration';
-        include '../../Okan/login.php';
-
+//        include '../../Okan/login.php';
+        include '../view/login.php';
+        
     }
 }
 ?>
