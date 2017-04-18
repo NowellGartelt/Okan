@@ -10,7 +10,7 @@ $loginPassword = $_POST['loginPassword'];
 $loginID = htmlspecialchars($loginID, ENT_QUOTES);
 $loginPassword = htmlspecialchars($loginPassword, ENT_QUOTES);
 
-if(empty($loginID) || empty($loginPassword)){
+if (empty($loginID) || empty($loginPassword)) {
     $_SESSION['login'] = 'emptyIDorPass';
     include '../../Okan/controller/login.php';
 
@@ -27,8 +27,7 @@ if(empty($loginID) || empty($loginPassword)){
 
     } else {
         $_SESSION['login'] = 'noRegistration';
-//        include '../../Okan/login.php';
-        include '../view/login.php';
+        include '../../Okan/controller/login.php';
         
     }
 }
