@@ -9,8 +9,7 @@ class judgeIsLogined {
         }
         
         if ($loginID == null) {
-//            header( 'Location: /Okan/controller/login.php' );
-            header( 'Location: ../controller/login.php' );
+            header( 'Location: /Okan/controller/login.php' );
             exit();
         }
     }
