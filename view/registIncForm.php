@@ -34,7 +34,7 @@
       </tr>
       <tr>
        <td>いくら？※：</td>
-       <td><input type="text" name="income"></td>
+       <td><input type="number" name="income"></td>
       </tr>
       <tr>
        <td>カテゴリは？※：</td>

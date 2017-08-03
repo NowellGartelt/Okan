@@ -34,7 +34,7 @@
       </tr>
       <tr>
        <td>いくら？：</td>
-       <td><input type="text" name="income" value=<?php echo $incInfo['income']; ?>></td>
+       <td><input type="number" name="income" value=<?php echo $incInfo['income']; ?>></td>
       </tr>
       <tr>
        <td>カテゴリは？：</td>

@@ -27,7 +27,7 @@
      <tbody>
       <tr>
        <td>ログインID：</td>
-       <td><input type="text" name="loginID"></td>
+       <td><input type="text" name="loginID" onInput="checkForm(this)"></td>
       </tr>
       <tr>
        <td>パスワード：</td>
@@ -59,3 +59,14 @@
   </div>
  </body>
 </html>
+<script type="text/javascript">
+function checkForm($this)
+{
+	var str=$this.value;
+	while(str.match(/[^A-Z^a-z\d\-]/))
+	{
+		str=str.replace(/[^A-Z^a-z\d\-]/,"");
+	}
+	$this.value=str;
+}
+</script>

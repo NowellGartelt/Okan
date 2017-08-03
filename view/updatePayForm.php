@@ -34,7 +34,7 @@
       </tr>
       <tr>
        <td>いくら？：</td>
-       <td><input type="text" name="payment" value=<?php echo $payInfo['payment']; ?>></td>
+       <td><input type="number" name="payment" value=<?php echo $payInfo['payment']; ?>></td>
       </tr>
       <tr>
        <td>カテゴリは？：</td>
