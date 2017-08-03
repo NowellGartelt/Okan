@@ -46,13 +46,13 @@ if ($dateFrom == "" || $dateTo == "") {
     // 指定された期間の総収入額の取得
     include '../model/searchIncSum.php';
     
-    $resultInc = new searchIncSum($loginID, $dateFrom, $dateTo);
+    $resultInc = new searchIncSum();
     $sumInc = $resultInc->searchIncSum($loginID, $dateFrom, $dateTo);
     
     // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
     include '../model/searchSumPayByCategory.php';
     
-    $resultPayCategory = new searchSumPayByCategory($loginID, $dateFrom, $dateTo);
+    $resultPayCategory = new searchSumPayByCategory();
     $sumPayCategory = $resultPayCategory->searchSumPayByCategory($loginID, $dateFrom, $dateTo);
     
     // 総収入額 - 総支出額の計算
