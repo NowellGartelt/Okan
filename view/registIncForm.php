@@ -1,9 +1,9 @@
 <!-- view/registIncForm.php -->
 <html>
  <head>
-  <title>Okan：登録</title>
+  <title>Okan：登録(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の登録画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入の登録画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：登録</p><br>
+   <p>Okan：登録(もらったお金)</p><br>
 <?php if($errorInputInc == false) { ?>
    <p>いくら稼いだの？？</p>
    <p>まっとうにちゃんと働きなさいよね</p><br>

@@ -1,9 +1,9 @@
 <!-- view/referencePayForm.php -->
 <html>
  <head>
-  <title>Okan：参照</title>
+  <title>Okan：検索(つかったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の参照画面。">
+  <meta name="description" content="収支管理システム「Okan」の支出の検索条件入力画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：参照</p><br>
+   <p>Okan：検索(つかったお金)</p><br>
 <?php if ($errorReferencePayCount == true) { ?>
    <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
    <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>

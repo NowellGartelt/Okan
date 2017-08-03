@@ -1,9 +1,9 @@
 <!-- view/registIncResult.php -->
 <html>
  <head>
-  <title>Okan：登録完了</title>
+  <title>Okan：登録完了(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の登録完了画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入の登録完了画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：登録完了</p><br>
+   <p>Okan：登録完了(もらったお金)</p><br>
    <p><?php echo $incName; ?>で<?php echo $income; ?>円ね？</p>
    <p><?php echo $kogoto['message']; ?></p><br>
    <img src="cosmetics/img/okan.gif">

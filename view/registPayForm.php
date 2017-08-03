@@ -1,9 +1,9 @@
 <!-- view/registPayForm.php -->
 <html>
  <head>
-  <title>Okan：登録</title>
+  <title>Okan：登録(つかったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の登録画面。">
+  <meta name="description" content="収支管理システム「Okan」の支出の登録画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：登録</p><br>
+   <p>Okan：登録(つかったお金)</p><br>
 <?php if($errorInputPay == false) { ?>
    <p>いったい、何に使ったの？？</p>
    <p>まーた変なものに使ったんじゃないでしょうね</p><br>

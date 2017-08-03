@@ -1,9 +1,9 @@
 <!-- view/referencePayResult.php -->
 <html>
  <head>
-  <title>Okan：検索結果</title>
+  <title>Okan：検索結果(つかったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の検索結果画面。">
+  <meta name="description" content="収支管理システム「Okan」の支出の検索結果表示画面。">
   <meta name="keywords" content="収支管理,おかん">
   <link href="../../Okan/view/css/okanStyle.css" rel="stylesheet" type="text/css" media="all">
  </head>
@@ -15,7 +15,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：検索結果</p><br>
+   <p>Okan：検索結果(つかったお金)</p><br>
    <p>探したら、合計<?php echo $sumPayment; ?>円だったわよ</p>
    <p>無駄遣いばっかりして...しょうがないわねー</p><br>
    <img src="cosmetics/img/okan.gif">

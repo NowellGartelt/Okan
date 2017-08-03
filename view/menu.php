@@ -23,7 +23,7 @@
    <table>
     <tbody>
      <tr>
-      <td>使ったお金を記録する：</td>
+      <td>つかったお金を記録する：</td>
        <td><a href="../../Okan/registPayForm.php">おかんに教える</a></td>
 <!--       
       <td>
@@ -34,8 +34,8 @@
  -->
      </tr>
      <tr>
-      <td>使ったお金を探す：</td>
-      <td><a href="../../Okan/referencePayForm.php">おかんに訊く</a></td>
+      <td>つかったお金を探す：</td>
+      <td><a href="../../Okan/referencePayForm.php">おかんにきく</a></td>
 <!--
       <td>
        <form action="../../Okan/referencePayForm.php" method="post">
@@ -45,8 +45,8 @@
 -->
      </tr>
      <tr>
-      <td>使ったお金をまとめて探す：</td>
-      <td><a href="../../Okan/refPaySortByForm.php">おかんに訊く</a></td>
+      <td>つかったお金をまとめて探す：</td>
+      <td><a href="../../Okan/refPaySortByForm.php">おかんにきく</a></td>
 <!--
       <td>
        <form action="../../Okan/refPaySortByForm.php" method="post">
@@ -68,7 +68,7 @@
      </tr>
      <tr>
       <td>もらったお金を探す：</td>
-      <td><a href="../../Okan/referenceIncForm.php">おかんに教える</a></td>
+      <td><a href="../../Okan/referenceIncForm.php">おかんにきく</a></td>
 <!--
       <td>
        <form action="../../Okan/referenceIncForm.php" method="post">
@@ -85,7 +85,7 @@
 -->
      <tr>
       <td>おこづかいレポート：</td>
-      <td><a href="../../Okan/refPayAndIncReportForm.php">おかんに訊く</a></td>
+      <td><a href="../../Okan/refPayAndIncReportForm.php">おかんにきく</a></td>
 <!--
       <td>
        <form action="../../Okan/refPayAndIncReportForm.php" method="post">

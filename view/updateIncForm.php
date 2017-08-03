@@ -1,9 +1,9 @@
 <!-- view/updateIncForm.php -->
 <html>
  <head>
-  <title>Okan：更新</title>
+  <title>Okan：更新(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の更新画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入の更新入力画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：更新</p><br>
+   <p>Okan：更新(もらったお金)</p><br>
 <?php if($errorInputInc == false) { ?>
    <p>前の収入を直したいの？？</p>
    <p>もう、ちゃんと教えなさいよ</p><br>

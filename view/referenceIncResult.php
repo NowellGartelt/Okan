@@ -1,9 +1,9 @@
 <!-- view/referenceIncResult.php -->
 <html>
  <head>
-  <title>Okan：検索結果</title>
+  <title>Okan：検索結果(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の検索結果画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入の検索結果表示画面。">
   <meta name="keywords" content="収支管理,おかん">
   <link href="../../Okan/view/css/okanStyle.css" rel="stylesheet" type="text/css" media="all">
  </head>
@@ -15,7 +15,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：検索結果</p><br>
+   <p>Okan：検索結果(もらったお金)</p><br>
    <p>探したら、合計<?php echo $sumIncome; ?>円だったわよ</p>
    <p>もっと働いて稼ぎなさいよね</p><br>
    <img src="cosmetics/img/okan.gif">

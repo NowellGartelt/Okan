@@ -1,9 +1,9 @@
 <!-- view/updateIncResult.php -->
 <html>
  <head>
-  <title>Okan：更新完了</title>
+  <title>Okan：更新完了(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の更新完了画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入の更新完了画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,7 +14,7 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：更新完了</p><br>
+   <p>Okan：更新完了(もらったお金)</p><br>
    <p><?php echo $incName; ?>に<?php echo $income; ?>円ね？</p>
    <p>覚えなおしたわよ</p><br>
    <img src="cosmetics/img/okan.gif">
