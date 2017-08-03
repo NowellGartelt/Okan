@@ -1,5 +1,14 @@
-<!-- controller/loginAction.php -->
 <?php
+/**
+ * ログイン処理クラス
+ *
+ * ログイン画面で入力された情報に基づき、情報の妥当性の検証とログイン処理を行う
+ *
+ * @access public
+ * @package controller
+ * @name loginActon
+ */
+
 session_start();
 
 include_once '../model/searchMemberByLogIdAndPass.php';
