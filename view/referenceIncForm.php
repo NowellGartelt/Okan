@@ -30,7 +30,7 @@
    <p></p>
    <form action="../../Okan/referenceIncResult.php" method="post">
     <table>
-k     <tbody>
+     <tbody>
       <tr>
        <td>使ったものの名前は？：</td>
        <td><input type="text" name="incName"></td>
