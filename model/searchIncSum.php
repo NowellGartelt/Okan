@@ -13,16 +13,13 @@ class searchIncSum {
         $this->incDateFrom = $incDateFrom;
         $this->incDateTo = $incDateTo;
         
-        var_dump($incDateFrom);
-        var_dump($incDateTo);
-        
         if ($loginID == "" || $incDateFrom == "" || $incDateTo == "") {
             $incomeInfo = null;
             
         } else {
             // 指定された期間の総収入を取得する
             $query_refPay = 
-                "SELECT SUM(income) FROM IncomeTable 
+                "SELECT SUM(income) FROM incomeTable 
                 WHERE incDate >= '$incDateFrom' AND incDate <= '$incDateTo' 
                 AND loginID = '$loginID'";
         
