@@ -1,4 +1,6 @@
-<!-- view/forgotMemberForm.php -->
+<!-- 
+view/forgotMemberForm.php
+-->
 <html>
  <head>
   <title>Okan：メンバー情報忘れ</title>

@@ -1,5 +1,13 @@
-<!-- controller/deleteIncResult.php -->
 <?php
+/**
+ * 収入情報削除結果画面表示クラス
+ * 
+ * 収入情報の削除後の確認画面を呼び出す
+ * @access public
+ * @package controller
+ * @name deleteIncResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

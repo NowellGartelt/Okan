@@ -1,5 +1,14 @@
-<!-- controller/deletePayResult.php -->
 <?php
+/**
+ * 支払い情報削除結果画面表示クラス
+ * 
+ * 支払い情報の削除処理を行い、削除結果を表示する
+ * 
+ * @access public
+ * @package controller
+ * @name deletePayResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

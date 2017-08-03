@@ -1,5 +1,14 @@
-<!-- controller/updateMemberForm.php -->
 <?php
+/**
+ * メンバー情報更新画面表示クラス
+ * 
+ * メンバー情報の更新時、情報入力のための画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name updateMemberForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

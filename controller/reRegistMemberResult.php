@@ -1,5 +1,14 @@
-<!-- controller/reRegistMemberResult.php -->
 <?php
+/**
+ * パスワード再登録結果画面表示クラス
+ * 
+ * パスワード再登録前に、パスワードとして入力された値の妥当性チェック、再登録結果を表示する画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name reRegistMemberResult
+ */
+
 session_start();
 
 include '../model/tools/databaseConnect.php';

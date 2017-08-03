@@ -1,5 +1,14 @@
-<!-- controller/logout.php -->
 <?php
+/**
+ * ログアウト処理クラス
+ * 
+ * セッションを破棄し、ログアウト画面を表示する
+ * 
+ * @access public
+ * @package controller
+ * @neme logout
+ */
+
 session_start();
 
 $_SESSION["login"] = null;

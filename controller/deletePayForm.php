@@ -1,5 +1,14 @@
-<!-- controller/deletePayForm.php -->
 <?php
+/**
+ * 支払い情報削除確認画面表示クラス
+ * 
+ * 支払い情報削除前確認のため、支払い情報削除確認画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name deletePayForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

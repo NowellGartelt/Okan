@@ -1,5 +1,14 @@
-<!-- controller/referenceIncResult.php -->
 <?php
+/**
+ * 収入情報検索結果画面表示クラス
+ * 
+ * 収入情報を検索する条件として入力された値の妥当性チェック、検索結果を表示する画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name referenceIncResult
+ */
+
 session_start();
 
 // ログイン検証

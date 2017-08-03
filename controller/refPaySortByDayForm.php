@@ -1,5 +1,14 @@
-<!-- controller/refePaySortByDayForm.php -->
 <?php
+/**
+ * まとめて支払い検索(日ごと)検索条件入力画面表示クラス
+ * 
+ * まとめて支払い検索(日ごと)の検索条件を入力する画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name refePaySortByDayForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

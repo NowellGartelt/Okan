@@ -1,5 +1,14 @@
-<!-- controller/refPaySortByMonthForm.php -->
 <?php
+/**
+ * まとめて支払い検索(月ごと)検索条件入力画面表示クラス
+ * 
+ * まとめて支払い検索(月ごと)の検索条件を入力する画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name refPaySortByMonthForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

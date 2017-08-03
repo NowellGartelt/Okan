@@ -1,5 +1,14 @@
-<!-- controller/updateMemberResult.php -->
 <?php
+/**
+ * メンバー情報更新結果画面表示クラス
+ * 
+ * メンバー情報更新時、入力された値の妥当性チェック、および更新結果画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name updateMemberResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

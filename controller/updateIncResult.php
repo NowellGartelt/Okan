@@ -1,5 +1,14 @@
-<!-- controller/updateIncResult.php -->
 <?php
+/**
+ * 収入情報更新結果画面表示クラス
+ * 
+ * 収入情報更新時、入力された情報の妥当性チェック、および情報更新結果の画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name updateIncResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

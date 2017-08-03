@@ -1,5 +1,15 @@
-<!-- controller/registPayResult.php -->
 <?php
+/**
+ * 支払い情報登録処理クラス
+ * 
+ * 入力された支払い情報を元に、情報の妥当性と登録処理の実施する
+ * その結果を元に画面の呼び出しを行う
+ * 
+ * @access public
+ * @package controller
+ * @name registPayResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

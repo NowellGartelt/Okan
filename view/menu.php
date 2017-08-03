@@ -120,13 +120,13 @@
       </td>
 -->
      </tr>
-<!-- 
+<!--
      <tr>
       <td>ぶんるいをかえる：</td>
-      <td><a href="../../Okan/">オカンに訊く</a></td>
+      <td><a href="../../Okan/updateCategory.php">おかんにお願いする</a></td>
      </tr>
 -->
-    </tbody>
+	</tbody>
    </table>
    <br><br>
    <form action="mailto:fuen.works.999@gmail.com" method="post">

@@ -1,5 +1,14 @@
-<!-- controller/updatePayResult.php -->
 <?php
+/**
+ * 支払い情報更新結果画面表示クラス
+ * 
+ * 変更された値を元に、入力値の妥当性検証と情報の更新、更新完了画面の呼び出しをする
+ * 
+ * @access public
+ * @package controller
+ * @name updatePayResult
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

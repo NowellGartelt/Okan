@@ -1,5 +1,14 @@
-<!-- controller/referencePayResult.php -->
 <?php
+/**
+ * 支払い情報検索結果画面表示クラス
+ * 
+ * 入力された検索条件の値の妥当性検証、及び検索結果表示画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name referencePayResult
+ */
+
 session_start();
 
 // ログイン検証

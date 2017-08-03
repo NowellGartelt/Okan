@@ -1,5 +1,14 @@
-<!-- controller/referencePayForm.php -->
 <?php
+/**
+ * 支払い情報検索条件入力画面表示クラス
+ * 
+ * 支払い情報の検索条件の入力画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name referencePayForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';

@@ -1,5 +1,15 @@
-<!-- controller/forgotMemberResult.php -->
 <?php
+/**
+ * パスワード忘れ時メンバー情報検索結果画面表示クラス
+ * 
+ * パスワード忘れの場合に、メンバー情報として入力された値の妥当性チェック、パスワード再登録画面を呼び出す
+ * reRegistMemberFormを呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name forgotMemberResult
+ */
+
 session_start();
 
 // 入力情報の取得

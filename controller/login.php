@@ -1,5 +1,14 @@
-<!-- controller/login.php -->
 <?php
+/**
+ * ログイン画面表示クラス
+ * 
+ * ログイン画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name login
+ */
+
 session_start();
 
 $hat = array(

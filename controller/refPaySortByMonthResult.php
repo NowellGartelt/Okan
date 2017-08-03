@@ -1,5 +1,14 @@
-<!-- controller/refPaySortByMonthResult.php -->
 <?php
+/**
+ * まとめて支払い検索(月ごと)検索結果画面表示クラス
+ * 
+ * まとめて支払い検索(月ごと)の検索条件として入力された値の妥当性チェック、検索結果の表示画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name refPaySortByMonthResult
+ */
+
 session_start();
 
 // ログイン検証

@@ -1,5 +1,14 @@
-<!-- controller/refPayAndIncReportResult.php -->
 <?php
+/**
+ * おこづかいレポート検索結果画面表示クラス
+ * 
+ * おこづかいレポート検索時、入力された値の妥当性チェック、検索結果を表示する画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name refPayAndIncReportResult
+ */
+
 session_start();
 
 // ログイン検証

@@ -1,5 +1,14 @@
-<!-- controller/updatePayForm.php -->
 <?php
+/**
+ * 支払い情報更新画面表示クラス
+ * 
+ * 登録済み支払い情報を呼び出し、支払い情報更新画面を呼び出す
+ * 
+ * @access public
+ * @package controller
+ * @name updatePayForm
+ */
+
 session_start();
 
 include '../model/tools/judgeIsLogined.php';
