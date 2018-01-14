@@ -22,6 +22,7 @@ $payCategory = $_POST['payCategory'];
 $payDate = $_POST['payDate'];
 $payState = $_POST['payState'];
 $id = $_POST['ID'];
+$tax = $_POST['tax'];
 
 if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     // 入力項目不足でエラー、入力画面に戻す
@@ -42,7 +43,17 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payment = htmlspecialchars($payment, ENT_QUOTES);
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
-
+    $tax = htmlspecialchars($tax, ENT_QUOTES);
+    
+    // 税別チェックボックスにチェックが入ってるとき、自動で税率計算を行う
+    // 消費税分を掛け算、小数点以下を切り捨てる
+    if ($tax == "noTax") {
+        include 'tools/taxCalc.php';
+        $taxCalc = new taxCalc();
+        $payment = $taxCalc -> taxCalc($payment);
+        
+    }
+    
     include '../model/updatePayByTrans.php';
     
     $result = new updatePayByTrans();

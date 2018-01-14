@@ -24,6 +24,7 @@ $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
 $payState = $_POST['payState'];
 $payDate = $_POST['payDate'];
+$tax = $_POST['tax'];
 
 if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     // 入力項目不足でエラー、入力画面に戻す
@@ -42,8 +43,18 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
     $payment = htmlspecialchars($payment, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
+    $tax = htmlspecialchars($tax, ENT_QUOTES);
  
     $registDate = date("Y-m-d H:i:s");
+    
+    // 税別チェックボックスにチェックが入ってるとき、自動で税率計算を行う
+    // 消費税分を掛け算、小数点以下を切り捨てる
+    if ($tax == "noTax") {
+        include 'tools/taxCalc.php';
+        $taxCalc = new taxCalc();
+        $payment = $taxCalc -> taxCalc($payment);
+        
+    }
     
     include '../model/registPayByTrans.php';
     

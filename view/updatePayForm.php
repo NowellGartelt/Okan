@@ -29,20 +29,24 @@
     <table>
      <tbody>
       <tr>
-       <td>使ったものは？：</td>
-       <td><input type="text" name="payName" value=<?php echo $payInfo['payName']; ?>></td>
+       <td>いつ？※：</td>
+       <td><input type="date" name="payDate" value=<?php echo $payInfo['payDate']; ?>></td>
       </tr>
       <tr>
-       <td>いくら？：</td>
+       <td>いくら？※：</td>
        <td><input type="number" name="payment" value=<?php echo $payInfo['payment']; ?>></td>
       </tr>
       <tr>
-       <td>カテゴリは？：</td>
-       <td><input type="text" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>></td>
+       <td>税別？：</td>
+       <td><input type="checkbox" name="tax" value="noTax"></td>
       </tr>
       <tr>
-       <td>いつ？：</td>
-       <td><input type="date" name="payDate" value=<?php echo $payInfo['payDate']; ?>></td>
+       <td>使ったものは？※：</td>
+       <td><input type="text" name="payName" value=<?php echo $payInfo['payName']; ?>></td>
+      </tr>
+      <tr>
+       <td>カテゴリは？※：</td>
+       <td><input type="text" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>></td>
       </tr>
       <tr>
        <td>一言メモ：</td>
