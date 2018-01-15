@@ -15,12 +15,15 @@
   </div>
   <div align="center">
    <p>Okan：登録(もらったお金)</p><br>
-<?php if($errorInputInc == false) { ?>
-   <p>いくら稼いだの？？</p>
-   <p>まっとうにちゃんと働きなさいよね</p><br>
-<?php } elseif ($errorInputInc == true) { ?>
+<?php if($errorInputInc == "lackInput") { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
+<?php } elseif ($errorInputInc == "minusInput") { ?>
+   <p>ちょっと、金額がマイナスになってるわよ？</p>
+   <p>もういっかい確認しなさいよね</p><br>
+<?php } else { ?>
+   <p>いくら稼いだの？？</p>
+   <p>まっとうにちゃんと働きなさいよね</p><br>
 <?php } ?>
    <img src="cosmetics/img/okan.gif">
    <br><br>

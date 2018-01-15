@@ -24,9 +24,19 @@ $payState = $_POST['payState'];
 $id = $_POST['ID'];
 $tax = $_POST['tax'];
 
-if($payName == "" || $payment == "" || $payCategory == "" || $payDate == ""){
-    // 入力項目不足でエラー、入力画面に戻す
-    $_SESSION["errorInputPay"] = true;
+// エラー値の初期化
+$_SESSION["errorInputPay"] = "";
+$errorInputPay = "";
+
+// 入力値チェック
+if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $payment < 0){
+    if ($payment < 0) {
+        // 入力値不正でエラー、入力画面に戻す
+        $_SESSION["errorInputPay"] = "minusInput";
+    } else {
+        // 入力項目不足でエラー、入力画面に戻す
+        $_SESSION["errorInputPay"] = "lackInput";
+    }
     $errorInputPay = $_SESSION["errorInputPay"];
 
     include '../model/searchPayByID.php';

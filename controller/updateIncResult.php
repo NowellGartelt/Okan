@@ -23,9 +23,19 @@ $incDate = $_POST['incDate'];
 $incState = $_POST['incState'];
 $id = $_POST['ID'];
 
-if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
-    // 入力項目不足でエラー、入力画面に戻す
-    $_SESSION["errorInputInc"] = true;
+// エラー値の初期化
+$_SESSION["errorInputInc"] = "";
+$errorInputInc = "";
+
+// 入力値チェック
+if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $income){
+    if ($income < 0) {
+        // 入力値不正でエラー、入力画面に戻す
+        $_SESSION["errorInputInc"] = "minusInput";
+    } else {
+        // 入力項目不足でエラー、入力画面に戻す
+        $_SESSION["errorInputInc"] = "lackInput";
+    }
     $errorInputInc = $_SESSION["errorInputInc"];
 
     include '../model/searchIncByID.php';

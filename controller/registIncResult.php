@@ -24,9 +24,19 @@ $incCategory = $_POST['incCategory'];
 $incState = $_POST['incState'];
 $incDate = $_POST['incDate'];
 
-if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""){
-    // 入力項目不足でエラー、入力画面に戻す
-    $_SESSION["errorInputInc"] = true;
+// エラー値の初期化
+$_SESSION["errorInputInc"] = "";
+$errorInputInc = "";
+
+// 入力値チェック
+if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $income < 0){
+    if ($income < 0) {
+        // 入力値不正でエラー、入力画面に戻す
+        $_SESSION["errorInputInc"] = "minusInput";
+    } else {
+        // 入力項目不足でエラー、入力画面に戻す
+        $_SESSION["errorInputInc"] = "lackInput";
+    }
     $errorInputInc = $_SESSION["errorInputInc"];
  
     include '../view/registIncForm.php';
