@@ -24,6 +24,7 @@ $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
 $payState = $_POST['payState'];
 $payDate = $_POST['payDate'];
+$taxFlg = $_POST['taxFlg'];
 $tax = $_POST['tax'];
 
 // エラー値の初期化
@@ -44,25 +45,27 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     include '../view/registPayForm.php';
     
 } else {
-    $_SESSION["errorInputPay"] = false;
-    $errorInputPay = $_SESSION["errorInputPay"];
-
     // スクリプト挿入攻撃、XSS対策
     // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $payName = htmlspecialchars($payName, ENT_QUOTES);
     $payment = htmlspecialchars($payment, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
+    $taxFlg = htmlspecialchars($taxFlg, ENT_QUOTES);
     $tax = htmlspecialchars($tax, ENT_QUOTES);
  
     $registDate = date("Y-m-d H:i:s");
     
-    // 税別チェックボックスにチェックが入ってるとき、自動で税率計算を行う
+    // 税率が入力されてるとき、自動で税率計算を行う
     // 消費税分を掛け算、小数点以下を切り捨てる
-    if ($tax == "noTax") {
+    if ($taxFlg == 1) {
         include 'tools/taxCalc.php';
         $taxCalc = new taxCalc();
-        $payment = $taxCalc -> taxCalc($payment);
+        $payment = $taxCalc -> taxCalc($payment, $tax);
+        
+    } else {
+        $taxFlg = 0;
+        $tax = 0;
         
     }
     
@@ -70,7 +73,8 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     
     $result = new registPayByTrans();
     $registPayByTrans = $result -> registPayByTrans($loginID, $payName, 
-            $payment, $payCategory, $payState, $payDate, $registDate);
+            $payment, $payCategory, $payState, $payDate, $registDate, 
+            $taxFlg, $tax);
     $payInfo = $registPayByTrans;
     
 $query_kogotoList = <<<__SQL

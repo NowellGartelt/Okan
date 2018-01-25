@@ -33,26 +33,32 @@
      <tbody>
       <tr>
        <td>いつ？※：</td>
+       <td></td>
        <td><input type="date" name="payDate" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
+       <td></td>
        <td><input type="number" name="payment"></td>
       </tr>
       <tr>
-       <td>税別？：</td>
-       <td><input type="checkbox" name="tax" value="noTax"></td>
+       <td>税率？：</td>
+       <td><input type="checkbox" name="taxFlg" value=1></td>
+       <td><input type="number" name="tax" value="<?php echo $tax; ?>"> %</td>
       </tr>
       <tr>
        <td>使ったものは？※：</td>
+       <td></td>
        <td><input type="text" name="payName"></td>
       </tr>
       <tr>
        <td>カテゴリは？※：</td>
+       <td></td>
        <td><input type="text" name="payCategory"></td>
       </tr>
       <tr>
        <td>一言メモ：</td>
+       <td></td>
        <td><input type="text" name="payState"></td>
       </tr>
      </tbody>

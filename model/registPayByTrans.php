@@ -9,9 +9,11 @@ class registPayByTrans {
     private $payState = null;
     private $payDate = null;
     private $registDate = null;
+    private $taxFlg = null;
+    private $tax = null;
   
     public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
-            $payState, $payDate, $registDate){
+            $payState, $payDate, $registDate, $taxFlg, $tax){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         
@@ -22,6 +24,8 @@ class registPayByTrans {
         $this->payDate = $payDate;
         $this->payState = $payState;
         $this->id = $id;
+        $this->taxFlg = $taxFlg;
+        $this->tax = $tax;
 
         if ($loginID == "" || $payName == "" || $payment == "" || 
                 $payCategory == "" || $payDate == "" || $registDate == "") {
@@ -31,9 +35,9 @@ class registPayByTrans {
             // 支出情報の登録
             $query_registPay =
                 "INSERT INTO paymentTable (
-                payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID)
+                payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID, taxFlg, tax)
                 VALUES (
-                '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID')";
+                '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID', $taxFlg, $tax)";
             $result_registPayInfo = mysqli_query($link, $query_registPay);
             $paymentInfo = mysqli_fetch_array($result_registPayInfo);
             

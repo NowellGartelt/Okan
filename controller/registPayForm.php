@@ -17,6 +17,7 @@ $judgeIsLoginedAction = new judgeIsLogined();
 $loginID = $_SESSION['loginID'];
 
 $errorInputPay = $_SESSION["errorInputPay"];
+$tax = 8;
 
 include '../view/registPayForm.php';
 ?>

@@ -15,12 +15,16 @@
  */
 
 class taxCalc {
-    private $payment;
+    private $payment = null;
+    private $tax = null;
     
-    public function taxCalc($payment) {
+    public function taxCalc($payment, $tax) {
         $this->payment = $payment;
-        $tax = 0.08;
+        $this->tax = $tax;
+        
+        $tax = $tax / 100;
         $payment = (int) floor($payment + ($payment * $tax));
+
         return $payment;
         
     }
