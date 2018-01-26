@@ -45,6 +45,10 @@
        <td><input type="password" name="password"></td>
       </tr>
       <tr>
+       <td>デフォルトで使う税率は？：</td>
+       <td><input type="number" name="defTax"> %</td>
+      </tr>
+      <tr>
        <td>秘密の質問は？※：</td>
        <td><input type="text" name="question"></td>
       </tr>

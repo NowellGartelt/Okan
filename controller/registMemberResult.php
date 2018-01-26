@@ -19,6 +19,8 @@ $password = $_POST['password'];
 $name = $_POST['name'];
 $question = $_POST['question'];
 $answer = $_POST['answer'];
+$defTax = $_POST['defTax'];
+
 // Admin権限の有無、現時点では使用しない
 $isAdmin = 0;
 
@@ -91,7 +93,7 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
 
                 // メンバー情報登録処理
                 $result = new registMember();
-                $registMember = $result -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer);
+                $registMember = $result -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
                 $registInfo = $registMember;
 
                 include '../view/registMemberResult.php';
