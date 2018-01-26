@@ -10,7 +10,9 @@
  * @package controller/tools
  * @name taxCalc
  * @var int $payment
+ * @var int $tax
  * @param int $payment
+ * @param int $tax
  * @return int $payment
  */
 

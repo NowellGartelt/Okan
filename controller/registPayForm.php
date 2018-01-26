@@ -17,7 +17,11 @@ $judgeIsLoginedAction = new judgeIsLogined();
 $loginID = $_SESSION['loginID'];
 
 $errorInputPay = $_SESSION["errorInputPay"];
-$tax = 8;
+
+// ユーザのデフォルト税率設定の取得
+include '../model/searchDefTaxByID.php';
+$searchDefTaxByID = new searchDefTaxByID();
+$tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
 
 include '../view/registPayForm.php';
 ?>
