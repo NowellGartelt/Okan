@@ -7,6 +7,7 @@
  * @access public
  * @package controller
  * @name updateMemberResult
+ * 
  */
 
 session_start();
@@ -19,32 +20,37 @@ $loginID = $_SESSION['loginID'];
 // 入力情報の取得
 $userID = $_POST['userID'];
 $nameAfter = $_POST['name'];
-$loginIDAfter = $_POST['loginID'];
+$logIDAfter = $_POST['loginID'];
 $passwordAfter = $_POST['password'];
+$taxAfter = $_POST['tax'];
 
 // 現在の登録情報の取得
 $nameBefore = $_POST['nameBefore'];
-$loginIDBefore = $_POST['loginIDBefore'];
+$logIDBefore = $_POST['loginIDBefore'];
 $passwordBefore = $_POST['passwordBefore'];
+$taxBefore = $_POST['taxBefore'];
 
 // 変更実施の有無のフラグリセット
-$errorFlg = false;
-$chkChangeNameFlg = false;
-$changelogIDFlg = false;
-$chkChangePassFlg = false;
-$changeNameFlg = false;
-$changelogIDFlg = false;
-$changePasswordFlg = false;
+$errFlg = false;
+$chkChgNameFlg = false;
+$chgNameFlg = false;
+$chkChgLogIDFlg = false;
+$chgLogIDFlg = false;
+$chkChgPassFlg = false;
+$chgPassFlg = false;
+$chkChgTaxFlg = false;
+$chgTaxFlg = false;
 
-$errorNoStatusChange = false;
-$errorShortLoginID = false;
-$errorRegistedLoginID = false;
-$errorPasswordCondition = false;
+$errNoStatusChg = false;
+$errShortLoginID = false;
+$errRegistedLoginID = false;
+$errPassCondition = false;
+$errTaxRange = false;
 
 // 名前、ログインID、パスワードのいずれも変更がなかった場合
 // 変更なしエラーで入力画面に戻す
-if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
-    $errorNoStatusChange = true;
+if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
+    $errNoStatusChg = true;
     
     include '../model/searchMemberByID.php';
     
@@ -52,35 +58,44 @@ if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
     $searchMemberByID = $result -> searchMemberByID($loginID);
     $memberInfo = $searchMemberByID;
     
-    $errorFlg = true;
+    $errFlg = true;
     include '../view/updateMemberForm.php';
     
 } else {
     // 新名前と旧名前が一致しない場合
     // 名前変更チェックフラグを立てる
     if ($nameAfter !== "" && $nameAfter !== $nameBefore) {
-        $chkChangeNameFlg = true;        
+        $chkChgNameFlg = true;        
     }
     // 新ログインIDと旧ログインIDが一致しない場合
     // ログインID変更チェックフラグを立てる
-    if ($loginIDAfter !== "" && $loginIDAfter !== $loginIDBefore) {
-        $chkChangeLogIDFlg = true;
+    if ($logIDAfter !== "" && $logIDAfter !== $logIDBefore) {
+        $chkChgLogIDFlg = true;
     }
     
     // パスワードの変更の有無の確認
     // 新パスワードと旧パスワードが一致すうるかどうかを確認
-    $passwordCheck = password_verify($passwordAfter, $passwordBefore);
+    $passwordChk = password_verify($passwordAfter, $passwordBefore);
     
     // 新パスワードと旧パスワードが一致しない場合
     // パスワード変更チェックフラグを立てる
-    if ($passwordAfter !== "" && !$passwordCheck) {
-        $chkChangePassFlg = true;
+    if ($passwordAfter !== "" && !$passwordChk) {
+        $chkChgPassFlg = true;
+    }
+    
+    // 新税率と旧税率が一致する場合、もしくは変更前が
+    // 税率変更チェックフラグを立てる
+    if ($taxAfter !== $taxBefore) {
+        $chkChgTaxFlg = true;
+    } elseif (($taxAfter == 0 || $taxAfter == "") && ($taxBefore == 0 || $taxBefore == "")) {
+        $chkChgTaxFlg = false;
     }
     
     // フラグがひとつも立っていない場合
     // 変更なしエラーで入力画面に戻す
-    if ($chkChangeNameFlg == false && $chkChangeLogIDFlg == false && $chkChangePassFlg == false) {
-        $errorNoStatusChange = true;
+    if ($chkChgNameFlg == false && $chkChgLogIDFlg == false 
+            && $chkChgPassFlg == false && $chkChgTaxFlg == false) {
+        $errNoStatusChg = true;
         
         include '../model/searchMemberByID.php';
         
@@ -88,70 +103,88 @@ if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
         $searchMemberByID = $result -> searchMemberByID($loginID);
         $memberInfo = $searchMemberByID;
         
-        $errorFlg = true;
+        $errFlg = true;
         include '../view/updateMemberForm.php';
 
     // フラグがひとつ以上立っている場合
     } else {
         // 名前変更チェックフラグが立っている場合
         // 名前変更処理フラグを立てる
-        if ($chkChangeNameFlg == true) {
-            $changeNameFlg = true;
+        if ($chkChgNameFlg == true) {
+            $chgNameFlg = true;
         }
         
         // ログインID変更チェックフラグが立っている場合
         // ログインID妥当性チェックを行う
-        if ($chkChangeLogIDFlg == true) {
-            $checkLengthLoginID = strlen($loginIDAfter);
+        if ($chkChgLogIDFlg == true) {
+            $chkLengthLoginID = strlen($logIDAfter);
             
             // ログインIDチェック、ログインIDが5文字以下の場合、エラーフラグを立てる
-            if ($checkLengthLoginID < 6) {
-                $errorShortLoginID = true;
-                $errorFlg = true;
+            if ($chkLengthLoginID < 6) {
+                $errShortLoginID = true;
+                $errFlg = true;
             
             } else {
                 include '../model/searchMemberByID.php';
             
                 // ログインIDチェック、ログインIDが登録済みかどうか確認する。
                 $result = new searchMemberByID();
-                $searchMember = $result -> searchMemberByID($loginIDAfter);
+                $searchMember = $result -> searchMemberByID($logIDAfter);
                 $memberInfo = $searchMember;
             
                 // ログインIDが登録済みだった場合、エラーフラグを立てる
                 if ($memberInfo !== null) {
-                    $errorRegistedLoginID = true;
-                    $errorFlg = true;
+                    $errRegistedLoginID = true;
+                    $errFlg = true;
                     
                 // 妥当性チェックをクリアした場合
                 // ログインID変更処理フラグを立てる
                 } else {
-                    $changeLogIDFlg = true;
+                    $chgLogIDFlg = true;
                     
                 }
             }
         }
         // パスワード変更チェックフラグが立っている場合
         // パスワードの妥当性チェックを行う
-        if ($chkChangePassFlg == true) {
+        if ($chkChgPassFlg == true) {
             // パスワードチェック、規定の文字数やフォーマットを満たしているか確認
             // 0〜9、a〜z、A〜Z、記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使用すること
             // 計6文字以上であること
-            $checkPassworCondition = preg_match('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?-_@+&])[0-9a-zA-Z!?-_@+&]{6,}$/', $passwordAfter);
+            $chkPassworCondition = preg_match(
+                    '/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?-_@+&])[0-9a-zA-Z!?-_@+&]{6,}$/', 
+                    $passwordAfter
+                    );
             
             // パスワードが条件に合致してなかった場合、エラーフラグを立てる
-            if (!$checkPassworCondition) {
-                $errorPasswordCondition = true;
-                $errorFlg = true;
+            if (!$chkPassworCondition) {
+                $errPassCondition = true;
+                $errFlg = true;
 
             // 妥当性チェックをクリアした場合、パスワード変更処理フラグを立てる
             } else {
-                $changePasswordFlg = true;
+                $chgPassFlg = true;
                 $passwordAfter = password_hash($passwordAfter, PASSWORD_DEFAULT);
                 
             }
         }
+        // 税率変更チェックフラグが立っている場合
+        // 税率チェックおよびアップデート準備をする
+        if ($chkChgTaxFlg == true) {
+            // 税率が0-100か確認、NGならエラー
+            if ($taxAfter < 0 && $taxAfter >100) {
+                $errTaxRange = true;
+                $errFlg = true;
+            } else {
+                $chgTaxFlg = true;
+                // 税率が空欄の場合、0をセット
+                if ($taxAfter == "") {
+                    $taxAfter = 0;
+                }
+            }
+        }
         // エラーフラグが立っている場合、エラーで入力画面へ戻す
-        if ($errorFlg == true) {
+        if ($errFlg == true) {
             include '../model/searchMemberByID.php';
             
             $result = new searchMemberByID();
@@ -166,13 +199,16 @@ if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
             
             // ユーザー情報変更処理呼び出し
             $result = new updateMember();
-            $resultUpdateMember = $result -> updateMember($nameAfter, $loginIDAfter, $passwordAfter, 
-                    $changeNameFlg, $changeLogIDFlg, $changePasswordFlg, $userID, $loginIDBefore);
+            $resultUpdateMember = $result -> updateMember(
+                    $nameAfter, $logIDAfter, $passwordAfter, $taxAfter, 
+                    $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
+                    $userID, $logIDBefore
+                    );
             $memberInfo = $resultUpdateMember;
             
-            if ($changeLogIDFlg == true) {
-                $_SESSION['loginID'] = $loginIDAfter;
-                $loginID = $loginIDAfter;
+            if ($chgLogIDFlg == true) {
+                $_SESSION['loginID'] = $logIDAfter;
+                $loginID = $logIDAfter;
                 
             }
             
@@ -181,6 +217,4 @@ if ($nameAfter == "" && $loginIDAfter == "" && $passwordAfter == "") {
         }
     }    
 }
-
-mysqli_close($link);
 ?>

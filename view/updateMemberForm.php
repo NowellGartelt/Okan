@@ -15,18 +15,21 @@
   </div>
   <div align="center">
    <p>Okan：メンバー情報更新</p><br>
-<?php if ($errorFlg == true) {?>
-<?php     if ($errorNoStatusChange == true) { ?>
+<?php if ($errFlg == true) {?>
+<?php     if ($errNoStatusChg == true) { ?>
    <p>ちょっと、今のヤツと何も変わってないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errorShortLoginID == true) {?>
+<?php     } elseif ($errShortLoginID == true) {?>
    <p>ちょっと、ログインIDの長さが足りないわよ？</p>
    <p>ログインID6文字以上よ。もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errorRegistedLoginID == true) {?>
+<?php     } elseif ($errRegistedLoginID == true) {?>
    <p>そのログインIDはもう使われちゃってるみたいよ？</p>
    <p>他のにしないとダメよ</p><br>
-<?php     } elseif ($errorPasswordCondition == true) { ?>
+<?php     } elseif ($errPassCondition == true) { ?>
    <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
+   <p>もういっかい確認しなさいよね</p><br>
+<?php     } else {?>
+   <p>ちょっと、デフォルト税率がおかしな値になってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php     } ?>
 <?php } else {?>
@@ -51,6 +54,10 @@
        <td>パスワードは？：</td>
        <td><input type="password" name="password"></td>
       </tr>
+      <tr>
+       <td>デフォルトの税率は？：</td>
+       <td><input type="number" name="tax" value="<?php echo $memberInfo['defTax']; ?>"> %</td>
+      </tr>
      </tbody>
     </table>
     <br>
@@ -71,6 +78,7 @@
     <input type="hidden" name="nameBefore" value=<?php echo $memberInfo['name']; ?>>
     <input type="hidden" name="loginIDBefore" value=<?php echo $memberInfo['loginID']; ?>>
     <input type="hidden" name="passwordBefore" value=<?php echo $memberInfo['loginPassword']; ?>>
+    <input type="hidden" name="taxBefore" value=<?php echo $memberInfo['defTax']; ?>>
     <button type="submit">オカンに教え直す</button>
    </form>
    <form action="../../Okan/menu.php" method="post">
