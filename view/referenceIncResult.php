@@ -28,7 +28,7 @@
       <th>名前</th>
       <th>金額</th>
       <th>カテゴリ</th>
-      <th>場所</th>
+      <th>一言メモ</th>
       <th></th>
       <th></th>
      </tr>
