@@ -6,8 +6,8 @@
 # https://github.com/sequelpro/sequelpro
 #
 # ホスト: 127.0.0.1 (MySQL 5.5.42)
-# データベース: okan
-# 作成時刻: 2017-03-25 19:38:26 +0000
+# データベース: Okan
+# 作成時刻: 2018-01-28 07:36:20 +0000
 # ************************************************************
 
 
@@ -20,13 +20,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 
+# テーブルのダンプ incCategoryTable
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `incCategoryTable`;
+
+CREATE TABLE `incCategoryTable` (
+  `categoryID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `personalID` int(11) DEFAULT NULL,
+  `categoryName` char(15) DEFAULT NULL,
+  `loginID` char(10) DEFAULT NULL,
+  `registDate` date DEFAULT NULL,
+  `updateDate` date DEFAULT NULL,
+  PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 # テーブルのダンプ incomeTable
 # ------------------------------------------------------------
 
 DROP TABLE IF EXISTS `incomeTable`;
 
 CREATE TABLE `incomeTable` (
-  `incomeID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `incomeID` int(11) NOT NULL AUTO_INCREMENT,
   `incName` char(20) NOT NULL DEFAULT '',
   `income` int(11) NOT NULL,
   `incCategory` text NOT NULL,
@@ -52,17 +69,23 @@ CREATE TABLE `kogoto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-LOCK TABLES `kogoto` WRITE;
-/*!40000 ALTER TABLE `kogoto` DISABLE KEYS */;
 
-INSERT INTO `kogoto` (`id`, `message`, `lower_payment`)
-VALUES
-	(1,'しょうがないわね、今日だけよ',0),
-	(2,'ヤバいもの買ったんじゃじゃないでしょうね？',3000),
-	(3,'高っか！　バカじゃないのアンタ！',30000);
 
-/*!40000 ALTER TABLE `kogoto` ENABLE KEYS */;
-UNLOCK TABLES;
+# テーブルのダンプ payCategoryTable
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `payCategoryTable`;
+
+CREATE TABLE `payCategoryTable` (
+  `categoryID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `personalID` int(11) DEFAULT NULL,
+  `categoryName` char(15) DEFAULT NULL,
+  `loginID` char(10) DEFAULT NULL,
+  `registDate` date DEFAULT NULL,
+  `updateDate` date DEFAULT NULL,
+  PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 
 # テーブルのダンプ paymentTable
@@ -80,6 +103,8 @@ CREATE TABLE `paymentTable` (
   `registDate` datetime NOT NULL,
   `updateDate` datetime DEFAULT NULL,
   `loginID` char(11) NOT NULL DEFAULT '',
+  `taxFlg` tinyint(1) NOT NULL,
+  `tax` tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`paymentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -101,8 +126,10 @@ CREATE TABLE `usertable` (
   `question` text NOT NULL,
   `answer` text NOT NULL,
   `deleteFlag` tinyint(1) NOT NULL DEFAULT '0',
+  `defTax` tinyint(3) NOT NULL DEFAULT '0',
   PRIMARY KEY (`userID`),
-  UNIQUE KEY `name` (`name`)
+  UNIQUE KEY `name` (`name`),
+  UNIQUE KEY `loginID` (`loginID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
 
