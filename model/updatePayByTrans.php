@@ -12,6 +12,11 @@ class updatePayByTrans {
     private $taxFlg = null;
     private $tax = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function updatePayByTrans($loginID, $payName, $payment, $payCategory, 
             $payDate, $payState, $id, $taxFlg, $tax){
         // DB接続情報取得

@@ -12,6 +12,11 @@ class registMember {
     private $query_registIncInfo = null;
     // private $memberInfo = null;
 
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function registMember($loginID, $password, $name, $registDate, $isAdmin, 
             $question, $answer, $defTax) {
         // DB接続情報取得

@@ -9,6 +9,11 @@ class searchPayByDay {
     private $payDateTo = null;
     private $choiceKey = null;
     
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchPayByDay($loginID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey) {
 	    // DB接続情報取得

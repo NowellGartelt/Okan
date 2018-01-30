@@ -25,6 +25,11 @@ class taxCalc {
     private $payment = null;
     private $tax = null;
     
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function taxCalc($payment, $tax) {
         $this->payment = $payment;
         $this->tax = $tax;

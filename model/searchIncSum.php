@@ -5,6 +5,11 @@ class searchIncSum {
     private $incDateFrom = null;
     private $incDateTo = null;
     
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchIncSum($loginID, $incDateFrom, $incDateTo) {
 	    // DB接続情報取得
 		include '../model/tools/databaseConnect.php';

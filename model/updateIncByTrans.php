@@ -10,6 +10,11 @@ class updateIncByTrans {
     private $incState = null;
     private $id = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function updateIncByTrans($loginID, $incName, $income, $incCategory, 
             $incDate, $incState, $id){
         // DB接続情報取得

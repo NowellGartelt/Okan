@@ -49,6 +49,11 @@ class updateMember {
     private $chgTaxFlg = null;
     private $userID = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function updateMember($name, $loginID, $password, $tax, 
             $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
             $userID, $logIDBefore){

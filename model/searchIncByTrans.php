@@ -10,6 +10,11 @@ class searchIncByTrans {
     private $incDateFrom = null;
     private $incDateTo = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchIncByTrans($loginID, $incName, $incCategory, 
             $incState, $incDateFrom, $incDateTo){
         // DB接続情報取得

@@ -4,6 +4,11 @@ class searchMemberByLogIdAndPass {
     private $loginID = null;
     private $loginPassword = null;
  
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchMemberByLogIdAndPass($loginID, $loginPassword){
         include '../model/tools/databaseConnect.php';
 

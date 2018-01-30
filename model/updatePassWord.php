@@ -4,6 +4,11 @@ class updatePassWord {
     private $loginID = null;
     private $password = null;
     
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function updatePassWord($loginID, $password){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';

@@ -10,6 +10,11 @@ class searchPayByTrans {
     private $payDateFrom = null;
     private $payDateTo = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchPayByTrans($loginID, $payName, $payCategory, 
             $payState, $payDateFrom, $payDateTo){
         // DB接続情報取得

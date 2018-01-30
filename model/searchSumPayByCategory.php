@@ -6,6 +6,11 @@ class searchSumPayByCategory {
     private $payDateFrom = null;
     private $payDateTo = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchSumPayByCategory($loginID, $payDateFrom, $payDateTo){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';

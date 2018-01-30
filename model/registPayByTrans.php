@@ -12,6 +12,11 @@ class registPayByTrans {
     private $taxFlg = null;
     private $tax = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
             $payState, $payDate, $registDate, $taxFlg, $tax){
         // DB接続情報取得

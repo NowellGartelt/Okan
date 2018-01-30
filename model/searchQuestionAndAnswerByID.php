@@ -4,6 +4,11 @@ class searchQuestionAndAnswerByID {
     // 変数初期化
     private $loginID = null;
  
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function searchQuestionAndAnswerByID($loginID){
         // DB接続情報
         include '../model/tools/databaseConnect.php';

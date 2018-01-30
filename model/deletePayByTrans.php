@@ -5,6 +5,11 @@ class deletePayByTrans {
     private $query_registPayInfo = null;
     private $id = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function deletePayByTrans($loginID, $id){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';

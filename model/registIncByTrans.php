@@ -10,6 +10,11 @@ class registIncByTrans {
     private $incDate = null;
     private $registDate = null;
   
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
+    
     public function registIncByTrans($loginID, $incName, $income, $incCategory, 
             $incState, $incDate, $registDate){
         // DB接続情報取得
