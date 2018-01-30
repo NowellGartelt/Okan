@@ -7,13 +7,21 @@
  * @access public
  * @package model
  * @name searchDefTaxByID
- * @var 
+ * @var string $loginID
+ * @var int $defTax
+ * @param string $loginID
+ * @return int $getDefTax
  * 
  */
 
 class searchDefTaxByID {
     private $loginID = null;
     private $defTax = null;
+    
+    // コンストラクタ、何もしない
+    public function __construct() {
+        
+    }
     
     public function searchDefTaxByID($loginID) {
         $this->loginID = $loginID;
