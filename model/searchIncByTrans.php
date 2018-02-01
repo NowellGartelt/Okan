@@ -1,7 +1,25 @@
-<!-- model/searchIncByTrans.php -->
 <?php
+/**
+ * 収入情報検索クエリ実行クラス
+ * 
+ * 各種収入情報を受け取り、DBに検索するクエリを実行する
+ * 
+ * @author NowellGartelt
+ * @access public
+ * @package model
+ * @name searchIncByTrans
+ * 
+ * @var string $loginID ログインID
+ * @var string $query_refInc 収入情報検索クエリ
+ * @var string $incName 収入名
+ * @var string $incCategory 収入カテゴリ
+ * @var string $incState 収入一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
+ * @var DateTime $incDateFrom 収入日(開始)
+ * @var DateTime $incDateTo 収入日(終了)
+ */
+
 class searchIncByTrans {
-    // 変数初期化
+    // インスタンス変数の定義
     private $loginID = null;
     private $query_refInc = null;
     private $incName = null;
@@ -10,11 +28,30 @@ class searchIncByTrans {
     private $incDateFrom = null;
     private $incDateTo = null;
   
-    // コンストラクタ、何もしない
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * 収入情報検索クエリ実行関数
+     * 
+     * 各種収入情報を受け取り、DBに検索するクエリを実行する
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @param string $incName 収入名
+     * @param string $incCategory 収入カテゴリ
+     * @param string $incState 収入一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
+     * @param DateTime $incDateFrom 収入日(開始)
+     * @param DateTime $incDateTo 収入日(終了)
+     * @return array $result_list 収入情報
+     */
     public function searchIncByTrans($loginID, $incName, $incCategory, 
             $incState, $incDateFrom, $incDateTo){
         // DB接続情報取得
@@ -207,9 +244,10 @@ class searchIncByTrans {
         while($row = mysqli_fetch_assoc($result_refInc)) {
             array_push($result_list, $row);
         }
+        
+        // DB切断
         mysqli_close($link);
 
         return $result_list;
     }
 }
-?>

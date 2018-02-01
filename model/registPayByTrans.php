@@ -1,6 +1,27 @@
-<!-- model/registPayByTrans.php -->
 <?php
+/**
+ * 支出情報登録クエリ実行クラス
+ * 
+ * 支出情報を受け取り、DBに登録するクエリを実行する
+ * 
+ * @author NowellGartelt
+ * @access public
+ * @package model
+ * @name registPayByTrans
+ * @var string $loginID ログインID
+ * @var string $query_registPayInfo 支出情報登録クエリ
+ * @var string $payName 支出名
+ * @var int $payment 支出額
+ * @var string $payCategory 支出カテゴリ
+ * @var string $payState 支出情報一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
+ * @var DateTime $payDate 支出日
+ * @var DateTime $registDate 登録日
+ * @var int $taxFlg 税別フラグ
+ * @var int $tax 税率
+ */
+
 class registPayByTrans {
+    // インスタンス変数の定義
     private $loginID = null;
     private $query_registPayInfo = null;
     private $payName = null;
@@ -11,12 +32,34 @@ class registPayByTrans {
     private $registDate = null;
     private $taxFlg = null;
     private $tax = null;
-  
-    // コンストラクタ、何もしない
+    
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * 支出情報登録クエリ実行関数
+     * 
+     * 支出情報を受け取り、DBに登録するクエリを実行する
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @param string $payName 支出名
+     * @param int $payment 支出額
+     * @param string $payCategory 支出カテゴリ
+     * @param string $payState 支出情報一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
+     * @param DateTime $payDate 支出日
+     * @param DateTime $registDate 登録日
+     * @param int $taxFlg 税別フラグ
+     * @param int $tax 税率
+     * @return array $paymentInfo クエリ実行結果
+     */
     public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
             $payState, $payDate, $registDate, $taxFlg, $tax){
         // DB接続情報取得
@@ -48,9 +91,9 @@ class registPayByTrans {
             
         }
         
+        // DB切断
         mysqli_close($link);
         
         return $paymentInfo;
     }
 }
-?>

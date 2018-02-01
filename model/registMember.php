@@ -1,6 +1,27 @@
-<!-- model/registMember.php -->
 <?php
+/**
+ * メンバー情報登録クエリ実行クラス
+ * 
+ * メンバー情報を受け取り、DBに登録するクエリを実行する
+ * 
+ * @author NowellGartelt
+ * @access public
+ * @package model
+ * @name registMember
+ * @var string $loginID ログインID
+ * @var string $passward パスワード
+ * @var string $name ユーザ名
+ * @var DateTime $registDate 登録日
+ * @var boolean $isAdmin 管理者判定
+ * @var string $question 秘密の質問
+ * @var string $answer 秘密の質問の答え
+ * @var int $defTax デフォルト税率
+ * @var string $query_registMember メンバー情報登録クエリ
+ * @var array $memberInfo クエリ実行結果
+ */
+
 class registMember {
+    // インスタンス変数の定義
     private $loginID = null;
     private $password = null;
     private $name = null;
@@ -9,14 +30,35 @@ class registMember {
     private $question = null;
     private $answer = null;
     private $defTax = null;
-    private $query_registIncInfo = null;
-    // private $memberInfo = null;
-
-    // コンストラクタ、何もしない
+    private $query_registMember = null;
+    private $memberInfo = null;
+    
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * メンバー情報登録クエリ実行関数
+     * 
+     * メンバー情報を受け取り、DBに登録するクエリを実行する
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @param string $passward パスワード
+     * @param string $name ユーザー名
+     * @param DateTime $registDate 登録日
+     * @param boolean $isAdmin 管理者判定
+     * @param string $question 秘密の質問
+     * @param string $answer 秘密の質問の答え
+     * @param int $defTax デフォルト税率
+     * @return array $memberInfo クエリ実行結果
+     */
     public function registMember($loginID, $password, $name, $registDate, $isAdmin, 
             $question, $answer, $defTax) {
         // DB接続情報取得
@@ -47,9 +89,9 @@ class registMember {
 
         }
         
+        // DB切断
         mysqli_close($link);
         
         return $memberInfo;
     }
 }
-?>

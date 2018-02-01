@@ -1,7 +1,25 @@
-<!-- model/searchPayByMonth.php -->
 <?php
+/**
+ * 月ごとの支出情報検索クエリ実行クラス
+ * 
+ * 支出情報を受け取り、DBに検索するクエリを実行する
+ * 月ごとの検索結果を返す
+ * 
+ * @author NowellGartelt
+ * @access public
+ * @package model
+ * @name searchPayByMonth
+ * @var string $loginID ログインID
+ * @var string $query_refPay 支出情報検索クエリ
+ * @var string $payName 支出名
+ * @var string $payCategory 支出カテゴリ 
+ * @var DateTime $payDateFrom 支出日(開始)
+ * @var DateTime $payDateTo 支出日(終了)
+ * @var string $choiceKey 検索方法
+ */
+
 class searchPayByMonth {
-    // 変数初期化
+    // インスタンス変数の定義
     private $loginID = null;
     private $query_refPay = null;
     private $payName = null;
@@ -10,11 +28,31 @@ class searchPayByMonth {
     private $payDateTo = null;
     private $choiceKey = null;
  
-    // コンストラクタ、何もしない
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * 月ごとの支出情報検索クエリ実行関数
+     * 
+     * 支出情報を受け取り、DBに検索するクエリを実行する
+     * 月ごとの検索結果を返す
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @param string $payName 支出名
+     * @param string $payCategory 支出カテゴリ 
+     * @param DateTime $payDateFrom 支出日(開始)
+     * @param DateTime $payDateTo 支出日(終了)
+     * @param string $choiceKey 検索方法
+     * @return array $result_list 支出情報
+     */
     public function searchPayByMonth($loginID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey) {
         // DB接続情報取得
@@ -100,9 +138,9 @@ class searchPayByMonth {
         // 開始日と終了日が一致しない限り繰り返し実行する
         } while ($payDateFrom !== $payDateTo);
         
+        // DB切断
         mysqli_close($link);
 
         return $result_list;
     }
 }
-?>

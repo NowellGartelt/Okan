@@ -8,7 +8,6 @@
  * @access public
  * @package model
  * @name updateMember
- * 
  * @var string $query_updateMemberInfo メンバー情報を更新するクエリ
  * @var string $name ユーザ名(更新後)
  * @var string $loginID ログインID(更新後)
@@ -20,23 +19,10 @@
  * @var boolean $chgPassFlg パスワード変更フラグ
  * @var boolean $chgTaxFlg デフォルト税率変更フラグ
  * @var int $userID ユーザID(変更不可)
- * 
- * @param string $name ユーザ名(更新後)
- * @param string $loginID ログインID(更新後)
- * @param string $password パスワード(更新後)
- * @param int $tax デフォルト税率(更新後)
- * @param boolean $chgNameFlg ユーザ名変更フラグ
- * @param boolean $chgLogIDFlg ログインID変更フラグ
- * @param boolean $chgPassFlg パスワード変更フラグ
- * @param boolean $chgTaxFlg デフォルト税率変更フラグ
- * @param int $userID ユーザID(変更不可)
- * @param string $logIDBefore ログインID(変更前)
- * 
- * @return array $memberInfo SQL実行結果
- *
  */
 
 class updateMember {
+    // インスタンス変数の定義
     private $query_updateMemberInfo = null;
     private $name = null;
     private $loginID = null;
@@ -48,12 +34,34 @@ class updateMember {
     private $chgPassFlg = null;
     private $chgTaxFlg = null;
     private $userID = null;
-  
-    // コンストラクタ、何もしない
+    
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * メンバー情報更新関数
+     * 
+     * メンバー情報の更新のため、DBにアクセスするためのクラス
+     * 
+     * @param string $name ユーザ名(更新後)
+     * @param string $loginID ログインID(更新後)
+     * @param string $password パスワード(更新後)
+     * @param int $tax デフォルト税率(更新後)
+     * @param boolean $chgNameFlg ユーザ名変更フラグ
+     * @param boolean $chgLogIDFlg ログインID変更フラグ
+     * @param boolean $chgPassFlg パスワード変更フラグ
+     * @param boolean $chgTaxFlg デフォルト税率変更フラグ
+     * @param int $userID ユーザID(変更不可)
+     * @param string $logIDBefore ログインID(変更前)
+     * @return array $memberInfo SQL実行結果
+     */
     public function updateMember($name, $loginID, $password, $tax, 
             $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
             $userID, $logIDBefore){
@@ -338,9 +346,10 @@ class updateMember {
                 
             }
         }
+
+        // DB切断
         mysqli_close($link);
         
         return $memberInfo;
     }
 }
-?>

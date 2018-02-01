@@ -1,16 +1,45 @@
-<!-- model/searchSumPayByCategory.php -->
 <?php
+/**
+ * カテゴリ別支出総額検索クエリ実行クラス
+ * 
+ * ログインID、支出日(開始)、支出日(終了)を受け取り、DBにカテゴリ別の支出総額を検索するクエリを実行する
+ * 
+ * @author NowellGartelt
+ * @access public
+ * @package model
+ * @name searchSumPayByCategory
+ * @var string $loginID ログインID
+ * @var DateTime $payDateFrom 支出日(開始)
+ * @var DateTime $payDateTo 支出日(終了)
+ */
+
 class searchSumPayByCategory {
-    // 変数初期化
+    // インスタンス変数の定義
     private $loginID = null;
     private $payDateFrom = null;
     private $payDateTo = null;
   
-    // コンストラクタ、何もしない
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * カテゴリ別支出総額検索クエリ実行関数
+     * 
+     * ログインID、支出日(開始)、支出日(終了)を受け取り、DBにカテゴリ別の支出総額を検索するクエリを実行する
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @param DateTime $payDateFrom 支出日(開始)
+     * @param DateTime $payDateTo 支出日(終了)
+     * @return array $paymentInfo カテゴリ別支出総額
+     */
     public function searchSumPayByCategory($loginID, $payDateFrom, $payDateTo){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
@@ -38,10 +67,10 @@ class searchSumPayByCategory {
                 array_push($paymentInfo, $row);
             }
         }
-
+        
+        // DB切断
         mysqli_close($link);
         
         return $paymentInfo;
     }
 }
-?>

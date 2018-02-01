@@ -4,25 +4,37 @@
  * 
  * ユーザIDを元に、当該ユーザのデフォルト設定された税率を取得する
  * 
+ * @author NowellGartelt
  * @access public
  * @package model
  * @name searchDefTaxByID
- * @var string $loginID
- * @var int $defTax
- * @param string $loginID
- * @return int $getDefTax
- * 
+ * @var string $loginID ログインID
+ * @var int $defTax デフォルト税率
  */
 
 class searchDefTaxByID {
     private $loginID = null;
     private $defTax = null;
     
-    // コンストラクタ、何もしない
+    /**
+     * コンストラクタ
+     * 何もしない
+     *
+     * @access public
+     */
     public function __construct() {
         
     }
     
+    /**
+     * デフォルト税率検索クエリ実行関数
+     * 
+     * ユーザIDを元に、当該ユーザのデフォルト設定された税率を取得する
+     * 
+     * @access public
+     * @param string $loginID ログインID
+     * @return int $getDefTax 取得したデフォルト税率
+     */
     public function searchDefTaxByID($loginID) {
         $this->loginID = $loginID;
         
@@ -34,7 +46,8 @@ class searchDefTaxByID {
         $getDefTax = $row['defTax'];
         
         return $getDefTax;
-
+        
+        // DB切断
         mysqli_close($link);
     }
 }
