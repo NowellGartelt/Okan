@@ -3,10 +3,12 @@
  * ログイン処理クラス
  *
  * ログイン画面で入力された情報に基づき、情報の妥当性の検証とログイン処理を行う
- *
+ * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name loginActon
+ * 
  */
 
 session_start();
@@ -24,8 +26,8 @@ if (empty($loginID) || empty($loginPassword)) {
     include '../../Okan/controller/login.php';
 
 } else {
-    $checkLoginAction = new searchMemberByLogIdAndPass($loginID, $loginPassword);
-    $login = $checkLoginAction -> searchMemberByLogIdAndPass($loginID, $loginPassword);
+    $searchMemberByLogIdAndPass = new searchMemberByLogIdAndPass();
+    $login = $searchMemberByLogIdAndPass -> searchMemberByLogIdAndPass($loginID, $loginPassword);
 
     if ($login == 'login') {
         $_SESSION['login'] = 'login';
