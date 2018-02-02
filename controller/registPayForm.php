@@ -23,6 +23,7 @@ include '../model/searchDefTaxByID.php';
 $searchDefTaxByID = new searchDefTaxByID();
 $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
 
+// 支払方法一覧の取得
 include '../model/searchMethodOfPayment.php';
 $searchMethodOfPayment = new searchMethodOfPayment();
 $mopList = $searchMethodOfPayment -> getMethodOfPayment();
