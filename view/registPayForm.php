@@ -57,6 +57,21 @@
        <td><input type="text" name="payCategory"></td>
       </tr>
       <tr>
+       <td>支払い方法は？</td>
+       <td></td>
+       <td>
+        <select name="mop">
+<?php
+foreach ($mopList as &$mop) {
+?>
+         <option value="<?php echo $mop['mopID']; ?>"><?php echo $mop['paymentName']; ?></option>
+<?php
+}
+?>
+        </select>
+       </td>
+      </tr>
+      <tr>
        <td>一言メモ：</td>
        <td></td>
        <td><input type="text" name="payState"></td>

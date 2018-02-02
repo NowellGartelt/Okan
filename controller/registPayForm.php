@@ -23,5 +23,8 @@ include '../model/searchDefTaxByID.php';
 $searchDefTaxByID = new searchDefTaxByID();
 $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
 
+include '../model/searchMethodOfPayment.php';
+$searchMethodOfPayment = new searchMethodOfPayment();
+$mopList = $searchMethodOfPayment -> getMethodOfPayment();
+
 include '../view/registPayForm.php';
-?>
