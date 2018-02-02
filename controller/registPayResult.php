@@ -26,6 +26,7 @@ $payState = $_POST['payState'];
 $payDate = $_POST['payDate'];
 $taxFlg = $_POST['taxFlg'];
 $tax = $_POST['tax'];
+$methodOfPayment = $_POST['methodOfPayment'];
 
 // エラー値の初期化
 $_SESSION["errorInputPay"] = "";
@@ -74,7 +75,7 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     $result = new registPayByTrans();
     $registPayByTrans = $result -> registPayByTrans($loginID, $payName, 
             $payment, $payCategory, $payState, $payDate, $registDate, 
-            $taxFlg, $tax);
+            $taxFlg, $tax, $methodOfPayment);
     $payInfo = $registPayByTrans;
     
 $query_kogotoList = <<<__SQL

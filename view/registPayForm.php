@@ -60,11 +60,11 @@
        <td>支払い方法は？</td>
        <td></td>
        <td>
-        <select name="mop">
+        <select name="methodOfPayment">
 <?php
-foreach ($mopList as &$mop) {
+foreach ($mopList as &$methodOfPayment) {
 ?>
-         <option value="<?php echo $mop['mopID']; ?>"><?php echo $mop['paymentName']; ?></option>
+         <option value=<?php echo $methodOfPayment['mopID']; ?>><?php echo $methodOfPayment['paymentName']; ?></option>
 <?php
 }
 ?>
