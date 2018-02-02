@@ -18,6 +18,7 @@ class searchPayByID {
     private $loginID = null;
     private $query_getPayInfo = null;
     private $id = null;
+    private $paymentInfo = array();
   
     /**
      * コンストラクタ
@@ -47,13 +48,15 @@ class searchPayByID {
         $this->id = $id;
 
         // IDで一致する支出情報の取得
-        $query_getPayInfo = "SELECT * FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";
+        $query_getPayInfo = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
-        $paymentInfo = mysqli_fetch_array($result_getPayInfo);
+        $this->paymentInfo = mysqli_fetch_array($result_getPayInfo);
         
         // DB切断
         mysqli_close($link);
         
-        return $paymentInfo;
+        return $this->paymentInfo;
     }
 }

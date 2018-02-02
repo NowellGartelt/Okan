@@ -57,6 +57,26 @@
        <td><input type="text" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>></td>
       </tr>
       <tr>
+       <td>支払い方法は？</td>
+       <td></td>
+       <td>
+        <select name="methodOfPayment">
+<?php
+foreach ($mopList as &$methodOfPayment) {
+?>
+         <option value=<?php 
+            echo $methodOfPayment['mopID']; 
+            if ($payInfo['paymentName'] == $methodOfPayment['paymentName']) {
+                ?> selected <?php
+            }
+            ?>><?php echo $methodOfPayment['paymentName']; ?></option>
+<?php
+}
+?>
+        </select>
+       </td>
+      </tr>
+      <tr>
        <td>一言メモ：</td>
        <td></td>
        <td><input type="text" name="payState" value=<?php echo $payInfo['payState']; ?>></td>

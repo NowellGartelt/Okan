@@ -15,14 +15,19 @@ include '../model/tools/judgeIsLogined.php';
 $judgeIsLoginedAction = new judgeIsLogined();
 
 $loginID = $_SESSION['loginID'];
-
 $id = $_POST['ID'];
+$errorInputPay = $_SESSION["errorInputPay"];
 
 include '../model/searchPayByID.php';
 
 $result = new searchPayByID();
 $searchPayByID = $result -> searchPayByID($loginID, $id);
 $payInfo = $searchPayByID;
+
+// 支払方法一覧の取得
+include '../model/searchMethodOfPayment.php';
+$searchMethodOfPayment = new searchMethodOfPayment();
+$mopList = $searchMethodOfPayment -> getMethodOfPayment();
 
 include '../view/updatePayForm.php';
 ?>
