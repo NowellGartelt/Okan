@@ -32,6 +32,7 @@ class updatePayByTrans {
     private $id = null;
     private $taxFlg = null;
     private $tax = null;
+    private $methodOfPayment = null;
     
     /**
      * コンストラクタ
@@ -62,7 +63,7 @@ class updatePayByTrans {
      * @return array $paymentInfo クエリ実行結果
      */
     public function updatePayByTrans($loginID, $payName, $payment, $payCategory, 
-            $payDate, $payState, $id, $taxFlg, $tax){
+            $payDate, $payState, $id, $taxFlg, $tax, $methodOfPayment){
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
         
@@ -75,12 +76,14 @@ class updatePayByTrans {
         $this->id = $id;
         $this->taxFlg = $taxFlg;
         $this->tax = $tax;
-
+        $this->methodOfPayment = $methodOfPayment;
+        
         // 入力された情報で支出情報の更新
         $query_updatePayInfo =
             "UPDATE paymentTable 
             SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
-            payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax' 
+            payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax', 
+            mopID = '$methodOfPayment' 
             WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
         $paymentInfo = mysqli_fetch_array($result_updatePayInfo);

@@ -24,6 +24,7 @@ $payState = $_POST['payState'];
 $id = $_POST['ID'];
 $taxFlgAfter = $_POST['taxFlg'];
 $taxAfter = $_POST['tax'];
+$methodOfPayment = $_POST['methodOfPayment'];
 
 // エラー値の初期化
 $_SESSION["errorInputPay"] = "";
@@ -117,7 +118,7 @@ if($payName == "" || $paymentAfter == "" || $payCategory == "" || $payDate == ""
     $result = new updatePayByTrans();
     $payInfoAfter = $result -> updatePayByTrans($loginID, $payName,
             $paymentAfter, $payCategory, $payDate, $payState, $id,
-            $taxFlgAfter, $taxAfter);
+            $taxFlgAfter, $taxAfter, $methodOfPayment);
     
     include '../view/updatePayResult.php';
 }

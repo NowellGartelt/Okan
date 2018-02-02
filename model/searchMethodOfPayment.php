@@ -26,7 +26,6 @@ class searchMethodOfPayment {
         include '../model/tools/databaseConnect.php';
         
         $query = "SELECT * FROM methodOfPayment";
-        
         $result = mysqli_query($link, $query);
         
         while($row = mysqli_fetch_assoc($result)) {
