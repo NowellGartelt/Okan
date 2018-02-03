@@ -42,7 +42,17 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
         $_SESSION["errorInputPay"] = "lackInput";
     }
     $errorInputPay = $_SESSION["errorInputPay"];
- 
+    
+    // ユーザのデフォルト税率設定の取得
+    include '../model/searchDefTaxByID.php';
+    $searchDefTaxByID = new searchDefTaxByID();
+    $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
+    
+    // 支払方法一覧の取得
+    include '../model/searchMethodOfPayment.php';
+    $searchMethodOfPayment = new searchMethodOfPayment();
+    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+    
     include '../view/registPayForm.php';
     
 } else {
@@ -91,4 +101,3 @@ __SQL;
 $_SESSION["errorInputPay"] = "";
 
 mysqli_close($link);
-?>
