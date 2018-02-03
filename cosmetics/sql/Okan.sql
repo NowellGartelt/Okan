@@ -5,9 +5,9 @@
 # http://www.sequelpro.com/
 # https://github.com/sequelpro/sequelpro
 #
-# ホスト: 127.0.0.1 (MySQL 5.5.42)
+# ホスト: 127.0.0.1 (MySQL 5.6.38)
 # データベース: Okan
-# 作成時刻: 2018-01-28 07:36:20 +0000
+# 作成時刻: 2018-02-03 12:16:25 +0000
 # ************************************************************
 
 
@@ -69,6 +69,43 @@ CREATE TABLE `kogoto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `kogoto` WRITE;
+/*!40000 ALTER TABLE `kogoto` DISABLE KEYS */;
+
+INSERT INTO `kogoto` (`id`, `message`, `lower_payment`)
+VALUES
+	(1,'しょうがないわね、今日だけよ',0),
+	(2,'ヤバいもの買ったんじゃじゃないでしょうね？',3000),
+	(3,'高っか！　バカじゃないのアンタ！',30000);
+
+/*!40000 ALTER TABLE `kogoto` ENABLE KEYS */;
+UNLOCK TABLES;
+
+
+# テーブルのダンプ methodOfPayment
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `methodOfPayment`;
+
+CREATE TABLE `methodOfPayment` (
+  `mopID` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `paymentName` varchar(11) NOT NULL DEFAULT '',
+  PRIMARY KEY (`mopID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+LOCK TABLES `methodOfPayment` WRITE;
+/*!40000 ALTER TABLE `methodOfPayment` DISABLE KEYS */;
+
+INSERT INTO `methodOfPayment` (`mopID`, `paymentName`)
+VALUES
+	(1,'現金'),
+	(2,'クレジットカード'),
+	(3,'電子マネー'),
+	(4,'ギフト券'),
+	(5,'ポイントカード');
+
+/*!40000 ALTER TABLE `methodOfPayment` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # テーブルのダンプ payCategoryTable
@@ -105,6 +142,7 @@ CREATE TABLE `paymentTable` (
   `loginID` char(11) NOT NULL DEFAULT '',
   `taxFlg` tinyint(1) NOT NULL,
   `tax` tinyint(3) NOT NULL DEFAULT '0',
+  `mopID` int(11) DEFAULT NULL,
   PRIMARY KEY (`paymentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
