@@ -16,7 +16,7 @@
   </div>
   <div align="center">
    <p>Okan：レポート結果</p><br>
-   <p><?php echo $dateFrom; ?>から<?php echo $dateTo ?>は、
+   <p><?php echo $dateFrom; ?>から<?php echo $dateTo ?>は、現金は
    <font size="5" color="black"><?php echo $difPayAndInc ?></font>円で
 <?php if ($difPayAndIncStatus == "surplus") { ?>
    <font size="5" color="black">黒字</font>
@@ -49,6 +49,10 @@
       <tr>
        <td>使ったお金</td>
        <td><?php echo $sumPay[0]['SUM(payment)']; ?></td>
+      </tr>
+      <tr>
+       <td>使ったお金(現金のみ)</td>
+       <td><?php echo $sumPayOnlyCash[0]['SUM(payment)']; ?></td>
       </tr>
       <tr>
         <td></td>

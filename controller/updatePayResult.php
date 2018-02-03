@@ -128,4 +128,3 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     
     include '../view/updatePayResult.php';
 }
-?>

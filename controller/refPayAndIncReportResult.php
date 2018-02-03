@@ -47,6 +47,16 @@ if ($dateFrom == "" || $dateTo == "") {
         $sumPay[0]['SUM(payment)'] = 0;
     }
     
+    // 指定された期間の総支出額(現金のみ)の取得
+    include '../model/searchPaySumOnlyCash.php';
+    
+    $resultPayOnlyCash= new searchPaySumOnlyCash($loginID, $dateFrom, $dateTo);
+    $sumPayOnlyCash = $resultPayOnlyCash->searchPaySumOnlyCash($loginID, $dateFrom, $dateTo);
+    
+    if ($sumPayOnlyCash[0]['SUM(payment)'] == null) {
+        $sumPayOnlyCash[0]['SUM(payment)'] = 0;
+    }
+    
     // 指定された期間の総収入額の取得
     include '../model/searchIncSum.php';
     
@@ -69,7 +79,7 @@ if ($dateFrom == "" || $dateTo == "") {
     $sumPayPayment = $resultPayPayment->searchSumPayByPayment($loginID, $dateFrom, $dateTo);
     
     // 総収入額 - 総支出額の計算
-    $difPayAndInc = $sumInc[0]['SUM(income)'] - $sumPay[0]['SUM(payment)'];
+    $difPayAndInc = $sumInc[0]['SUM(income)'] - $sumPayOnlyCash[0]['SUM(payment)'];
     
     // 計算結果、黒字の場合
     if ($difPayAndInc > 0) {
@@ -89,4 +99,3 @@ if ($dateFrom == "" || $dateTo == "") {
     
     include '../view/refPayAndIncReportResult.php';
 }
-?>
