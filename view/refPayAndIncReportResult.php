@@ -35,7 +35,7 @@
 <?php }?>
    <img src="cosmetics/img/okan.gif">
    <br><br>
-   <p>「もらったお金と使ったお金」がこれよ</p>
+   <p>「もらったお金と使ったお金」がこれよ。</p>
    <table>
      <tbody>
       <tr>
@@ -69,6 +69,28 @@
       <tr>
        <td><?php echo $sumPayCategory[$displayCount]['payCategory']; ?></td>
        <td><?php echo $sumPayCategory[$displayCount]['SUM(payment)']; ?></td>
+      </tr>
+      <?php $displayCount++; ?>
+      <?php } ?>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+     </tbody>
+   </table>
+   <br>
+   <p>使ったお金がが多い順に支払方法ごとにまとめたわよ。</p>
+   <table>
+     <tbody>
+      <tr>
+       <th>支払方法</th>
+       <th>金額</th>
+      </tr>
+      <?php $displayCount = 0; ?>
+      <?php while ($displayCount < count($sumPayPayment)) { ?>
+      <tr>
+       <td><?php echo $sumPayPayment[$displayCount]['paymentName']; ?></td>
+       <td><?php echo $sumPayPayment[$displayCount]['SUM(payment)']; ?></td>
       </tr>
       <?php $displayCount++; ?>
       <?php } ?>

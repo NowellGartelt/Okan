@@ -49,7 +49,7 @@ class searchPayByID {
 
         // IDで一致する支出情報の取得
         $query_getPayInfo = "SELECT * FROM paymentTable 
-                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                LEFT OUTER JOIN methodOfPayment ON paymentTable.mopID = methodOfPayment.mopID 
                 WHERE paymentID = '$id' AND loginID = '$loginID'";
         $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
         $this->paymentInfo = mysqli_fetch_array($result_getPayInfo);

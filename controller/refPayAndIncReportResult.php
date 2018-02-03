@@ -43,17 +43,30 @@ if ($dateFrom == "" || $dateTo == "") {
     $resultPay = new searchPaySum($loginID, $dateFrom, $dateTo);
     $sumPay = $resultPay->searchPaySum($loginID, $dateFrom, $dateTo);
     
+    if ($sumPay[0]['SUM(payment)'] == null) {
+        $sumPay[0]['SUM(payment)'] = 0;
+    }
+    
     // 指定された期間の総収入額の取得
     include '../model/searchIncSum.php';
     
     $resultInc = new searchIncSum();
     $sumInc = $resultInc->searchIncSum($loginID, $dateFrom, $dateTo);
     
+    if ($sumInc[0]['SUM(income)'] == null) {
+        $sumInc[0]['SUM(income)'] = 0;
+    }
     // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
     include '../model/searchSumPayByCategory.php';
     
     $resultPayCategory = new searchSumPayByCategory();
     $sumPayCategory = $resultPayCategory->searchSumPayByCategory($loginID, $dateFrom, $dateTo);
+    
+    // 指定された期間の支払方法ごとの支出額の取得、支出の多い順に並べる
+    include '../model/searchSumPayByPayment.php';
+    
+    $resultPayPayment = new searchSumPayByPayment();
+    $sumPayPayment = $resultPayPayment->searchSumPayByPayment($loginID, $dateFrom, $dateTo);
     
     // 総収入額 - 総支出額の計算
     $difPayAndInc = $sumInc[0]['SUM(income)'] - $sumPay[0]['SUM(payment)'];
