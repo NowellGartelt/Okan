@@ -35,7 +35,8 @@ $taxCalcFlg = "";
 $noChangeFlg = "";
 
 // 入力値チェック
-if($payName == "" || $paymentAfter == "" || $payCategory == "" || $payDate == "" || $paymentAfter < 0) {
+if ($payName == "" || $paymentAfter == "" || $payCategory == "" 
+        || $payDate == "" || $paymentAfter < 0) {
     if ($paymentAfter < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputPay"] = "minusInput";
@@ -48,8 +49,13 @@ if($payName == "" || $paymentAfter == "" || $payCategory == "" || $payDate == ""
     include '../model/searchPayByID.php';
     
     $result = new searchPayByID();
-    $searchPayByID = $result -> searchPayByID($id);
+    $searchPayByID = $result -> searchPayByID($loginID, $id);
     $payInfo = $searchPayByID;
+    
+    // 支払方法一覧の取得
+    include '../model/searchMethodOfPayment.php';
+    $searchMethodOfPayment = new searchMethodOfPayment();
+    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
     
     include '../view/updatePayForm.php';
     
