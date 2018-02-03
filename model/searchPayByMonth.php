@@ -16,6 +16,7 @@
  * @var DateTime $payDateFrom 支出日(開始)
  * @var DateTime $payDateTo 支出日(終了)
  * @var string $choiceKey 検索方法
+ * @var string $methodOfPayment 支払方法
  */
 
 class searchPayByMonth {
@@ -27,6 +28,7 @@ class searchPayByMonth {
     private $payDateFrom = null;
     private $payDateTo = null;
     private $choiceKey = null;
+    private $methodOfPayment = null;
  
     /**
      * コンストラクタ
@@ -51,10 +53,11 @@ class searchPayByMonth {
      * @param DateTime $payDateFrom 支出日(開始)
      * @param DateTime $payDateTo 支出日(終了)
      * @param string $choiceKey 検索方法
+     * @param string $methodOfPayment 支払方法
      * @return array $result_list 支出情報
      */
     public function searchPayByMonth($loginID, $payName, $payCategory, 
-            $payDateFrom, $payDateTo, $choiceKey) {
+            $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment) {
         // DB接続情報取得
         include '../model/tools/databaseConnect.php';
 
@@ -64,6 +67,7 @@ class searchPayByMonth {
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         $this->choiceKey = $choiceKey;
+        $this->methodOfPayment = $methodOfPayment;
 
         // 年と月の分割
         // 検索範囲の開始日と終了日の両方で行う
@@ -91,11 +95,20 @@ class searchPayByMonth {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
                     WHERE payName LIKE '%{$payName}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
+
             // 条件でカテゴリを指定された場合
             } elseif ($choiceKey == "payCategory") {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
-                    WHERE payName LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%' 
+                    WHERE payCategory LIKE '%{$payCategory}%' AND payDate LIKE '%{$payDateFrom}%' 
                     AND loginID = '$loginID'";
+            
+            // 条件で支払方法を指定された場合
+            } elseif ($choiceKey == "payment") {
+                $query_refPay = "SELECT SUM(payment) FROM paymentTable
+                    LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                    WHERE paymentTable.mopID LIKE '%{$methodOfPayment}%' AND payDate LIKE '%{$payDateFrom}%'
+                    AND loginID = '$loginID'";
+            
             // 条件で何も指定されなかった場合
             } else {
                 $query_refPay = "SELECT SUM(payment) FROM paymentTable
@@ -122,7 +135,7 @@ class searchPayByMonth {
             if ($payDateFrom !== $payDateTo) {
                 // 検索対象月を一月ズラす
                 $payDateFromMonth = (int) $payDateFromMonth + 1;
-                //  足した結果13月となってしまった場合、スーパーの袋の年は加算し、13月を1月へ変更する。
+                //  足した結果13月となってしまった場合、年を加算し、13月を1月へ変更する。
                 if ($payDateFromMonth > 12) {
                     $payDateFromYear = (int) $payDateFromYear + 1;
                     $payDateFromMonth = 1;

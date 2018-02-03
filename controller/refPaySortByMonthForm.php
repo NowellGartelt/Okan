@@ -21,9 +21,14 @@ $_SESSION['payCategory'] = null;
 $_SESSION['payDateFrom'] = null;
 $_SESSION['payDateTo'] = null;
 $_SESSION['payState'] = null;
+$_SESSION['methodOfPayment'] = null;
 
-$errorReferencePayCount = null;
-$errorReferencePayNone = null;
+// エラー変数のリセット
+$errInput = null;
+
+// 支払方法一覧の取得
+include '../model/searchMethodOfPayment.php';
+$searchMethodOfPayment = new searchMethodOfPayment();
+$mopList = $searchMethodOfPayment -> getMethodOfPayment();
 
 include '../view/refPaySortByMonthForm.php';
-?>

@@ -21,6 +21,7 @@ $_SESSION['payCategory'] = null;
 $_SESSION['payDateFrom'] = null;
 $_SESSION['payDateTo'] = null;
 $_SESSION['payState'] = null;
+$_SESSION['methodOfPayment'] = null;
 
 // エラー変数のリセット
 $errInput = null;

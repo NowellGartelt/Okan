@@ -17,7 +17,7 @@ $judgeIsLoginedAction = new judgeIsLogined();
 
 $loginID = $_SESSION['loginID'];
 
-// インスタンス変数の初期化
+// インスタンス変数の定義
 $result = null;
 $searchPayByDay = null;
 $payment = null;
@@ -32,6 +32,7 @@ $payCategory = $_POST['payCategory'];
 $payDateFrom = $_POST['payDateFrom'];
 $payDateTo = $_POST['payDateTo'];
 $choiceKey = $_POST['choiceKey'];
+$methodOfPayment = $_POST['methodOfPayment'];
 
 // スクリプト挿入攻撃、XSS対策
 // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
@@ -43,6 +44,7 @@ $_SESSION['payCategory'] = $payCategory;
 $_SESSION['payDateFrom'] = $payDateFrom;
 $_SESSION['payDateTo'] = $payDateTo;
 $_SESSION['choiceKey'] = $choiceKey;
+$_SESSION['methodOfPayment'] = $methodOfPayment;
 
 include '../model/searchPayByDay.php';
 
@@ -56,20 +58,20 @@ if (($choiceKey == "payName" && $payName == "")
     $result = new searchPayByDay();
     $searchPayByDay = $result->searchPayByDay(
             $loginID, $payName, $payCategory, 
-            $payDateFrom, $payDateTo, $choiceKey);
+            $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment);
  
     $payment = $searchPayByDay;
     $payCount = count($searchPayByDay);
     
-}
-// 結果が100行以上だった場合、検索結果過多でエラー
-if ($payCount >= 101) {
-    $errInput = "errReferencePayCount";
-    
-// 結果が0行だった場合、検索結果なしでエラー
-} elseif ($payCount == 0) {
-    $errInput = "errReferencePayNone";
+    // 結果が100行以上だった場合、検索結果過多でエラー
+    if ($payCount >= 101) {
+        $errInput = "errReferencePayCount";
         
+        // 結果が0行だった場合、検索結果なしでエラー
+    } elseif ($payCount == 0) {
+        $errInput = "errReferencePayNone";
+        
+    }
 }
 // エラーがあった場合、入力画面に戻す
 if ($errInput !== "") {
@@ -78,6 +80,7 @@ if ($errInput !== "") {
     $_SESSION['payDateFrom'] = null;
     $_SESSION['payDateTo'] = null;
     $_SESSION['choiceKey'] = null;
+    $_SESSION['methodOfPayment'] = null;
     
     // 支払方法一覧の取得
     include '../model/searchMethodOfPayment.php';
@@ -95,5 +98,3 @@ if ($errInput !== "") {
 
     include '../view/refPaySortByDayResult.php';
 }
-
-?>

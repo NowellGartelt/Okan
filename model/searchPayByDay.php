@@ -16,6 +16,7 @@
  * @var DateTime $payDateFrom 支出日(開始)
  * @var DateTime $payDateTo 支出日(終了)
  * @var string $choiceKey 検索方法
+ * @var string $methodOfPayment 支払方法
  */
 
 class searchPayByDay {
@@ -27,6 +28,7 @@ class searchPayByDay {
     private $payDateFrom = null;
     private $payDateTo = null;
     private $choiceKey = null;
+    private $methodOfPayment = null;
     
     /**
      * コンストラクタ
@@ -51,10 +53,11 @@ class searchPayByDay {
      * @param DateTime $payDateFrom 支出日(開始)
      * @param DateTime $payDateTo 支出日(終了)
      * @param string $choiceKey 検索方法
+     * @param string $methodOfPayment 支払方法
      * @return array $result_list 支出情報
      */
     public function searchPayByDay($loginID, $payName, $payCategory, 
-            $payDateFrom, $payDateTo, $choiceKey) {
+            $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment) {
 	    // DB接続情報取得
 		include '../model/tools/databaseConnect.php';
 		
@@ -64,6 +67,7 @@ class searchPayByDay {
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         $this->choiceKey = $choiceKey;
+        $this->methodOfPayment = $methodOfPayment;
         
         // 日ごとの支出額の合計の取得
 
@@ -80,7 +84,15 @@ class searchPayByDay {
                 WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
                 AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 GROUP BY payDate";
-
+        
+        // 検索条件で支払方法を指定された場合
+        } elseif ($choiceKey == "payment") {
+            $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE paymentTable.mopID LIKE '%{$methodOfPayment}%' AND payDate >= '$payDateFrom'
+                AND payDate <= '$payDateTo' AND loginID = '$loginID'
+                GROUP BY payDate";
+            
         // 検索条件で何も指定されなかった場合
         } else {
             $query_refPay = "SELECT payDate, SUM(payment) FROM paymentTable
@@ -88,11 +100,11 @@ class searchPayByDay {
                 GROUP BY payDate";
         }
 
-        $result_refPay = mysqli_query ( $link, $query_refPay );
+        $result_refPay = mysqli_query($link, $query_refPay);
         $result_list = array ();
 		
-        while ( $row = mysqli_fetch_assoc ( $result_refPay ) ) {
-            array_push ( $result_list, $row );
+        while ( $row = mysqli_fetch_assoc($result_refPay )) {
+            array_push($result_list, $row);
         }
         
         // DB切断
