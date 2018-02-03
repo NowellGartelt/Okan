@@ -72,9 +72,11 @@ class searchPayByTrans {
         // x = 120 /120
         // x = 1
         if($payName !== ""  && $payCategory !== "" && $payState !=="" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payState LIKE '%{$payState}%' AND payCategory LIKE '%{$payCategory}%' 
-                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' 
+                AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
 
         // 4つ入力されている場合
@@ -84,29 +86,39 @@ class searchPayByTrans {
         // x = 120 / 24
         // x = 5
         } elseif($payName !== ""  && $payCategory !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== ""  && $payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' 
+                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== ""  && $payCategory !== "" && $payState !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== ""  && $payCategory !== "" && $payDateFrom !== "" && $payState !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
-                AND payState LIKE '%{$payState}%' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payDate >= '$payDateFrom' AND payState LIKE '%{$payState}%' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
 
         // 3つ入力されている場合
@@ -116,45 +128,65 @@ class searchPayByTrans {
         // x = 120 / 12
         // x = 10
         } elseif($payName !== "" && $payCategory !== "" && $payState !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payState LIKE '%{$payState}%' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payName !== "" && $payCategory !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateFrom' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payDate <= '$payDateFrom' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payName !== "" && $payState !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' 
+                AND payDate <= '$payDateFrom' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payState !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+                AND payDate <= '$payDateFrom' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payName !== "" && $payCategory !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payName !== "" && $payState !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payState !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payName !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
         } elseif($payState !== "" && $payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
-                AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID' ORDER BY payDate ASC";
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payState LIKE '%{$payState}%' AND payDate >= '$payDateFrom' 
+                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+                ORDER BY payDate ASC";
 
         // 2つ入力されている場合
         // 5から2を選択する組み合わせ
@@ -163,44 +195,64 @@ class searchPayByTrans {
         // x = 120 / 12
         // x = 10
         } elseif($payName !== "" && $payCategory !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payCategory LIKE '%{$payCategory}%' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payCategory LIKE '%{$payCategory}%' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payDate >= '$payDateFrom' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payDate <= '$payDateTo' AND 
+                loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payDate <= '$payDateFrom' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateFrom' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payDateFrom !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payDate >= '$payDateFrom' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payName !== "" && $payState !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payName LIKE '%{$payName}%' 
-                AND payState LIKE '%{$payState}%' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payName LIKE '%{$payName}%' AND payState LIKE '%{$payState}%' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payCategory !== "" && $payState !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payCategory LIKE '%{$payCategory}%' 
-                AND payState LIKE '%{$payState}%' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payCategory LIKE '%{$payCategory}%' AND payState LIKE '%{$payState}%' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payState !== "" && $payDateFrom !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
-                AND payDate <= '$payDateFrom' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payState LIKE '%{$payState}%' AND payDate <= '$payDateFrom' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payState !== "" && $payDateTo !== ""){
-            $query_refPay = "SELECT * FROM paymentTable WHERE payState LIKE '%{$payState}%' 
-                AND payDate <= '$payDateTo' AND loginID = '$loginID' 
+            $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE payState LIKE '%{$payState}%' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
 
        // 1つ入力されている場合
@@ -211,22 +263,27 @@ class searchPayByTrans {
        // x = 5
         } elseif($payName !== ""){
             $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
                 WHERE payName LIKE '%{$payName}%' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payCategory !== ""){
             $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
                 WHERE payCategory LIKE '%{$payCategory}%' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payState !== ""){
             $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
                 WHERE payState LIKE '%{$payState}%' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payDateFrom !== ""){
             $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
                 WHERE payDate >= '$payDateFrom' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
         } elseif($payDateTo !== ""){
             $query_refPay = "SELECT * FROM paymentTable 
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
                 WHERE payDate <= '$payDateTo' AND loginID = '$loginID' 
                 ORDER BY payDate ASC";
 
@@ -234,7 +291,9 @@ class searchPayByTrans {
         // 全件検索する
         } else {
             $query_refPay = "SELECT * FROM paymentTable 
-                WHERE AND loginID = '$loginID' ORDER BY payDate ASC";
+                LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
+                WHERE loginID = '$loginID' 
+                ORDER BY payDate ASC";
         }
         
         $result_refPay = mysqli_query($link, $query_refPay);

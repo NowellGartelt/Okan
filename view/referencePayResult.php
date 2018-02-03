@@ -28,6 +28,7 @@
       <th>名前</th>
       <th>金額</th>
       <th>カテゴリ</th>
+      <th>支払方法</th>
       <th>一言メモ</th>
       <th></th>
       <th></th>
@@ -39,6 +40,7 @@
       <td><?php echo $payment[$displayCount]['payName']; ?></td>
       <td><?php echo $payment[$displayCount]['payment']; ?></td>
       <td><?php echo $payment[$displayCount]['payCategory']; ?></td>
+      <td><?php echo $payment[$displayCount]['paymentName']; ?></td>
       <td><?php echo $payment[$displayCount]['payState']; ?></td>
       <td>
        <form action="../../Okan/updatePayForm.php" method="post">
@@ -56,6 +58,7 @@
 <?php $displayCount++; ?>
 <?php } ?>
      <tr>
+      <td></td>
       <td></td>
       <td></td>
       <td></td>
