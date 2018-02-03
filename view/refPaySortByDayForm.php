@@ -15,13 +15,13 @@
   </div>
   <div align="center">
    <p>Okan：参照</p><br>
-<?php if ($errorReferencePayCount == true) { ?>
+<?php if ($errInput == "errReferencePayCount") { ?>
    <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
    <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>
-<?php } elseif ($errorReferencePayNone == true) { ?>
+<?php } elseif ($errInput == "errReferencePayNone") { ?>
    <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
    <p>条件を見直しなさいよね</p><br>
-<?php } elseif ($errorNecessaryInfo == true) { ?>
+<?php } elseif ($errInput == "luckNecessaryInfo") { ?>
    <p>ちょっと、その条件だと不足してるわよ</p>
    <p>条件を見直しなさいよね</p><br>
 <?php } else { ?>
@@ -66,6 +66,25 @@
        </td>
        <td>
         <input type="text" name="payCategory">
+       </td>
+      </tr>
+      <tr>
+       <td>
+        <input type="radio" name="choiceKey" value="payment">
+        支払方法で探す：
+       </td>
+       <td>
+        <select name="methodOfPayment">
+<?php
+foreach ($mopList as &$methodOfPayment) {
+?>
+         <option value=<?php 
+            echo $methodOfPayment['mopID']; 
+            ?>><?php echo $methodOfPayment['paymentName']; ?></option>
+<?php
+}
+?>
+        </select>
        </td>
       </tr>
       <tr>

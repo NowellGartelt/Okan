@@ -17,6 +17,15 @@ $judgeIsLoginedAction = new judgeIsLogined();
 
 $loginID = $_SESSION['loginID'];
 
+// インスタンス変数の初期化
+$result = null;
+$searchPayByDay = null;
+$payment = null;
+$payCount = null;
+
+// エラー変数のリセット
+$errInput = "";
+
 // セッション関数へのセット
 $payName = $_POST['payName'];
 $payCategory = $_POST['payCategory'];
@@ -37,17 +46,12 @@ $_SESSION['choiceKey'] = $choiceKey;
 
 include '../model/searchPayByDay.php';
 
+// 項目不足だった場合、入力項目不足エラー
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
-    $errorNecessaryInfo = true;
- 	
-    $_SESSION['payName'] = null;
-    $_SESSION['payCategory'] = null;
-    $_SESSION['payDateFrom'] = null;
-    $_SESSION['payDateTo'] = null;
-    $_SESSION['choiceKey'] = null;
- 	
-    include '../view/refPaySortByDayForm.php';
+    $errInput = "luckNecessaryInfo";
+    
+// 項目が十分であれば取得実施
 } else {
     $result = new searchPayByDay();
     $searchPayByDay = $result->searchPayByDay(
@@ -56,31 +60,32 @@ if (($choiceKey == "payName" && $payName == "")
  
     $payment = $searchPayByDay;
     $payCount = count($searchPayByDay);
-
-// 結果が100行以上だった場合、検索結果過多でエラーとする
+    
+}
+// 結果が100行以上だった場合、検索結果過多でエラー
 if ($payCount >= 101) {
-    $errorReferencePayCount = true;
-
-    $_SESSION['payName'] = null;
-    $_SESSION['payCategory'] = null;
-    $_SESSION['payDateFrom'] = null;
-    $_SESSION['payDateTo'] = null;
-    $_SESSION['choiceKey'] = null;
-
-    include '../view/refPaySortByDayForm.php';
-
-// 結果が0行だった場合、検索結果なしでエラーとする
+    $errInput = "errReferencePayCount";
+    
+// 結果が0行だった場合、検索結果なしでエラー
 } elseif ($payCount == 0) {
-    $errorReferencePayNone = true;
-
+    $errInput = "errReferencePayNone";
+        
+}
+// エラーがあった場合、入力画面に戻す
+if ($errInput !== "") {
     $_SESSION['payName'] = null;
     $_SESSION['payCategory'] = null;
     $_SESSION['payDateFrom'] = null;
     $_SESSION['payDateTo'] = null;
     $_SESSION['choiceKey'] = null;
-
+    
+    // 支払方法一覧の取得
+    include '../model/searchMethodOfPayment.php';
+    $searchMethodOfPayment = new searchMethodOfPayment();
+    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+        
     include '../view/refPaySortByDayForm.php';
- 
+        
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumPayment = null;
@@ -90,5 +95,5 @@ if ($payCount >= 101) {
 
     include '../view/refPaySortByDayResult.php';
 }
-}
+
 ?>
