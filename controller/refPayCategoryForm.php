@@ -4,6 +4,7 @@
  * 
  * 現在のカテゴリ(支出)を表示する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name refPayCategory
@@ -11,17 +12,12 @@
 
 session_start();
 
-// ログインチェック
-// ログイン済みかどうか確認実施
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require 'controller.php';
+$controller = new controller();
 
 // ログインID取得
-$loginID = $_SESSION['loginID'];
-
-// コントローラの共通処理取得
-include 'controller.php';
-$controller = new controller();
+$loginID = $controller -> getLoginID();
 
 // カテゴリ登録数の設定(15カテゴリ固定)
 $maxRegist = 15;

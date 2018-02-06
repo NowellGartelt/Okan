@@ -1,6 +1,6 @@
 <?php
 /**
- * カテゴリ(支出)情報更新結果画面表示クラス
+ * カテゴリ(収入)情報更新結果画面表示クラス
  * 
  * 変更された値を元に、入力値の妥当性検証と情報の更新、カテゴリ情報表示画面の呼び出しをする
  * 
@@ -29,16 +29,16 @@ if($categoryName == ""){
     $errorInput = "nullInfo";
     
     // 指定されたNoに登録されているカテゴリ情報の取得
-    include '../model/searchPayCategoryByID.php';
-    $getCategory = new searchPayCategoryByID();
-    $result = $getCategory-> searchPayCategoryByID($loginID, $personalID);
+    include '../model/searchIncCategoryByID.php';
+    $getCategory = new searchIncCategoryByID();
+    $result = $getCategory-> searchIncCategoryByID($loginID, $personalID);
     
     if ($result['categoryName'] == null) {
         $result['categoryName'] = "(未登録)";
     }
     
     // 画面の読み込み
-    include '../view/updatePayCategoryForm.php';
+    include '../view/updateIncCategoryForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -46,9 +46,9 @@ if($categoryName == ""){
     $categoryName = htmlspecialchars($categoryName, ENT_QUOTES);
     
     // カテゴリ名更新
-    include '../model/updatePayCategory.php';
-    $result = new updatePayCategory();
-    $updatePayCategory = $result -> updatePayCategory($loginID, $categoryName, $personalID);
+    include '../model/updateIncCategory.php';
+    $result = new updateIncCategory();
+    $updateIncCategory = $result -> updateIncCategory($loginID, $categoryName, $personalID);
     
-    include '../view/updatePayCategoryResult.php';
+    include '../view/updateIncCategoryResult.php';
 }

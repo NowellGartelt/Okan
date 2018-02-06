@@ -3,9 +3,9 @@ view/refPayCategoryForm.php
 -->
 <html>
  <head>
-  <title>Okan：カテゴリ検索結果(つかったお金)</title>
+  <title>Okan：カテゴリ検索結果(もらったお金)</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の支出カテゴリ検索結果表示画面。">
+  <meta name="description" content="収支管理システム「Okan」の収入カテゴリ検索結果表示画面。">
   <meta name="keywords" content="収支管理,おかん">
   <link href="../../Okan/view/css/okanStyle.css" rel="stylesheet" type="text/css" media="all">
  </head>
@@ -17,8 +17,8 @@ view/refPayCategoryForm.php
    </form>
   </div>
   <div align="center">
-   <p>Okan：カテゴリ検索結果(つかったお金)</p><br>
-   <p>これが今のつかったお金のカテゴリよ</p>
+   <p>Okan：カテゴリ検索結果(もらったお金)</p><br>
+   <p>これが今のもらったお金のカテゴリよ</p>
    <p>変更したいなら、「教えなおす」ボタンで変更しなさいよね</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>
@@ -36,7 +36,7 @@ view/refPayCategoryForm.php
       <td><?php echo $result[$displayCount]['personalID']; ?></td>
       <td><?php echo $result[$displayCount]['categoryName']; ?></td>
       <td>
-       <form action="../../Okan/updatePayCategoryForm.php" method="post">
+       <form action="../../Okan/updateIncCategoryForm.php" method="post">
         <input type="submit" value="教えなおす">
         <input type="hidden" name="personalID" value=<?php echo $result[$displayCount]['personalID']; ?>>
        </form>

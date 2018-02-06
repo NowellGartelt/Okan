@@ -1,19 +1,19 @@
 <?php 
 /**
- * 登録済みカテゴリ(支出)取得クラス
+ * 登録済みカテゴリ(収入)取得クラス
  * 
- * ログインIDに紐付く登録済みの支出カテゴリを取得するクラス。
- * 与えられた最大値分、登録済みの支出カテゴリを取得する。
+ * ログインIDに紐付く登録済みの収入カテゴリを取得するクラス。
+ * 与えられた最大値分、登録済みの収入カテゴリを取得する。
  * 
  * @access publc
  * @category model
- * @name searchPayCategory
- * @method searchPayCategory
+ * @name searchIncCategory
+ * @method searchIncCategory
  * @var string $loginID ログインID
  * @var int $maxRegist 取得最大数
  */
 
-class searchPayCategory {
+class searchIncCategory {
     // 変数初期化
     private $loginID = null;
     private $maxRegist = null;
@@ -29,18 +29,18 @@ class searchPayCategory {
     }
     
     /**
-     * 登録済みカテゴリ(支出)取得関数
+     * 登録済みカテゴリ(収入)取得関数
      * 
-     * ログインIDに紐付く登録済みの支出カテゴリを取得するクラス。
-     * 与えられた最大値分、登録済みの支出カテゴリを取得する。
-     * 登録済みの支出カテゴリが最大値から不足していた場合、その数だけ「登録なし」を返す
+     * ログインIDに紐付く登録済みの収入カテゴリを取得するクラス。
+     * 与えられた最大値分、登録済みの収入カテゴリを取得する。
+     * 登録済みの収入カテゴリが最大値から不足していた場合、その数だけ「登録なし」を返す
      * 
      * @access public
      * @param string $loginID ログインID
      * @param int $maxRegist 取得最大数
      * @return array $resultList クエリ実行結果
      */
-    public function searchPayCategory(string $loginID, int $maxRegist) {
+    public function searchIncCategory(string $loginID, int $maxRegist) {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->maxRegist = $maxRegist;
@@ -58,12 +58,12 @@ class searchPayCategory {
             
             // IDで一致するカテゴリ情報の取得
             $query = "
-                SELECT * FROM payCategoryTable 
+                SELECT * FROM incCategoryTable 
                 WHERE loginID = '$loginID' ORDER BY personalID";
             $queryResult = mysqli_query($link, $query);
             
             //連想配列として取得した値を配列変数に格納する
-            while($row = mysqli_fetch_assoc($result)) {
+            while($row = mysqli_fetch_assoc($queryResult)) {
                 array_push($resultList, $row);
             }
             
@@ -71,7 +71,7 @@ class searchPayCategory {
             mysqli_close($link);
             
         }
- 
+
         return $resultList;
 
     }

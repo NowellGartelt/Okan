@@ -30,8 +30,8 @@ class registMember {
     private $question = null;
     private $answer = null;
     private $defTax = null;
-    private $query_registMember = null;
-    private $memberInfo = null;
+    private $queryRegist = null;
+    private $resultRegist = null;
     
     /**
      * コンストラクタ
@@ -57,7 +57,7 @@ class registMember {
      * @param string $question 秘密の質問
      * @param string $answer 秘密の質問の答え
      * @param int $defTax デフォルト税率
-     * @return array $memberInfo クエリ実行結果
+     * @return array $resultRegist クエリ実行結果
      */
     public function registMember($loginID, $password, $name, $registDate, $isAdmin, 
             $question, $answer, $defTax) {
@@ -75,23 +75,23 @@ class registMember {
         
         if ($loginID == null || $password == null || $name == null || 
                 $registDate == null || $question == null || $answer == null) {
-            return $memberInfo;
+            return $resultRegist;
 
         } else {
             // メンバー情報の登録
-            $query_registMember =
+            $queryRegist =
                 "INSERT INTO usertable (
                 loginID, loginPassword, name, addDate, updateDate, isAdmin, question, answer, defTax)
                 VALUES (
                 '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', '$question', '$answer', '$defTax')";
-            $result_registMember = mysqli_query($link, $query_registMember);
-            $memberInfo = mysqli_fetch_array($result_registMember);
+            $resultRegist = mysqli_query($link, $queryRegist);
+//            $memberInfo = mysqli_fetch_array($result_registMember);
 
         }
         
         // DB切断
         mysqli_close($link);
         
-        return $memberInfo;
+        return $resultRegist;
     }
 }

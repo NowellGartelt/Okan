@@ -4,14 +4,13 @@
  * 
  * メンバー情報として入力された値の妥当性チェック、および登録結果を表示する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name registMemberResult
  */
 
 session_start();
-
-include '../model/tools/databaseConnect.php';
 
 // 入力値の取得
 $loginID = $_POST['loginID'];
@@ -89,19 +88,24 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
                 // 登録日時取得
                 $registDate = date("Y-m-d H:i:s");
 
-                include '../model/registMember.php';
-
                 // メンバー情報登録処理
-                $result = new registMember();
-                $registMember = $result -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
-                $registInfo = $registMember;
+                include '../model/registMember.php';
+                $registMember = new registMember();
+                $resultRegistMember = $registMember -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
 
+                // 支出カテゴリ初期登録処理
+                include '../model/registPayCategory.php';
+                $registPayCategory = new registpayCategory();
+                $resultRegPayVategory = $registPayCategory -> registPayCategory($loginID, $registDate);
+                
+                // 収入カテゴリ初期登録処理
+                include '../model/registIncCategory.php';
+                $registIncCategory = new registIncCategory();
+                $resultRegIncVategory = $registIncCategory -> registIncCategory($loginID, $registDate);
+                
                 include '../view/registMemberResult.php';
                 
             }
         }
     }
 }
-
-mysqli_close($link);
-?>
