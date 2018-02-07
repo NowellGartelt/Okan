@@ -120,12 +120,10 @@
       </td>
 -->
      </tr>
-<!--
      <tr>
       <td>ぶんるいをかえる：</td>
-      <td><a href="../../Okan/updateCategory.php">おかんにお願いする</a></td>
+      <td><a href="../../Okan/refCategoryForm.php">おかんにお願いする</a></td>
      </tr>
--->
 	</tbody>
    </table>
    <br><br>
