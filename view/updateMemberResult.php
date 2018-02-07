@@ -23,7 +23,7 @@
    <form action="../../Okan/updateMemberForm.php" method="post">
     <button type="submit">もういっかいお願いする</button>
    </form>
-   <form action="../../Okan/menu.php" method="post">
+   <form action="../../Okan/refUserConfMenu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

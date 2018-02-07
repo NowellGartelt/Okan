@@ -24,105 +24,36 @@
     <tbody>
      <tr>
       <td>つかったお金を記録する：</td>
-       <td><a href="../../Okan/registPayForm.php">おかんに教える</a></td>
-<!--       
-      <td>
-       <form action="../../Okan/registPayForm.php" method="post">
-        <button type="submit">おかんに教える</button>
-       </form>
-      </td>
- -->
+      <td><a href="../../Okan/registPayForm.php">おかんに教える</a></td>
      </tr>
      <tr>
       <td>つかったお金を探す：</td>
       <td><a href="../../Okan/referencePayForm.php">おかんにきく</a></td>
-<!--
-      <td>
-       <form action="../../Okan/referencePayForm.php" method="post">
-        <button type="submit">おかんに訊く</button>
-       </form>
-      </td>
--->
      </tr>
      <tr>
       <td>つかったお金をまとめて探す：</td>
       <td><a href="../../Okan/refPaySortByForm.php">おかんにきく</a></td>
-<!--
-      <td>
-       <form action="../../Okan/refPaySortByForm.php" method="post">
-        <button type="submit">おかんに訊く</button>
-       </form>
-      </td>
--->
      </tr>
      <tr>
       <td>もらったお金を記録する：</td>
       <td><a href="../../Okan/registIncForm.php">おかんに教える</a></td>
-<!--
-      <td>
-       <form action="../../Okan/controller/registIncForm.php" method="post">
-        <button type="submit">おかんに教える</button>
-       </form>
-      </td>
--->
      </tr>
      <tr>
       <td>もらったお金を探す：</td>
       <td><a href="../../Okan/referenceIncForm.php">おかんにきく</a></td>
-<!--
-      <td>
-       <form action="../../Okan/referenceIncForm.php" method="post">
-        <button type="submit">おかんに教える</button>
-       </form>
-      </td>
--->
      </tr>
-<!--
-     <tr>
-      <td>もらったお金をまとめて探す：</td>
-      <td><a href="../../Okan/refIncSortByForm.php">オカンに訊く</a></td>
-     </tr>
--->
      <tr>
       <td>おこづかいレポート：</td>
       <td><a href="../../Okan/refPayAndIncReportForm.php">おかんにきく</a></td>
-<!--
-      <td>
-       <form action="../../Okan/refPayAndIncReportForm.php" method="post">
-        <button type="submit">おかんに訊く</button>
-       </form>
-      </td>
--->
      </tr>
     </tbody>
    </table>
-<!--
-     <tr>
-      <td></td>
-      <td></td>
-     </tr>
-     <tr>
-      <td></td>
-      <td></td>
-     </tr>
--->
    <br>
    <table>
     <tbody>
      <tr>
-      <td>メンバー情報をかえる：</td>
-      <td><a href="../../Okan/updateMemberForm.php">おかんにお願いする</a></td>
-<!--
-      <td>
-       <form action="../../Okan/updateMemberForm.php" method="post">
-        <button type="submit">おかんにお願いする</button>
-       </form>
-      </td>
--->
-     </tr>
-     <tr>
-      <td>ぶんるいをかえる：</td>
-      <td><a href="../../Okan/refCategoryForm.php">おかんにお願いする</a></td>
+      <td>せっていをかえる：</td>
+      <td><a href="../../Okan/refUserConfMenu.php">おかんにお願いする</a></td>
      </tr>
 	</tbody>
    </table>

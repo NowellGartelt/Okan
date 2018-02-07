@@ -39,7 +39,7 @@
     </tbody>
    </table>
    <br>
-   <form action="../../Okan/menu.php" method="post">
+   <form action="../../Okan/refUserConfMenu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

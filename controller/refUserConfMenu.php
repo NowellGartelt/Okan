@@ -1,13 +1,13 @@
 <?php
 /**
  * メニュー表示クラス
- * 
+ *
  * メニュー画面を呼び出す
- * 
+ *
  * @author NowellGartelt
  * @access public
  * @package controller
- * @name menu
+ * @name refUserConfMenu
  */
 session_start();
 
@@ -20,4 +20,4 @@ $loginID = $controller -> getLoginID();
 
 $_SESSION["errorInputPay"] = false;
 
-include '../view/menu.php';
+include '../view/refUserConfMenu.php';

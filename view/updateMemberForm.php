@@ -81,7 +81,7 @@
     <input type="hidden" name="taxBefore" value=<?php echo $memberInfo['defTax']; ?>>
     <button type="submit">オカンに教え直す</button>
    </form>
-   <form action="../../Okan/menu.php" method="post">
+   <form action="../../Okan/refUserConfMenu.php" method="post">
     <input type="hidden" name="page" value="update">
     <button type="submit">戻る</button>
    </form>
