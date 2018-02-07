@@ -35,5 +35,7 @@ for ($i = 0; $i < $maxRegist; $i++) {
     }
 }
 
+// var_dump($result);
+
 // 画面の読み込み
 include '../view/refPayCategoryForm.php';

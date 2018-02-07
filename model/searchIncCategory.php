@@ -17,6 +17,7 @@ class searchIncCategory {
     // 変数初期化
     private $loginID = null;
     private $maxRegist = null;
+    private $resultList = null;
     
     /**
      * コンストラクタ
@@ -47,14 +48,14 @@ class searchIncCategory {
         
         // いずれかの値がnullだった場合、nullを戻り値とする
         if ($loginID == null || $maxRegist == null) {
-            $resultList = null;
+            $this->resultList = null;
             
         } else {
             // DB接続情報取得
             include '../model/tools/databaseConnect.php';
             
             // 戻り値の初期化
-            $resultList = array();
+            $this->resultList = array();
             
             // IDで一致するカテゴリ情報の取得
             $query = "
@@ -64,7 +65,7 @@ class searchIncCategory {
             
             //連想配列として取得した値を配列変数に格納する
             while($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($resultList, $row);
+                array_push($this->resultList, $row);
             }
             
             // DB切断
@@ -72,7 +73,7 @@ class searchIncCategory {
             
         }
 
-        return $resultList;
+        return $this->resultList;
 
     }
 }

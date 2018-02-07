@@ -17,6 +17,7 @@ class searchPayCategory {
     // 変数初期化
     private $loginID = null;
     private $maxRegist = null;
+    private $resultList = null;
     
     /**
      * コンストラクタ
@@ -47,14 +48,14 @@ class searchPayCategory {
         
         // いずれかの値がnullだった場合、nullを戻り値とする
         if ($loginID == null || $maxRegist == null) {
-            $resultList = null;
+            $this->resultList = null;
             
         } else {
             // DB接続情報取得
             include '../model/tools/databaseConnect.php';
             
             // 戻り値の初期化
-            $resultList = array();
+            $this->resultList = array();
             
             // IDで一致するカテゴリ情報の取得
             $query = "
@@ -63,16 +64,16 @@ class searchPayCategory {
             $queryResult = mysqli_query($link, $query);
             
             //連想配列として取得した値を配列変数に格納する
-            while($row = mysqli_fetch_assoc($result)) {
-                array_push($resultList, $row);
+            while($row = mysqli_fetch_assoc($queryResult)) {
+                array_push($this->resultList, $row);
             }
             
             // DB切断
             mysqli_close($link);
             
         }
- 
-        return $resultList;
+        
+        return $this->resultList;
 
     }
 }
