@@ -4,14 +4,12 @@
  * 
  * パスワード再登録前に、パスワードとして入力された値の妥当性チェック、再登録結果を表示する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name reRegistMemberResult
  */
-
 session_start();
-
-include '../model/tools/databaseConnect.php';
 
 // 入力値の取得
 $loginID = $_POST['loginID'];
@@ -27,8 +25,8 @@ $errorPasswordCondition = false;
 if ($password == "" || $passwordCheck == "" ) {
     // 入力項目不足でエラー、入力画面に戻す
     $errorNoInput = true;
-
     $errorFlg = true;
+    
     include '../view/reRegistMemberForm.php';
 
 } else {
@@ -40,8 +38,8 @@ if ($password == "" || $passwordCheck == "" ) {
     if (strcasecmp($password, $passwordCheck) !== 0) {
         // パスワードとパスワード(確認)が一致しない場合、入力画面に戻す
         $errorPasswordUnmatch = true;
-        
         $errorFlg = true;
+        
         include '../view/reRegistMemberForm.php';
         
     } else {
@@ -53,26 +51,21 @@ if ($password == "" || $passwordCheck == "" ) {
         if (!$checkPassworCondition) {
             // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
             $errorPasswordCondition = true;
-                
             $errorFlg = true;
+            
             include '../view/reRegistMemberForm.php';
                 
         } else {
             // パスワード暗号化
             $password = password_hash($password, PASSWORD_DEFAULT);
-
-            include '../model/updatePassWord.php';
             
             // メンバー情報登録処理
-            $result = new updatePassWord();
-            $updatePassWord = $result -> updatePassWord($loginID, $password);
-            $updateInfo = $updatePassWord;
+            require_once '../model/updatePassWord.php';
+            $updatePassWord = new updatePassWord();
+            $updResult = $updatePassWord -> updatePassWord($loginID, $password);
 
             include '../view/reRegistMemberResult.php';
                 
         }
     }
 }
-
-mysqli_close($link);
-?>

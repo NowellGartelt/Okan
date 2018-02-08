@@ -4,27 +4,28 @@
  * 
  * 支払い情報の削除処理を行い、削除結果を表示する
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name deletePayResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 
-include '../model/deletePayByTrans.php';
-
-$result = new deletePayByTrans($loginID, $id);
-$deletePayByTrans = $result -> deletePayByTrans($loginID, $id);
-$payInfo = $deletePayByTrans;
+// 支出情報の削除
+require_once '../model/deletePayByTrans.php';
+$deletePayByTrans = new deletePayByTrans($loginID, $id);
+$payInfo = $deletePayByTrans -> deletePayByTrans($loginID, $id);
 
 include '../view/deletePayResult.php';
-?>

@@ -4,16 +4,20 @@
  * 
  * おこづかいレポート表示前に、検索条件を入力する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name refPayAndIncReportForm
  */
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $_SESSION['payName'] = null;
 $_SESSION['payCategory'] = null;
@@ -22,4 +26,3 @@ $_SESSION['payDateTo'] = null;
 $_SESSION['payState'] = null;
 
 include '../view/refPayAndIncReportForm.php';
-?>

@@ -35,21 +35,21 @@
 <?php $displayCount = 0; ?>
 <?php while ($displayCount < $incCount) { ?>
      <tr>
-      <td><?php echo $income[$displayCount]['incDate']; ?></td>
-      <td><?php echo $income[$displayCount]['incName']; ?></td>
-      <td><?php echo $income[$displayCount]['income']; ?></td>
-      <td><?php echo $income[$displayCount]['categoryName']; ?></td>
-      <td><?php echo $income[$displayCount]['incState']; ?></td>
+      <td><?php echo $incList[$displayCount]['incDate']; ?></td>
+      <td><?php echo $incList[$displayCount]['incName']; ?></td>
+      <td><?php echo $incList[$displayCount]['income']; ?></td>
+      <td><?php echo $incList[$displayCount]['categoryName']; ?></td>
+      <td><?php echo $incList[$displayCount]['incState']; ?></td>
       <td>
        <form action="../../Okan/updateIncForm.php" method="post">
         <input type="submit" value="教えなおす">
-        <input type="hidden" name="ID" value=<?php echo $income[$displayCount]['incomeID']; ?>>
+        <input type="hidden" name="ID" value=<?php echo $incList[$displayCount]['incomeID']; ?>>
        </form>
       </td>
       <td>
        <form action="../../Okan/deleteIncForm.php" method="post">
         <input type="submit" value="取り消してもらう">
-        <input type="hidden" name="ID" value=<?php echo $income[$displayCount]['incomeID']; ?>>
+        <input type="hidden" name="ID" value=<?php echo $incList[$displayCount]['incomeID']; ?>>
        </form>
       </td>
      </tr>

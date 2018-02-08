@@ -4,18 +4,21 @@
  * 
  * メンバー情報更新時、入力された値の妥当性チェック、および更新結果画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name updateMemberResult
  * 
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 // 入力情報の取得
 $userID = $_POST['userID'];
@@ -52,13 +55,13 @@ $errTaxRange = false;
 if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
     $errNoStatusChg = true;
     
-    include '../model/searchMemberByID.php';
-    
-    $result = new searchMemberByID();
-    $searchMemberByID = $result -> searchMemberByID($loginID);
-    $memberInfo = $searchMemberByID;
+    // メンバー情報の取得
+    require_once '../model/searchMemberByID.php';
+    $searchMemberByID = new searchMemberByID();
+    $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
     
     $errFlg = true;
+
     include '../view/updateMemberForm.php';
     
 } else {
@@ -97,13 +100,13 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             && $chkChgPassFlg == false && $chkChgTaxFlg == false) {
         $errNoStatusChg = true;
         
-        include '../model/searchMemberByID.php';
-        
-        $result = new searchMemberByID();
-        $searchMemberByID = $result -> searchMemberByID($loginID);
-        $memberInfo = $searchMemberByID;
+        // メンバー情報の取得
+        require_once '../model/searchMemberByID.php';
+        $searchMemberByID　= new searchMemberByID();
+        $memberInfo = $searchMemberByID-> searchMemberByID($loginID);
         
         $errFlg = true;
+
         include '../view/updateMemberForm.php';
 
     // フラグがひとつ以上立っている場合
@@ -125,12 +128,10 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
                 $errFlg = true;
             
             } else {
-                include '../model/searchMemberByID.php';
-            
                 // ログインIDチェック、ログインIDが登録済みかどうか確認する。
+                require_once '../model/searchMemberByID.php';
                 $result = new searchMemberByID();
-                $searchMember = $result -> searchMemberByID($logIDAfter);
-                $memberInfo = $searchMember;
+                $memberInfo = $searchMemberByID-> searchMemberByID($logIDAfter);
             
                 // ログインIDが登録済みだった場合、エラーフラグを立てる
                 if ($memberInfo !== null) {
@@ -185,26 +186,23 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         }
         // エラーフラグが立っている場合、エラーで入力画面へ戻す
         if ($errFlg == true) {
-            include '../model/searchMemberByID.php';
-            
-            $result = new searchMemberByID();
-            $searchMemberByID = $result -> searchMemberByID($loginID);
-            $memberInfo = $searchMemberByID;
+            // メンバー情報の取得
+            require_once '../model/searchMemberByID.php';
+            $searchMemberByID= new searchMemberByID();
+            $memberInfo = $searchMemberByID-> searchMemberByID($loginID);
             
             include '../view/updateMemberForm.php';
             
         // エラーフラグが立っていない場合、ユーザ情報変更処理を行う
         } else {
-            include '../model/updateMember.php';
-            
             // ユーザー情報変更処理呼び出し
-            $result = new updateMember();
-            $resultUpdateMember = $result -> updateMember(
+            require_once '../model/updateMember.php';
+            $updateMember= new updateMember();
+            $updResult = $updateMember -> updateMember(
                     $nameAfter, $logIDAfter, $passwordAfter, $taxAfter, 
                     $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
                     $userID, $logIDBefore
                     );
-            $memberInfo = $resultUpdateMember;
             
             if ($chgLogIDFlg == true) {
                 $_SESSION['loginID'] = $logIDAfter;
@@ -217,4 +215,3 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         }
     }    
 }
-?>

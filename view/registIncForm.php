@@ -47,7 +47,7 @@
        <td>
         <select name="incCategory" style="width: 150px">
 <?php 
-foreach ($getCategory as &$categoryName) {
+foreach ($cateList as &$categoryName) {
 ?>
          <option value=<?php echo $categoryName['personalID'] ?>><?php echo $categoryName['categoryName'] ?></option>
 <?php 

@@ -49,21 +49,14 @@ class searchMemberByLogIdAndPass {
 
         // ログインIDから登録されたパスワードの取得
         $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";
-        $result = mysqli_query($link, $query);
-        $row = mysqli_fetch_array($result);
+        $queryResult = mysqli_query($link, $query);
+        $row = mysqli_fetch_array($queryResult);
         $getPassword = $row['loginPassword'];
-        
-        if (password_verify($password, $getPassword)) {
-            $resultLogin = 'login';
-            
-        } else {
-            $resultLogin = 'noRegistration';
-            
-        }
-        
+
         // DB切断
         mysqli_close($link);
         
-        return $resultLogin;
+        return $getPassword;
+        
     }
 }

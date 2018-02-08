@@ -14,6 +14,7 @@
 class searchMemberByID {
     // インスタンス変数の定義
     private $loginID = null;
+    private $result = null;
  
     /**
      * コンストラクタ
@@ -35,25 +36,54 @@ class searchMemberByID {
      * @return array $result メンバー情報
      */
     public function searchMemberByID($loginID){
-        // DB接続情報
-        include '../model/tools/databaseConnect.php';
-
+        // 引き渡された値の取得
         $this->loginID = $loginID;
-
+        
+        // 値がnullだった場合、nullを返す
         if ($loginID == null) {
-            $result = null;
+            $this->result = null;
             
         } else {
+            // DB接続情報
+            include '../model/tools/databaseConnect.php';
+            
             // ログインIDと一致するメンバー情報の取得
             $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
-            $result = mysqli_query($link, $query);
-            $result = mysqli_fetch_array($result);
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
             
         }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $result;
+    }
+    
+    public function searchMemberIDByID($loginID) {
+        // 引き渡された値の取得
+        $this->loginID = $loginID;
+        
+        // 値がnullだった場合、nullを返す
+        if ($loginID == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報
+            include '../model/tools/databaseConnect.php';
+            
+            // ログインIDと一致するメンバー情報の取得
+            $query = "SELECT userID, loginID FROM usertable WHERE loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
+            
+        }
+        
+        return $this->result;
+        
     }
 }

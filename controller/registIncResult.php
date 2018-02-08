@@ -4,19 +4,20 @@
  * 
  * 収入情報として入力された値の妥当性チェック、および登録結果を表示する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name registIncResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-include '../model/tools/databaseConnect.php';
-
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $incName = $_POST['incName'];
 $income = $_POST['income'];
@@ -40,18 +41,18 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $i
     $errorInputInc = $_SESSION["errorInputInc"];
  
     // 支出カテゴリ一覧の取得
-    include '../model/searchPayCategory.php';
+    require_once '../model/searchPayCategory.php';
     $searchPayCategory = new searchPayCategory();
-    $getCategory = $searchPayCategory -> searchPayCategoryName($loginID);
+    $cateList = $searchPayCategory -> searchPayCategoryName($loginID);
     
     // 支出カテゴリ数取得
-    $getCount = $searchPayCategory -> searchPayCategoryCount($loginID);
-    $count = $getCount[0]["COUNT(*)"];
+    $cateCount = $searchPayCategory -> searchPayCategoryCount($loginID);
+    $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {
         // カテゴリ登録がなかった場合、空行を取り除く
-        if ($getCategory[$i]['categoryName'] == false || $getCategory[$i]['categoryName'] == "") {
-            unset($getCategory[$i]);
+        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+            unset($cateList[$i]);
         }
     }
     
@@ -70,12 +71,11 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $i
  
     $registDate = date("Y-m-d H:i:s");
     
-    include '../model/registIncByTrans.php';
-    
-    $result = new registIncByTrans();
-    $registIncByTrans = $result -> registIncByTrans($loginID, $incName, 
+    // 収入情報の登録
+    require_once '../model/registIncByTrans.php';
+    $registIncByTrans = new registIncByTrans();
+    $regResult = $registIncByTrans -> registIncByTrans($loginID, $incName, 
             $income, $incCategory, $incState, $incDate, $registDate);
-    $incInfo = $registIncByTrans;
     
 $query_kogotoList = <<<__SQL
     SELECT * FROM `kogoto`
@@ -88,6 +88,3 @@ __SQL;
 
 }
 $_SESSION["errorInputInc"] = "";
-
-mysqli_close($link);
-?>

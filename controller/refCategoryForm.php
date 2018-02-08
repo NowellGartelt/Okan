@@ -9,15 +9,15 @@
  * @package controller
  * @name refCategoryForm
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 // 画面の読み込み
 include '../view/refCategoryForm.php';

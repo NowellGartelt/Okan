@@ -4,17 +4,20 @@
  * 
  * 収入情報更新時、入力された情報の妥当性チェック、および情報更新結果の画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name updateIncResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $incName = $_POST['incName'];
 $income = $_POST['income'];
@@ -40,23 +43,23 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""
     $errorInputInc = $_SESSION["errorInputInc"];
     
     // 収入情報の取得
-    include '../model/searchIncByID.php';
-    $searchIncByID= new searchIncByID();
-    $incInfo = $searchIncByID-> searchIncByID($loginID, $id);
+    require_once '../model/searchIncByID.php';
+    $searchIncByID = new searchIncByID();
+    $incList = $searchIncByID -> searchIncByID($loginID, $id);
     
     // 収入カテゴリ一覧の取得
-    include '../model/searchIncCategory.php';
+    require_once '../model/searchIncCategory.php';
     $searchIncCategory = new searchIncCategory();
-    $getCategory = $searchIncCategory -> searchIncCategoryName($loginID);
+    $cateList = $searchIncCategory -> searchIncCategoryName($loginID);
     
     // 収入カテゴリ数取得
-    $getCount = $searchIncCategory -> searchIncCategoryCount($loginID);
-    $count = $getCount[0]["COUNT(*)"];
+    $cateCount = $searchIncCategory -> searchIncCategoryCount($loginID);
+    $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {
         // カテゴリ登録がなかった場合、空行を取り除く
-        if ($getCategory[$i]['categoryName'] == false || $getCategory[$i]['categoryName'] == "") {
-            unset($getCategory[$i]);
+        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+            unset($cateList[$i]);
         }
     }
     
@@ -71,9 +74,9 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""
     $incState = htmlspecialchars($incState, ENT_QUOTES);
     
     // 収入情報の更新
-    include '../model/updateIncByTrans.php';
-    $updateIncByTrans= new updateIncByTrans();
-    $incInfo = $updateIncByTrans-> updateIncByTrans($loginID, 
+    require_once '../model/updateIncByTrans.php';
+    $updateIncByTrans = new updateIncByTrans();
+    $updResult = $updateIncByTrans -> updateIncByTrans($loginID, 
             $incName, $income, $incCategory, $incDate, $incState, $id);
     
     include '../view/updateIncResult.php';

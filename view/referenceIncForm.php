@@ -15,10 +15,10 @@
   </div>
   <div align="center">
    <p>Okan：検索(もらったお金)</p><br>
-<?php if ($errorReferenceIncCount == true) { ?>
+<?php if ($errResult == "OverCapacity") { ?>
    <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
    <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>
-<?php } elseif ($errorReferenceIncNone == true) { ?>
+<?php } elseif ($errResult == "noneResult") { ?>
    <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
    <p>条件を見直しなさいよね</p><br>
 <?php } else { ?>

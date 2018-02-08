@@ -5,19 +5,20 @@
  * 入力された支払い情報を元に、情報の妥当性と登録処理の実施する
  * その結果を元に画面の呼び出しを行う
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name registPayResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-include '../model/tools/databaseConnect.php';
-
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
@@ -44,28 +45,28 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     $errorInputPay = $_SESSION["errorInputPay"];
     
     // ユーザのデフォルト税率設定の取得
-    include '../model/searchDefTaxByID.php';
+    require_once '../model/searchDefTaxByID.php';
     $searchDefTaxByID = new searchDefTaxByID();
     $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
     
     // 支払方法一覧の取得
-    include '../model/searchMethodOfPayment.php';
+    require_once '../model/searchMethodOfPayment.php';
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
     
     // 支出カテゴリ一覧の取得
-    include '../model/searchPayCategory.php';
+    require_once '../model/searchPayCategory.php';
     $searchPayCategory = new searchPayCategory();
-    $getCategory = $searchPayCategory -> searchPayCategoryName($loginID);
+    $cateList = $searchPayCategory -> searchPayCategoryName($loginID);
     
     // 支出カテゴリ数取得
-    $getCount = $searchPayCategory -> searchPayCategoryCount($loginID);
-    $count = $getCount[0]["COUNT(*)"];
+    $cateCount = $searchPayCategory -> searchPayCategoryCount($loginID);
+    $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {
         // カテゴリ登録がなかった場合、空行を取り除く
-        if ($getCategory[$i]['categoryName'] == false || $getCategory[$i]['categoryName'] == "") {
-            unset($getCategory[$i]);
+        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+            unset($cateList[$i]);
         }
     }
     
@@ -86,7 +87,7 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     // 税率が入力されてるとき、自動で税率計算を行う
     // 消費税分を掛け算、小数点以下を切り捨てる
     if ($taxFlg == 1) {
-        include 'tools/taxCalc.php';
+        require_once 'tools/taxCalc.php';
         $taxCalc = new taxCalc();
         $payment = $taxCalc -> taxCalc($payment, $tax);
         
@@ -96,9 +97,10 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
         
     }
     
-    include '../model/registPayByTrans.php';
-    $registPayByTrans= new registPayByTrans();
-    $result = $registPayByTrans-> registPayByTrans($loginID, $payName, 
+    // 支出情報の登録
+    require_once '../model/registPayByTrans.php';
+    $registPayByTrans = new registPayByTrans();
+    $regiResult = $registPayByTrans -> registPayByTrans($loginID, $payName, 
             $payment, $payCategory, $payState, $payDate, $registDate, 
             $taxFlg, $tax, $methodOfPayment);
     
@@ -113,5 +115,3 @@ __SQL;
 
 }
 $_SESSION["errorInputPay"] = "";
-
-mysqli_close($link);

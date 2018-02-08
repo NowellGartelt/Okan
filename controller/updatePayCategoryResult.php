@@ -9,15 +9,15 @@
  * @package controller
  * @name updatePayCategoryResult
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $personalID = $_POST['personalID'];
 $categoryName = $_POST['categoryName'];
@@ -29,12 +29,12 @@ if($categoryName == ""){
     $errorInput = "nullInfo";
     
     // 指定されたNoに登録されているカテゴリ情報の取得
-    include '../model/searchPayCategoryByID.php';
-    $getCategory = new searchPayCategoryByID();
-    $result = $getCategory-> searchPayCategoryByID($loginID, $personalID);
+    require_once '../model/searchPayCategoryByID.php';
+    $searchPayCategoryByID = new searchPayCategoryByID();
+    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($loginID, $personalID);
     
-    if ($result['categoryName'] == null) {
-        $result['categoryName'] = "(未登録)";
+    if ($cateList['categoryName'] == null) {
+        $cateList['categoryName'] = "(未登録)";
     }
     
     // 画面の読み込み
@@ -46,9 +46,9 @@ if($categoryName == ""){
     $categoryName = htmlspecialchars($categoryName, ENT_QUOTES);
     
     // カテゴリ名更新
-    include '../model/updatePayCategory.php';
-    $result = new updatePayCategory();
-    $updatePayCategory = $result -> updatePayCategory($loginID, $categoryName, $personalID);
+    require_once '../model/updatePayCategory.php';
+    $updatePayCategory = new updatePayCategory();
+    $updResult = $updatePayCategory-> updatePayCategory($loginID, $categoryName, $personalID);
     
     include '../view/updatePayCategoryResult.php';
 }

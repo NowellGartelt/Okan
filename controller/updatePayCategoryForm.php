@@ -9,27 +9,27 @@
  * @package controller
  * @name updatePayCategoryForm
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 // カテゴリーID取得
 $personalID = $_POST['personalID'];
 
 // 指定されたNoに登録されているカテゴリ情報の取得
-include '../model/searchPayCategoryByID.php';
-$getCategory = new searchPayCategoryByID();
-$result = $getCategory-> searchPayCategoryByID($loginID, $personalID);
+require_once '../model/searchPayCategoryByID.php';
+$searchPayCategoryByID = new searchPayCategoryByID();
+$cateList = $searchPayCategoryByID -> searchPayCategoryByID($loginID, $personalID);
 
 // カテゴリが空行だった場合、(未登録)を挿入
-if ($result[0]['categoryName'] == null) {
-    $result[0]['categoryName'] = "(未登録)";
+if ($cateList[0]['categoryName'] == null) {
+    $cateList[0]['categoryName'] = "(未登録)";
 }
 
 // 画面の読み込み

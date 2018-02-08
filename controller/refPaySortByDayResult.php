@@ -4,18 +4,20 @@
  * 
  * まとめて支払い検索(日ごと)の検索条件として入力された値の妥当性チェック、検索結果の表示画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name refPaySortByDayResult
  */
-
 session_start();
 
-// ログイン検証
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 // インスタンス変数の定義
 $result = null;
@@ -46,8 +48,6 @@ $_SESSION['payDateTo'] = $payDateTo;
 $_SESSION['choiceKey'] = $choiceKey;
 $_SESSION['methodOfPayment'] = $methodOfPayment;
 
-include '../model/searchPayByDay.php';
-
 // 項目不足だった場合、入力項目不足エラー
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
@@ -55,13 +55,14 @@ if (($choiceKey == "payName" && $payName == "")
     
 // 項目が十分であれば取得実施
 } else {
-    $result = new searchPayByDay();
-    $searchPayByDay = $result->searchPayByDay(
+    // 日ごとの支出情報の取得
+    require_once '../model/searchPayByDay.php';
+    $searchPayByDay = new searchPayByDay();
+    $payList = $searchPayByDay -> searchPayByDay(
             $loginID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment);
  
-    $payment = $searchPayByDay;
-    $payCount = count($searchPayByDay);
+    $payCount = count($payList);
     
     // 結果が100行以上だった場合、検索結果過多でエラー
     if ($payCount >= 101) {
@@ -83,7 +84,7 @@ if ($errInput !== "") {
     $_SESSION['methodOfPayment'] = null;
     
     // 支払方法一覧の取得
-    include '../model/searchMethodOfPayment.php';
+    require_once '../model/searchMethodOfPayment.php';
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
         
@@ -92,7 +93,7 @@ if ($errInput !== "") {
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumPayment = null;
-    foreach ($payment as $SumPay) {
+    foreach ($payList as $SumPay) {
         $sumPayment += $SumPay['SUM(payment)'];
     }
 

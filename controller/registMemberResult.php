@@ -9,7 +9,6 @@
  * @package controller
  * @name registMemberResult
  */
-
 session_start();
 
 // 入力値の取得
@@ -54,12 +53,10 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
         include '../view/registMemberForm.php';
         
     } else {
-        include '../model/searchMemberByID.php';
-
         // ログインIDチェック、ログインIDが登録済みかどうか確認する。
-        $result = new searchMemberByID();
-        $searchMember = $result -> searchMemberByID($loginID);
-        $memberInfo = $searchMember;
+        require_once '../model/searchMemberByID.php';
+        $searchMemberByID = new searchMemberByID();
+        $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
 
         if ($memberInfo !== null) {
             // ログインIDが登録済みだった場合、入力画面に戻す
@@ -89,19 +86,19 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
                 $registDate = date("Y-m-d H:i:s");
 
                 // メンバー情報登録処理
-                include '../model/registMember.php';
+                require_once '../model/registMember.php';
                 $registMember = new registMember();
-                $resultRegistMember = $registMember -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
+                $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
 
                 // 支出カテゴリ初期登録処理
-                include '../model/registPayCategory.php';
+                require_once '../model/registPayCategory.php';
                 $registPayCategory = new registpayCategory();
-                $resultRegPayVategory = $registPayCategory -> registPayCategory($loginID, $registDate);
+                $regPayCategoryResult = $registPayCategory -> registPayCategory($loginID, $registDate);
                 
                 // 収入カテゴリ初期登録処理
-                include '../model/registIncCategory.php';
+                require_once '../model/registIncCategory.php';
                 $registIncCategory = new registIncCategory();
-                $resultRegIncVategory = $registIncCategory -> registIncCategory($loginID, $registDate);
+                $regIncCategoryResult = $registIncCategory -> registIncCategory($loginID, $registDate);
                 
                 include '../view/registMemberResult.php';
                 

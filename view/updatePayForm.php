@@ -34,22 +34,22 @@
       <tr>
        <td>いつ？※：</td>
        <td></td>
-       <td><input type="date" name="payDate" style="width: 150px" value=<?php echo $payInfo['payDate']; ?>></td>
+       <td><input type="date" name="payDate" style="width: 150px" value=<?php echo $payList['payDate']; ?>></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
        <td></td>
-       <td><input type="number" name="payment"  style="width: 150px"value=<?php echo $payInfo['payment']; ?>></td>
+       <td><input type="number" name="payment"  style="width: 150px"value=<?php echo $payList['payment']; ?>></td>
       </tr>
       <tr>
        <td>税別？：</td>
-       <td><input type="checkbox" name="taxFlg" value=1 <?php if ($payInfo['taxFlg'] == 1) { ?> checked <?php } ?>></td>
-       <td><input type="number" name="tax" style="width: 150px" value="<?php echo $payInfo['tax']; ?>"> %</td>
+       <td><input type="checkbox" name="taxFlg" value=1 <?php if ($payList['taxFlg'] == 1) { ?> checked <?php } ?>></td>
+       <td><input type="number" name="tax" style="width: 150px" value="<?php echo $payList['tax']; ?>"> %</td>
       </tr>
       <tr>
        <td>使ったものは？※：</td>
        <td></td>
-       <td><input type="text" name="payName" style="width: 150px" value=<?php echo $payInfo['payName']; ?>></td>
+       <td><input type="text" name="payName" style="width: 150px" value=<?php echo $payList['payName']; ?>></td>
       </tr>
       <tr>
        <td>カテゴリは？※：</td>
@@ -57,11 +57,11 @@
        <td>
         <select name="payCategory" style="width: 150px">
 <?php 
-foreach ($getCategory as &$categoryName) {
+foreach ($cateList as &$categoryName) {
 ?>
          <option value=<?php 
             echo $categoryName['personalID'];
-            if ($payInfo['categoryName'] == $categoryName['categoryName']) {
+            if ($payList['categoryName'] == $categoryName['categoryName']) {
                 ?> selected <?php
 }
             ?>><?php echo $categoryName['categoryName'] ?></option>
@@ -81,7 +81,7 @@ foreach ($mopList as &$methodOfPayment) {
 ?>
          <option value=<?php 
             echo $methodOfPayment['mopID']; 
-            if ($payInfo['paymentName'] == $methodOfPayment['paymentName']) {
+            if ($payList['paymentName'] == $methodOfPayment['paymentName']) {
                 ?> selected <?php
             }
             ?>><?php echo $methodOfPayment['paymentName']; ?></option>
@@ -94,7 +94,7 @@ foreach ($mopList as &$methodOfPayment) {
       <tr>
        <td>一言メモ：</td>
        <td></td>
-       <td><input type="text" name="payState" style="width: 150px" value=<?php echo $payInfo['payState']; ?>></td>
+       <td><input type="text" name="payState" style="width: 150px" value=<?php echo $payList['payState']; ?>></td>
       </tr>
      </tbody>
     </table>

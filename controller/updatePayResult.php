@@ -4,17 +4,20 @@
  * 
  * 変更された値を元に、入力値の妥当性検証と情報の更新、更新完了画面の呼び出しをする
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name updatePayResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $payName = $_POST['payName'];
 $paymentAfter = $_POST['payment'];
@@ -47,12 +50,12 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     $errorInputPay = $_SESSION["errorInputPay"];
     
     // 支出情報の取得
-    include '../model/searchPayByID.php';
-    $searchPayByID= new searchPayByID();
+    require_once '../model/searchPayByID.php';
+    $searchPayByID = new searchPayByID();
     $payInfo = $searchPayByID -> searchPayByID($loginID, $id);
     
     // 支払方法一覧の取得
-    include '../model/searchMethodOfPayment.php';
+    require_once '../model/searchMethodOfPayment.php';
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
     
@@ -69,9 +72,9 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     $taxAfter = htmlspecialchars($taxAfter, ENT_QUOTES);
 
     // 税率が入力されてるとき、自動で税率計算を行う
-    include '../model/searchPayByID.php';
-    $result = new searchPayByID();
-    $payInfoBefore = $result -> searchPayByID($loginID, $id);
+    require_once '../model/searchPayByID.php';
+    $searchPayByID = new searchPayByID();
+    $payInfoBefore = $searchPayByID -> searchPayByID($loginID, $id);
     
     $taxFlgBefore = $payInfoBefore['taxFlg'];
     $taxBefore = $payInfoBefore['tax'];
@@ -106,7 +109,7 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     // 税率が入力されてるとき、自動で税率計算を行う
     // 消費税分を掛け算、小数点以下を切り捨てる
     if ($taxCalcFlg == true) {
-        include 'tools/taxCalc.php';
+        require_once 'tools/taxCalc.php';
         $taxCalc = new taxCalc();
         $paymentAfter = $taxCalc -> taxCalc($paymentAfter, $taxAfter);
         
@@ -118,9 +121,9 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     }
     
     // 支出情報の更新
-    include '../model/updatePayByTrans.php';
-    $updatePayByTrans= new updatePayByTrans();
-    $payInfoAfter = $updatePayByTrans-> updatePayByTrans($loginID, $payName,
+    require_once '../model/updatePayByTrans.php';
+    $updatePayByTrans = new updatePayByTrans();
+    $updResult = $updatePayByTrans -> updatePayByTrans($loginID, $payName,
             $paymentAfter, $payCategory, $payDate, $payState, $id,
             $taxFlgAfter, $taxAfter, $methodOfPayment);
     

@@ -8,36 +8,47 @@
  * @access public
  * @package controller
  * @name loginActon
- * 
  */
-
 session_start();
 
-include_once '../model/searchMemberByLogIdAndPass.php';
-
 $loginID = $_POST['loginID'];
-$loginPassword = $_POST['loginPassword'];
+$password = $_POST['loginPassword'];
 
 $loginID = htmlspecialchars($loginID, ENT_QUOTES);
-$loginPassword = htmlspecialchars($loginPassword, ENT_QUOTES);
+$password = htmlspecialchars($password, ENT_QUOTES);
 
-if (empty($loginID) || empty($loginPassword)) {
+$login = null;
+
+// ログインIDかパスワードが空だった場合
+if (empty($loginID) || empty($password)) {
     $_SESSION['login'] = 'emptyIDorPass';
+
     include '../../Okan/controller/login.php';
 
 } else {
+    // ログインIDとパスワードの引き当て
+    require_once '../model/searchMemberByLogIdAndPass.php';
     $searchMemberByLogIdAndPass = new searchMemberByLogIdAndPass();
-    $login = $searchMemberByLogIdAndPass -> searchMemberByLogIdAndPass($loginID, $loginPassword);
-
-    if ($login == 'login') {
+    $getPassword = $searchMemberByLogIdAndPass -> searchMemberByLogIdAndPass($loginID, $password);
+    
+    if (password_verify($password, $getPassword)) {
+        // ユーザIDの引き当て
+        require_once '../model/searchMemberByID.php';
+        $searchMemberByID = new searchMemberByID();
+        $result = $searchMemberByID -> searchMemberIDByID($loginID);
+        $userID = $result['userID'];
+        
+        // セッション関数のセット
         $_SESSION['login'] = 'login';
         $_SESSION['loginID'] = $loginID;
+        $_SESSION['userID'] = $userID;
         $_SESSION["errorInputPay"] = false;
-
+        
         include '../view/menu.php';
-
+        
     } else {
         $_SESSION['login'] = 'noRegistration';
+        
         include '../../Okan/controller/login.php';
         
     }

@@ -4,19 +4,20 @@
  * 
  * 収入情報を検索する条件として入力された値の妥当性チェック、検索結果を表示する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name referenceIncResult
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $page = $_POST['page'];
 
@@ -26,6 +27,7 @@ $incCategory = null;
 $incDateFrom = null;
 $incDateTo = null;
 $incState = null;
+$errResult = null;
 
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
 if ($page == "reference") {
@@ -60,46 +62,40 @@ if ($page == "reference") {
 
 }
 
-include '../model/searchIncByTrans.php';
-
-$result = new searchIncByTrans();
-$searchIncByTrans = $result -> searchIncByTrans($loginID, $incName, 
+// 収入情報の取得
+require_once '../model/searchIncByTrans.php';
+$searchIncByTrans = new searchIncByTrans();
+$incList = $searchIncByTrans -> searchIncByTrans($loginID, $incName, 
         $incCategory, $incState, $incDateFrom, $incDateTo);
 
-$income = $searchIncByTrans;
-$incCount = count($searchIncByTrans);
+$incCount = count($incList);
 
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if($incCount >= 101){
-    $errorReferenceIncCount = true;
-
-    $_SESSION['incName'] = null;
-    $_SESSION['incCategory'] = null;
-    $_SESSION['incDateFrom'] = null;
-    $_SESSION['incDateTo'] = null;
-    $_SESSION['incState'] = null;
-
-    include '../view/referenceIncForm.php';
+    $errResult = "OverCapacity";
 
 // 結果が0行だった場合、検索結果なしでエラーとする
 } elseif ($incCount == 0) {
-    $errorReferenceIncNone = true;
+    $errResult = "noneResult";
 
+}
+
+// エラーがあった場合、入力画面へ戻す
+if ($errResult !== null) {
     $_SESSION['incName'] = null;
     $_SESSION['incCategory'] = null;
     $_SESSION['incDateFrom'] = null;
     $_SESSION['incDateTo'] = null;
     $_SESSION['incState'] = null;
-
+    
     include '../view/referenceIncForm.php';
-
+    
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumIncome = null;
-    foreach ($income as $SumInc) {
+    foreach ($incList as $SumInc) {
         $sumIncome += $SumInc['income'];
     }
 
     include '../view/referenceIncResult.php';
 }
-?>

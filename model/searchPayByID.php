@@ -64,6 +64,7 @@ class searchPayByID {
             
             // DB切断
             mysqli_close($link);
+            
         }
         
         return $this->result;

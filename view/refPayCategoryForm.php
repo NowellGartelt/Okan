@@ -31,12 +31,12 @@
 <?php $displayCount = 0; ?>
 <?php while ($displayCount < $count) { ?>
      <tr>
-      <td><?php echo $result[$displayCount]['personalID']; ?></td>
-      <td><?php echo $result[$displayCount]['categoryName']; ?></td>
+      <td><?php echo $cateList[$displayCount]['personalID']; ?></td>
+      <td><?php echo $cateList[$displayCount]['categoryName']; ?></td>
       <td>
        <form action="../../Okan/updatePayCategoryForm.php" method="post">
         <input type="submit" value="教えなおす">
-        <input type="hidden" name="personalID" value=<?php echo $result[$displayCount]['personalID']; ?>>
+        <input type="hidden" name="personalID" value=<?php echo $cateList[$displayCount]['personalID']; ?>>
        </form>
       </td>
      </tr>

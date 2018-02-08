@@ -30,7 +30,7 @@
      <tbody>
       <tr>
        <td>今のカテゴリ名：</td>
-       <td><?php echo $result[0]['categoryName']; ?></td>
+       <td><?php echo $cateList[0]['categoryName']; ?></td>
       </tr>
       <tr>
        <td>新しいカテゴリ名：</td>
@@ -40,7 +40,7 @@
     </table>
     <br>
     <input type="hidden" name="personalID" value=<?php echo $personalID; ?>>
-    <input type="hidden" name="categoryNameBefore" value=<?php echo $result[0]['categoryName'];?>>
+    <input type="hidden" name="categoryNameBefore" value=<?php echo $cateList[0]['categoryName'];?>>
     <button type="submit">オカンに教え直す</button>
    </form>
    <form action="../../Okan/refPayCategoryForm.php" method="post">

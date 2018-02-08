@@ -9,23 +9,23 @@
  * @package controller
  * @name updateIncCategoryForm
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 // カテゴリーID取得
 $personalID = $_POST['personalID'];
 
 // 指定されたNoに登録されているカテゴリ情報の取得
-include '../model/searchIncCategoryByID.php';
-$getCategory = new searchIncCategoryByID();
-$result = $getCategory-> searchIncCategoryByID($loginID, $personalID);
+require_once '../model/searchIncCategoryByID.php';
+$searchIncCategoryByID = new searchIncCategoryByID();
+$cateList = $searchIncCategoryByID -> searchIncCategoryByID($loginID, $personalID);
 
 // カテゴリが空行だった場合、(未登録)を挿入
 if ($result[0]['categoryName'] == null) {

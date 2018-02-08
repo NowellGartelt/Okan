@@ -9,29 +9,29 @@
  * @package controller
  * @name updatePayCategoryResult
  */
-
 session_start();
 
 // コントローラの共通処理取得
-require 'controller.php';
+require_once 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $personalID = $_POST['personalID'];
 $categoryName = $_POST['categoryName'];
 $categoryNameBefore = $_POST['categoryNameBefore'];
 
 // カテゴリ名が入力されてなかった場合
-if($categoryName == ""){
+if ($categoryName == "") {
     // 入力項目不足でエラー、入力画面に戻す
     $errorInput = "nullInfo";
     
     // 指定されたNoに登録されているカテゴリ情報の取得
-    include '../model/searchIncCategoryByID.php';
-    $getCategory = new searchIncCategoryByID();
-    $result = $getCategory-> searchIncCategoryByID($loginID, $personalID);
+    require_once '../model/searchIncCategoryByID.php';
+    $searchIncCategoryByID = new searchIncCategoryByID();
+    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($loginID, $personalID);
     
     if ($result['categoryName'] == null) {
         $result['categoryName'] = "(未登録)";
@@ -46,9 +46,9 @@ if($categoryName == ""){
     $categoryName = htmlspecialchars($categoryName, ENT_QUOTES);
     
     // カテゴリ名更新
-    include '../model/updateIncCategory.php';
-    $result = new updateIncCategory();
-    $updateIncCategory = $result -> updateIncCategory($loginID, $categoryName, $personalID);
+    require_once '../model/updateIncCategory.php';
+    $updateIncCategory = new updateIncCategory();
+    $updResult = $updateIncCategory -> updateIncCategory($loginID, $categoryName, $personalID);
     
     include '../view/updateIncCategoryResult.php';
 }

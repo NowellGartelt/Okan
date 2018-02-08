@@ -4,19 +4,20 @@
  * 
  * 入力された検索条件の値の妥当性検証、及び検索結果表示画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name referencePayResult
  */
-
 session_start();
 
 // コントローラの共通処理取得
 require 'controller.php';
 $controller = new controller();
 
-// ログインID取得
+// ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $page = $_POST['page'];
 
@@ -26,6 +27,7 @@ $payCategory = null;
 $payDateFrom = null;
 $payDateTo = null;
 $payState = null;
+$errResult = null;
 
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
 if ($page == "reference") {
@@ -60,46 +62,39 @@ if ($page == "reference") {
 
 }
 
-include '../model/searchPayByTrans.php';
-
-$result = new searchPayByTrans();
-$searchPayByTrans = $result -> searchPayByTrans($loginID, $payName, 
+require_once '../model/searchPayByTrans.php';
+$searchPayByTrans = new searchPayByTrans();
+$payList = $searchPayByTrans -> searchPayByTrans($loginID, $payName, 
         $payCategory, $payState, $payDateFrom, $payDateTo);
 
-$payment = $searchPayByTrans;
-$payCount = count($searchPayByTrans);
+$payCount = count($payList);
 
 // 結果が100行以上だった場合、検索結果過多でエラーとする
 if($payCount >= 101){
-    $errorReferencePayCount = true;
-
-    $_SESSION['payName'] = null;
-    $_SESSION['payCategory'] = null;
-    $_SESSION['payDateFrom'] = null;
-    $_SESSION['payDateTo'] = null;
-    $_SESSION['payState'] = null;
-
-    include '../view/referencePayForm.php';
+    $errResult = "OverCapacity";
 
 // 結果が0行だった場合、検索結果なしでエラーとする
 } elseif ($payCount == 0) {
-    $errorReferencePayNone = true;
+    $errResult = "noneResult";
 
+}
+
+// エラーがあった場合、入力画面に戻す
+if ($errResult !== null) {
     $_SESSION['payName'] = null;
     $_SESSION['payCategory'] = null;
     $_SESSION['payDateFrom'] = null;
     $_SESSION['payDateTo'] = null;
     $_SESSION['payState'] = null;
-
+    
     include '../view/referencePayForm.php';
-
+    
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumPayment = null;
-    foreach ($payment as $SumPay) {
+    foreach ($payList as $SumPay) {
         $sumPayment += $SumPay['payment'];
     }
 
     include '../view/referencePayResult.php';
 }
-?>

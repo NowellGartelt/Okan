@@ -4,17 +4,20 @@
  * 
  * 収入情報を検索するため、情報を入力する画面を呼び出す
  * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name referenceIncForm
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $_SESSION['incName'] = null;
 $_SESSION['incCategory'] = null;
@@ -22,8 +25,6 @@ $_SESSION['incDateFrom'] = null;
 $_SESSION['incDateTo'] = null;
 $_SESSION['incState'] = null;
 
-$errorReferenceIncCount = null;
-$errorReferenceIncNone = null;
+$errResult = null;
 
 include '../view/referenceIncForm.php';
-?>

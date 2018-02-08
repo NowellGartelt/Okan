@@ -3,27 +3,29 @@
  * 収入情報削除結果画面表示クラス
  * 
  * 収入情報の削除後の確認画面を呼び出す
+ * 
+ * @author NowellGartelt
  * @access public
  * @package controller
  * @name deleteIncResult
  */
-
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require_once 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインIDとユーザID取得
+$loginID = $controller -> getLoginID();
+$userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
 $incName = $_POST['incName'];
 $income = $_POST['income'];
 
-include '../model/deleteIncByTrans.php';
-
-$result = new deleteIncByTrans();
-$deleteIncByTrans = $result -> deleteIncByTrans($loginID, $id);
-$incInfo = $deleteIncByTrans;
+// 収入情報の削除
+require_once '../model/deleteIncByTrans.php';
+$deleteIncByTrans = new deleteIncByTrans();
+$incInfo = $deleteIncByTrans -> deleteIncByTrans($loginID, $id);
 
 include '../view/deleteIncResult.php';
-?>
