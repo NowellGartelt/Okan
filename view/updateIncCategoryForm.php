@@ -34,7 +34,7 @@
       </tr>
       <tr>
        <td>新しいカテゴリ名：</td>
-       <td><input type="text" name="categoryName"></td>
+       <td><input type="text" name="categoryName" style="width: 150px"></td>
       </tr>
      </tbody>
     </table>

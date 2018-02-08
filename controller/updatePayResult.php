@@ -45,12 +45,11 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
         $_SESSION["errorInputPay"] = "lackInput";
     }
     $errorInputPay = $_SESSION["errorInputPay"];
-
-    include '../model/searchPayByID.php';
     
-    $result = new searchPayByID();
-    $searchPayByID = $result -> searchPayByID($loginID, $id);
-    $payInfo = $searchPayByID;
+    // 支出情報の取得
+    include '../model/searchPayByID.php';
+    $searchPayByID= new searchPayByID();
+    $payInfo = $searchPayByID -> searchPayByID($loginID, $id);
     
     // 支払方法一覧の取得
     include '../model/searchMethodOfPayment.php';
@@ -71,7 +70,6 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
 
     // 税率が入力されてるとき、自動で税率計算を行う
     include '../model/searchPayByID.php';
-    
     $result = new searchPayByID();
     $payInfoBefore = $result -> searchPayByID($loginID, $id);
     
@@ -118,11 +116,11 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
         $taxAfter = 0;
         
     }
-
-    include '../model/updatePayByTrans.php';
     
-    $result = new updatePayByTrans();
-    $payInfoAfter = $result -> updatePayByTrans($loginID, $payName,
+    // 支出情報の更新
+    include '../model/updatePayByTrans.php';
+    $updatePayByTrans= new updatePayByTrans();
+    $payInfoAfter = $updatePayByTrans-> updatePayByTrans($loginID, $payName,
             $paymentAfter, $payCategory, $payDate, $payState, $id,
             $taxFlgAfter, $taxAfter, $methodOfPayment);
     

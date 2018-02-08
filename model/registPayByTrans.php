@@ -9,7 +9,7 @@
  * @package model
  * @name registPayByTrans
  * @var string $loginID ログインID
- * @var string $query_registPayInfo 支出情報登録クエリ
+ * @var string $query 支出情報登録クエリ
  * @var string $payName 支出名
  * @var int $payment 支出額
  * @var string $payCategory 支出カテゴリ
@@ -23,7 +23,7 @@
 class registPayByTrans {
     // インスタンス変数の定義
     private $loginID = null;
-    private $query_registPayInfo = null;
+    private $query = null;
     private $payName = null;
     private $payment = null;
     private $payCategory = null;
@@ -33,6 +33,7 @@ class registPayByTrans {
     private $taxFlg = null;
     private $tax = null;
     private $methodOfPaymet = null;
+    private $resultList = null;
     
     /**
      * コンストラクタ
@@ -59,7 +60,7 @@ class registPayByTrans {
      * @param DateTime $registDate 登録日
      * @param int $taxFlg 税別フラグ
      * @param int $tax 税率
-     * @return array $paymentInfo クエリ実行結果
+     * @return array $resultList クエリ実行結果
      */
     public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
             $payState, $payDate, $registDate, $taxFlg, $tax, $methodOfPaymet){
@@ -79,23 +80,23 @@ class registPayByTrans {
 
         if ($loginID == "" || $payName == "" || $payment == "" || 
                 $payCategory == "" || $payDate == "" || $registDate == "") {
-            $paymentInfo = null;
+            $resultList = null;
             
         } else {
             // 支出情報の登録
-            $query_registPay =
+            $query =
                 "INSERT INTO paymentTable (
                 payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID, taxFlg, tax, mopID)
                 VALUES (
                 '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID', $taxFlg, $tax, $methodOfPaymet)";
-            $result_registPayInfo = mysqli_query($link, $query_registPay);
-            $paymentInfo = mysqli_fetch_array($result_registPayInfo);
+            $queryResult = mysqli_query($link, $query);
+            $resultList = mysqli_fetch_array($queryResult);
             
         }
         
         // DB切断
         mysqli_close($link);
         
-        return $paymentInfo;
+        return $resultList;
     }
 }

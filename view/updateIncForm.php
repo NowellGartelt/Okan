@@ -33,23 +33,38 @@
      <tbody>
       <tr>
        <td>使ったものは？：</td>
-       <td><input type="text" name="incName" value=<?php echo $incInfo['incName']; ?>></td>
+       <td><input type="text" name="incName" style="width: 150px" value=<?php echo $incInfo['incName']; ?>></td>
       </tr>
       <tr>
        <td>いくら？：</td>
-       <td><input type="number" name="income" value=<?php echo $incInfo['income']; ?>></td>
+       <td><input type="number" name="income" style="width: 150px" value=<?php echo $incInfo['income']; ?>></td>
       </tr>
       <tr>
        <td>カテゴリは？：</td>
-       <td><input type="text" name="incCategory" value=<?php echo $incInfo['incCategory']; ?>></td>
+       <td>
+        <select name="incCategory" style="width: 150px">
+<?php 
+foreach ($getCategory as &$categoryName) {
+?>
+         <option value=<?php 
+            echo $categoryName['personalID'];
+            if ($incInfo['categoryName'] == $categoryName['categoryName']) {
+                ?> selected <?php
+}
+            ?>><?php echo $categoryName['categoryName'] ?></option>
+<?php 
+}
+?>
+        </select>
+       </td>
       </tr>
       <tr>
        <td>いつ？：</td>
-       <td><input type="date" name="incDate" value=<?php echo $incInfo['incDate']; ?>></td>
+       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo $incInfo['incDate']; ?>></td>
       </tr>
       <tr>
        <td>どこで？：</td>
-       <td><input type="text" name="incState" value=<?php echo $incInfo['incState']; ?>></td>
+       <td><input type="text" name="incState" style="width: 150px" value=<?php echo $incInfo['incState']; ?>></td>
       </tr>
      </tbody>
     </table>

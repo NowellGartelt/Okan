@@ -33,11 +33,11 @@
      <tbody>
       <tr>
        <td>新しいパスワードは？※：</td>
-       <td><input type="password" name="password"></td>
+       <td><input type="password" name="password" style="width: 150px"></td>
       </tr>
       <tr>
        <td>確認でもっかい入れるのよ ※：</td>
-       <td><input type="password" name="passwordCheck"></td>
+       <td><input type="password" name="passwordCheck" style="width: 150px"></td>
       </tr>
      </tbody>
     </table>

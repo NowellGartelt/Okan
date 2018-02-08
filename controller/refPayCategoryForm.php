@@ -19,23 +19,20 @@ $controller = new controller();
 // ログインID取得
 $loginID = $controller -> getLoginID();
 
-// カテゴリ登録数の設定(15カテゴリ固定)
-$maxRegist = 15;
-
 // 現在登録されているカテゴリの取得
 include '../model/searchPayCategory.php';
 $getCategory = new searchPayCategory();
-$result = $getCategory -> searchPayCategory($loginID, $maxRegist);
+$result = $getCategory -> searchPayCategory($loginID);
+$resultCount = $getCategory -> searchPayCategoryCount($loginID); 
+$count = $resultCount[0]["COUNT(*)"];
 
-for ($i = 0; $i < $maxRegist; $i++) {
+for ($i = 0; $i < $count; $i++) {
     // カテゴリ登録がなかった場合、personalIDとcategoryNameに仮値を入れる
     if ($result[$i]['categoryName'] == false || $result[$i]['categoryName'] == "") {
         $result[$i]['personalID'] = $i + 1;
         $result[$i]['categoryName'] = "(未登録)";
     }
 }
-
-// var_dump($result);
 
 // 画面の読み込み
 include '../view/refPayCategoryForm.php';

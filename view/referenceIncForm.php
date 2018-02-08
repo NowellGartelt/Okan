@@ -33,20 +33,20 @@
      <tbody>
       <tr>
        <td>使ったものの名前は？：</td>
-       <td><input type="text" name="incName"></td>
+       <td><input type="text" name="incName" style="width: 150px"></td>
       </tr>
       <tr>
        <td>見たいカテゴリは？：</td>
-       <td><input type="text" name="incCategory"></td>
+       <td><input type="text" name="incCategory" style="width: 150px"></td>
       </tr>
       <tr>
        <td>どこで？：</td>
-       <td><input type="text" name="incState"></td>
+       <td><input type="text" name="incState" style="width: 150px"></td>
       </tr>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="date" name="incDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
-        <input type="date" name="incDateTo" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="incDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
+        <input type="date" name="incDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
      </tbody>
     </table>

@@ -33,23 +33,36 @@
      <tbody>
       <tr>
        <td>何で稼いだの？※：</td>
-       <td><input type="text" name="incName"></td>
+       <td><input type="text" name="incName" style="width: 150px"></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
-       <td><input type="number" name="income"></td>
+       <td><input type="number" name="income" style="width: 150px"></td>
       </tr>
       <tr>
        <td>カテゴリは？※：</td>
-       <td><input type="text" name="incCategory"></td>
+<!-- 
+       <td><input type="text" name="incCategory" style="width: 150px"></td>
+-->
+       <td>
+        <select name="incCategory" style="width: 150px">
+<?php 
+foreach ($getCategory as &$categoryName) {
+?>
+         <option value=<?php echo $categoryName['personalID'] ?>><?php echo $categoryName['categoryName'] ?></option>
+<?php 
+}
+?>
+        </select>
+       </td>
       </tr>
       <tr>
        <td>いつ？※：</td>
-       <td><input type="date" name="incDate" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
       <tr>
        <td>一言メモ：</td>
-       <td><input type="text" name="incState"></td>
+       <td><input type="text" name="incState" style="width: 150px"></td>
       </tr>
      </tbody>
     </table>

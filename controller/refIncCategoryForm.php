@@ -19,15 +19,14 @@ $controller = new controller();
 // ログインID取得
 $loginID = $controller -> getLoginID();
 
-// カテゴリ登録数の設定
-$maxRegist = 10;
-
 // 現在登録されているカテゴリの取得
 include '../model/searchIncCategory.php';
 $getCategory = new searchIncCategory();
-$result = $getCategory->searchIncCategory($loginID, $maxRegist);
+$result = $getCategory->searchIncCategory($loginID);
+$resultCount = $getCategory -> searchIncCategoryCount($loginID);
+$count = $resultCount[0]["COUNT(*)"];
 
-for ($i = 0; $i < $maxRegist; $i++) {
+for ($i = 0; $i < $count; $i++) {
     // カテゴリ登録がなかった場合、personalIDとcategoryNameに仮値を入れる
     if ($result[$i]['categoryName'] == false || $result[$i]['categoryName'] == "") {
         $result[$i]['personalID'] = $i + 1;

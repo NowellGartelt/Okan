@@ -34,27 +34,27 @@
      <tbody>
       <tr>
        <td>名前はどうするの？※：</td>
-       <td><input type="text" name="name"></td>
+       <td><input type="text" name="name" style="width: 150px"></td>
       </tr>
       <tr>
        <td>IDはどうするの？※：</td>
-       <td><input type="text" name="loginID"></td>
+       <td><input type="text" name="loginID" style="width: 150px"></td>
       </tr>
       <tr>
        <td>パスワードは？※：</td>
-       <td><input type="password" name="password"></td>
+       <td><input type="password" name="password" style="width: 150px"></td>
       </tr>
       <tr>
        <td>デフォルトで使う税率は？：</td>
-       <td><input type="number" name="defTax"> %</td>
+       <td><input type="number" name="defTax" style="width: 150px"> %</td>
       </tr>
       <tr>
        <td>秘密の質問は？※：</td>
-       <td><input type="text" name="question"></td>
+       <td><input type="text" name="question" style="width: 150px"></td>
       </tr>
       <tr>
        <td>秘密の質問に対する答えは？※：</td>
-       <td><input type="text" name="answer"></td>
+       <td><input type="text" name="answer" style="width: 150px"></td>
       </tr>
      </tbody>
     </table>

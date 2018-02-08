@@ -1,6 +1,4 @@
-<!-- 
-view/refPayCategoryForm.php
--->
+<!-- view/refPayCategoryForm.php -->
 <html>
  <head>
   <title>Okan：カテゴリ検索結果(つかったお金)</title>
@@ -31,7 +29,7 @@ view/refPayCategoryForm.php
       <th></th>
      </tr>
 <?php $displayCount = 0; ?>
-<?php while ($displayCount < $maxRegist) { ?>
+<?php while ($displayCount < $count) { ?>
      <tr>
       <td><?php echo $result[$displayCount]['personalID']; ?></td>
       <td><?php echo $result[$displayCount]['categoryName']; ?></td>

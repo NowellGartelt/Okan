@@ -53,6 +53,22 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
     
+    // 支出カテゴリ一覧の取得
+    include '../model/searchPayCategory.php';
+    $searchPayCategory = new searchPayCategory();
+    $getCategory = $searchPayCategory -> searchPayCategoryName($loginID);
+    
+    // 支出カテゴリ数取得
+    $getCount = $searchPayCategory -> searchPayCategoryCount($loginID);
+    $count = $getCount[0]["COUNT(*)"];
+    
+    for ($i = 0; $i < $count; $i++) {
+        // カテゴリ登録がなかった場合、空行を取り除く
+        if ($getCategory[$i]['categoryName'] == false || $getCategory[$i]['categoryName'] == "") {
+            unset($getCategory[$i]);
+        }
+    }
+    
     include '../view/registPayForm.php';
     
 } else {
@@ -81,12 +97,10 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     }
     
     include '../model/registPayByTrans.php';
-    
-    $result = new registPayByTrans();
-    $registPayByTrans = $result -> registPayByTrans($loginID, $payName, 
+    $registPayByTrans= new registPayByTrans();
+    $result = $registPayByTrans-> registPayByTrans($loginID, $payName, 
             $payment, $payCategory, $payState, $payDate, $registDate, 
             $taxFlg, $tax, $methodOfPayment);
-    $payInfo = $registPayByTrans;
     
 $query_kogotoList = <<<__SQL
     SELECT * FROM `kogoto`

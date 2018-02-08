@@ -16,8 +16,9 @@
 class searchIncByID {
     // インスタンス変数の定義
     private $loginID = null;
-    private $query_getIncInfo = null;
+    private $query = null;
     private $id = null;
+    private $result = null;
   
     /**
      * コンストラクタ
@@ -37,23 +38,35 @@ class searchIncByID {
      * @access public
      * @param string $loginID ログインID
      * @param int $id 収入情報ID
-     * @return array $incomeInfo 収入情報
+     * @return array $result クエリ実行結果
      */
     public function searchIncByID($loginID, $id){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->id = $id;
+        
+        // いずれかの値がnullだった場合、nullを戻り値とする
+        if ($loginID == null || $id == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報取得
+            include '../model/tools/databaseConnect.php';
+            
+            // IDで一致する収入情報の取得
+            $query = "SELECT * FROM incomeTable 
+                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
+                    AND incomeTable.loginID = incCategoryTable.loginID 
+                    WHERE incomeID = '$id' 
+                    AND incomeTable.loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
+        }
+        
+        return $this->result;
 
-        // IDで一致する収入情報の取得
-        $query_getIncInfo = "SELECT * FROM incomeTable WHERE incomeID = '$id' AND loginID = '$loginID'";
-        $result_getIncInfo = mysqli_query($link, $query_getIncInfo);
-        $incomeInfo = mysqli_fetch_array($result_getIncInfo);
-        
-        // DB切断
-        mysqli_close($link);
-        
-        return $incomeInfo;
     }
 }

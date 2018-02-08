@@ -39,7 +39,7 @@
       <td><?php echo $payment[$displayCount]['payDate']; ?></td>
       <td><?php echo $payment[$displayCount]['payName']; ?></td>
       <td><?php echo $payment[$displayCount]['payment']; ?></td>
-      <td><?php echo $payment[$displayCount]['payCategory']; ?></td>
+      <td><?php echo $payment[$displayCount]['categoryName']; ?></td>
       <td><?php echo $payment[$displayCount]['paymentName']; ?></td>
       <td><?php echo $payment[$displayCount]['payState']; ?></td>
       <td>

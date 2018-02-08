@@ -11,10 +11,12 @@
 
 session_start();
 
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインID取得
+$loginID = $controller -> getLoginID();
 
 $errorInputPay = $_SESSION["errorInputPay"];
 
@@ -27,5 +29,21 @@ $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
 include '../model/searchMethodOfPayment.php';
 $searchMethodOfPayment = new searchMethodOfPayment();
 $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+
+// 支出カテゴリ一覧の取得
+include '../model/searchPayCategory.php';
+$searchPayCategory = new searchPayCategory();
+$getCategory = $searchPayCategory -> searchPayCategoryName($loginID);
+
+// 支出カテゴリ数取得
+$getCount = $searchPayCategory -> searchPayCategoryCount($loginID);
+$count = $getCount[0]["COUNT(*)"];
+
+for ($i = 0; $i < $count; $i++) {
+    // カテゴリ登録がなかった場合、空行を取り除く
+    if ($getCategory[$i]['categoryName'] == false || $getCategory[$i]['categoryName'] == "") {
+        unset($getCategory[$i]);
+    }
+}
 
 include '../view/registPayForm.php';

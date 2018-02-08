@@ -44,19 +44,19 @@
      <tbody>
       <tr>
        <td>名前は？：</td>
-       <td><input type="text" name="name" value=<?php echo $memberInfo['name']; ?>></td>
+       <td><input type="text" name="name" style="width: 150px" value=<?php echo $memberInfo['name']; ?>></td>
       </tr>
       <tr>
        <td>ログインIDは？：</td>
-       <td><input type="text" name="loginID" value=<?php echo $memberInfo['loginID']; ?> onInput="checkForm(this)"></td>
+       <td><input type="text" name="loginID" style="width: 150px" value=<?php echo $memberInfo['loginID']; ?> onInput="checkForm(this)"></td>
       </tr>
       <tr>
        <td>パスワードは？：</td>
-       <td><input type="password" name="password"></td>
+       <td><input type="password" name="password" style="width: 150px"></td>
       </tr>
       <tr>
        <td>デフォルトの税率は？：</td>
-       <td><input type="number" name="tax" value="<?php echo $memberInfo['defTax']; ?>"> %</td>
+       <td><input type="number" name="tax" style="width: 150px" value="<?php echo $memberInfo['defTax']; ?>"> %</td>
       </tr>
      </tbody>
     </table>

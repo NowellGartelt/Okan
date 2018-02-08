@@ -33,20 +33,20 @@
      <tbody>
       <tr>
        <td>使ったものの名前は？：</td>
-       <td><input type="text" name="payName"></td>
+       <td><input type="text" name="payName" style="width: 150px"></td>
       </tr>
       <tr>
        <td>見たいカテゴリは？：</td>
-       <td><input type="text" name="payCategory"></td>
+       <td><input type="text" name="payCategory" style="width: 150px"></td>
       </tr>
       <tr>
-       <td>どこで？：</td>
-       <td><input type="text" name="payState"></td>
+       <td>一言メモは？：</td>
+       <td><input type="text" name="payState" style="width: 150px"></td>
       </tr>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
-        <input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="payDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
+        <input type="date" name="payDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
      </tbody>
     </table>

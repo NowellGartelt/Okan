@@ -11,11 +11,12 @@
 
 session_start();
 
-// ログイン検証
-include '../model/tools/judgeIsLogined.php';
-$judgeIsLoginedAction = new judgeIsLogined();
+// コントローラの共通処理取得
+require 'controller.php';
+$controller = new controller();
 
-$loginID = $_SESSION['loginID'];
+// ログインID取得
+$loginID = $controller -> getLoginID();
 
 $page = $_POST['page'];
 

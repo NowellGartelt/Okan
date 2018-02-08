@@ -38,7 +38,7 @@
       <td><?php echo $income[$displayCount]['incDate']; ?></td>
       <td><?php echo $income[$displayCount]['incName']; ?></td>
       <td><?php echo $income[$displayCount]['income']; ?></td>
-      <td><?php echo $income[$displayCount]['incCategory']; ?></td>
+      <td><?php echo $income[$displayCount]['categoryName']; ?></td>
       <td><?php echo $income[$displayCount]['incState']; ?></td>
       <td>
        <form action="../../Okan/updateIncForm.php" method="post">

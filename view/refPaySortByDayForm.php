@@ -56,7 +56,7 @@
         名前で探す：
        </td>
        <td>
-        <input type="text" name="payName">
+        <input type="text" name="payName" style="width: 150px">
        </td>
       </tr>
       <tr>
@@ -65,7 +65,7 @@
         カテゴリで探す：
        </td>
        <td>
-        <input type="text" name="payCategory">
+        <input type="text" name="payCategory" style="width: 150px">
        </td>
       </tr>
       <tr>
@@ -74,7 +74,7 @@
         支払方法で探す：
        </td>
        <td>
-        <select name="methodOfPayment">
+        <select name="methodOfPayment" style="width: 150px">
 <?php
 foreach ($mopList as &$methodOfPayment) {
 ?>
@@ -98,8 +98,8 @@ foreach ($mopList as &$methodOfPayment) {
       </tr>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="date" name="payDateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
-       <input type="date" name="payDateTo" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="payDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
+       <input type="date" name="payDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
      </tbody>
     </table>
