@@ -9,15 +9,17 @@
  * @package model
  * @name searchPaySum
  * @var string loginID ログインID
- * @var DateTime $payDateFrom 支出日(開始)
- * @var DateTime $payDateTo 支出日(終了)
+ * @var string $payDateFrom 支出日(開始)
+ * @var string $payDateTo 支出日(終了)
+ * @var array $result クエリ実行結果
  */
-
-class searchPaySum {
+class searchPaySum 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $payDateFrom = null;
     private $payDateTo = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -25,7 +27,8 @@ class searchPaySum {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -36,33 +39,44 @@ class searchPaySum {
      * 
      * @access public
      * @param string loginID ログインID
-     * @param DateTime $payDateFrom 支出日(開始)
-     * @param DateTime $payDateTo 支出日(終了)
-     * @return array $result_list 支出総額
+     * @param string $payDateFrom 支出日(開始)
+     * @param string $payDateTo 支出日(終了)
+     * @return array 指定期間の支出総額
      */
-    public function searchPaySum($loginID, $payDateFrom, $payDateTo) {
-	    // DB接続情報取得
-		include '../model/tools/databaseConnect.php';
-		
-		$this->loginID = $loginID;
+    public function searchPaySum(string $loginID, string $payDateFrom, string $payDateTo) 
+    {
+        // 引き渡された値の取得
+        $this->loginID = $loginID;
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
-        // 指定された期間の総支出の取得
-        $query_refPay = "SELECT SUM(payment) FROM paymentTable 
-            WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
-            AND loginID = '$loginID'";
-
-        $result_refPay = mysqli_query ($link, $query_refPay);
-        $result_list = array ();
-		
-        while ( $row = mysqli_fetch_assoc ($result_refPay) ) {
-            array_push ($result_list, $row);
+        if ($loginID == null || $payDateFrom == null || $payDateTo == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            // 指定された期間の総支出の取得
+            $query = "SELECT SUM(payment) FROM paymentTable 
+                WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
+                AND loginID = '$loginID'";
+            
+            $queryResult = mysqli_query($link, $query);
+            $this->result = array ();
+            
+            while ($row = mysqli_fetch_assoc ($queryResult)) {
+                array_push ($this->result, $row);
+            }
+            
+            // DB切断
+            mysqli_close($link);
+        
         }
 
-        // DB切断
-        mysqli_close($link);
-
-        return $result_list;
+        return $this->result;
+        
     }
 }

@@ -48,12 +48,14 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""
     $incList = $searchIncByID -> searchIncByID($loginID, $id);
     
     // 収入カテゴリ一覧の取得
-    require_once '../model/searchIncCategory.php';
-    $searchIncCategory = new searchIncCategory();
-    $cateList = $searchIncCategory -> searchIncCategoryName($loginID);
+    require_once '../model/searchIncCategoryName.php';
+    $searchIncCategoryName = new searchIncCategoryName();
+    $cateList = $searchIncCategoryName -> searchIncCategoryName($loginID);
     
     // 収入カテゴリ数取得
-    $cateCount = $searchIncCategory -> searchIncCategoryCount($loginID);
+    require_once '../model/searchIncCategoryCount.php';
+    $searchIncCategoryCount = new searchIncCategoryCount();
+    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($loginID);
     $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {

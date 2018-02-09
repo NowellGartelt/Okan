@@ -9,15 +9,15 @@
  * @package model
  * @name searchPayByID
  * @var string $loginID ログインID
- * @var string $query_getPayInfo 支出情報検索クエリ
  * @var int $id 支出情報ID
+ * @var array $result クエリ実行結果
  */
-class searchPayByID {
+class searchPayByID 
+{
     // インスタンス変数の定義
     private $loginID = null;
-    private $query = null;
     private $id = null;
-    private $result = array();
+    private $result = null;
   
     /**
      * コンストラクタ
@@ -25,7 +25,8 @@ class searchPayByID {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -37,9 +38,10 @@ class searchPayByID {
      * @access public
      * @param string $loginID ログインID
      * @param int $id 支出情報ID
-     * @return array $result クエリ実行結果
+     * @return array paymentIDに紐付く支出情報
      */
-    public function searchPayByID($loginID, $id){
+    public function searchPayByID(string $loginID, int $id)
+    {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->id = $id;
@@ -50,7 +52,9 @@ class searchPayByID {
             
         } else {
             // DB接続情報取得
-            include '../model/tools/databaseConnect.php';
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
             
             // IDで一致する支出情報の取得
             $query = "SELECT * FROM paymentTable 

@@ -13,7 +13,6 @@
  * @name judgeIsLogined
  * @var string loginID ログインID
  */
-
 class judgeIsLogined {
     // インスタンス変数の定義
     private $loginID = null;

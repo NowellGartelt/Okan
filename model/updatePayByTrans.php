@@ -9,21 +9,20 @@
  * @package model
  * @name updatePayByTrans
  * @var string $loginID ログインID
- * @var string $query_updatePayInfo 支出情報更新用クエリ
  * @var string $payName 支出名
  * @var int $payment 支出額
  * @var string $payCategory 支出カテゴリ
- * @var DateTime $payDate 支出日
+ * @var string $payDate 支出日
  * @var string payState 支出一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
  * @var int $id 支出ID
  * @var boolean $taxFlg 税別フラグ
  * @var int $tax 税率  
+ * @var array $result クエリ実行結果
  */
-
-class updatePayByTrans {
+class updatePayByTrans 
+{
     // インスタンス変数の定義
     private $loginID = null;
-    private $query_updatePayInfo = null;
     private $payName = null;
     private $payment = null;
     private $payCategory = null;
@@ -33,6 +32,7 @@ class updatePayByTrans {
     private $taxFlg = null;
     private $tax = null;
     private $methodOfPayment = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -40,7 +40,8 @@ class updatePayByTrans {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -55,18 +56,18 @@ class updatePayByTrans {
      * @param string $payName 支出名
      * @param int $payment 支出額
      * @param string $payCategory 支出カテゴリ
-     * @param DateTime $payDate 支出日
+     * @param string $payDate 支出日
      * @param string payState 支出一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
      * @param int $id 支出ID
      * @param boolean $taxFlg 税別フラグ
      * @param int $tax 税率
-     * @return array $paymentInfo クエリ実行結果
+     * @param int $methodOfPayment 支払方法
+     * @return array 更新クエリ実行結果
      */
-    public function updatePayByTrans($loginID, $payName, $payment, $payCategory, 
-            $payDate, $payState, $id, $taxFlg, $tax, $methodOfPayment){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function updatePayByTrans(string $loginID, string $payName, int $payment, string $payCategory, 
+            string $payDate, string $payState, int $id, bool $taxFlg, int $tax, int $methodOfPayment)
+    {
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->payName = $payName;
         $this->payment = $payment;
@@ -78,19 +79,32 @@ class updatePayByTrans {
         $this->tax = $tax;
         $this->methodOfPayment = $methodOfPayment;
         
-        // 入力された情報で支出情報の更新
-        $query_updatePayInfo =
-            "UPDATE paymentTable 
-            SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
-            payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax', 
-            mopID = '$methodOfPayment' 
-            WHERE paymentID = '$id' AND loginID = '$loginID'";
-        $result_updatePayInfo = mysqli_query($link, $query_updatePayInfo);
-        $paymentInfo = mysqli_fetch_array($result_updatePayInfo);
+        // 必須の値が空だった場合、nullを返す
+        if ($loginID == null || $payment == null || $payDate == null || $id == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            // 入力された情報で支出情報の更新
+            $query =
+                "UPDATE paymentTable 
+                SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
+                payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax', 
+                mopID = '$methodOfPayment' 
+                WHERE paymentID = '$id' AND loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
         
-        // DB切断
-        mysqli_close($link);
+        }
         
-        return $paymentInfo;
+        return $this->result;
+        
     }
 }

@@ -9,7 +9,6 @@
  * @package model
  * @name registPayByTrans
  * @var string $loginID ログインID
- * @var string $query 支出情報登録クエリ
  * @var string $payName 支出名
  * @var int $payment 支出額
  * @var string $payCategory 支出カテゴリ
@@ -18,9 +17,10 @@
  * @var DateTime $registDate 登録日
  * @var int $taxFlg 税別フラグ
  * @var int $tax 税率
+ * @var array $result クエリ実行結果
  */
-
-class registPayByTrans {
+class registPayByTrans 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $query = null;
@@ -33,7 +33,7 @@ class registPayByTrans {
     private $taxFlg = null;
     private $tax = null;
     private $methodOfPaymet = null;
-    private $resultList = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -41,7 +41,8 @@ class registPayByTrans {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -56,47 +57,56 @@ class registPayByTrans {
      * @param int $payment 支出額
      * @param string $payCategory 支出カテゴリ
      * @param string $payState 支出情報一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
-     * @param DateTime $payDate 支出日
-     * @param DateTime $registDate 登録日
+     * @param string $payDate 支出日
+     * @param string $registDate 登録日
      * @param int $taxFlg 税別フラグ
      * @param int $tax 税率
-     * @return array $resultList クエリ実行結果
+     * @param int $methodOfPaymet 支払方法
+     * @return array 挿入クエリ実行結果
      */
-    public function registPayByTrans($loginID, $payName, $payment, $payCategory, 
-            $payState, $payDate, $registDate, $taxFlg, $tax, $methodOfPaymet){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function registPayByTrans(string $loginID, string $payName, int $payment, 
+            string $payCategory, string $payState, string $payDate, string $registDate, 
+            int $taxFlg, int $tax, int $methodOfPaymet)
+    {
+        // 引き渡された値の受け取り
         $this->loginID = $loginID;
         $this->payName = $payName;
         $this->payment = $payment;
         $this->payCategory = $payCategory;
         $this->payDate = $payDate;
+        $this->registDate = $registDate;
         $this->payState = $payState;
-        $this->id = $id;
         $this->taxFlg = $taxFlg;
         $this->tax = $tax;
         $this->methodOfPaymet = $methodOfPaymet;
-
-        if ($loginID == "" || $payName == "" || $payment == "" || 
-                $payCategory == "" || $payDate == "" || $registDate == "") {
-            $resultList = null;
+        
+        // いずれかの値がnullだった場合、nullを返す
+        if ($loginID == "" || $payment == "" || $payDate == "" || $registDate == "") {
+            $this->result = null;
             
         } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // 支出情報の登録
             $query =
                 "INSERT INTO paymentTable (
-                payName, payment, payCategory, payState, payDate, registDate, updateDate, loginID, taxFlg, tax, mopID)
+                payName, payment, payCategory, payState, payDate, registDate, updateDate, 
+                loginID, taxFlg, tax, mopID)
                 VALUES (
-                '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', null, '$loginID', $taxFlg, $tax, $methodOfPaymet)";
+                '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', 
+                null, '$loginID', $taxFlg, $tax, $methodOfPaymet)";
             $queryResult = mysqli_query($link, $query);
-            $resultList = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_array($queryResult);
             
+            // DB切断
+            mysqli_close($link);
+        
         }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $resultList;
     }
 }

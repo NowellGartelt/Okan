@@ -32,12 +32,14 @@ $searchMethodOfPayment = new searchMethodOfPayment();
 $mopList = $searchMethodOfPayment -> getMethodOfPayment();
 
 // 支出カテゴリ一覧の取得
-require_once '../model/searchPayCategory.php';
-$searchPayCategory = new searchPayCategory();
-$cateList = $searchPayCategory -> searchPayCategoryName($loginID);
+require_once '../model/searchPayCategoryName.php';
+$searchPayCategoryName = new searchPayCategoryName();
+$cateList = $searchPayCategoryName -> searchPayCategoryName($loginID);
 
 // 支出カテゴリ数取得
-$cateCount = $searchPayCategory -> searchPayCategoryCount($loginID);
+require_once '../model/searchPayCategoryCount.php';
+$searchPayCategoryCount = new searchPayCategoryCount();
+$cateCount = $searchPayCategoryCount -> searchPayCategoryCount($loginID);
 $count = $cateCount[0]["COUNT(*)"];
 
 for ($i = 0; $i < $count; $i++) {

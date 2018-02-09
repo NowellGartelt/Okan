@@ -9,15 +9,17 @@
  * @package model
  * @name searchSumPayByCategory
  * @var string $loginID ログインID
- * @var DateTime $payDateFrom 支出日(開始)
- * @var DateTime $payDateTo 支出日(終了)
+ * @var string $payDateFrom 支出日(開始)
+ * @var string $payDateTo 支出日(終了)
+ * @var array $result クエリ実行結果
  */
-
-class searchSumPayByCategory {
+class searchSumPayByCategory 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $payDateFrom = null;
     private $payDateTo = null;
+    private $result = null;
   
     /**
      * コンストラクタ
@@ -25,7 +27,8 @@ class searchSumPayByCategory {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -36,41 +39,48 @@ class searchSumPayByCategory {
      * 
      * @access public
      * @param string $loginID ログインID
-     * @param DateTime $payDateFrom 支出日(開始)
-     * @param DateTime $payDateTo 支出日(終了)
-     * @return array $paymentInfo カテゴリ別支出総額
+     * @param string $payDateFrom 支出日(開始)
+     * @param string $payDateTo 支出日(終了)
+     * @return array カテゴリ別支出総額
      */
-    public function searchSumPayByCategory($loginID, $payDateFrom, $payDateTo){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function searchSumPayByCategory(string $loginID, string $payDateFrom, string $payDateTo)
+    {
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
+        // いずれかの値が空だった場合、nullを返す
         if ($loginID == "" || $payDateFrom == "" || $payDateTo == "") {
-            $paymentInfo = null;
+            $this->result = null;
             
         } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // IDで対象のデータを引き当て
             // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
-            $query_getPayInfo = 
+            $query = 
                 "SELECT payCategory, SUM(payment) 
                 FROM paymentTable 
                 WHERE loginID = '$loginID' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
                 GROUP BY payCategory 
                 ORDER BY SUM(payment) DESC";
-            $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
-            $paymentInfo = array();
+            $queryResult = mysqli_query($link, $query);
+            $this->result = array();
             
-            while($row = mysqli_fetch_assoc($result_getPayInfo)) {
-                array_push($paymentInfo, $row);
+            while ($row = mysqli_fetch_assoc($queryResult)) {
+                array_push($this->result, $row);
             }
+            
+            // DB切断
+            mysqli_close($link);
+            
         }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $paymentInfo;
     }
 }

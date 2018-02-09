@@ -1,17 +1,17 @@
 <?php
 /**
- * 秘密の質問・回答取得クエリ実行クラス
+ * メンバー情報検索クエリ実行クラス
  * 
- * ログインIDを受け取り、DBに検索するクエリを実行し、秘密の質問と回答を検索する
+ * ログインIDを受け取り、DBにメンバー情報を検索するクエリを実行する
  * 
  * @author NowellGartelt
  * @access public
  * @package model
- * @name searchQuestionAndAnswerByID
+ * @name searchMemberIDByID
  * @var string $loginID ログインID
  * @var array $result クエリ実行結果
  */
-class searchQuestionAndAnswerByID 
+class searchMemberIDByID 
 {
     // インスタンス変数の定義
     private $loginID = null;
@@ -29,19 +29,20 @@ class searchQuestionAndAnswerByID
     }
     
     /**
-     * 秘密の質問・回答取得クエリ実行関数
+     * ユーザID取得クエリ実行関数
      * 
-     * ログインIDを受け取り、DBに検索するクエリを実行し、秘密の質問と回答を検索する
+     * ログインIDを受け取り、ユーザIDを取得するクエリを実行する
+     * ユーザIDは各メンバーに割り当てられた一意で変更不可能なID
      * 
-     * @access public
-     * @param string $loginID ログインID
-     * @return array ログインIDに紐付く秘密の質問、回答
+     * @param string $loginID
+     * @return array
      */
-    public function searchQuestionAndAnswerByID(string $loginID)
+    public function searchMemberIDByID(string $loginID) 
     {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         
+        // 値がnullだった場合、nullを返す
         if ($loginID == null) {
             $this->result = null;
             
@@ -51,14 +52,14 @@ class searchQuestionAndAnswerByID
             $model = new model();
             $link = $model -> getDatabaseCon();
             
-            // メンバー情報に設定された秘密の質問と答えの取得
-            $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";
+            // ログインIDと一致するメンバー情報の取得
+            $query = "SELECT userID, loginID FROM usertable WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_array($queryResult);
             
             // DB切断
             mysqli_close($link);
-        
+            
         }
         
         return $this->result;

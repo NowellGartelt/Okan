@@ -8,11 +8,12 @@
  * @access public
  * @package model
  * @name searchMethodOfPayment
+ * @var array $result クエリ実行結果
  */
-
-class searchMethodOfPayment {
+class searchMethodOfPayment 
+{
     // インスタンス変数の定義
-    private $resultList = array();
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -21,15 +22,18 @@ class searchMethodOfPayment {
      * 
      * @access public
      */
-    public function __construct(){
+    public function __construct()
+    {
         // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
+        require_once 'model.php';
+        $model = new model();
+        $link = $model -> getDatabaseCon();
         
         $query = "SELECT * FROM methodOfPayment";
-        $result = mysqli_query($link, $query);
+        $queryResult = mysqli_query($link, $query);
         
-        while($row = mysqli_fetch_assoc($result)) {
-            array_push($this->resultList, $row);
+        while ($row = mysqli_fetch_assoc($queryResult)) {
+            array_push($this->result, $row);
         }
         
         // DB切断
@@ -43,10 +47,11 @@ class searchMethodOfPayment {
      * コンストラクタでDBから取得した支払方法一覧を戻り値として渡す
      * 
      * @access public
-     * @return array
+     * @return array 支払方法一覧
      */
-    public function getMethodOfPayment(){
-        return $this->resultList;
+    public function getMethodOfPayment()
+    {
+        return $this->result;
         
     }
 }

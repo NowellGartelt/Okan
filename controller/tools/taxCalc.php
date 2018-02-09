@@ -11,7 +11,6 @@
  * @var int $payment 消費税抜きの支払い金額
  * @var int $tax 消費税率
  */
-
 class taxCalc {
     // インスタンス変数の定義
     private $payment = null;
@@ -35,7 +34,7 @@ class taxCalc {
      * @access public
      * @param int $payment 消費税抜きの支払い金額
      * @param int $tax 消費税率
-     * @return int $payment 計算後の消費税込みの支払い金額
+     * @return int 消費税計算後の消費税込みの支払い金額
      */
     public function taxCalc($payment, $tax) {
         $this->payment = $payment;

@@ -9,15 +9,15 @@
  * @package model
  * @name deletePayByTrans
  * @var string $loginID ログインID
- * @var string $query_registPayInfo 削除クエリ
  * @var int $id 支出情報ID
+ * @var array $result クエリ実行結果
  */
-
-class deletePayByTrans {
+class deletePayByTrans 
+{
     // インスタンス変数の定義
     private $loginID = null;
-    private $query_registPayInfo = null;
     private $id = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -25,7 +25,8 @@ class deletePayByTrans {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -37,23 +38,35 @@ class deletePayByTrans {
      * @access public
      * @param string $loginID ログインID
      * @param int $id 支出情報ID
-     * @return array $paymentInfo クエリ実行結果
+     * @return array 削除クエリ実行結果
      */
-    public function deletePayByTrans($loginID, $id){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-
+    public function deletePayByTrans(string $loginID, int $id)
+    {
+        // 引き渡された値の受け取り
         $this->loginID = $loginID;
         $this->id = $id;
-
-        // 支出情報の削除
-        $query_deletePayInfo = "DELETE FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";
-        $result_deletePayInfo = mysqli_query($link, $query_deletePayInfo);
-        $paymentInfo = mysqli_fetch_array($result_deletePayInfo);
         
-        // DB切断
-        mysqli_close($link);
+        // いずれかの値がnullだった場合、nullを返す
+        if ($loginID == null || $id == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            // 支出情報の削除
+            $query = "DELETE FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
+            
+        }
         
-        return $paymentInfo;
+        return $this->result;
+        
     }
 }

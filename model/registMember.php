@@ -11,16 +11,15 @@
  * @var string $loginID ログインID
  * @var string $passward パスワード
  * @var string $name ユーザ名
- * @var DateTime $registDate 登録日
+ * @var string $registDate 登録日
  * @var boolean $isAdmin 管理者判定
  * @var string $question 秘密の質問
  * @var string $answer 秘密の質問の答え
  * @var int $defTax デフォルト税率
- * @var string $query_registMember メンバー情報登録クエリ
- * @var array $memberInfo クエリ実行結果
+ * @var array $result クエリ実行結果
  */
-
-class registMember {
+class registMember 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $password = null;
@@ -30,8 +29,7 @@ class registMember {
     private $question = null;
     private $answer = null;
     private $defTax = null;
-    private $queryRegist = null;
-    private $resultRegist = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -39,7 +37,8 @@ class registMember {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -52,18 +51,17 @@ class registMember {
      * @param string $loginID ログインID
      * @param string $passward パスワード
      * @param string $name ユーザー名
-     * @param DateTime $registDate 登録日
+     * @param string $registDate 登録日
      * @param boolean $isAdmin 管理者判定
      * @param string $question 秘密の質問
      * @param string $answer 秘密の質問の答え
      * @param int $defTax デフォルト税率
-     * @return array $resultRegist クエリ実行結果
+     * @return array 挿入クエリ実行結果
      */
-    public function registMember($loginID, $password, $name, $registDate, $isAdmin, 
-            $question, $answer, $defTax) {
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function registMember(string $loginID, string $password, string $name, string $registDate, 
+            bool $isAdmin, string $question, string $answer, int $defTax) 
+    {
+        // 引き渡された値の受け取り
         $this->loginID = $loginID;
         $this->password = $password;
         $this->name = $name;
@@ -73,25 +71,33 @@ class registMember {
         $this->answer = $answer;
         $this->defTax = $defTax;
         
-        if ($loginID == null || $password == null || $name == null || 
-                $registDate == null || $question == null || $answer == null) {
-            return $resultRegist;
-
+        // いずれかの値がnullだった場合、nullを返す
+        if ($loginID == null || $password == null || $name == null 
+                || $registDate == null || $question == null || $answer == null
+                || $defTax == null) {
+            $this->result = null;
+            
         } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // メンバー情報の登録
-            $queryRegist =
+            $query =
                 "INSERT INTO usertable (
                 loginID, loginPassword, name, addDate, updateDate, isAdmin, question, answer, defTax)
                 VALUES (
                 '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', '$question', '$answer', '$defTax')";
-            $resultRegist = mysqli_query($link, $queryRegist);
-//            $memberInfo = mysqli_fetch_array($result_registMember);
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
 
+            // DB切断
+            mysqli_close($link);
+            
         }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $resultRegist;
     }
 }

@@ -9,14 +9,17 @@
  * @package model
  * @name searchSumPayByPayment
  * @var string $loginID ログインID
- * @var DateTime $payDateFrom 支出日(開始)
- * @var DateTime $payDateTo 支出日(終了)
+ * @var string $payDateFrom 支出日(開始)
+ * @var string $payDateTo 支出日(終了)
+ * @var array $result クエリ実行結果
  */
-class searchSumPayByPayment {
+class searchSumPayByPayment 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $payDateFrom = null;
     private $payDateTo = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -24,7 +27,8 @@ class searchSumPayByPayment {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -35,41 +39,49 @@ class searchSumPayByPayment {
      * 
      * @access public
      * @param string $loginID ログインID
-     * @param DateTime $payDateFrom 支出日(開始)
-     * @param DateTime $payDateTo　支出日(終了)
-     * @return array $paymentInfo クエリ実行結果
+     * @param string $payDateFrom 支出日(開始)
+     * @param string $payDateTo　支出日(終了)
+     * @return array 支払方法別の支出総額
      */
-    public function searchSumPayByPayment($loginID, $payDateFrom, $payDateTo){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
+    public function searchSumPayByPayment(string $loginID, string $payDateFrom, string $payDateTo)
+    {
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
+        // いずれかの値が空だった場合、nullを返す
         if ($loginID == "" || $payDateFrom == "" || $payDateTo == "") {
-            $paymentInfo = null;
+            $this->result = null;
             
         } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // IDで対象のデータを引き当て
             // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
-            $query_getPayInfo =
+            $query =
                 "SELECT paymentName, SUM(payment)
                 FROM paymentTable 
                 LEFT OUTER JOIN methodOfPayment ON paymentTable.mopID = methodOfPayment.mopID 
                 WHERE loginID = '$loginID' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo'
                 GROUP BY paymentName
                 ORDER BY SUM(payment) DESC";
-            $result_getPayInfo = mysqli_query($link, $query_getPayInfo);
-            $paymentInfo = array();
+            $queryResult = mysqli_query($link, $query);
+            $this->result = array();
             
-            while($row = mysqli_fetch_assoc($result_getPayInfo)) {
-                array_push($paymentInfo, $row);
+            while ($row = mysqli_fetch_assoc($queryResult)) {
+                array_push($this->result, $row);
             }
+        
+            // DB切断
+            mysqli_close($link);
+            
         }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $paymentInfo;
     }
 }

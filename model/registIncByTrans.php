@@ -9,25 +9,25 @@
  * @package model
  * @name registIncByTrans
  * @var string $loginID ログインID
- * @var string $query_registIncInfo 収入情報登録クエリ
  * @var string $incName 収入情報名
  * @var int $income 収入金額
  * @var string $incCategory 収入カテゴリ
  * @var string $incState 収入情報一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
- * @var DateTime $incDate 収入日
- * @var DateTime $registDate 収入情報登録日
+ * @var string $incDate 収入日
+ * @var string $registDate 収入情報登録日
+ * @var array $result クエリ実行結果
  */
-
-class registIncByTrans {
+class registIncByTrans 
+{
     // インスタンス変数の定義
     private $loginID = null;
-    private $query_registIncInfo = null;
     private $incName = null;
     private $income = null;
     private $incCategory = null;
     private $incState = null;
     private $incDate = null;
     private $registDate = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -35,7 +35,8 @@ class registIncByTrans {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -49,35 +50,47 @@ class registIncByTrans {
      * @param int $income 収入金額
      * @param string $incCategory 収入カテゴリ
      * @param string $incState 収入情報一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
-     * @param DateTime $incDate 収入日
-     * @param DateTime $registDate 収入情報登録日
-     * @return array incomeInfo クエリ実行結果
+     * @param string $incDate 収入日
+     * @param string $registDate 収入情報登録日
+     * @return array 挿入クエリ実行結果
      */
-    public function registIncByTrans($loginID, $incName, $income, $incCategory, 
-            $incState, $incDate, $registDate){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function registIncByTrans(string $loginID, string $incName, int $income, string $incCategory, 
+            string $incState, string $incDate, string $registDate)
+    {
+        // 引き渡された値の受け取り
         $this->loginID = $loginID;
         $this->incName = $incName;
-        $this->income = $Income;
+        $this->income = $income;
         $this->incCategory = $incCategory;
-        $this->incDate = $incDate;
         $this->incState = $incState;
-        $this->id = $id;
+        $this->incDate = $incDate;
+        $this->registDate = $registDate;
         
-        // 収入情報の登録
-        $query_registInc =
-            "INSERT INTO incomeTable (
-            incName, income, incCategory, incState, incDate, registDate, updateDate, loginID)
-            VALUES (
-            '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', null, '$loginID')";
-        $result_registIncInfo = mysqli_query($link, $query_registInc);
-        $incomeInfo = mysqli_fetch_array($result_registIncInfo);
+        // 必須の値がnullだった場合、nullを返す
+        if ($loginID == null || $income == null || $incDate == null || $registDate == null) {
+            $this->result = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            // 収入情報の登録
+            $query =
+                "INSERT INTO incomeTable (
+                incName, income, incCategory, incState, incDate, registDate, updateDate, loginID)
+                VALUES (
+                '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', null, '$loginID')";
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
+            
+        }
         
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $incomeInfo;
     }
 }

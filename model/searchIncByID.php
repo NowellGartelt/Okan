@@ -9,14 +9,13 @@
  * @package model
  * @name searchIncByID
  * @var string $loginID ログインID
- * @var string $query_getIncInfo 収入情報検索クエリ
  * @var int $id 収入情報ID
+ * @var array $result クエリ実行結果
  */
-
-class searchIncByID {
+class searchIncByID 
+{
     // インスタンス変数の定義
     private $loginID = null;
-    private $query = null;
     private $id = null;
     private $result = null;
   
@@ -26,7 +25,8 @@ class searchIncByID {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -38,9 +38,10 @@ class searchIncByID {
      * @access public
      * @param string $loginID ログインID
      * @param int $id 収入情報ID
-     * @return array $result クエリ実行結果
+     * @return array incomeIDに紐付く収入情報
      */
-    public function searchIncByID($loginID, $id){
+    public function searchIncByID(string $loginID, int $id)
+    {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->id = $id;
@@ -51,7 +52,9 @@ class searchIncByID {
             
         } else {
             // DB接続情報取得
-            include '../model/tools/databaseConnect.php';
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
             
             // IDで一致する収入情報の取得
             $query = "SELECT * FROM incomeTable 

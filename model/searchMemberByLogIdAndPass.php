@@ -8,16 +8,15 @@
  * @access public
  * @package model
  * @name searchMemberByLogIdAndPass
- * 
  * @var string $loginID ログインID
  * @var string $password パスワード
  */
-
-class searchMemberByLogIdAndPass {
+class searchMemberByLogIdAndPass 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $password = null;
-    private $resultLogin = null;
+    private $getPassword = null;
  
     /**
      * コンストラクタ
@@ -25,7 +24,8 @@ class searchMemberByLogIdAndPass {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -37,26 +37,36 @@ class searchMemberByLogIdAndPass {
      * @access public
      * @var string $loginID ログインID
      * @var string $password パスワード
-     * @return string $resultLogin 照合結果
+     * @return string ログインIDに紐付くパスワード(暗号化済)
      */
-    public function searchMemberByLogIdAndPass($loginID, $password){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-
+    public function searchMemberByLogIdAndPass(string $loginID, string $password)
+    {
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->password = $password;
-        $resultLogin = "";
-
-        // ログインIDから登録されたパスワードの取得
-        $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";
-        $queryResult = mysqli_query($link, $query);
-        $row = mysqli_fetch_array($queryResult);
-        $getPassword = $row['loginPassword'];
-
-        // DB切断
-        mysqli_close($link);
         
-        return $getPassword;
+        // いずれかの値が空の場合、nullを返す
+        if ($loginID == null || $password == null) {
+            $this->getPassword = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            // ログインIDから登録されたパスワードの取得
+            $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $row = mysqli_fetch_array($queryResult);
+            $this->getPassword = $row['loginPassword'];
+            
+            // DB切断
+            mysqli_close($link);
+        
+        }
+        
+        return $this->getPassword;
         
     }
 }

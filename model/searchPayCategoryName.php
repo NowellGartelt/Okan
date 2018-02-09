@@ -1,20 +1,22 @@
 <?php 
 /**
- * 登録済みカテゴリ(収入)取得クラス
+ * 登録済みカテゴリ(支出)取得クラス
  * 
- * ログインIDに紐付く登録済みの収入カテゴリを取得するクラス。
+ * ログインIDに紐付く登録済みの支出カテゴリを取得するクラス。
  * 
  * @access publc
  * @category model
- * @name searchIncCategory
- * @method searchIncCategory
+ * @name searchPayCategory
+ * @method searchPayCategory
  * @var string $loginID ログインID
+ * @var int $maxRegist 取得最大数
  * @var array $result クエリ実行結果
  */
-class searchIncCategory 
+class searchPayCategory 
 {
     // インスタンス変数の定義
     private $loginID = null;
+    private $maxRegist = null;
     private $result = null;
     
     /**
@@ -29,16 +31,14 @@ class searchIncCategory
     }
     
     /**
-     * 登録済みカテゴリ(収入)取得関数
+     * カテゴリ名一覧取得クエリ実行関数
      * 
-     * ログインIDに紐付く登録済みの収入カテゴリを取得するクラス。
+     * ログインIDを受け取り、カテゴリ名一覧を取得するクエリを実行する
      * 
-     * @access public
      * @param string $loginID ログインID
-     * @param int $maxRegist 取得最大数
-     * @return array IDに紐付く収入カテゴリ情報一覧
+     * @return array IDに紐付く支出カテゴリ名一覧
      */
-    public function searchIncCategory(string $loginID) 
+    public function searchPayCategoryName(string $loginID) 
     {
         // 引き渡された値の取得
         $this->loginID = $loginID;
@@ -58,7 +58,7 @@ class searchIncCategory
             
             // IDで一致するカテゴリ情報の取得
             $query = "
-                SELECT * FROM incCategoryTable 
+                SELECT personalID, categoryName FROM payCategoryTable 
                 WHERE loginID = '$loginID' ORDER BY personalID";
             $queryResult = mysqli_query($link, $query);
             
@@ -71,8 +71,8 @@ class searchIncCategory
             mysqli_close($link);
             
         }
-
+        
         return $this->result;
-
+        
     }
 }

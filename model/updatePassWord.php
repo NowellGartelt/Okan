@@ -10,12 +10,14 @@
  * @name updatePassWord
  * @var string $loginID ログインID
  * @var string $password パスワード
+ * @var array $result クエリ実行結果
  */
-
-class updatePassWord {
+class updatePassWord 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $password = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -23,7 +25,8 @@ class updatePassWord {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -35,34 +38,38 @@ class updatePassWord {
      * @access public
      * @param string $loginID ログインID
      * @param string $password パスワード
-     * @return array $memberInfo クエリ実行結果
+     * @return array 更新クエリ実行結果
      */
-    public function updatePassWord($loginID, $password){
-        // DB接続情報取得
-        include '../model/tools/databaseConnect.php';
-        
+    public function updatePassWord(string $loginID, string $password)
+    {
+        // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->password = $password;
         
         // すべてnullだった場合はnullを返して何もしない
-        // include文による実行時の動作
         if ($loginID == null && $password == null) {
-            return $memberInfo;
+            return $this->result;
                     
         } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // IDを元にパスワードの更新
-            $query_updateMemberInfo = 
+            $query = 
                 "UPDATE usertable
                 SET loginPassword = '$password' 
                 WHERE loginID = '$loginID'";
-            $result_updateMemberInfo = mysqli_query($link, $query_updateMemberInfo);
-            $memberInfo = mysqli_fetch_array($result_updateMemberInfo);
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            // DB切断
+            mysqli_close($link);
             
         }
 
-        // DB切断
-        mysqli_close($link);
+        return $this->result;
         
-        return $memberInfo;
     }
 }

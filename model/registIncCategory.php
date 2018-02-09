@@ -9,10 +9,16 @@
  * @access public
  * @package model
  * @name registIncCategory
+ * @var string $loginID ログインID
+ * @var string $registDate 登録日
+ * @var array $result クエリ実行結果
  */
-class registIncCategory {
+class registIncCategory 
+{
+    // インスタンス変数の定義
     private $loginID = null;
     private $registDate = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -21,7 +27,8 @@ class registIncCategory {
      * 
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -33,20 +40,23 @@ class registIncCategory {
      * @access public
      * @param string $loginID ログインID
      * @param string $registDate 登録日
-     * @return array $queryResult クエリ実行結果
+     * @return array 挿入クエリ実行結果
      */
-    public function registIncCategory(string $loginID, string $registDate) {
+    public function registIncCategory(string $loginID, string $registDate) 
+    {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->registDate = $registDate;
         
         // いずれかの値がnullだった場合、nullを返す
         if ($loginID == null || $registDate == null) {
-            $queryResult = null;
+            $this->result = null;
             
         } else {
             // DB接続情報取得
-            include '../model/tools/databaseConnect.php';
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
             
             // 入力された情報で支出情報の更新
             $query =
@@ -66,12 +76,14 @@ class registIncCategory {
                     ('10', '', '$loginID', '$registDate', '')
                 ";
             $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
             
             // DB切断
             mysqli_close($link);
+            
         }
         
-        return $queryResult;
+        return $this->result;
         
     }
 }

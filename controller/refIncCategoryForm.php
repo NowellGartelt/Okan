@@ -23,7 +23,11 @@ $userID = $controller -> getUserID();
 require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($loginID);
-$cateCount = $searchIncCategory -> searchIncCategoryCount($loginID);
+
+// カテゴリ数の取得
+require_once '../model/searchIncCategoryCount.php';
+$searchIncCategoryCount = new searchIncCategoryCount();
+$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($loginID);
 $count = $cateCount[0]["COUNT(*)"];
 
 for ($i = 0; $i < $count; $i++) {

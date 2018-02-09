@@ -9,9 +9,10 @@
  * @package model
  * @name searchMemberByID
  * @var string $loginID ログインID
+ * @var array $result クエリ実行結果
  */
-
-class searchMemberByID {
+class searchMemberByID 
+{
     // インスタンス変数の定義
     private $loginID = null;
     private $result = null;
@@ -22,7 +23,8 @@ class searchMemberByID {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -33,9 +35,10 @@ class searchMemberByID {
      * 
      * @access public
      * @param string $loginID ログインID
-     * @return array $result メンバー情報
+     * @return array IDに紐付くメンバー情報
      */
-    public function searchMemberByID($loginID){
+    public function searchMemberByID(string $loginID)
+    {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         
@@ -44,37 +47,13 @@ class searchMemberByID {
             $this->result = null;
             
         } else {
-            // DB接続情報
-            include '../model/tools/databaseConnect.php';
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
             
             // ログインIDと一致するメンバー情報の取得
             $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
-            
-            // DB切断
-            mysqli_close($link);
-            
-        }
-        
-        return $this->result;
-        
-    }
-    
-    public function searchMemberIDByID($loginID) {
-        // 引き渡された値の取得
-        $this->loginID = $loginID;
-        
-        // 値がnullだった場合、nullを返す
-        if ($loginID == null) {
-            $this->result = null;
-            
-        } else {
-            // DB接続情報
-            include '../model/tools/databaseConnect.php';
-            
-            // ログインIDと一致するメンバー情報の取得
-            $query = "SELECT userID, loginID FROM usertable WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_array($queryResult);
             

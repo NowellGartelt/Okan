@@ -11,8 +11,9 @@
  * @var string $loginID ログインID
  * @var int $defTax デフォルト税率
  */
-
-class searchDefTaxByID {
+class searchDefTaxByID 
+{
+    // インスタンス変数の定義
     private $loginID = null;
     private $defTax = null;
     
@@ -22,7 +23,8 @@ class searchDefTaxByID {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -33,21 +35,34 @@ class searchDefTaxByID {
      * 
      * @access public
      * @param string $loginID ログインID
-     * @return int $getDefTax 取得したデフォルト税率
+     * @return int 取得したデフォルト税率
      */
-    public function searchDefTaxByID($loginID) {
+    public function searchDefTaxByID(string $loginID) 
+    {
+        // 引き渡された値の受け取り
         $this->loginID = $loginID;
         
-        include '../model/tools/databaseConnect.php';
+        // いずれかの値がnullだった場合、nullを返す
+        if ($loginID == null) {
+            $this->defTax = null;
+            
+        } else {
+            // DB接続情報取得
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
+            $query = "SELECT defTax FROM usertable WHERE loginID = '$loginID'";
+            $queryResult = mysqli_query($link, $query);
+            $row = mysqli_fetch_array($queryResult);
+            $this->defTax = $row['defTax'];
+            
+            // DB切断
+            mysqli_close($link);
+            
+        }
         
-        $query = "SELECT defTax FROM usertable WHERE loginID = '$loginID'";
-        $result = mysqli_query($link, $query);
-        $row = mysqli_fetch_array($result);
-        $getDefTax = $row['defTax'];
+        return $this->defTax;
         
-        return $getDefTax;
-        
-        // DB切断
-        mysqli_close($link);
     }
 }

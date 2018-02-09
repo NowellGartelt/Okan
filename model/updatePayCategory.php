@@ -9,14 +9,16 @@
  * @package model
  * @name updatePayCategory
  * @var string $loginID  ログインID
- * @var string $query カテゴリ更新クエリ
  * @var string $categoryName カテゴリ名
  * @var int $categoryID カテゴリID(個人用のカテゴリID)
+ * @var array $result クエリ実行結果
  */
-class updatePayCategory {
+class updatePayCategory 
+{
     private $loginID = null;
     private $categoryName = null;
     private $categoryID = null;
+    private $result = null;
     
     /**
      * コンストラクタ
@@ -24,7 +26,8 @@ class updatePayCategory {
      *
      * @access public
      */
-    public function __construct() {
+    public function __construct() 
+    {
         
     }
     
@@ -37,9 +40,10 @@ class updatePayCategory {
      * @param string $loginID ログインID
      * @param string $categoryName カテゴリ名
      * @param int $categoryID カテゴリID(個人用のカテゴリID)
-     * @return array $updateResult クエリ実行結果
+     * @return array 更新クエリ実行結果
      */
-    public function updatePayCategory(string $loginID, string $categoryName, int $categoryID){
+    public function updatePayCategory(string $loginID, string $categoryName, int $categoryID)
+    {
         // 引き渡された値の取得
         $this->loginID = $loginID;
         $this->categoryName = $categoryName;
@@ -47,25 +51,28 @@ class updatePayCategory {
         
         // いずれかの値がnullだった場合、nullを戻り値とする
         if ($loginID == null || $categoryName == null || $categoryID == null) {
-            $updateResult = null;
+            $this->result = null;
             
         } else {
             // DB接続情報取得
-            include '../model/tools/databaseConnect.php';
-        
+            require_once 'model.php';
+            $model = new model();
+            $link = $model -> getDatabaseCon();
+            
             // 入力された情報で支出情報の更新
             $query = "
                 UPDATE payCategoryTable 
                 SET categoryName = '$categoryName' 
                 WHERE personalID = '$categoryID' AND loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
-            $updateResult = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_array($queryResult);
             
             // DB切断
             mysqli_close($link);
 
         }
         
-        return $updateResult;
+        return $this->result;
+        
     }
 }
