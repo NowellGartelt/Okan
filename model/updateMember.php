@@ -82,130 +82,56 @@ class updateMember
         
         // すべてnullだった場合はnullを返して何もしない
         // include文による実行時の動作
-        if ($name == null && $loginID == null && $password == null && $tax == null && 
-                $chgNameFlg == null && $chgLogIDFlg == null && $chgPassFlg == null && $chgTaxFlg == null) {
+        if (($name == null && $loginID == null && $password == null && $tax == null 
+                && $chgNameFlg == null && $chgLogIDFlg == null && $chgPassFlg == null && $chgTaxFlg == null)
+                || $userID == null) {
             return $this->result;
                     
         } else {
             // DB接続情報取得
             require_once 'tools/databaseConnect.php';
             
-            // 4つすべて更新する場合
-            if ($chgNameFlg == true && $chgLogIDFlg == true && $chgPassFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET name = '$name', loginID = '$loginID', loginPassword = '$password', defTax = '$tax' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // 3つ更新する場合
-            // 名前とログインIDとパスワードを変更する場合
-            } elseif ($chgNameFlg == true && $chgLogIDFlg == true && $chgPassFlg == true) {
-                $query = 
-                    "UPDATE usertable 
-                    SET name = '$name', loginID = '$loginID', loginPassword = '$password' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo = 
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // 名前とログインIDとデフォルト税率を変更する場合
-            } elseif ($chgNameFlg == true && $chgLogIDFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET name = '$name', loginID = '$loginID', defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // ログインIDとパスワードとデフォルト税率を変更する場合
-            } elseif ($chgLogIDFlg == true && $chgPassFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET loginID = '$loginID', loginPassword = '$password', defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // 名前とパスワードとデフォルト税率を変更する場合
-            } elseif ($chgNameFlg == true && $chgPassFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET name = '$name', loginPassword = '$password', defTax = '$tax' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-            // 2つ更新する場合
-            // 名前とログインIDを変更する場合
-            } elseif ($chgNameFlg == true && $chgLogIDFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET name = '$name', loginID = '$loginID' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
+            $query = "";
+            $queryUpdate = "UPDATE usertable ";
+            $querySet = "SET ";
+            $queryWhere = " WHERE userID = '$userID'";
             
+            $queryCount = 0;
+            
+            if ($chgNameFlg == true) {
+                $querySet .= "name = '$name'";
+                $queryCount = $queryCount + 1;
+            }
+            if ($chgLogIDFlg == true) {
+                if ($queryCount > 0) {
+                    $querySet .= ", ";
+                }
+                $querySet .= "loginID = '$loginID'";
+                $queryCount = $queryCount + 1;
+                
+            }
+            if ($chgPassFlg == true) {
+                if ($queryCount > 0) {
+                    $querySet .= ", ";
+                }
+                $querySet .= "loginPassword = '$password'";
+                $queryCount = $queryCount + 1;
+                
+            }
+            if ($chgTaxFlg == true) {
+                if ($queryCount > 0) {
+                    $querySet .= ", ";
+                }
+                $querySet .= "defTax = '$tax'";
+                $queryCount = $queryCount + 1;
+                
+            }
+            
+            $query = $queryUpdate.$querySet.$queryWhere;
+            $queryResult = mysqli_query($link, $query);
+            $this->result = mysqli_fetch_array($queryResult);
+            
+            if ($chgLogIDFlg == true) {
                 // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo =
                     "UPDATE paymentTable
@@ -220,134 +146,7 @@ class updateMember
                     WHERE loginID = '$logIDBefore'";
                 $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
                 $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // ログインIDとパスワードを変更する場合
-            } elseif ($chgLogIDFlg == true && $chgPassFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET loginID = '$loginID', loginPassword = '$password'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
             
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // 名前とパスワードを変更する場合
-            } elseif ($chgNameFlg == true && $chgPassFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET name = '$name', loginPassword = '$password'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-            
-            // 名前とデフォルト税率を変更する場合
-            } elseif ($chgNameFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET name = '$name', defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-            // ログインIDとデフォルト税率を変更する場合
-            } elseif ($chgLogIDFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET loginID = '$loginID', defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-             // パスワードとデフォルト税率を変更する場合
-            } elseif ($chgPassFlg == true && $chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET loginPassword = '$password', defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
-            // 1つ更新する場合
-            // 名前を変更する場合
-            } elseif ($chgNameFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET name = '$name' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-            
-            // ログインIDを変更する場合
-            } elseif ($chgLogIDFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET loginID = '$loginID' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-            
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-                
-            // パスワードを変更する場合
-            } elseif ($chgPassFlg == true) {
-                $query = 
-                    "UPDATE usertable
-                    SET loginPassword = '$password' 
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-            
-            // デフォルト税率を変更する場合
-            } elseif ($chgTaxFlg == true) {
-                $query =
-                    "UPDATE usertable
-                    SET defTax = '$tax'
-                    WHERE userID = '$userID'";
-                $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
-                
             }
             
             // DB切断
