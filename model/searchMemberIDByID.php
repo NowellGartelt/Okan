@@ -48,9 +48,7 @@ class searchMemberIDByID
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // ログインIDと一致するメンバー情報の取得
             $query = "SELECT userID, loginID FROM usertable WHERE loginID = '$loginID'";

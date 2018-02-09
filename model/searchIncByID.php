@@ -52,9 +52,7 @@ class searchIncByID
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // IDで一致する収入情報の取得
             $query = "SELECT * FROM incomeTable 

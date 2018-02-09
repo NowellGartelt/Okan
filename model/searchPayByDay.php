@@ -75,9 +75,7 @@ class searchPayByDay
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 日ごとの支出額の合計の取得
             

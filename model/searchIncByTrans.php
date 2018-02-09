@@ -70,315 +70,34 @@ class searchIncByTrans
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
-            // 入力された条件に合致する収入情報をすべて取得
+            $query = "";
             
-            // 5つすべて入力されている場合
-            // 5から5を選択する組み合わせ
-            // x = 5! / 5! * (5 - 5)!
-            // x = 5 * 4 * 3 * 2 * 1 / 5 * 4 * 3 * 2 * 1 * 1
-            // x = 120 /120
-            // x = 1
-            if ($incName !== ""  && $incCategory !== "" && $incState !=="" 
-                    && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-                
-            // 4つ入力されている場合
-            // 5から4を選択する組み合わせ
-            // x = 5! / 4! * (5 - 4)!
-            // x = 5 * 4 * 3 * 2 * 1 / 4 * 3 * 2 * 1 * 1
-            // x = 120 / 24
-            // x = 5
-            } elseif ($incName !== ""  && $incCategory !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== ""  && $incState !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incState !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== ""  && $incCategory !== "" && $incState !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== ""  && $incCategory !== "" && $incDateFrom !== "" && $incState !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-                
-            // 3つ入力されている場合
-            // 5から3を選択する組み合わせ
-            // x = 5! / 3! * (5 - 3)!
-            // x = 5 * 4 * 3 * 2 * 1 / 3 * 2 * 1 * 2 * 1
-            // x = 120 / 12
-            // x = 10
-            } elseif ($incName !== "" && $incCategory !== "" && $incState !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incCategory !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incDate <= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incState !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incState !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incCategory !== "" && $incDateTo !== "") {
-                    $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incState !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incState !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incState !== "" && $incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incState LIKE '%{$incState}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-                
-            // 2つ入力されている場合
-            // 5から2を選択する組み合わせ
-            // x = 5! / 2! * (5 - 2)!
-            // x = 5 * 4 * 3 * 2 * 1 / 2 * 1 * 3 * 2 * 1
-            // x = 120 / 12
-            // x = 10
-            } elseif ($incName !== "" && $incCategory !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incCategory LIKE '%{$incCategory}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incDate >= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incDate <= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incDateFrom !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incDate >= '$incDateFrom' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = '$loginID' 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incName !== "" && $incState !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "" && $incState !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incState LIKE '%{$incState}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incState !== "" && $incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incState !== "" && $incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incState LIKE '%{$incState}%' 
-                    AND incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-                
-            // 1つ入力されている場合
-            // 5から1を選択する組み合わせ
-            // x = 5! / 1! * (5 - 1)!
-            // x = 5 * 4 * 3 * 2 * 1 / 1 * 4 * 3 * 2 * 1
-            // x = 120 / 24
-            // x = 5
-            } elseif ($incName !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incName LIKE '%{$incName}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incCategory !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incCategory LIKE '%{$incCategory}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incState !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incState LIKE '%{$incState}%' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incDateFrom !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incDate >= '$incDateFrom' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-            } elseif ($incDateTo !== "") {
-                $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    WHERE incDate <= '$incDateTo' 
-                    AND incomeTable.loginID = incCategoryTable.loginID 
-                    ORDER BY incDate, incomeID ASC";
-
+            $querySelect = "SELECT * FROM incomeTable ";
+            $queryLeftOuterJoin = "LEFT OUTER JOIN incCategoryTable 
+                ON incomeTable.incCategory = incCategoryTable.personalID
+                AND incomeTable.loginID = incCategoryTable.loginID ";
+            $queryWhere = "WHERE incomeTable.loginID = '$loginID' ";
+            $queryOrderBy = "ORDER BY incDate, incomeID ASC";
+            
+            if ($incName !== "") {
+                $queryWhere .= "AND incName LIKE '%{$incName}%' ";
             }
+            if ($incCategory !== "") {
+                $queryWhere .= "AND incCategory LIKE '%{$incCategory}%' ";
+            }
+            if ($incState !== "") {
+                $queryWhere .= "AND incState LIKE '%{$incState}%' ";
+            }
+            if ($incDateFrom !== "") {
+                $queryWhere .= "AND incDate >= '$incDateFrom' ";
+            }
+            if ($incDateTo !== "") {
+                $queryWhere .= "AND incDate <= '$incDateTo' ";
+            }
+            
+            $query = $querySelect.$queryLeftOuterJoin.$queryWhere.$queryOrderBy;
             
             $queryResult = mysqli_query($link, $query);
             $this->result = array();

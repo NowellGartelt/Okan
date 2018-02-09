@@ -47,9 +47,7 @@ class searchQuestionAndAnswerByID
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // メンバー情報に設定された秘密の質問と答えの取得
             $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";

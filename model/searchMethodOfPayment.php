@@ -25,9 +25,7 @@ class searchMethodOfPayment
     public function __construct()
     {
         // DB接続情報取得
-        require_once 'model.php';
-        $model = new model();
-        $link = $model -> getDatabaseCon();
+        require_once 'tools/databaseConnect.php';
         
         $query = "SELECT * FROM methodOfPayment";
         $queryResult = mysqli_query($link, $query);

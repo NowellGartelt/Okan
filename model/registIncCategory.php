@@ -54,9 +54,7 @@ class registIncCategory
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 入力された情報で支出情報の更新
             $query =

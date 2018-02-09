@@ -75,9 +75,7 @@ class searchPayByMonth
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 年と月の分割
             // 検索範囲の開始日と終了日の両方で行う

@@ -52,9 +52,7 @@ class deletePayByTrans
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 支出情報の削除
             $query = "DELETE FROM paymentTable WHERE paymentID = '$id' AND loginID = '$loginID'";

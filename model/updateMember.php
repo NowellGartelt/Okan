@@ -88,9 +88,7 @@ class updateMember
                     
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 4つすべて更新する場合
             if ($chgNameFlg == true && $chgLogIDFlg == true && $chgPassFlg == true && $chgTaxFlg == true) {

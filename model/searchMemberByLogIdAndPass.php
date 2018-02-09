@@ -51,9 +51,7 @@ class searchMemberByLogIdAndPass
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // ログインIDから登録されたパスワードの取得
             $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";

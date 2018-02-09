@@ -56,9 +56,7 @@ class searchPaySumOnlyCash
             
         } else {
             // DB接続情報取得
-            require_once 'model.php';
-            $model = new model();
-            $link = $model -> getDatabaseCon();
+            require_once 'tools/databaseConnect.php';
             
             // 指定された期間の総支出の取得
             $query = "SELECT SUM(payment) FROM paymentTable

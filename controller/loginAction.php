@@ -22,7 +22,7 @@ $login = null;
 // ログインIDかパスワードが空だった場合
 if (empty($loginID) || empty($password)) {
     $_SESSION['login'] = 'emptyIDorPass';
-
+    
     include '../../Okan/controller/login.php';
 
 } else {
@@ -33,9 +33,9 @@ if (empty($loginID) || empty($password)) {
     
     if (password_verify($password, $getPassword)) {
         // ユーザIDの引き当て
-        require_once '../model/searchMemberByID.php';
-        $searchMemberByID = new searchMemberByID();
-        $result = $searchMemberByID -> searchMemberIDByID($loginID);
+        require_once '../model/searchMemberIDByID.php';
+        $searchMemberIDByID = new searchMemberIDByID();
+        $result = $searchMemberIDByID -> searchMemberIDByID($loginID);
         $userID = $result['userID'];
         
         // セッション関数のセット
