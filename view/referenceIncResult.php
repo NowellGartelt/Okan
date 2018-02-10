@@ -25,8 +25,8 @@
     <tbody>
      <tr>
       <th>日付</th>
-      <th>名前</th>
       <th>金額</th>
+      <th>名前</th>
       <th>カテゴリ</th>
       <th>一言メモ</th>
       <th></th>
@@ -36,19 +36,19 @@
 <?php while ($displayCount < $incCount) { ?>
      <tr>
       <td><?php echo $incList[$displayCount]['incDate']; ?></td>
-      <td><?php echo $incList[$displayCount]['incName']; ?></td>
       <td><?php echo $incList[$displayCount]['income']; ?></td>
+      <td><?php echo $incList[$displayCount]['incName']; ?></td>
       <td><?php echo $incList[$displayCount]['categoryName']; ?></td>
       <td><?php echo $incList[$displayCount]['incState']; ?></td>
       <td>
        <form action="../../Okan/updateIncForm.php" method="post">
-        <input type="submit" value="教えなおす">
+        <button type="submit">教えなおす</button>
         <input type="hidden" name="ID" value=<?php echo $incList[$displayCount]['incomeID']; ?>>
        </form>
       </td>
       <td>
        <form action="../../Okan/deleteIncForm.php" method="post">
-        <input type="submit" value="取り消してもらう">
+        <button type="submit">取り消してもらう</button>
         <input type="hidden" name="ID" value=<?php echo $incList[$displayCount]['incomeID']; ?>>
        </form>
       </td>

@@ -30,7 +30,7 @@
 <?php $displayCount = 0; ?>
 <?php while ($displayCount < $payCount) { ?>
      <tr>
-      <td><?php echo $paymList[$displayCount]['payDate']; ?></td>
+      <td><?php echo $payList[$displayCount]['payDate']; ?></td>
       <td><?php echo $payList[$displayCount]['SUM(payment)']; ?></td>
      </tr>
 <?php $displayCount++; ?>

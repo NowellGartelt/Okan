@@ -24,38 +24,38 @@
     <table>
      <tbody>
       <tr>
-       <td>使ったものは？：</td>
-       <td><?php echo $incInfo['incName']; ?></td>
-      </tr>
-      <tr>
-       <td>いくら？：</td>
-       <td><?php echo $incInfo['income']; ?>円</td>
-      </tr>
-      <tr>
-       <td>カテゴリは？：</td>
-       <td><?php echo $incInfo['incCategory']; ?></td>
-      </tr>
-      <tr>
        <td>いつ？：</td>
        <td><?php echo $incInfoDateYear; ?>年
         <?php echo $incInfoDateMonth; ?>月
         <?php echo $incInfoDateDay; ?>日</td>
       </tr>
       <tr>
+       <td>いくら？：</td>
+       <td><?php echo $incList['income']; ?>円</td>
+      </tr>
+      <tr>
+       <td>何でもらったの？：</td>
+       <td><?php echo $incList['incName']; ?></td>
+      </tr>
+      <tr>
+       <td>カテゴリは？：</td>
+       <td><?php echo $incList['categoryName']; ?></td>
+      </tr>
+      <tr>
        <td>一言メモ：</td>
-       <td><?php echo $incomeInfo['incState']; ?></td>
+       <td><?php echo $incList['incState']; ?></td>
       </tr>
      </tbody>
     </table>
     <br>
     <input type="hidden" name="ID" value=<?php echo $id; ?>>
-    <input type="hidden" name="incName" value=<?php echo $incInfo['incName']; ?>>
-    <input type="hidden" name="income" value=<?php echo $incInfo['income']; ?>>
-    <input type="hidden" name="incCategory" value=<?php echo $incInfo['incCategory']; ?>>
+    <input type="hidden" name="incName" value=<?php echo $incList['incName']; ?>>
+    <input type="hidden" name="income" value=<?php echo $incList['income']; ?>>
+    <input type="hidden" name="incCategory" value=<?php echo $incList['incCategory']; ?>>
     <input type="hidden" name="incDateYear" value=<?php echo $incInfoDateYear; ?>>
     <input type="hidden" name="incDateMonth" value=<?php echo $incInfoDateMonth; ?>>
     <input type="hidden" name="incDateDay" value=<?php echo $incInfoDateDay; ?>>
-    <input type="hidden" name="incState" value=<?php echo $incInfo['incState']; ?>>
+    <input type="hidden" name="incState" value=<?php echo $incList['incState']; ?>>
     <button type="submit">オカンに取り消してもらう</button>
    </form>
    <form action="../../Okan/referenceIncResult.php" method="post">

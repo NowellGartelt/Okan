@@ -15,9 +15,9 @@
 class updatePassWord 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $password = null;
-    private $result = null;
+    private $loginID = "";
+    private $password = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -52,7 +52,7 @@ class updatePassWord
                     
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // IDを元にパスワードの更新
             $query = 
@@ -60,7 +60,7 @@ class updatePassWord
                 SET loginPassword = '$password' 
                 WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

@@ -8,14 +8,14 @@
  * @category model
  * @name searchIncCategory
  * @method searchIncCategory
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var array $result クエリ実行結果
  */
 class searchIncCategory 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $result = null;
+    private $userID = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -34,30 +34,27 @@ class searchIncCategory
      * ログインIDに紐付く登録済みの収入カテゴリを取得するクラス。
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param int $maxRegist 取得最大数
      * @return array IDに紐付く収入カテゴリ情報一覧
      */
-    public function searchIncCategory(string $loginID) 
+    public function searchIncCategory(int $userID) 
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($loginID == null) {
+        if ($userID == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
-            
-            // 戻り値の初期化
-            $this->result = array();
+            include 'tools/databaseConnect.php';
             
             // IDで一致するカテゴリ情報の取得
             $query = "
                 SELECT * FROM incCategoryTable 
-                WHERE loginID = '$loginID' ORDER BY personalID";
+                WHERE userID = '$userID' ORDER BY personalID";
             $queryResult = mysqli_query($link, $query);
             
             //連想配列として取得した値を配列変数に格納する

@@ -22,12 +22,12 @@ $userID = $controller -> getUserID();
 // 現在登録されているカテゴリの取得
 require_once '../model/searchPayCategory.php';
 $searchPayCategory = new searchPayCategory();
-$cateList = $searchPayCategory -> searchPayCategory($loginID);
+$cateList = $searchPayCategory -> searchPayCategory($userID);
 
 // 現在登録されているカテゴリ数の取得
 require_once '../model/searchPayCategoryCount.php';
 $searchPayCategoryCount = new searchPayCategoryCount();
-$cateCount = $searchPayCategoryCount -> searchPayCategoryCount($loginID); 
+$cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID); 
 $count = $cateCount[0]["COUNT(*)"];
 
 for ($i = 0; $i < $count; $i++) {

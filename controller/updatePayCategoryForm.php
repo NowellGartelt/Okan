@@ -25,7 +25,7 @@ $personalID = $_POST['personalID'];
 // 指定されたNoに登録されているカテゴリ情報の取得
 require_once '../model/searchPayCategoryByID.php';
 $searchPayCategoryByID = new searchPayCategoryByID();
-$cateList = $searchPayCategoryByID -> searchPayCategoryByID($loginID, $personalID);
+$cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $personalID);
 
 // カテゴリが空行だった場合、(未登録)を挿入
 if ($cateList[0]['categoryName'] == null) {

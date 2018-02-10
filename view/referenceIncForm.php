@@ -32,21 +32,34 @@
     <table>
      <tbody>
       <tr>
+       <td>いつからいつまで？：</td>
+       <td><input type="date" name="incDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
+        <input type="date" name="incDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
+      </tr>
+      <tr>
        <td>使ったものの名前は？：</td>
        <td><input type="text" name="incName" style="width: 150px"></td>
       </tr>
       <tr>
-       <td>見たいカテゴリは？：</td>
-       <td><input type="text" name="incCategory" style="width: 150px"></td>
+       <td>カテゴリは？：</td>
+       <td>
+        <select name="payCategory" style="width: 150px">
+         <option value=0>なし</option>
+<?php 
+foreach ($cateList as &$categoryName) {
+?>
+         <option value=<?php 
+            echo $categoryName['personalID'];
+            ?>><?php echo $categoryName['categoryName'] ?></option>
+<?php 
+}
+?>
+        </select>
+       </td>
       </tr>
       <tr>
-       <td>どこで？：</td>
+       <td>一言メモは？：</td>
        <td><input type="text" name="incState" style="width: 150px"></td>
-      </tr>
-      <tr>
-       <td>いつからいつまで？：</td>
-       <td><input type="date" name="incDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
-        <input type="date" name="incDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
      </tbody>
     </table>

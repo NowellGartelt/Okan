@@ -13,7 +13,7 @@
 class searchMethodOfPayment 
 {
     // インスタンス変数の定義
-    private $result = null;
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -25,7 +25,7 @@ class searchMethodOfPayment
     public function __construct()
     {
         // DB接続情報取得
-        require_once 'tools/databaseConnect.php';
+        include 'tools/databaseConnect.php';
         
         $query = "SELECT * FROM methodOfPayment";
         $queryResult = mysqli_query($link, $query);

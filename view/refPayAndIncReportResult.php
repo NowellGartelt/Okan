@@ -71,7 +71,7 @@
       <?php $displayCount = 0; ?>
       <?php while ($displayCount < count($sumPayCategory)) { ?>
       <tr>
-       <td><?php echo $sumPayCategory[$displayCount]['payCategory']; ?></td>
+       <td><?php echo $sumPayCategory[$displayCount]['categoryName']; ?></td>
        <td><?php echo $sumPayCategory[$displayCount]['SUM(payment)']; ?></td>
       </tr>
       <?php $displayCount++; ?>
@@ -83,7 +83,7 @@
      </tbody>
    </table>
    <br>
-   <p>使ったお金がが多い順に支払方法ごとにまとめたわよ。</p>
+   <p>使ったお金が多い順に支払方法ごとにまとめたわよ。</p>
    <table>
      <tbody>
       <tr>
@@ -105,11 +105,33 @@
      </tbody>
    </table>
    <br>
+   <p>もらったお金が多い順にカテゴリごとにまとめたわよ。</p>
+   <table>
+     <tbody>
+      <tr>
+       <th>カテゴリ</th>
+       <th>金額</th>
+      </tr>
+      <?php $displayCount = 0; ?>
+      <?php while ($displayCount < count($sumIncCategory)) { ?>
+      <tr>
+       <td><?php echo $sumIncCategory[$displayCount]['categoryName']; ?></td>
+       <td><?php echo $sumIncCategory[$displayCount]['SUM(income)']; ?></td>
+      </tr>
+      <?php $displayCount++; ?>
+      <?php } ?>
+      <tr>
+        <td></td>
+        <td></td>
+      </tr>
+     </tbody>
+   </table>
+   <br>
    <form action="../../Okan/refPayAndIncReportForm.php" method="post">
-    <input type="submit" value="もういっかい訊く">
+    <button type="submit">もういっかい訊く</button>
    </form>
    <form action="../../Okan/menu.php" method="post">
-    <input type="submit" value="戻る">
+    <button type="submit">戻る</button>
    </form>
   </div>
  </body>

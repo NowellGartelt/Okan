@@ -35,7 +35,7 @@
       <td><?php echo $cateList[$displayCount]['categoryName']; ?></td>
       <td>
        <form action="../../Okan/updatePayCategoryForm.php" method="post">
-        <input type="submit" value="教えなおす">
+        <button type="submit">教えなおす</button>
         <input type="hidden" name="personalID" value=<?php echo $cateList[$displayCount]['personalID']; ?>>
        </form>
       </td>

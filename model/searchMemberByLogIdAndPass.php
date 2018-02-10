@@ -14,9 +14,9 @@
 class searchMemberByLogIdAndPass 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $password = null;
-    private $getPassword = null;
+    private $loginID = "";
+    private $password = "";
+    private $getPassword = "";
  
     /**
      * コンストラクタ
@@ -51,12 +51,12 @@ class searchMemberByLogIdAndPass
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // ログインIDから登録されたパスワードの取得
-            $query = "SELECT loginPassword FROM usertable WHERE loginID = '$loginID'";
+            $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
-            $row = mysqli_fetch_array($queryResult);
+            $row = mysqli_fetch_assoc($queryResult);
             $this->getPassword = $row['loginPassword'];
             
             // DB切断

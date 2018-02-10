@@ -25,7 +25,7 @@ $payment = $_POST['payment'];
 
 // 支出情報の削除
 require_once '../model/deletePayByTrans.php';
-$deletePayByTrans = new deletePayByTrans($loginID, $id);
-$payInfo = $deletePayByTrans -> deletePayByTrans($loginID, $id);
+$deletePayByTrans = new deletePayByTrans();
+$payInfo = $deletePayByTrans -> deletePayByTrans($userID, $id);
 
 include '../view/deletePayResult.php';

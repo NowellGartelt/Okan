@@ -25,8 +25,8 @@
     <tbody>
      <tr>
       <th>日付</th>
-      <th>名前</th>
       <th>金額</th>
+      <th>名前</th>
       <th>カテゴリ</th>
       <th>支払方法</th>
       <th>一言メモ</th>
@@ -37,20 +37,20 @@
 <?php while ($displayCount < $payCount) { ?>
      <tr>
       <td><?php echo $payList[$displayCount]['payDate']; ?></td>
-      <td><?php echo $payList[$displayCount]['payName']; ?></td>
       <td><?php echo $payList[$displayCount]['payment']; ?></td>
+      <td><?php echo $payList[$displayCount]['payName']; ?></td>
       <td><?php echo $payList[$displayCount]['categoryName']; ?></td>
       <td><?php echo $payList[$displayCount]['paymentName']; ?></td>
       <td><?php echo $payList[$displayCount]['payState']; ?></td>
       <td>
        <form action="../../Okan/updatePayForm.php" method="post">
-        <input type="submit" value="教えなおす">
+        <button type="submit">教えなおす</button>
         <input type="hidden" name="ID" value=<?php echo $payList[$displayCount]['paymentID']; ?>>
        </form>
       </td>
       <td>
        <form action="../../Okan/deletePayForm.php" method="post">
-        <input type="submit" value="取り消してもらう">
+        <button type="submit">取り消してもらう</button>
         <input type="hidden" name="ID" value=<?php echo $payList[$displayCount]['paymentID']; ?>>
        </form>
       </td>

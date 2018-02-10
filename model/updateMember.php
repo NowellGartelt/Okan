@@ -23,18 +23,18 @@
 class updateMember 
 {
     // インスタンス変数の定義
-    private $query = null;
-    private $name = null;
-    private $loginID = null;
-    private $logIDBefore = null;
-    private $password = null;
-    private $tax = null;
-    private $chgNameFlg = null;
-    private $chgLogIDFlg = null;
-    private $chgPassFlg = null;
-    private $chgTaxFlg = null;
-    private $userID = null;
-    private $result = null;
+    private $query = "";
+    private $name = "";
+    private $loginID = "";
+    private $logIDBefore = "";
+    private $password = "";
+    private $tax = "";
+    private $chgNameFlg = "";
+    private $chgLogIDFlg = "";
+    private $chgPassFlg = "";
+    private $chgTaxFlg = "";
+    private $userID = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -89,19 +89,24 @@ class updateMember
                     
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
+            // SQL文初期設定
             $query = "";
+            
             $queryUpdate = "UPDATE usertable ";
             $querySet = "SET ";
             $queryWhere = " WHERE userID = '$userID'";
             
+            // SQL文追記数カウント
             $queryCount = 0;
             
+            // 名前変更フラグが立ってる場合、名前を条件に追記
             if ($chgNameFlg == true) {
                 $querySet .= "name = '$name'";
                 $queryCount = $queryCount + 1;
             }
+            // ログインID変更フラグが立ってる場合、ログインIDを条件に追記
             if ($chgLogIDFlg == true) {
                 if ($queryCount > 0) {
                     $querySet .= ", ";
@@ -110,6 +115,7 @@ class updateMember
                 $queryCount = $queryCount + 1;
                 
             }
+            // パスワード変更フラグが立ってる場合、パスワードを条件に追記
             if ($chgPassFlg == true) {
                 if ($queryCount > 0) {
                     $querySet .= ", ";
@@ -118,6 +124,7 @@ class updateMember
                 $queryCount = $queryCount + 1;
                 
             }
+            // デフォルト税率変更フラグが立ってる場合、デフォルト税率を条件に追記
             if ($chgTaxFlg == true) {
                 if ($queryCount > 0) {
                     $querySet .= ", ";
@@ -127,6 +134,7 @@ class updateMember
                 
             }
             
+            // SQL文連結作成
             $query = $queryUpdate.$querySet.$queryWhere;
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_array($queryResult);

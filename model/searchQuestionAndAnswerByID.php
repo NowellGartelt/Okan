@@ -14,8 +14,8 @@
 class searchQuestionAndAnswerByID 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $result = null;
+    private $loginID = "";
+    private $result = array();
  
     /**
      * コンストラクタ
@@ -47,12 +47,12 @@ class searchQuestionAndAnswerByID
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // メンバー情報に設定された秘密の質問と答えの取得
             $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

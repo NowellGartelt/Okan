@@ -31,7 +31,7 @@ if ($categoryName == "") {
     // 指定されたNoに登録されているカテゴリ情報の取得
     require_once '../model/searchIncCategoryByID.php';
     $searchIncCategoryByID = new searchIncCategoryByID();
-    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($loginID, $personalID);
+    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID);
     
     if ($result['categoryName'] == null) {
         $result['categoryName'] = "(未登録)";
@@ -48,7 +48,7 @@ if ($categoryName == "") {
     // カテゴリ名更新
     require_once '../model/updateIncCategory.php';
     $updateIncCategory = new updateIncCategory();
-    $updResult = $updateIncCategory -> updateIncCategory($loginID, $categoryName, $personalID);
+    $updResult = $updateIncCategory -> updateIncCategory($userID, $categoryName, $personalID);
     
     include '../view/updateIncCategoryResult.php';
 }

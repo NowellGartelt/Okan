@@ -43,10 +43,10 @@
    </table>
    <br>
    <form action="../../Okan/refPaySortByMonthForm.php" method="post">
-    <input type="submit" value="もういっかい訊く">
+    <button type="submit">もういっかい訊く</button>
    </form>
    <form action="../../Okan/menu.php" method="post">
-    <input type="submit" value="戻る">
+    <button type="submit">戻る</button>
    </form>
   </div>
  </body>

@@ -52,12 +52,30 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     // 支出情報の取得
     require_once '../model/searchPayByID.php';
     $searchPayByID = new searchPayByID();
-    $payInfo = $searchPayByID -> searchPayByID($loginID, $id);
+    $payList = $searchPayByID -> searchPayByID($userID, $id);
     
     // 支払方法一覧の取得
     require_once '../model/searchMethodOfPayment.php';
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+    
+    // 支出カテゴリ一覧の取得
+    require_once '../model/searchPayCategory.php';
+    $searchPayCategory = new searchPayCategory();
+    $cateList = $searchPayCategory -> searchPayCategory($userID);
+    
+    // 支出カテゴリ数取得
+    require_once '../model/searchPayCategoryCount.php';
+    $searchPayCategoryCount = new searchPayCategoryCount();
+    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
+    $count = $cateCount[0]["COUNT(*)"];
+    
+    for ($i = 0; $i < $count; $i++) {
+        // カテゴリ登録がなかった場合、空行を取り除く
+        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+            unset($cateList[$i]);
+        }
+    }
     
     include '../view/updatePayForm.php';
     
@@ -74,7 +92,7 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     // 税率が入力されてるとき、自動で税率計算を行う
     require_once '../model/searchPayByID.php';
     $searchPayByID = new searchPayByID();
-    $payInfoBefore = $searchPayByID -> searchPayByID($loginID, $id);
+    $payInfoBefore = $searchPayByID -> searchPayByID($userID, $id);
     
     $taxFlgBefore = $payInfoBefore['taxFlg'];
     $taxBefore = $payInfoBefore['tax'];
@@ -123,7 +141,7 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
     // 支出情報の更新
     require_once '../model/updatePayByTrans.php';
     $updatePayByTrans = new updatePayByTrans();
-    $updResult = $updatePayByTrans -> updatePayByTrans($loginID, $payName,
+    $updResult = $updatePayByTrans -> updatePayByTrans($userID, $payName,
             $paymentAfter, $payCategory, $payDate, $payState, $id,
             $taxFlgAfter, $taxAfter, $methodOfPayment);
     

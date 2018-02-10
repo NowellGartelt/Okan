@@ -88,17 +88,24 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
                 // メンバー情報登録処理
                 require_once '../model/registMember.php';
                 $registMember = new registMember();
-                $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, $isAdmin, $question, $answer, $defTax);
-
+                $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, 
+                        $isAdmin, $question, $answer, $defTax);
+                
+                // ユーザID取得処理
+                require_once '../model/searchMemberIDByID.php';
+                $searchMemberIDByID = new searchMemberIDByID();
+                $userInfo = $searchMemberIDByID -> searchMemberIDByID($loginID);
+                $userID = $userInfo['userID'];
+                
                 // 支出カテゴリ初期登録処理
                 require_once '../model/registPayCategory.php';
                 $registPayCategory = new registpayCategory();
-                $regPayCategoryResult = $registPayCategory -> registPayCategory($loginID, $registDate);
+                $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
                 
                 // 収入カテゴリ初期登録処理
                 require_once '../model/registIncCategory.php';
                 $registIncCategory = new registIncCategory();
-                $regIncCategoryResult = $registIncCategory -> registIncCategory($loginID, $registDate);
+                $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
                 
                 include '../view/registMemberResult.php';
                 

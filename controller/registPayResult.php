@@ -34,7 +34,7 @@ $_SESSION["errorInputPay"] = "";
 $errorInputPay = "";
 
 // 入力値チェック
-if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $payment < 0){
+if ($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $payment < 0) {
     if ($payment < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputPay"] = "minusInput";
@@ -47,7 +47,7 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     // ユーザのデフォルト税率設定の取得
     require_once '../model/searchDefTaxByID.php';
     $searchDefTaxByID = new searchDefTaxByID();
-    $tax = $searchDefTaxByID -> searchDefTaxByID($loginID);
+    $tax = $searchDefTaxByID -> searchDefTaxByID($userID);
     
     // 支払方法一覧の取得
     require_once '../model/searchMethodOfPayment.php';
@@ -55,14 +55,14 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
     
     // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategoryName.php';
-    $searchPayCategoryName = new searchPayCategoryName();
-    $cateList = $searchPayCategoryName -> searchPayCategoryName($loginID);
+    require_once '../model/searchPayCategory.php';
+    $searchPayCategory = new searchPayCategory();
+    $cateList = $searchPayCategory -> searchPayCategory($userID);
     
     // 支出カテゴリ数取得
     require_once '../model/searchPayCategoryCount.php';
     $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($loginID);
+    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
     $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {
@@ -102,17 +102,15 @@ if($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $
     // 支出情報の登録
     require_once '../model/registPayByTrans.php';
     $registPayByTrans = new registPayByTrans();
-    $regiResult = $registPayByTrans -> registPayByTrans($loginID, $payName, 
+    $regiResult = $registPayByTrans -> registPayByTrans($userID, $payName, 
             $payment, $payCategory, $payState, $payDate, $registDate, 
             $taxFlg, $tax, $methodOfPayment);
     
-$query_kogotoList = <<<__SQL
-    SELECT * FROM `kogoto`
-    WHERE $payment <= `kogoto`.`lower_payment`
-    ORDER BY `lower_payment` ASC
-__SQL;
-    $kogoto = mysqli_fetch_assoc(mysqli_query($link, $query_kogotoList));
-
+    // 支出の小言取得
+    require_once '../model/searchPayKogoto.php';
+    $searchPayKogoto = new searchPayKotgoto();
+    $kogoto = $searchPayKogoto -> searchPayKogoto($payment);
+    
     include '../view/registPayResult.php';
 
 }

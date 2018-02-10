@@ -8,7 +8,7 @@
  * @access public
  * @package model
  * @name searchIncByTrans
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var string $query 収入情報検索クエリ
  * @var string $incName 収入名
  * @var string $incCategory 収入カテゴリ
@@ -20,13 +20,13 @@
 class searchIncByTrans 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $incName = null;
-    private $incCategory = null;
-    private $incState = null;
-    private $incDateFrom = null;
-    private $incDateTo = null;
-    private $result = null;
+    private $userID = "";
+    private $incName = "";
+    private $incCategory = "";
+    private $incState = "";
+    private $incDateFrom = "";
+    private $incDateTo = "";
+    private $result = array();
   
     /**
      * コンストラクタ
@@ -45,7 +45,7 @@ class searchIncByTrans
      * 各種収入情報を受け取り、DBに検索するクエリを実行する
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param string $incName 収入名
      * @param string $incCategory 収入カテゴリ
      * @param string $incState 収入一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
@@ -53,10 +53,10 @@ class searchIncByTrans
      * @param string $incDateTo 収入日(終了)
      * @return array 条件に合致した収入情報
      */
-    public function searchIncByTrans(string $loginID, string $incName, string $incCategory, 
+    public function searchIncByTrans(int $userID, string $incName, string $incCategory, 
             string $incState, string $incDateFrom, string $incDateTo)
     {
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->incName = $incName;
         $this->incCategory = $incCategory;
         $this->incState = $incState;
@@ -65,42 +65,47 @@ class searchIncByTrans
         
         // ずべて空だった場合
         if (($incName == ""  && $incCategory == "" && $incState =="" 
-                && $incDateFrom == "" && $incDateTo == "") || $loginID == null) {
+                && $incDateFrom == "" && $incDateTo == "") || $userID == null) {
             $this->result;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
+            // SQL文初期設定
             $query = "";
             
             $querySelect = "SELECT * FROM incomeTable ";
             $queryLeftOuterJoin = "LEFT OUTER JOIN incCategoryTable 
                 ON incomeTable.incCategory = incCategoryTable.personalID
-                AND incomeTable.loginID = incCategoryTable.loginID ";
-            $queryWhere = "WHERE incomeTable.loginID = '$loginID' ";
+                AND incomeTable.userID = incCategoryTable.userID ";
+            $queryWhere = "WHERE incomeTable.userID = '$userID' ";
             $queryOrderBy = "ORDER BY incDate, incomeID ASC";
             
+            // 名前が記入されていた場合、名前を条件に追加
             if ($incName !== "") {
                 $queryWhere .= "AND incName LIKE '%{$incName}%' ";
             }
+            // カテゴリが記入されていた場合、カテゴリを条件に追加
             if ($incCategory !== "") {
-                $queryWhere .= "AND incCategory LIKE '%{$incCategory}%' ";
+                $queryWhere .= "AND incCategory = '$incCategory' ";
             }
+            // 一言メモが記入されていた場合、一言メモを条件に追加
             if ($incState !== "") {
                 $queryWhere .= "AND incState LIKE '%{$incState}%' ";
             }
+            // 開始日が記入されていた場合、開始日を条件に追加
             if ($incDateFrom !== "") {
                 $queryWhere .= "AND incDate >= '$incDateFrom' ";
             }
+            // 終了日が記入されていた場合、終了日を条件に追加
             if ($incDateTo !== "") {
                 $queryWhere .= "AND incDate <= '$incDateTo' ";
             }
             
+            // SQL文連結作成
             $query = $querySelect.$queryLeftOuterJoin.$queryWhere.$queryOrderBy;
-            
             $queryResult = mysqli_query($link, $query);
-            $this->result = array();
             
             while ($row = mysqli_fetch_assoc($queryResult)) {
                 array_push($this->result, $row);

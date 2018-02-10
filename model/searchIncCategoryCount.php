@@ -8,14 +8,14 @@
  * @category model
  * @name searchIncCategory
  * @method searchIncCategoryName
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var array $result クエリ実行結果
  */
-class searchIncCategoryName 
+class searchIncCategoryCount 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $result = null;
+    private $userID = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -33,29 +33,26 @@ class searchIncCategoryName
      *
      * ログインIDを受け取り、カテゴリ数を取得するクエリを実行する
      *
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @return array IDに紐付く収入カテゴリ数
      */
-    public function searchIncCategoryCount(string $loginID) 
+    public function searchIncCategoryCount(int $userID) 
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($loginID == null) {
+        if ($userID == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
-            
-            // 戻り値の初期化
-            $this->result = array();
+            include 'tools/databaseConnect.php';
             
             // IDで一致するカテゴリ情報の取得
             $query = "
                 SELECT COUNT(*) FROM incCategoryTable
-                WHERE loginID = '$loginID'";
+                WHERE userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
             
             //連想配列として取得した値を配列変数に格納する

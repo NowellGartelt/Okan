@@ -25,12 +25,14 @@ $personalID = $_POST['personalID'];
 // 指定されたNoに登録されているカテゴリ情報の取得
 require_once '../model/searchIncCategoryByID.php';
 $searchIncCategoryByID = new searchIncCategoryByID();
-$cateList = $searchIncCategoryByID -> searchIncCategoryByID($loginID, $personalID);
+$cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID);
 
 // カテゴリが空行だった場合、(未登録)を挿入
-if ($result[0]['categoryName'] == null) {
-    $result[0]['categoryName'] = "(未登録)";
+if ($cateList[0]['categoryName'] == null) {
+    $cateList[0]['categoryName'] = "(未登録)";
 }
+
+$errorInput = null;
 
 // 画面の読み込み
 include '../view/updateIncCategoryForm.php';

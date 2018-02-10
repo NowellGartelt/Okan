@@ -8,7 +8,7 @@
  * @access public
  * @package model
  * @name updateIncByTrans
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var string $incName 収入名
  * @var int $income 収入額
  * @var string $incCategory 収入カテゴリ
@@ -20,14 +20,14 @@
 class updateIncByTrans 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $incName = null;
-    private $income = null;
-    private $incCategory = null;
-    private $incDate = null;
-    private $incState = null;
-    private $id = null;
-    private $result = null;
+    private $userID = "";
+    private $incName = "";
+    private $income = "";
+    private $incCategory = "";
+    private $incDate = "";
+    private $incState = "";
+    private $id = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -46,7 +46,7 @@ class updateIncByTrans
      * 収入情報を受け取り、DBに収入情報を更新するクエリを実行する
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param string $incName 収入名
      * @param int $income 収入額
      * @param string $incCategory 収入カテゴリ
@@ -55,11 +55,11 @@ class updateIncByTrans
      * @param int $id 収入ID
      * @return array 更新クエリ実行結果
      */
-    public function updateIncByTrans(string $loginID, string $incName, int $income, 
+    public function updateIncByTrans(int $userID, string $incName, int $income, 
             string $incCategory, string $incDate, string $incState, int $id)
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->incName = $incName;
         $this->income = $income;
         $this->incCategory = $incCategory;
@@ -68,20 +68,20 @@ class updateIncByTrans
         $this->id = $id;
         
         // 必須の値が空だった場合、nullを返す
-        if ($loginID == null || $income == null || $incDate == null || $id == null) {
+        if ($userID == null || $income == null || $incDate == null || $id == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 入力された情報で収入情報の更新
             $query =
                 "UPDATE incomeTable 
                 SET incName = '$incName', income = '$income', incCategory = '$incCategory',
-                incDate = '$incDate', incState = '$incState' WHERE incomeID = '$id' AND loginID = '$loginID'";
+                incDate = '$incDate', incState = '$incState' WHERE incomeID = '$id' AND userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

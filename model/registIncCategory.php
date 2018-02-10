@@ -9,16 +9,16 @@
  * @access public
  * @package model
  * @name registIncCategory
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var string $registDate 登録日
  * @var array $result クエリ実行結果
  */
 class registIncCategory 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $registDate = null;
-    private $result = null;
+    private $userID = "";
+    private $registDate = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -42,39 +42,39 @@ class registIncCategory
      * @param string $registDate 登録日
      * @return array 挿入クエリ実行結果
      */
-    public function registIncCategory(string $loginID, string $registDate) 
+    public function registIncCategory(int $userID, string $registDate) 
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->registDate = $registDate;
         
         // いずれかの値がnullだった場合、nullを返す
-        if ($loginID == null || $registDate == null) {
+        if ($userID == null || $registDate == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 入力された情報で支出情報の更新
             $query =
                 "INSERT INTO incCategoryTable (
-                    personalID, categoryName, loginID, registDate, updateDate
+                    personalID, categoryName, userID, registDate, updateDate
                 )
                 VALUES 
-                    ('1', '給与', '$loginID', '$registDate', ''), 
-                    ('2', '借り入れ', '$loginID', '$registDate', ''), 
-                    ('3', '投資', '$loginID', '$registDate', ''), 
-                    ('4', 'ギフト券', '$loginID', '$registDate', ''), 
-                    ('5', '懸賞', '$loginID', '$registDate', ''), 
-                    ('6', '', '$loginID', '$registDate', ''), 
-                    ('7', '', '$loginID', '$registDate', ''), 
-                    ('8', '', '$loginID', '$registDate', ''), 
-                    ('9', '', '$loginID', '$registDate', ''), 
-                    ('10', '', '$loginID', '$registDate', '')
+                    ('1', '給与', '$userID', '$registDate', ''), 
+                    ('2', '借り入れ', '$userID', '$registDate', ''), 
+                    ('3', '投資', '$userID', '$registDate', ''), 
+                    ('4', 'ギフト券', '$userID', '$registDate', ''), 
+                    ('5', '懸賞', '$userID', '$registDate', ''), 
+                    ('6', '', '$userID', '$registDate', ''), 
+                    ('7', '', '$userID', '$registDate', ''), 
+                    ('8', '', '$userID', '$registDate', ''), 
+                    ('9', '', '$userID', '$registDate', ''), 
+                    ('10', '', '$userID', '$registDate', '')
                 ";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

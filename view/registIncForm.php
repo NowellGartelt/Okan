@@ -32,18 +32,19 @@
     <table>
      <tbody>
       <tr>
-       <td>何で稼いだの？※：</td>
-       <td><input type="text" name="incName" style="width: 150px"></td>
+       <td>いつ？※：</td>
+       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
        <td><input type="number" name="income" style="width: 150px"></td>
       </tr>
       <tr>
-       <td>カテゴリは？※：</td>
-<!-- 
-       <td><input type="text" name="incCategory" style="width: 150px"></td>
--->
+       <td>何で稼いだの？：</td>
+       <td><input type="text" name="incName" style="width: 150px"></td>
+      </tr>
+      <tr>
+       <td>カテゴリは？：</td>
        <td>
         <select name="incCategory" style="width: 150px">
 <?php 
@@ -55,10 +56,6 @@ foreach ($cateList as &$categoryName) {
 ?>
         </select>
        </td>
-      </tr>
-      <tr>
-       <td>いつ？※：</td>
-       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
       </tr>
       <tr>
        <td>一言メモ：</td>

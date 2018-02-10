@@ -26,6 +26,6 @@ $income = $_POST['income'];
 // 収入情報の削除
 require_once '../model/deleteIncByTrans.php';
 $deleteIncByTrans = new deleteIncByTrans();
-$incInfo = $deleteIncByTrans -> deleteIncByTrans($loginID, $id);
+$incInfo = $deleteIncByTrans -> deleteIncByTrans($userID, $id);
 
 include '../view/deleteIncResult.php';

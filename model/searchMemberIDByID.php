@@ -14,8 +14,8 @@
 class searchMemberIDByID 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $result = null;
+    private $loginID = "";
+    private $result = array();
  
     /**
      * コンストラクタ
@@ -48,12 +48,12 @@ class searchMemberIDByID
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // ログインIDと一致するメンバー情報の取得
-            $query = "SELECT userID, loginID FROM usertable WHERE loginID = '$loginID'";
+            $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

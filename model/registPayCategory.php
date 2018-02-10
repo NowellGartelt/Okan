@@ -9,16 +9,16 @@
  * @access public
  * @package model
  * @name registPayCategory
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var DateTime $registDate 登録日 
  * @var array $result クエリ実行結果
  */
 class registPayCategory 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $registDate = null;
-    private $result = null;
+    private $userID = "";
+    private $registDate = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -38,48 +38,48 @@ class registPayCategory
      * 支出カテゴリをDBに初期値で登録する
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param string $registDate 登録日
      * @return array 挿入クエリ実行結果
      */
-    public function registPayCategory(string $loginID, string $registDate) 
+    public function registPayCategory(int $userID, string $registDate) 
     {
         // 引き渡された値の受け取り
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->registDate = $registDate;
         
         // いずれかの値がnullだった場合、nullを返す
-        if ($loginID == null || $registDate == null) {
+        if ($userID == null || $registDate == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 入力された情報で支出情報の更新
             $query =
                 "INSERT INTO payCategoryTable (
-                    personalID, categoryName, loginID, registDate, updateDate
+                    personalID, categoryName, userID, registDate, updateDate
                 )
                 VALUES 
-                    ('1', '食費', '$loginID', '$registDate', ''), 
-                    ('2', '生活雑貨', '$loginID', '$registDate', ''), 
-                    ('3', '飲料費', '$loginID', '$registDate', ''), 
-                    ('4', '本', '$loginID', '$registDate', ''), 
-                    ('5', '雑貨', '$loginID', '$registDate', ''), 
-                    ('6', '', '$loginID', '$registDate', ''), 
-                    ('7', '', '$loginID', '$registDate', ''), 
-                    ('8', '', '$loginID', '$registDate', ''), 
-                    ('9', '', '$loginID', '$registDate', ''), 
-                    ('10', '', '$loginID', '$registDate', ''), 
-                    ('11', '', '$loginID', '$registDate', ''), 
-                    ('12', '', '$loginID', '$registDate', ''), 
-                    ('13', '', '$loginID', '$registDate', ''), 
-                    ('14', '', '$loginID', '$registDate', ''), 
-                    ('15', '', '$loginID', '$registDate', '')
+                    ('1', '食費', '$userID', '$registDate', ''), 
+                    ('2', '生活雑貨', '$userID', '$registDate', ''), 
+                    ('3', '飲料費', '$userID', '$registDate', ''), 
+                    ('4', '本', '$userID', '$registDate', ''), 
+                    ('5', '雑貨', '$userID', '$registDate', ''), 
+                    ('6', '', '$userID', '$registDate', ''), 
+                    ('7', '', '$userID', '$registDate', ''), 
+                    ('8', '', '$userID', '$registDate', ''), 
+                    ('9', '', '$userID', '$registDate', ''), 
+                    ('10', '', '$userID', '$registDate', ''), 
+                    ('11', '', '$userID', '$registDate', ''), 
+                    ('12', '', '$userID', '$registDate', ''), 
+                    ('13', '', '$userID', '$registDate', ''), 
+                    ('14', '', '$userID', '$registDate', ''), 
+                    ('15', '', '$userID', '$registDate', '')
                 ";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

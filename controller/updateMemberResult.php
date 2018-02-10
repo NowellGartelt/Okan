@@ -56,9 +56,9 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
     $errNoStatusChg = true;
     
     // メンバー情報の取得
-    require_once '../model/searchMemberByID.php';
-    $searchMemberByID = new searchMemberByID();
-    $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
+    require_once '../model/searchMemberByMemberID.php';
+    $searchMemberByMemberID = new searchMemberByMemberID();
+    $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
     
     $errFlg = true;
 
@@ -101,9 +101,9 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         $errNoStatusChg = true;
         
         // メンバー情報の取得
-        require_once '../model/searchMemberByID.php';
-        $searchMemberByID　= new searchMemberByID();
-        $memberInfo = $searchMemberByID-> searchMemberByID($loginID);
+        require_once '../model/searchMemberByMemberID.php';
+        $searchMemberByMemberID = new searchMemberByMemberID();
+        $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
         
         $errFlg = true;
 
@@ -187,9 +187,9 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         // エラーフラグが立っている場合、エラーで入力画面へ戻す
         if ($errFlg == true) {
             // メンバー情報の取得
-            require_once '../model/searchMemberByID.php';
-            $searchMemberByID= new searchMemberByID();
-            $memberInfo = $searchMemberByID-> searchMemberByID($loginID);
+            require_once '../model/searchMemberByMemberID.php';
+            $searchMemberByMemberID = new searchMemberByMemberID();
+            $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
             
             include '../view/updateMemberForm.php';
             

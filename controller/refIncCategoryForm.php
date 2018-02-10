@@ -22,12 +22,12 @@ $userID = $controller -> getUserID();
 // 現在登録されているカテゴリの取得
 require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
-$cateList = $searchIncCategory -> searchIncCategory($loginID);
+$cateList = $searchIncCategory -> searchIncCategory($userID);
 
 // カテゴリ数の取得
 require_once '../model/searchIncCategoryCount.php';
 $searchIncCategoryCount = new searchIncCategoryCount();
-$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($loginID);
+$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
 $count = $cateCount[0]["COUNT(*)"];
 
 for ($i = 0; $i < $count; $i++) {

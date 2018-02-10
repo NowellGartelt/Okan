@@ -8,16 +8,14 @@
  * @category model
  * @name searchPayCategory
  * @method searchPayCategory
- * @var string $loginID ログインID
- * @var int $maxRegist 取得最大数
+ * @var int $userID ユーザID
  * @var array $result クエリ実行結果
  */
-class searchPayCategory 
+class searchPayCategoryCount 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $maxRegist = null;
-    private $result = null;
+    private $userID = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -35,29 +33,27 @@ class searchPayCategory
      * 
      * ログインIDを受け取り、カテゴリ数を取得するクエリを実行する
      * 
-     * @param string $loginID ログインID
+     * @access public
+     * @param int $userID ユーザID
      * @return array IDに紐付く支出カテゴリ数
      */
-    public function searchPayCategoryCount(string $loginID) 
+    public function searchPayCategoryCount(int $userID) 
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($loginID == null) {
+        if ($userID == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
-            
-            // 戻り値の初期化
-            $this->result = array();
+            include 'tools/databaseConnect.php';
             
             // IDで一致するカテゴリ情報の取得
             $query = "
                 SELECT COUNT(*) FROM payCategoryTable
-                WHERE loginID = '$loginID'";
+                WHERE userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
             
             //連想配列として取得した値を配列変数に格納する

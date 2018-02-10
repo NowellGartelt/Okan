@@ -9,7 +9,7 @@
  * @access public
  * @package model
  * @name searchPayByDay
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var string $payName 支出名
  * @var string $payCategory 支出カテゴリ 
  * @var DateTime $payDateFrom 支出日(開始)
@@ -21,14 +21,14 @@
 class searchPayByDay 
 {
     // インスタンス変数の定義
-    private $loginID = NULL;
-    private $payName = null;
-    private $payCategory = null;
-    private $payDateFrom = null;
-    private $payDateTo = null;
-    private $choiceKey = null;
-    private $methodOfPayment = null;
-    private $result = null;
+    private $userID =  "";
+    private $payName = "";
+    private $payCategory = "";
+    private $payDateFrom = "";
+    private $payDateTo = "";
+    private $choiceKey = "";
+    private $methodOfPayment = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -48,7 +48,7 @@ class searchPayByDay
      * 日ごとの検索結果を返す
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param string $payName 支出名
      * @param string $payCategory 支出カテゴリ 
      * @param string $payDateFrom 支出日(開始)
@@ -57,11 +57,11 @@ class searchPayByDay
      * @param int $methodOfPayment 支払方法
      * @return array 日ごとの支出情報
      */
-    public function searchPayByDay(string $loginID, string $payName, string $payCategory, 
+    public function searchPayByDay(int $userID, string $payName, string $payCategory, 
             string $payDateFrom, string $payDateTo, string $choiceKey, int $methodOfPayment) 
     {
 		// 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->payName = $payName;
         $this->payCategory = $payCategory;
         $this->payDateFrom = $payDateFrom;
@@ -70,46 +70,43 @@ class searchPayByDay
         $this->methodOfPayment = $methodOfPayment;
         
         // いずれかの値が空だった場合、nullを返す
-        if ($loginID == null || $payDateFrom == null || $payDateTo == null) {
+        if ($userID == null || $payDateFrom == null || $payDateTo == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 日ごとの支出額の合計の取得
+            // SQL文初期設定
+            $query = "";
+            $querySelect = "SELECT payDate, SUM(payment) FROM paymentTable ";
+            $queryWhere = "
+                    WHERE userID = '$userID' 
+                    AND payDate >= '$payDateFrom'
+                    AND payDate <= '$payDateTo' ";
+            $queryGroupBy = "GROUP BY payDate";
             
-            // 検索条件で名前が指定された場合
+            // 検索条件で名前が指定された場合、名前を条件に追記
             if ($choiceKey == "payName") {
-                $query = "SELECT payDate, SUM(payment) FROM paymentTable 
-                    WHERE payName LIKE '%{$payName}%' AND payDate >= '$payDateFrom' 
-                    AND payDate <= '$payDateTo' AND loginID = '$loginID' 
-                    GROUP BY payDate";
+                $queryWhere .= "AND payName LIKE '%{$payName}%' ";
             
-            // 検索条件でカテゴリを指定された場合
+            // 検索条件でカテゴリを指定された場合、カテゴリを条件に追記
             } elseif ($choiceKey == "payCategory") {
-                $query = "SELECT payDate, SUM(payment) FROM paymentTable 
-                    WHERE payCategory LIKE '%{$payCategory}%' AND payDate >= '$payDateFrom' 
-                    AND payDate <= '$payDateTo' AND loginID = '$loginID' 
-                    GROUP BY payDate";
+                $queryWhere .= "AND payCategory = '$payCategory' ";
             
-            // 検索条件で支払方法を指定された場合
+            // 検索条件で支払方法を指定された場合、支払方法を条件に追記
             } elseif ($choiceKey == "payment") {
-                $query = "SELECT payDate, SUM(payment) FROM paymentTable
-                    LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID 
-                    WHERE paymentTable.mopID LIKE '%{$methodOfPayment}%' AND payDate >= '$payDateFrom'
-                    AND payDate <= '$payDateTo' AND loginID = '$loginID'
-                    GROUP BY payDate";
+                $querySelect .= "LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID ";
+                $queryWhere .= "AND paymentTable.mopID = '$methodOfPayment' ";
             
-            // 検索条件で何も指定されなかった場合
+            // 検索条件で何も指定されなかった場合は何も追記しない
             } else {
-                $query = "SELECT payDate, SUM(payment) FROM paymentTable
-                    WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' AND loginID = '$loginID' 
-                    GROUP BY payDate";
             }
             
+            // SQL文連結作成
+            $query = $querySelect.$queryWhere.$queryGroupBy;
             $queryResult = mysqli_query($link, $query);
-            $this->result = array ();
 		  
             while ($row = mysqli_fetch_assoc($queryResult)) {
                 array_push($this->result, $row);

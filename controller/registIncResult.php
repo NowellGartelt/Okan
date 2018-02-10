@@ -41,14 +41,14 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $i
     $errorInputInc = $_SESSION["errorInputInc"];
  
     // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategoryName.php';
-    $searchPayCategoryName = new searchPayCategoryName();
-    $cateList = $searchPayCategoryName -> searchPayCategoryName($loginID);
+    require_once '../model/searchIncCategory.php';
+    $searchIncCategory = new searchIncCategory();
+    $cateList = $searchIncCategory -> searchIncCategory($userID);
     
     // 支出カテゴリ数取得
-    require_once '../model/searchPayCategoryCount.php';
-    $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($loginID);
+    require_once '../model/searchIncCategoryCount.php';
+    $searchIncCategoryCount = new searchIncCategoryCount();
+    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
     $count = $cateCount[0]["COUNT(*)"];
     
     for ($i = 0; $i < $count; $i++) {
@@ -76,16 +76,14 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $i
     // 収入情報の登録
     require_once '../model/registIncByTrans.php';
     $registIncByTrans = new registIncByTrans();
-    $regResult = $registIncByTrans -> registIncByTrans($loginID, $incName, 
+    $regResult = $registIncByTrans -> registIncByTrans($userID, $incName, 
             $income, $incCategory, $incState, $incDate, $registDate);
     
-$query_kogotoList = <<<__SQL
-    SELECT * FROM `kogoto`
-    WHERE $income <= `kogoto`.`lower_income`
-    ORDER BY `lower_income` ASC
-__SQL;
-    $kogoto = mysqli_fetch_assoc(mysqli_query($link, $query_kogotoList));
-
+    // 支出の小言取得
+    require_once '../model/searchIncKogoto.php';
+    $searchIncKogoto = new searchIncKotgoto();
+    $kogoto = $searchIncKogoto -> searchIncKogoto($income);
+    
     include '../view/registIncResult.php';
 
 }

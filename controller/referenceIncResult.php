@@ -44,6 +44,11 @@ if ($page == "reference") {
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);
 
+    // 「なし」が選ばれた場合、検索条件から外すため空の値を入れる
+    if ($payCategory == 0) {
+        $payCategory = "";
+    }
+    
     // セッション関数へのセット
     $_SESSION['incName'] = $incName;
     $_SESSION['incCategory'] = $incCategory;
@@ -65,7 +70,7 @@ if ($page == "reference") {
 // 収入情報の取得
 require_once '../model/searchIncByTrans.php';
 $searchIncByTrans = new searchIncByTrans();
-$incList = $searchIncByTrans -> searchIncByTrans($loginID, $incName, 
+$incList = $searchIncByTrans -> searchIncByTrans($userID, $incName, 
         $incCategory, $incState, $incDateFrom, $incDateTo);
 
 $incCount = count($incList);

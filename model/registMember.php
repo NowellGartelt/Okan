@@ -21,15 +21,15 @@
 class registMember 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $password = null;
-    private $name = null;
-    private $registDate = null;
-    private $isAdmin = null;
-    private $question = null;
-    private $answer = null;
-    private $defTax = null;
-    private $result = null;
+    private $loginID = "";
+    private $password = "";
+    private $name = "";
+    private $registDate = "";
+    private $isAdmin = "";
+    private $question = "";
+    private $answer = "";
+    private $defTax = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -79,7 +79,7 @@ class registMember
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // メンバー情報の登録
             $query =
@@ -88,8 +88,8 @@ class registMember
                 VALUES (
                 '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', '$question', '$answer', '$defTax')";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
-
+            $this->result = mysqli_fetch_assoc($queryResult);
+            
             // DB切断
             mysqli_close($link);
             

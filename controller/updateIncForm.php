@@ -24,17 +24,17 @@ $id = $_POST['ID'];
 // 収入情報の取得
 require_once '../model/searchIncByID.php';
 $searchIncByID = new searchIncByID();
-$incList = $searchIncByID -> searchIncByID($loginID, $id);
+$incList = $searchIncByID -> searchIncByID($userID, $id);
 
 // 収入カテゴリ一覧の取得
-require_once '../model/searchIncCategoryName.php';
-$searchIncCategoryName = new searchIncCategoryName();
-$cateList = $searchIncCategoryName -> searchIncCategoryName($loginID);
+require_once '../model/searchIncCategory.php';
+$searchIncCategory = new searchIncCategory();
+$cateList = $searchIncCategory -> searchIncCategory($userID);
 
 // 収入カテゴリ数取得
 require_once '../model/searchIncCategoryCount.php';
 $searchIncCategoryCount = new searchIncCategoryCount();
-$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($loginID);
+$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
 $count = $cateCount[0]["COUNT(*)"];
 
 for ($i = 0; $i < $count; $i++) {

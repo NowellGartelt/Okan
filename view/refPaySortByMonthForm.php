@@ -65,7 +65,17 @@
         カテゴリで探す：
        </td>
        <td>
-        <input type="text" name="payCategory" style="width: 150px">
+        <select name="payCategory" style="width: 150px">
+<?php 
+foreach ($cateList as &$categoryName) {
+?>
+         <option value=<?php 
+            echo $categoryName['personalID'];
+            ?>><?php echo $categoryName['categoryName'] ?></option>
+<?php 
+}
+?>
+        </select>
        </td>
       </tr>
       <tr>

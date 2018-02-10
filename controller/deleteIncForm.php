@@ -24,10 +24,23 @@ $id = $_POST['ID'];
 // 収入情報の取得
 require_once '../model/searchIncByID.php';
 $searchIncByID = new searchIncByID();
-$incInfo = $searchIncByID -> searchIncByID($loginID, $id);
+$incList = $searchIncByID -> searchIncByID($userID, $id);
 
-$incInfoDateYear = mb_substr($incInfo['incDate'], 0, 4);
-$incInfoDateMonth = mb_substr($incInfo['incDate'], 5, 2);
-$incInfoDateDay = mb_substr($incInfo['incDate'], 8, 2);
+// 使ったものの名前が空のとき、(登録なし)を入れる
+if ($incList['incName'] == "") {
+    $incList['incName'] = "(登録なし)";
+}
+// 一言メモが空のとき、(登録なし)を入れる
+if ($incList['incState'] == "") {
+    $incList['incState'] = "(登録なし)";
+}
+// カテゴリ名が空のとき、(登録なし)を入れる
+if ($incList['categoryName'] == "") {
+    $incList['categoryName'] = "(登録なし)";
+}
+
+$incInfoDateYear = mb_substr($incList['incDate'], 0, 4);
+$incInfoDateMonth = mb_substr($incList['incDate'], 5, 2);
+$incInfoDateDay = mb_substr($incList['incDate'], 8, 2);
 
 include '../view/deleteIncForm.php';

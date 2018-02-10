@@ -20,10 +20,10 @@
    <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>
-   <form action="../controller/referenceIncResult.php" method="post">
+   <form action="../../Okan/referenceIncResult.php" method="post">
     <button type="submit">もういっかい訊く</button>
    </form>
-   <form action="../controller/menu.php" method="post">
+   <form action="../../Okan/menu.php" method="post">
     <button type="submit">戻る</button>
    </form>
   </div>

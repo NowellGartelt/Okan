@@ -9,16 +9,15 @@
  * @package controller
  * @name controller
  */
-
 class controller {
     // インスタンス変数の定義
     private $viewPass = null;
-    private $viewParam = null;
     private $modelPass = null;
-    private $modelParam = null;
     
     /**
      * コンストラクタ
+     * 
+     * @access public
      */
     public function __construct() {
         // ログインチェック
@@ -26,13 +25,16 @@ class controller {
         require_once '../model/tools/judgeIsLogined.php';
         $judgeIsLoginedAction = new judgeIsLogined();
         
-        // ログインID取得
-        $loginID = $_SESSION['loginID'];
-        
-        return $loginID;
-        
     }
     
+    /**
+     * ログインID取得関数
+     * 
+     * ログインIDを返す
+     * 
+     * @access public
+     * @return string
+     */
     public function getLoginID() {
         // ログインID取得
         $loginID = $_SESSION['loginID'];
@@ -41,6 +43,14 @@ class controller {
         
     }
     
+    /**
+     * ユーザID取得関数
+     * 
+     * ユーザIDを返す
+     * 
+     * @access public
+     * @return string
+     */
     public function getUserID() {
         // ログインID取得
         $userID = $_SESSION['userID'];
@@ -55,21 +65,8 @@ class controller {
      */
     public function loadView(string $viewPass) {
         $this->$viewPass = $viewPass;
-        
-        include '../view/'.$viewPass.'.php';
-        
-    }
-    
-    /**
-     * 
-     * @param string $viewPass
-     * @param array $result
-     */
-    public function loadViewWithParam(string $viewPass, array $viewParam) {
-        $this->viewPass = $viewPass;
-        $this->viewParam = $viewParam;
-        
-        include '../view/'.$viewPass.'.php';
+        $viewPassFull = '../view/'.$viewPass.'.php';
+        return $viewPassFull;
         
     }
     
@@ -83,18 +80,4 @@ class controller {
         include '../../Okan/model/'.$modelPass.'.php';
         
     }
-    
-    /**
-     * 
-     * @param string $modelPass
-     * @param array $modelParam
-     */
-    public function loadModelWithParam(string $modelPass, array $modelParam) {
-        $this->$modelPass = $modelPass;
-        $this->modelParam = $modelParam;
-        
-        include '../../Okan/model/'.$modelPass.'.php';
-        
-    }
-
 }

@@ -8,7 +8,7 @@
  * @access public
  * @package model
  * @name searchPaySum
- * @var string loginID ログインID
+ * @var int $userID ユーザID
  * @var string $payDateFrom 支出日(開始)
  * @var string $payDateTo 支出日(終了)
  * @var array $result クエリ実行結果
@@ -16,10 +16,10 @@
 class searchPaySum 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $payDateFrom = null;
-    private $payDateTo = null;
-    private $result = null;
+    private $userID = "";
+    private $payDateFrom = "";
+    private $payDateTo = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -38,29 +38,29 @@ class searchPaySum
      * ログインID、支出日(開始)、支出日(終了)を受け取り、DBに支出総額を検索するクエリを実行する
      * 
      * @access public
-     * @param string loginID ログインID
+     * @param int $userID ユーザID
      * @param string $payDateFrom 支出日(開始)
      * @param string $payDateTo 支出日(終了)
      * @return array 指定期間の支出総額
      */
-    public function searchPaySum(string $loginID, string $payDateFrom, string $payDateTo) 
+    public function searchPaySum(int $userID, string $payDateFrom, string $payDateTo) 
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->payDateFrom = $payDateFrom;
         $this->payDateTo = $payDateTo;
         
-        if ($loginID == null || $payDateFrom == null || $payDateTo == null) {
+        if ($userID == null || $payDateFrom == null || $payDateTo == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 指定された期間の総支出の取得
             $query = "SELECT SUM(payment) FROM paymentTable 
                 WHERE payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
-                AND loginID = '$loginID'";
+                AND userID = '$userID'";
             
             $queryResult = mysqli_query($link, $query);
             $this->result = array ();

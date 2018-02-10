@@ -20,8 +20,8 @@ $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
 // ログイン中のメンバー情報の取得
-require_once '../model/searchMemberByID.php';
-$searchMemberByID = new searchMemberByID($loginID);
-$memberInfo = $searchMemberByID -> searchMemberByID($loginID);
+require_once '../model/searchMemberByMemberID.php';
+$searchMemberByMemberID = new searchMemberByMemberID();
+$memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
 
 include '../view/updateMemberForm.php';

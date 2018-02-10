@@ -31,7 +31,7 @@ if($categoryName == ""){
     // 指定されたNoに登録されているカテゴリ情報の取得
     require_once '../model/searchPayCategoryByID.php';
     $searchPayCategoryByID = new searchPayCategoryByID();
-    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($loginID, $personalID);
+    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $personalID);
     
     if ($cateList['categoryName'] == null) {
         $cateList['categoryName'] = "(未登録)";
@@ -48,7 +48,7 @@ if($categoryName == ""){
     // カテゴリ名更新
     require_once '../model/updatePayCategory.php';
     $updatePayCategory = new updatePayCategory();
-    $updResult = $updatePayCategory-> updatePayCategory($loginID, $categoryName, $personalID);
+    $updResult = $updatePayCategory-> updatePayCategory($userID, $categoryName, $personalID);
     
     include '../view/updatePayCategoryResult.php';
 }

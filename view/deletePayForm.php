@@ -24,38 +24,46 @@
     <table>
      <tbody>
       <tr>
-       <td>使ったものは？：</td>
-       <td><?php echo $payInfo['payName']; ?></td>
-      </tr>
-      <tr>
-       <td>いくら？：</td>
-       <td><?php echo $payInfo['payment']; ?>円</td>
-      </tr>
-      <tr>
-       <td>カテゴリは？：</td>
-       <td><?php echo $payInfo['payCategory']; ?></td>
-      </tr>
-      <tr>
        <td>いつ？：</td>
        <td><?php echo $payInfoDateYear; ?>年
         <?php echo $payInfoDateMonth; ?>月
         <?php echo $payInfoDateDay; ?>日</td>
       </tr>
       <tr>
+       <td>いくら？：</td>
+       <td><?php echo $payList['payment']; ?> 円</td>
+      </tr>
+      <tr>
+       <td>税率は？：</td>
+       <td><?php echo $payList['tax']; ?> %</td>
+      </tr>
+      <tr>
+       <td>使ったものは？：</td>
+       <td><?php echo $payList['payName']; ?></td>
+      </tr>
+      <tr>
+       <td>カテゴリは？：</td>
+       <td><?php echo $payList['categoryName']; ?></td>
+      </tr>
+      <tr>
+       <td>支払方法は？：</td>
+       <td><?php echo $payList['paymentName']; ?></td>
+      </tr>
+      <tr>
        <td>一言メモ：</td>
-       <td><?php echo $paymentInfo['payState']; ?></td>
+       <td><?php echo $payList['payState']; ?></td>
       </tr>
      </tbody>
     </table>
     <br>
     <input type="hidden" name="ID" value=<?php echo $id; ?>>
-    <input type="hidden" name="payName" value=<?php echo $payInfo['payName']; ?>>
-    <input type="hidden" name="payment" value=<?php echo $payInfo['payment']; ?>>
-    <input type="hidden" name="payCategory" value=<?php echo $payInfo['payCategory']; ?>>
+    <input type="hidden" name="payName" value=<?php echo $payList['payName']; ?>>
+    <input type="hidden" name="payment" value=<?php echo $payList['payment']; ?>>
+    <input type="hidden" name="payCategory" value=<?php echo $payList['payCategory']; ?>>
     <input type="hidden" name="payDateYear" value=<?php echo $payInfoDateYear; ?>>
     <input type="hidden" name="payDateMonth" value=<?php echo $payInfoDateMonth; ?>>
     <input type="hidden" name="payDateDay" value=<?php echo $payInfoDateDay; ?>>
-    <input type="hidden" name="payState" value=<?php echo $payInfo['payState']; ?>>
+    <input type="hidden" name="payState" value=<?php echo $payList['payState']; ?>>
     <button type="submit">オカンに取り消してもらう</button>
    </form>
    <form action="../../Okan/referencePayResult.php" method="post">

@@ -8,7 +8,7 @@
  * @access public
  * @package model
  * @name updatePayByTrans
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var string $payName 支出名
  * @var int $payment 支出額
  * @var string $payCategory 支出カテゴリ
@@ -22,17 +22,17 @@
 class updatePayByTrans 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $payName = null;
-    private $payment = null;
-    private $payCategory = null;
-    private $payDate = null;
-    private $payState = null;
-    private $id = null;
-    private $taxFlg = null;
-    private $tax = null;
-    private $methodOfPayment = null;
-    private $result = null;
+    private $userID = "";
+    private $payName = "";
+    private $payment = "";
+    private $payCategory = "";
+    private $payDate = "";
+    private $payState = "";
+    private $id = "";
+    private $taxFlg = "";
+    private $tax = "";
+    private $methodOfPayment = "";
+    private $result = array();
     
     /**
      * コンストラクタ
@@ -51,8 +51,7 @@ class updatePayByTrans
      * 支出情報を受け取り、DBに支出情報を更新するクエリを実行する
      * 
      * @access publc
-     * @param string $loginID ログインID
-     * @param string $query_updatePayInfo 支出情報更新用クエリ
+     * @param int $userID ユーザID
      * @param string $payName 支出名
      * @param int $payment 支出額
      * @param string $payCategory 支出カテゴリ
@@ -64,11 +63,11 @@ class updatePayByTrans
      * @param int $methodOfPayment 支払方法
      * @return array 更新クエリ実行結果
      */
-    public function updatePayByTrans(string $loginID, string $payName, int $payment, string $payCategory, 
+    public function updatePayByTrans(int $userID, string $payName, int $payment, string $payCategory, 
             string $payDate, string $payState, int $id, bool $taxFlg, int $tax, int $methodOfPayment)
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->payName = $payName;
         $this->payment = $payment;
         $this->payCategory = $payCategory;
@@ -80,12 +79,12 @@ class updatePayByTrans
         $this->methodOfPayment = $methodOfPayment;
         
         // 必須の値が空だった場合、nullを返す
-        if ($loginID == null || $payment == null || $payDate == null || $id == null) {
+        if ($userID == null || $payment == null || $payDate == null || $id == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // 入力された情報で支出情報の更新
             $query =
@@ -93,9 +92,9 @@ class updatePayByTrans
                 SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
                 payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax', 
                 mopID = '$methodOfPayment' 
-                WHERE paymentID = '$id' AND loginID = '$loginID'";
+                WHERE paymentID = '$id' AND userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

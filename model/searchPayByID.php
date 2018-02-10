@@ -8,16 +8,16 @@
  * @access public
  * @package model
  * @name searchPayByID
- * @var string $loginID ログインID
+ * @var int $userID ユーザID
  * @var int $id 支出情報ID
  * @var array $result クエリ実行結果
  */
 class searchPayByID 
 {
     // インスタンス変数の定義
-    private $loginID = null;
-    private $id = null;
-    private $result = null;
+    private $userID = "";
+    private $id = "";
+    private $result = array();
   
     /**
      * コンストラクタ
@@ -36,33 +36,35 @@ class searchPayByID
      * ログインIDと支出情報IDを受け取り、DBに検索するクエリを実行する
      * 
      * @access public
-     * @param string $loginID ログインID
+     * @param int $userID ユーザID
      * @param int $id 支出情報ID
      * @return array paymentIDに紐付く支出情報
      */
-    public function searchPayByID(string $loginID, int $id)
+    public function searchPayByID(int $userID, int $id)
     {
         // 引き渡された値の取得
-        $this->loginID = $loginID;
+        $this->userID = $userID;
         $this->id = $id;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($loginID == null || $id == null) {
+        if ($userID == null || $id == null) {
             $this->result = null;
             
         } else {
             // DB接続情報取得
-            require_once 'tools/databaseConnect.php';
+            include 'tools/databaseConnect.php';
             
             // IDで一致する支出情報の取得
-            $query = "SELECT * FROM paymentTable 
+            $query = "
+                    SELECT * FROM paymentTable 
                     LEFT OUTER JOIN methodOfPayment ON paymentTable.mopID = methodOfPayment.mopID 
                     LEFT OUTER JOIN payCategoryTable ON paymentTable.payCategory = payCategoryTable.personalID 
-                    AND paymentTable.loginID = payCategoryTable.loginID 
+                    AND paymentTable.userID = payCategoryTable.userID 
                     WHERE paymentID = '$id' 
-                    AND paymentTable.loginID = '$loginID'";
+                    AND paymentTable.userID = '$userID'
+                    ";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

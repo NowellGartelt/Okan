@@ -37,19 +37,30 @@ if ($page == "reference") {
     $payDateFrom = $_POST['payDateFrom'];
     $payDateTo = $_POST['payDateTo'];
     $payState = $_POST['payState'];
+    $methodOfPayment = $_POST['methodOfPayment'];
 
     // スクリプト挿入攻撃、XSS対策
     // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $payName = htmlspecialchars($payName, ENT_QUOTES);
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $payState = htmlspecialchars($payState, ENT_QUOTES);
-
+    $methodOfPayment = htmlspecialchars($methodOfPayment, ENT_QUOTES);
+    
+    // 「なし」が選ばれた場合、検索条件から外すため空の値を入れる
+    if ($payCategory == 0) {
+        $payCategory = "";
+    }
+    if ($methodOfPayment == 0) {
+        $methodOfPayment = "";
+    }
+    
     // セッション関数へのセット
     $_SESSION['payName'] = $payName;
     $_SESSION['payCategory'] = $payCategory;
     $_SESSION['payDateFrom'] = $payDateFrom;
     $_SESSION['payDateTo'] = $payDateTo;
     $_SESSION['payState'] = $payState;
+    $_SESSION['methodOfPayment'] = $methodOfPayment;
 
 // 参照の検索初期画面以外からの遷移の場合、セッション関数から値を取得する
 } else {
@@ -59,13 +70,14 @@ if ($page == "reference") {
     $payDateFrom = $_SESSION['payDateFrom'];
     $payDateTo = $_SESSION['payDateTo'];
     $payState = $_SESSION['payState'];
+    $methodOfPayment = $_SESSION['methodOfPayment'];
 
 }
 
 require_once '../model/searchPayByTrans.php';
 $searchPayByTrans = new searchPayByTrans();
-$payList = $searchPayByTrans -> searchPayByTrans($loginID, $payName, 
-        $payCategory, $payState, $payDateFrom, $payDateTo);
+$payList = $searchPayByTrans -> searchPayByTrans($userID, $payName, 
+        $payCategory, $payState, $payDateFrom, $payDateTo, $methodOfPayment);
 
 $payCount = count($payList);
 
@@ -86,6 +98,7 @@ if ($errResult !== null) {
     $_SESSION['payDateFrom'] = null;
     $_SESSION['payDateTo'] = null;
     $_SESSION['payState'] = null;
+    $_SESSION['methodOfPayment'] = null;
     
     include '../view/referencePayForm.php';
     

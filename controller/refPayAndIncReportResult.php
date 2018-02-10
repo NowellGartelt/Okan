@@ -43,7 +43,7 @@ if ($dateFrom == "" || $dateTo == "") {
     // 指定された期間の総支出額の取得
     require_once '../model/searchPaySum.php';
     $resultPay = new searchPaySum();
-    $sumPay = $resultPay -> searchPaySum($loginID, $dateFrom, $dateTo);
+    $sumPay = $resultPay -> searchPaySum($userID, $dateFrom, $dateTo);
     
     if ($sumPay[0]['SUM(payment)'] == null) {
         $sumPay[0]['SUM(payment)'] = 0;
@@ -51,8 +51,8 @@ if ($dateFrom == "" || $dateTo == "") {
     
     // 指定された期間の総支出額(現金のみ)の取得
     require_once '../model/searchPaySumOnlyCash.php';
-    $resultPayOnlyCash = new searchPaySumOnlyCash($loginID, $dateFrom, $dateTo);
-    $sumPayOnlyCash = $resultPayOnlyCash -> searchPaySumOnlyCash($loginID, $dateFrom, $dateTo);
+    $resultPayOnlyCash = new searchPaySumOnlyCash();
+    $sumPayOnlyCash = $resultPayOnlyCash -> searchPaySumOnlyCash($userID, $dateFrom, $dateTo);
     
     if ($sumPayOnlyCash[0]['SUM(payment)'] == null) {
         $sumPayOnlyCash[0]['SUM(payment)'] = 0;
@@ -61,8 +61,9 @@ if ($dateFrom == "" || $dateTo == "") {
     // 指定された期間の総収入額の取得
     require_once '../model/searchIncSum.php';
     $searchIncSum= new searchIncSum();
-    $sumInc = $searchIncSum -> searchIncSum($loginID, $dateFrom, $dateTo);
+    $sumInc = $searchIncSum -> searchIncSum($userID, $dateFrom, $dateTo);
     
+    // 該当しなかった場合、0を入れる
     if ($sumInc[0]['SUM(income)'] == null) {
         $sumInc[0]['SUM(income)'] = 0;
     }
@@ -70,12 +71,35 @@ if ($dateFrom == "" || $dateTo == "") {
     // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
     require_once '../model/searchSumPayByCategory.php';
     $searchSumPayByCategory = new searchSumPayByCategory();
-    $sumPayCategory = $searchSumPayByCategory -> searchSumPayByCategory($loginID, $dateFrom, $dateTo);
+    $sumPayCategory = $searchSumPayByCategory -> searchSumPayByCategory($userID, $dateFrom, $dateTo);
+    
+    // 該当しなかった場合、0を入れる
+    if ($sumPayCategory == null) {
+       $sumPayCategory[0]['categoryName'] = "該当なし";
+       $sumPayCategory[0]['SUM(payment)'] = 0;
+    }
     
     // 指定された期間の支払方法ごとの支出額の取得、支出の多い順に並べる
     require_once '../model/searchSumPayByPayment.php';
     $searchSumPayByPayment = new searchSumPayByPayment();
-    $sumPayPayment = $searchSumPayByPayment -> searchSumPayByPayment($loginID, $dateFrom, $dateTo);
+    $sumPayPayment = $searchSumPayByPayment -> searchSumPayByPayment($userID, $dateFrom, $dateTo);
+    
+    // 該当しなかった場合、0を入れる
+    if ($sumPayPayment == null) {
+        $sumPayPayment[0]['paymentName'] = "該当なし";
+        $sumPayPayment[0]['SUM(payment)'] = 0;
+    }
+    
+    // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
+    require_once '../model/searchSumIncByCategory.php';
+    $searchSumIncByCategory = new searchSumIncByCategory();
+    $sumIncCategory = $searchSumIncByCategory -> searchSumIncByCategory($userID, $dateFrom, $dateTo);
+    
+    // 該当しなかった場合、0を入れる
+    if ($sumIncCategory == null) {
+        $sumIncCategory[0]['categoryName'] = "該当なし";
+        $sumIncCategory[0]['SUM(income)'] = 0;
+    }
     
     // 総収入額 - 総支出額の計算
     $difPayAndInc = $sumInc[0]['SUM(income)'] - $sumPayOnlyCash[0]['SUM(payment)'];
