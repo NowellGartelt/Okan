@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.6.38)
 # データベース: Okan
-# 作成時刻: 2018-02-11 11:56:57 +0000
+# 作成時刻: 2018-02-11 13:30:40 +0000
 # ************************************************************
 
 
@@ -50,6 +50,18 @@ CREATE TABLE `incKogoto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `incKogoto` WRITE;
+/*!40000 ALTER TABLE `incKogoto` DISABLE KEYS */;
+
+INSERT INTO `incKogoto` (`id`, `message`, `lower_income`)
+VALUES
+	(1,'ちょっと、もっと稼いで来なさいよ',0),
+	(2,'まぁまぁ稼いできたじゃない',10000),
+	(3,'その調子でもっと稼いできなさい',200000),
+	(4,'すごいじゃないの',1000000);
+
+/*!40000 ALTER TABLE `incKogoto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # テーブルのダンプ incomeTable
@@ -130,6 +142,17 @@ CREATE TABLE `payKogoto` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+LOCK TABLES `payKogoto` WRITE;
+/*!40000 ALTER TABLE `payKogoto` DISABLE KEYS */;
+
+INSERT INTO `payKogoto` (`id`, `message`, `lower_payment`)
+VALUES
+	(1,'しょうがないわね、今日だけよ',0),
+	(2,'ヤバいもの買ったんじゃじゃないでしょうね？',3000),
+	(3,'高っか！バカじゃないのアンタ！',30000);
+
+/*!40000 ALTER TABLE `payKogoto` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # テーブルのダンプ paymentTable
