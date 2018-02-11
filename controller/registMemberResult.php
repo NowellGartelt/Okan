@@ -52,6 +52,13 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
         $errorFlg = true;
         include '../view/registMemberForm.php';
         
+    } elseif ($checkLengthLoginID > 10) {    
+        // ログインIDが11文字以上の場合、入力画面に戻す
+        $errorLongLoginID = true;
+        
+        $errorFlg = true;
+        include '../view/registMemberForm.php';
+        
     } else {
         // ログインIDチェック、ログインIDが登録済みかどうか確認する。
         require_once '../model/searchMemberByID.php';
@@ -92,9 +99,8 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
                         $isAdmin, $question, $answer, $defTax);
                 
                 // ユーザID取得処理
-                require_once '../model/searchMemberIDByID.php';
-                $searchMemberIDByID = new searchMemberIDByID();
-                $userInfo = $searchMemberIDByID -> searchMemberIDByID($loginID);
+                $searchMemberIDByID = new searchMemberByID();
+                $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
                 $userID = $userInfo['userID'];
                 
                 // 支出カテゴリ初期登録処理

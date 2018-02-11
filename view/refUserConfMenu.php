@@ -31,6 +31,10 @@
       <td>ぶんるいをかえる：</td>
       <td><a href="../../Okan/refCategoryForm.php">おかんにお願いする</a></td>
      </tr>
+     <tr>
+      <td>つかう機能をかえる：</td>
+      <td><a href="../../Okan/updateModuleForm.php">おかんにお願いする</a></td>
+     </tr>
 	</tbody>
    </table>
    <br>

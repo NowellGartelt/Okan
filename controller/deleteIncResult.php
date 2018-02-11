@@ -21,6 +21,7 @@ $userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
 $incName = $_POST['incName'];
+$incDate = $_POST['incDate'];
 $income = $_POST['income'];
 
 // 収入情報の削除

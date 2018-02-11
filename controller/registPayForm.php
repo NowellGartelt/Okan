@@ -19,6 +19,14 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 各モジュール使用フラグの取得
+$modulePayFlg = $controller -> getPayModuleFlg();
+$moduleTaxCalcFlg = $modulePayFlg['taxCalcFlg'];
+$modulePayNameFlg = $modulePayFlg['payNameFlg'];
+$modulePayCateFlg = $modulePayFlg['payCateFlg'];
+$modulePaymentFlg = $modulePayFlg['paymentFlg'];
+$modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
+
 $errorInputPay = $_SESSION["errorInputPay"];
 
 // ユーザのデフォルト税率設定の取得

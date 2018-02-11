@@ -81,12 +81,30 @@ class registMember
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
+            // 各モジュールの初期設定
+            // 名前以外はすべてオフ
+            $payNameFlg = "1";
+            $payCateFlg = "0";
+            $paymentFlg = "0";
+            $payMemoFlg = "0";
+            $taxCalcFlg = "0";
+            
+            $incNameFlg = "1";
+            $incCateFlg = "0";
+            $incMemoFlg = "0";
+            
             // メンバー情報の登録
             $query =
                 "INSERT INTO usertable (
-                loginID, loginPassword, name, addDate, updateDate, isAdmin, question, answer, defTax)
+                loginID, loginPassword, name, addDate, updateDate, isAdmin, 
+                question, answer, defTax, payNameFlg, payCateFlg, paymentFlg, payMemoFlg, 
+                taxCalcFlg, incNameFlg, incCateFlg, incMemoFlg
+                )
                 VALUES (
-                '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', '$question', '$answer', '$defTax')";
+                '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', 
+                '$question', '$answer', '$defTax', '$payNameFlg', '$payCateFlg', '$paymentFlg', '$payMemoFlg', 
+                '$taxCalcFlg', '$incNameFlg', '$incCateFlg', '$incMemoFlg'
+                )";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
             

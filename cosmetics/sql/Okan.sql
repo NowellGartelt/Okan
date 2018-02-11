@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.6.38)
 # データベース: Okan
-# 作成時刻: 2018-02-03 12:16:25 +0000
+# 作成時刻: 2018-02-11 11:56:57 +0000
 # ************************************************************
 
 
@@ -27,12 +27,27 @@ DROP TABLE IF EXISTS `incCategoryTable`;
 
 CREATE TABLE `incCategoryTable` (
   `categoryID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `personalID` int(11) DEFAULT NULL,
+  `personalID` int(11) NOT NULL,
   `categoryName` char(15) DEFAULT NULL,
   `loginID` char(10) DEFAULT NULL,
+  `userID` int(11) NOT NULL,
   `registDate` date DEFAULT NULL,
   `updateDate` date DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# テーブルのダンプ incKogoto
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `incKogoto`;
+
+CREATE TABLE `incKogoto` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `message` text,
+  `lower_income` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -46,40 +61,17 @@ CREATE TABLE `incomeTable` (
   `incomeID` int(11) NOT NULL AUTO_INCREMENT,
   `incName` char(20) NOT NULL DEFAULT '',
   `income` int(11) NOT NULL,
-  `incCategory` text NOT NULL,
+  `incCategoryName` text,
+  `incCategory` int(11) DEFAULT NULL,
   `incState` text,
   `incDate` date NOT NULL,
   `registDate` datetime NOT NULL,
   `updateDate` datetime DEFAULT NULL,
-  `loginID` char(11) NOT NULL DEFAULT '',
+  `loginID` char(11) DEFAULT '',
+  `userID` int(11) NOT NULL,
   PRIMARY KEY (`incomeID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-
-
-# テーブルのダンプ kogoto
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `kogoto`;
-
-CREATE TABLE `kogoto` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `message` text,
-  `lower_payment` int(11) unsigned NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-LOCK TABLES `kogoto` WRITE;
-/*!40000 ALTER TABLE `kogoto` DISABLE KEYS */;
-
-INSERT INTO `kogoto` (`id`, `message`, `lower_payment`)
-VALUES
-	(1,'しょうがないわね、今日だけよ',0),
-	(2,'ヤバいもの買ったんじゃじゃないでしょうね？',3000),
-	(3,'高っか！　バカじゃないのアンタ！',30000);
-
-/*!40000 ALTER TABLE `kogoto` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # テーブルのダンプ methodOfPayment
@@ -115,12 +107,27 @@ DROP TABLE IF EXISTS `payCategoryTable`;
 
 CREATE TABLE `payCategoryTable` (
   `categoryID` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `personalID` int(11) DEFAULT NULL,
+  `personalID` int(11) NOT NULL,
   `categoryName` char(15) DEFAULT NULL,
   `loginID` char(10) DEFAULT NULL,
+  `userID` int(11) NOT NULL,
   `registDate` date DEFAULT NULL,
   `updateDate` date DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
+# テーブルのダンプ payKogoto
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `payKogoto`;
+
+CREATE TABLE `payKogoto` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `message` text,
+  `lower_payment` int(11) unsigned NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -134,14 +141,16 @@ CREATE TABLE `paymentTable` (
   `paymentID` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `payName` char(20) NOT NULL DEFAULT '',
   `payment` int(11) NOT NULL,
-  `payCategory` text NOT NULL,
+  `payCategoryName` text,
+  `payCategory` int(11) DEFAULT NULL,
   `payState` text,
   `payDate` date NOT NULL,
   `registDate` datetime NOT NULL,
   `updateDate` datetime DEFAULT NULL,
-  `loginID` char(11) NOT NULL DEFAULT '',
-  `taxFlg` tinyint(1) NOT NULL,
-  `tax` tinyint(3) NOT NULL DEFAULT '0',
+  `loginID` char(11) DEFAULT '',
+  `userID` int(11) NOT NULL,
+  `taxFlg` tinyint(1) DEFAULT NULL,
+  `tax` tinyint(3) DEFAULT '0',
   `mopID` int(11) DEFAULT NULL,
   PRIMARY KEY (`paymentID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -165,6 +174,14 @@ CREATE TABLE `usertable` (
   `answer` text NOT NULL,
   `deleteFlag` tinyint(1) NOT NULL DEFAULT '0',
   `defTax` tinyint(3) NOT NULL DEFAULT '0',
+  `payNameFlg` tinyint(1) NOT NULL,
+  `payCateFlg` tinyint(1) NOT NULL,
+  `paymentFlg` tinyint(1) NOT NULL,
+  `payMemoFlg` tinyint(1) NOT NULL,
+  `taxCalcFlg` tinyint(1) NOT NULL,
+  `incNameFlg` tinyint(1) NOT NULL,
+  `incCateFlg` tinyint(1) NOT NULL,
+  `incMemoFlg` tinyint(1) NOT NULL,
   PRIMARY KEY (`userID`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `loginID` (`loginID`)

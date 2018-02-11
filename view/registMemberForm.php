@@ -16,13 +16,16 @@
 <?php } elseif ($errorShortLoginID == true) { ?>
    <p>ちょっと、ログインIDの長さが足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
+<?php } elseif ($errorLongLoginID == true) { ?>
+   <p>ちょっと、ログインIDが長すぎるわよ？</p>
+   <p>もういっかい確認しなさいよね</p><br>
 <?php } elseif ($errorRegistedLoginID == true) { ?>
    <p>そのログインIDは既に使われてて、登録できないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php } elseif ($errorPasswordCondition == true) { ?>
    <p>ちょっと、パスワードが条件に合ってないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } else {?>
+<?php } else { ?>
    <p>今日からいろいろと手伝ったげるわよ</p>
    <p>まずはあんたのことを教えなさいよね</p><br>
 <?php } ?>

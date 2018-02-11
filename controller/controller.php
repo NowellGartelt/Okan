@@ -60,6 +60,72 @@ class controller {
     }
     
     /**
+     * 各支出モジュールフラグ取得関数
+     * 
+     * 各支出モジュール使用フラグを取得する
+     * 
+     * @return array
+     */
+    public function getPayModuleFlg() {
+        $modulePayFlg['payNameFlg'] = $_SESSION['payNameFlg'];
+        $modulePayFlg['payCateFlg'] = $_SESSION['payCateFlg'];
+        $modulePayFlg['paymentFlg'] = $_SESSION['paymentFlg'];
+        $modulePayFlg['payMemoFlg'] = $_SESSION['payMemoFlg'];
+        $modulePayFlg['taxCalcFlg'] = $_SESSION['taxCalcFlg'];
+        
+        return $modulePayFlg;
+        
+    }
+    
+    /**
+     * 各収入モジュールフラグ取得関数
+     *
+     * 各収入モジュール使用フラグを取得する
+     *
+     * @return array
+     */
+    public function getIncModuleFlg() {
+        $moduleIncFlg['incNameFlg'] = $_SESSION['incNameFlg'];
+        $moduleIncFlg['incCateFlg'] = $_SESSION['incCateFlg'];
+        $moduleIncFlg['incMemoFlg'] = $_SESSION['incMemoFlg'];
+        
+        return $moduleIncFlg;
+        
+    }
+    
+    /**
+     * 各支出モジュールフラグ更新関数
+     *
+     * 各支出モジュール使用フラグを更新する
+     *
+     * @return array
+     */
+    public function setPayModuleFlg(int $moduleTaxCalcFlg, int $modulePayNameFlg,
+            int $modulePayCateFlg, int $modulePaymentFlg, int $modulePayMemoFlg) {
+        $_SESSION['taxCalcFlg'] = $moduleTaxCalcFlg;
+        $_SESSION['payNameFlg'] = $modulePayNameFlg;
+        $_SESSION['payCateFlg'] = $modulePayCateFlg;
+        $_SESSION['paymentFlg'] = $modulePaymentFlg;
+        $_SESSION['payMemoFlg'] = $modulePayMemoFlg;
+        
+    }
+    
+    /**
+     * 各収入モジュールフラグ更新関数
+     *
+     * 各収入モジュール使用フラグを更新する
+     *
+     * @return array
+     */
+    public function setIncModuleFlg(int $moduleIncNameFlg, int $moduleIncCateFlg,
+            int $moduleIncMemoFlg) {
+        $_SESSION['incNameFlg'] = $moduleIncNameFlg;
+        $_SESSION['incCateFlg'] = $moduleIncCateFlg;
+        $_SESSION['incMemoFlg'] = $moduleIncMemoFlg;
+        
+    }
+    
+    /**
      * 
      * @param unknown $viewPass
      */

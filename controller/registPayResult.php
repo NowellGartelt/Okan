@@ -20,6 +20,14 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 各モジュール使用フラグの取得
+$moduleFlg = $controller -> getModuleFlg();
+$moduleTaxCalcFlg = $moduleFlg['taxCalcFlg'];
+$moduleNameFlg = $moduleFlg['nameFlg'];
+$moduleCateFlg = $moduleFlg['cateFlg'];
+$modulePayFlg = $moduleFlg['payFlg'];
+$moduleMemoFlg = $moduleFlg['memoFlg'];
+
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];

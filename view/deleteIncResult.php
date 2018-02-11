@@ -15,7 +15,18 @@
   </div>
   <div align="center">
    <p>Okan：削除完了</p><br>
-   <p><?php echo $incName; ?>に<?php echo $income; ?>円使ったヤツね？</p>
+   <p>
+<?php 
+echo $incDate; 
+?>で
+<?php 
+if ($incName !== "") {
+    echo $incName;
+}
+?>に、
+<?php 
+echo $income; 
+?>円使ったヤツね？</p>
    <p>取り消しといたたわよ</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>

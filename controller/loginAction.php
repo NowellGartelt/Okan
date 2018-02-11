@@ -38,11 +38,33 @@ if (empty($loginID) || empty($password)) {
         $result = $searchMemberIDByID -> searchMemberIDByID($loginID);
         $userID = $result['userID'];
         
+        // 各支出モジュールフラグの取得
+        $payNameFlg = $result['payNameFlg'];
+        $payCateFlg = $result['payCateFlg'];
+        $taxCalcFlg = $result['taxCalcFlg'];
+        $paymentFlg = $result['paymentFlg'];
+        $payMemoFlg = $result['payMemoFlg'];
+        
+        // 各支出モジュールフラグの取得
+        $incNameFlg = $result['incNameFlg'];
+        $incCateFlg = $result['incCateFlg'];
+        $incMemoFlg = $result['incMemoFlg'];
+        
         // セッション関数のセット
         $_SESSION['login'] = 'login';
         $_SESSION['loginID'] = $loginID;
         $_SESSION['userID'] = $userID;
         $_SESSION["errorInputPay"] = false;
+        
+        $_SESSION['payNameFlg'] = $payNameFlg;
+        $_SESSION['payCateFlg'] = $payCateFlg;
+        $_SESSION['taxCalcFlg'] = $taxCalcFlg;
+        $_SESSION['paymentFlg'] = $paymentFlg;
+        $_SESSION['payMemoFlg'] = $payMemoFlg;
+        
+        $_SESSION['incNameFlg'] = $incNameFlg;
+        $_SESSION['incCateFlg'] = $incCateFlg;
+        $_SESSION['incMemoFlg'] = $incMemoFlg;
         
         include '../view/menu.php';
         

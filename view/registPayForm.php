@@ -41,16 +41,27 @@
        <td></td>
        <td><input type="number" name="payment" style="width: 150px"></td>
       </tr>
+<?php 
+if ($moduleTaxCalcFlg == "1") {
+?>
       <tr>
        <td>税率？：</td>
        <td><input type="checkbox" name="taxFlg" value="1"></td>
        <td><input type="number" name="tax" value="<?php echo $tax; ?>" style="width: 150px"> %</td>
       </tr>
+<?php 
+}
+if ($modulePayNameFlg == "1") {
+?>
       <tr>
        <td>使ったものは？：</td>
        <td></td>
        <td><input type="text" name="payName" style="width: 150px"></td>
       </tr>
+<?php 
+}
+if ($modulePayCateFlg == "1") {
+    ?>
       <tr>
        <td>カテゴリは？：</td>
        <td></td>
@@ -66,6 +77,10 @@ foreach ($cateList as &$categoryName) {
         </select>
        </td>
       </tr>
+<?php 
+}
+if ($modulePaymentFlg == "1") {
+?>
       <tr>
        <td>支払い方法は？</td>
        <td></td>
@@ -81,11 +96,18 @@ foreach ($mopList as &$methodOfPayment) {
         </select>
        </td>
       </tr>
+<?php 
+}
+if ($modulePayMemoFlg == "1") {
+?>
       <tr>
        <td>一言メモ：</td>
        <td></td>
        <td><input type="text" name="payState" style="width: 150px"></td>
       </tr>
+<?php 
+}
+?>
      </tbody>
     </table>
     <br>

@@ -39,10 +39,17 @@
        <td>いくら？※：</td>
        <td><input type="number" name="income" style="width: 150px"></td>
       </tr>
+<?php 
+if ($moduleIncNameFlg == "1") {
+?>
       <tr>
        <td>何で稼いだの？：</td>
        <td><input type="text" name="incName" style="width: 150px"></td>
       </tr>
+<?php 
+}
+if ($moduleIncCateFlg == "1") {
+?>      
       <tr>
        <td>カテゴリは？：</td>
        <td>
@@ -57,10 +64,17 @@ foreach ($cateList as &$categoryName) {
         </select>
        </td>
       </tr>
+<?php 
+}
+if ($moduleIncMemoFlg == "1") {
+?>
       <tr>
        <td>一言メモ：</td>
        <td><input type="text" name="incState" style="width: 150px"></td>
       </tr>
+<?php 
+}
+?>
      </tbody>
     </table>
     <br>

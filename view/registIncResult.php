@@ -15,7 +15,18 @@
   </div>
   <div align="center">
    <p>Okan：登録完了(もらったお金)</p><br>
-   <p><?php echo $incName; ?>で<?php echo $income; ?>円ね？</p>
+   <p>
+<?php 
+echo $incDate; 
+?>に
+<?php 
+if ($moduleNameFlg == "1") {
+    echo $incName;
+}
+?>で、
+<?php 
+echo $income; 
+?>円ね？</p>
    <p><?php echo $kogoto['message']; ?></p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>

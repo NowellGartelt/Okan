@@ -19,6 +19,12 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 各モジュール使用フラグの取得
+$moduleFlg = $controller -> getIncModuleFlg();
+$moduleIncNameFlg = $moduleFlg['incNameFlg'];
+$moduleIncCateFlg = $moduleFlg['incCateFlg'];
+$moduleIncMemoFlg = $moduleFlg['incMemoFlg'];
+
 $errorInputInc = $_SESSION["errorInputInc"];
 
 // 収入カテゴリ一覧の取得

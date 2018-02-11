@@ -19,6 +19,12 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 各モジュール使用フラグの取得
+$moduleFlg = $controller -> getModuleFlg();
+$moduleNameFlg = $moduleFlg['nameFlg'];
+$moduleCateFlg = $moduleFlg['cateFlg'];
+$moduleMemoFlg = $moduleFlg['memoFlg'];
+
 $incName = $_POST['incName'];
 $income = $_POST['income'];
 $incCategory = $_POST['incCategory'];
