@@ -62,21 +62,21 @@ class registPayCategory
                     personalID, categoryName, userID, registDate, updateDate
                 )
                 VALUES 
-                    ('1', '食費', '$userID', '$registDate', ''), 
-                    ('2', '生活雑貨', '$userID', '$registDate', ''), 
-                    ('3', '飲料費', '$userID', '$registDate', ''), 
-                    ('4', '本', '$userID', '$registDate', ''), 
-                    ('5', '雑貨', '$userID', '$registDate', ''), 
-                    ('6', '', '$userID', '$registDate', ''), 
-                    ('7', '', '$userID', '$registDate', ''), 
-                    ('8', '', '$userID', '$registDate', ''), 
-                    ('9', '', '$userID', '$registDate', ''), 
-                    ('10', '', '$userID', '$registDate', ''), 
-                    ('11', '', '$userID', '$registDate', ''), 
-                    ('12', '', '$userID', '$registDate', ''), 
-                    ('13', '', '$userID', '$registDate', ''), 
-                    ('14', '', '$userID', '$registDate', ''), 
-                    ('15', '', '$userID', '$registDate', '')
+                    ('1', '食費', '$userID', '$registDate', '$registDate'), 
+                    ('2', '生活雑貨', '$userID', '$registDate', '$registDate'), 
+                    ('3', '飲料費', '$userID', '$registDate', '$registDate'), 
+                    ('4', '本', '$userID', '$registDate', '$registDate'), 
+                    ('5', '雑貨', '$userID', '$registDate', '$registDate'), 
+                    ('6', '', '$userID', '$registDate', '$registDate'), 
+                    ('7', '', '$userID', '$registDate', '$registDate'), 
+                    ('8', '', '$userID', '$registDate', '$registDate'), 
+                    ('9', '', '$userID', '$registDate', '$registDate'), 
+                    ('10', '', '$userID', '$registDate', '$registDate'), 
+                    ('11', '', '$userID', '$registDate', '$registDate'), 
+                    ('12', '', '$userID', '$registDate', '$registDate'), 
+                    ('13', '', '$userID', '$registDate', '$registDate'), 
+                    ('14', '', '$userID', '$registDate', '$registDate'), 
+                    ('15', '', '$userID', '$registDate', '$registDate')
                 ";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);

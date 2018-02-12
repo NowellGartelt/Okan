@@ -95,7 +95,7 @@ class registPayByTrans
                 userID, taxFlg, tax, mopID)
                 VALUES (
                 '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', 
-                null, '$userID', $taxFlg, $tax, $methodOfPaymet)";
+                '$registDate', '$userID', $taxFlg, $tax, $methodOfPaymet)";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
             

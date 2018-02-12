@@ -79,7 +79,7 @@ class registIncByTrans
                 "INSERT INTO incomeTable (
                 incName, income, incCategory, incState, incDate, registDate, updateDate, userID)
                 VALUES (
-                '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', null, '$userID')";
+                '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', '$registDate', '$userID')";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
             

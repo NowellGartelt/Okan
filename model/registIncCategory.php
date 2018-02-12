@@ -62,19 +62,21 @@ class registIncCategory
                     personalID, categoryName, userID, registDate, updateDate
                 )
                 VALUES 
-                    ('1', '給与', '$userID', '$registDate', ''), 
-                    ('2', '借り入れ', '$userID', '$registDate', ''), 
-                    ('3', '投資', '$userID', '$registDate', ''), 
-                    ('4', 'ギフト券', '$userID', '$registDate', ''), 
-                    ('5', '懸賞', '$userID', '$registDate', ''), 
-                    ('6', '', '$userID', '$registDate', ''), 
-                    ('7', '', '$userID', '$registDate', ''), 
-                    ('8', '', '$userID', '$registDate', ''), 
-                    ('9', '', '$userID', '$registDate', ''), 
-                    ('10', '', '$userID', '$registDate', '')
+                    ('1', '給与', '$userID', '$registDate', '$registDate'), 
+                    ('2', '借り入れ', '$userID', '$registDate', '$registDate'), 
+                    ('3', '投資', '$userID', '$registDate', '$registDate'), 
+                    ('4', 'ギフト券', '$userID', '$registDate', '$registDate'), 
+                    ('5', '懸賞', '$userID', '$registDate', '$registDate'), 
+                    ('6', '', '$userID', '$registDate', '$registDate'), 
+                    ('7', '', '$userID', '$registDate', '$registDate'), 
+                    ('8', '', '$userID', '$registDate', '$registDate'), 
+                    ('9', '', '$userID', '$registDate', '$registDate'), 
+                    ('10', '', '$userID', '$registDate', '$registDate')
                 ";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
+            
+            var_dump($query);
             
             // DB切断
             mysqli_close($link);

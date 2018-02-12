@@ -52,14 +52,14 @@ class registMember
      * @param string $passward パスワード
      * @param string $name ユーザー名
      * @param string $registDate 登録日
-     * @param boolean $isAdmin 管理者判定
+     * @param int $isAdmin 管理者判定
      * @param string $question 秘密の質問
      * @param string $answer 秘密の質問の答え
      * @param int $defTax デフォルト税率
      * @return array 挿入クエリ実行結果
      */
     public function registMember(string $loginID, string $password, string $name, string $registDate, 
-            bool $isAdmin, string $question, string $answer, int $defTax) 
+            int $isAdmin, string $question, string $answer, int $defTax) 
     {
         // 引き渡された値の受け取り
         $this->loginID = $loginID;
@@ -96,17 +96,21 @@ class registMember
             // メンバー情報の登録
             $query =
                 "INSERT INTO usertable (
-                loginID, loginPassword, name, addDate, updateDate, isAdmin, 
+                loginID, loginPassword, name, adddate, updatedate, isAdmin, 
                 question, answer, defTax, payNameFlg, payCateFlg, paymentFlg, payMemoFlg, 
                 taxCalcFlg, incNameFlg, incCateFlg, incMemoFlg
                 )
                 VALUES (
-                '$loginID', '$password', '$name', '$registDate', null, '$isAdmin', 
+                '$loginID', '$password', '$name', '$registDate', '$registDate', $isAdmin, 
                 '$question', '$answer', '$defTax', '$payNameFlg', '$payCateFlg', '$paymentFlg', '$payMemoFlg', 
                 '$taxCalcFlg', '$incNameFlg', '$incCateFlg', '$incMemoFlg'
                 )";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
+            
+            var_dump($query);
+            var_dump($queryResult);
+            var_dump($this->result);
             
             // DB切断
             mysqli_close($link);
