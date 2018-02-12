@@ -67,7 +67,7 @@ class updatePayByTrans
      * @return array 更新クエリ実行結果
      */
     public function updatePayByTrans(int $userID, string $payName, int $payment, string $payCategory, 
-            string $payDate, string $payState, int $id, bool $taxFlg, int $tax, int $methodOfPayment,
+            string $payDate, string $payState, int $id, int $taxFlg, int $tax, int $methodOfPayment,
             string $updateDate)
     {
         // 引き渡された値の取得
