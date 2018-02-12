@@ -7,7 +7,7 @@
 #
 # ホスト: 127.0.0.1 (MySQL 5.6.38)
 # データベース: Okan
-# 作成時刻: 2018-02-11 13:30:40 +0000
+# 作成時刻: 2018-02-12 12:01:16 +0000
 # ************************************************************
 
 
@@ -31,8 +31,8 @@ CREATE TABLE `incCategoryTable` (
   `categoryName` char(15) DEFAULT NULL,
   `loginID` char(10) DEFAULT NULL,
   `userID` int(11) NOT NULL,
-  `registDate` date DEFAULT NULL,
-  `updateDate` date DEFAULT NULL,
+  `registDate` datetime DEFAULT NULL,
+  `updateDate` datetime DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -123,8 +123,8 @@ CREATE TABLE `payCategoryTable` (
   `categoryName` char(15) DEFAULT NULL,
   `loginID` char(10) DEFAULT NULL,
   `userID` int(11) NOT NULL,
-  `registDate` date DEFAULT NULL,
-  `updateDate` date DEFAULT NULL,
+  `registDate` datetime DEFAULT NULL,
+  `updateDate` datetime DEFAULT NULL,
   PRIMARY KEY (`categoryID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -189,8 +189,8 @@ CREATE TABLE `usertable` (
   `userID` int(11) NOT NULL AUTO_INCREMENT,
   `loginID` varchar(10) NOT NULL DEFAULT '',
   `loginPassword` varchar(64) NOT NULL DEFAULT '',
-  `name` varchar(20) NOT NULL DEFAULT '',
   `addDate` datetime NOT NULL,
+  `name` varchar(10) NOT NULL DEFAULT '',
   `updateDate` datetime DEFAULT NULL,
   `isAdmin` tinyint(1) NOT NULL DEFAULT '0',
   `question` text NOT NULL,
@@ -206,7 +206,6 @@ CREATE TABLE `usertable` (
   `incCateFlg` tinyint(1) NOT NULL,
   `incMemoFlg` tinyint(1) NOT NULL,
   PRIMARY KEY (`userID`),
-  UNIQUE KEY `name` (`name`),
   UNIQUE KEY `loginID` (`loginID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 

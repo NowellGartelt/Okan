@@ -20,7 +20,7 @@ $answer = $_POST['answer'];
 $defTax = $_POST['defTax'];
 
 // Admin権限の有無、現時点では使用しない
-$isAdmin = 0;
+$isAdmin = "0";
 
 // 再表示の判断のエラーフラグの初期化。
 $errorFlg = false;
