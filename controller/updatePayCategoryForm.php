@@ -28,8 +28,8 @@ $searchPayCategoryByID = new searchPayCategoryByID();
 $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $personalID);
 
 // カテゴリが空行だった場合、(未登録)を挿入
-if ($cateList[0]['categoryName'] == null) {
-    $cateList[0]['categoryName'] = "(未登録)";
+if ($cateList['categoryName'] == null) {
+    $cateList['categoryName'] = "(未登録)";
 }
 
 // 画面の読み込み

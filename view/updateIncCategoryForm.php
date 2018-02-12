@@ -30,7 +30,7 @@
      <tbody>
       <tr>
        <td>今のカテゴリ名：</td>
-       <td><?php echo $cateList[0]['categoryName']; ?></td>
+       <td><?php echo $cateList['categoryName']; ?></td>
       </tr>
       <tr>
        <td>新しいカテゴリ名：</td>
