@@ -15,6 +15,7 @@
  * @var string $incDate 収入日
  * @var string $incState 収入一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
  * @var int $id 収入ID
+ * @var string $updateDate 更新日時
  * @var array $result クエリ実行結果
  */
 class updateIncByTrans 
@@ -27,6 +28,7 @@ class updateIncByTrans
     private $incDate = "";
     private $incState = "";
     private $id = "";
+    private $updateDate = "";
     private $result = array();
     
     /**
@@ -53,10 +55,12 @@ class updateIncByTrans
      * @param string $incDate 収入日
      * @param string $incState 収入一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
      * @param int $id 収入ID
+     * @param DateTime $updateDate 更新日時
      * @return array 更新クエリ実行結果
      */
     public function updateIncByTrans(int $userID, string $incName, int $income, 
-            string $incCategory, string $incDate, string $incState, int $id)
+            int $incCategory, string $incDate, string $incState, int $id, 
+            string $updateDate)
     {
         // 引き渡された値の取得
         $this->userID = $userID;
@@ -66,9 +70,10 @@ class updateIncByTrans
         $this->incDate = $incDate;
         $this->incState = $incState;
         $this->id = $id;
+        $this->updateDate = $updateDate;
         
         // 必須の値が空だった場合、nullを返す
-        if ($userID == null || $income == null || $incDate == null || $id == null) {
+        if ($userID == null || $income == null || $incDate == null || $id == null || $updateDate == null) {
             $this->result = null;
             
         } else {
@@ -79,7 +84,8 @@ class updateIncByTrans
             $query =
                 "UPDATE incomeTable 
                 SET incName = '$incName', income = '$income', incCategory = '$incCategory',
-                incDate = '$incDate', incState = '$incState' WHERE incomeID = '$id' AND userID = '$userID'";
+                incDate = '$incDate', incState = '$incState', updateDate = '$updateDate' 
+                WHERE incomeID = '$id' AND userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
             

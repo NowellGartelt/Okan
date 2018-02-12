@@ -18,13 +18,14 @@
    <p>
 <?php 
 echo $payDate; 
-?>で
+?>に
 <?php 
-if ($payName !== "") {
+if ($payName !== "(登録なし)" && $payName !== "") {
     echo $payName;
-}
-?>に、
+?>
+に、
 <?php 
+}
 echo $payment; 
 ?>円使ったヤツね？</p>
    <p>取り消しといたたわよ</p><br>

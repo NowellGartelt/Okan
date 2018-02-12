@@ -20,7 +20,7 @@ $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
-$payDate = $_POST['payDaye'];
+$payDate = $_POST['payDate'];
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 

@@ -20,11 +20,12 @@
 echo $incDate; 
 ?>に
 <?php 
-if ($moduleNameFlg == "1") {
+if ($moduleIncNameFlg == "1" && $incName !== "") {
     echo $incName;
-}
-?>で、
+?>
+で、
 <?php 
+}
 echo $income; 
 ?>円ね？</p>
    <p><?php echo $kogoto['message']; ?></p><br>

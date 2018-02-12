@@ -60,6 +60,7 @@
     <input type="hidden" name="payName" value=<?php echo $payList['payName']; ?>>
     <input type="hidden" name="payment" value=<?php echo $payList['payment']; ?>>
     <input type="hidden" name="payCategory" value=<?php echo $payList['payCategory']; ?>>
+    <input type="hidden" name="payDate" value=<?php echo $payList['payDate']; ?>>
     <input type="hidden" name="payDateYear" value=<?php echo $payInfoDateYear; ?>>
     <input type="hidden" name="payDateMonth" value=<?php echo $payInfoDateMonth; ?>>
     <input type="hidden" name="payDateDay" value=<?php echo $payInfoDateDay; ?>>

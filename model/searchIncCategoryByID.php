@@ -59,11 +59,7 @@ class searchIncCategoryByID
                 SELECT * FROM incCategoryTable 
                 WHERE userID = '$userID' AND personalID = '$personalID'";
             $queryResult = mysqli_query($link, $query);
-            
-            //連想配列として取得した値を配列変数に格納する
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($this->result, $row);
-            }
+            $this->result = mysqli_fetch_assoc($queryResult);
             
             // DB切断
             mysqli_close($link);

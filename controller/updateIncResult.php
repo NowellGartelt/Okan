@@ -31,8 +31,7 @@ $_SESSION["errorInputInc"] = "";
 $errorInputInc = "";
 
 // 入力値チェック
-if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" 
-        || $income == "" || $income < 0){
+if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputInc"] = "minusInput";
@@ -75,11 +74,20 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == ""
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);
     
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
+    // 収入カテゴリID取得
+    require_once '../model/searchIncCategoryByID.php';
+    $searchIncCategoryByID = new searchIncCategoryByID();
+    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $incCategory);
+    $cateID = $cateList['categoryID'];
+    
     // 収入情報の更新
     require_once '../model/updateIncByTrans.php';
     $updateIncByTrans = new updateIncByTrans();
     $updResult = $updateIncByTrans -> updateIncByTrans($userID, 
-            $incName, $income, $incCategory, $incDate, $incState, $id);
+            $incName, $income, $cateID, $incDate, $incState, $id, $updateDate);
     
     include '../view/updateIncResult.php';
 }

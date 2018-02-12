@@ -59,11 +59,14 @@ if ($password == "" || $passwordCheck == "" ) {
             // パスワード暗号化
             $password = password_hash($password, PASSWORD_DEFAULT);
             
+            // 更新日時取得
+            $updateDate = date("Y-m-d H:i:s");
+            
             // メンバー情報登録処理
             require_once '../model/updatePassWord.php';
             $updatePassWord = new updatePassWord();
-            $updResult = $updatePassWord -> updatePassWord($loginID, $password);
-
+            $updResult = $updatePassWord -> updatePassWord($loginID, $password, $updateDate);
+            
             include '../view/reRegistMemberResult.php';
                 
         }

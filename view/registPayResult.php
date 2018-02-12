@@ -20,11 +20,12 @@
 echo $payDate; 
 ?>に
 <?php 
-if ($moduleNameFlg == "1") {
+if ($modulePayNameFlg == "1" && $payName !== "") {
     echo $payName;
-}
-?>で、
+?>
+で、
 <?php 
+}
 echo $payment; 
 ?>円ね？</p>
    <p><?php echo $kogoto['message']; ?></p><br>

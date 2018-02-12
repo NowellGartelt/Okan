@@ -83,7 +83,7 @@ class searchPayByTrans
             $queryLeftOuterJoin = "LEFT OUTER JOIN methodOfPayment 
                     ON paymentTable.mopID = methodOfPayment.mopID 
                     LEFT OUTER JOIN payCategoryTable 
-                    ON paymentTable.payCategory = payCategoryTable.personalID 
+                    ON paymentTable.payCategory = payCategoryTable.categoryID 
                     AND paymentTable.userID = payCategoryTable.userID ";
             $queryWhere = "WHERE paymentTable.userID = '$userID' ";
             $queryOrderBy = "ORDER BY payDate, paymentID ASC";

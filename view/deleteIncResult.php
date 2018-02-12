@@ -20,13 +20,14 @@
 echo $incDate; 
 ?>で
 <?php 
-if ($incName !== "") {
+if ($incName !== "(登録なし)" && $incName !== "") {
     echo $incName;
-}
-?>に、
+    ?>
+に、
 <?php 
+}
 echo $income; 
-?>円使ったヤツね？</p>
+?>円もらったヤツね？</p>
    <p>取り消しといたたわよ</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>

@@ -15,7 +15,7 @@
   </div>
   <div align="center">
    <p>Okan：削除</p><br>
-   <p>前の支払いを取り消したいの？？</p>
+   <p>前の収入を取り消したいの？？</p>
    <p>取り消す内容と対象があってるか、確認しなさいよね</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>
@@ -52,6 +52,7 @@
     <input type="hidden" name="incName" value=<?php echo $incList['incName']; ?>>
     <input type="hidden" name="income" value=<?php echo $incList['income']; ?>>
     <input type="hidden" name="incCategory" value=<?php echo $incList['incCategory']; ?>>
+    <input type="hidden" name="incDate" value=<?php echo $incList['incDate']; ?>>
     <input type="hidden" name="incDateYear" value=<?php echo $incInfoDateYear; ?>>
     <input type="hidden" name="incDateMonth" value=<?php echo $incInfoDateMonth; ?>>
     <input type="hidden" name="incDateDay" value=<?php echo $incInfoDateDay; ?>>

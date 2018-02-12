@@ -88,12 +88,16 @@ if ($moduleIncMemoFlg == null) {
     $incMemoFlg = "あり";
 }
 
+// 更新日時取得
+$updateDate = date("Y-m-d H:i:s");
+
 // モジュールフラグ更新
 require_once '../model/updateModule.php';
 $updateModule = new updateModule();
 $updResult = $updateModule -> updateModule($userID, 
         $moduleTaxCalcFlg, $modulePayNameFlg, $modulePayCateFlg, $modulePaymentFlg, 
-        $modulePayMemoFlg, $moduleIncNameFlg, $moduleIncCateFlg, $moduleIncMemoFlg);
+        $modulePayMemoFlg, $moduleIncNameFlg, $moduleIncCateFlg, $moduleIncMemoFlg,
+        $updateDate);
 
 // セッションのモジュールフラグ更新
 $setPayModuleFlg = $controller -> setPayModuleFlg($moduleTaxCalcFlg, $modulePayNameFlg, 

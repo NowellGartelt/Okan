@@ -38,8 +38,7 @@ $taxCalcFlg = "";
 $noChangeFlg = "";
 
 // 入力値チェック
-if ($payName == "" || $paymentAfter == "" || $payCategory == "" 
-        || $payDate == "" || $paymentAfter < 0) {
+if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
     if ($paymentAfter < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputPay"] = "minusInput";
@@ -138,12 +137,21 @@ if ($payName == "" || $paymentAfter == "" || $payCategory == ""
         
     }
     
+    // 支出カテゴリID取得
+    require_once '../model/searchPayCategoryByID.php';
+    $searchPayCategoryByID = new searchPayCategoryByID();
+    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $payCategory);
+    $cateID = $cateList['categoryID'];
+    
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
     // 支出情報の更新
     require_once '../model/updatePayByTrans.php';
     $updatePayByTrans = new updatePayByTrans();
     $updResult = $updatePayByTrans -> updatePayByTrans($userID, $payName,
-            $paymentAfter, $payCategory, $payDate, $payState, $id,
-            $taxFlgAfter, $taxAfter, $methodOfPayment);
+            $paymentAfter, $cateID, $payDate, $payState, $id,
+            $taxFlgAfter, $taxAfter, $methodOfPayment, $updateDate);
     
     include '../view/updatePayResult.php';
 }

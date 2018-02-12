@@ -108,10 +108,6 @@ class registMember
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);
             
-            var_dump($query);
-            var_dump($queryResult);
-            var_dump($this->result);
-            
             // DB切断
             mysqli_close($link);
             

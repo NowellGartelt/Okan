@@ -18,6 +18,7 @@
  * @var boolean $chgPassFlg パスワード変更フラグ
  * @var boolean $chgTaxFlg デフォルト税率変更フラグ
  * @var int $userID ユーザID(変更不可)
+ * @var string $updateDate 更新日時
  * @var array $result クエリ実行結果
  */
 class updateMember 
@@ -34,6 +35,7 @@ class updateMember
     private $chgPassFlg = "";
     private $chgTaxFlg = "";
     private $userID = "";
+    private $updateDate = "";
     private $result = array();
     
     /**
@@ -62,11 +64,12 @@ class updateMember
      * @param boolean $chgTaxFlg デフォルト税率変更フラグ
      * @param int $userID ユーザID(変更不可)
      * @param string $logIDBefore ログインID(変更前)
+     * @param string $updateDate 更新日時
      * @return array 更新クエリ実行結果
      */
     public function updateMember(string $name, string $loginID, string $password, int $tax, 
             bool $chgNameFlg, bool $chgLogIDFlg, bool $chgPassFlg, bool $chgTaxFlg, 
-            int $userID, string $logIDBefore)
+            int $userID, string $logIDBefore, string $updateDate)
     {
         // 引き渡された値の取得
         $this->name = $name;
@@ -79,12 +82,13 @@ class updateMember
         $this->chgTaxFlg = $chgTaxFlg;
         $this->userID = $userID;
         $this->loginIDBefore = $logIDBefore;
+        $this->updateDate = $updateDate;
         
         // すべてnullだった場合はnullを返して何もしない
         // include文による実行時の動作
         if (($name == null && $loginID == null && $password == null && $tax == null 
                 && $chgNameFlg == null && $chgLogIDFlg == null && $chgPassFlg == null && $chgTaxFlg == null)
-                || $userID == null) {
+                || $userID == null || $updateDate == null) {
             return $this->result;
                     
         } else {
@@ -95,42 +99,26 @@ class updateMember
             $query = "";
             
             $queryUpdate = "UPDATE usertable ";
-            $querySet = "SET ";
+            $querySet = "SET updateDate = '$updateDate'";
             $queryWhere = " WHERE userID = '$userID'";
-            
-            // SQL文追記数カウント
-            $queryCount = 0;
             
             // 名前変更フラグが立ってる場合、名前を条件に追記
             if ($chgNameFlg == true) {
-                $querySet .= "name = '$name'";
-                $queryCount = $queryCount + 1;
+                $querySet .= ", name = '$name'";
             }
             // ログインID変更フラグが立ってる場合、ログインIDを条件に追記
             if ($chgLogIDFlg == true) {
-                if ($queryCount > 0) {
-                    $querySet .= ", ";
-                }
-                $querySet .= "loginID = '$loginID'";
-                $queryCount = $queryCount + 1;
+                $querySet .= ", loginID = '$loginID'";
                 
             }
             // パスワード変更フラグが立ってる場合、パスワードを条件に追記
             if ($chgPassFlg == true) {
-                if ($queryCount > 0) {
-                    $querySet .= ", ";
-                }
-                $querySet .= "loginPassword = '$password'";
-                $queryCount = $queryCount + 1;
+                $querySet .= ", loginPassword = '$password'";
                 
             }
             // デフォルト税率変更フラグが立ってる場合、デフォルト税率を条件に追記
             if ($chgTaxFlg == true) {
-                if ($queryCount > 0) {
-                    $querySet .= ", ";
-                }
-                $querySet .= "defTax = '$tax'";
-                $queryCount = $queryCount + 1;
+                $querySet .= ", defTax = '$tax'";
                 
             }
             
@@ -139,6 +127,7 @@ class updateMember
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_array($queryResult);
             
+            /*
             if ($chgLogIDFlg == true) {
                 // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
                 $query_updatePaymentInfo =
@@ -156,6 +145,7 @@ class updateMember
                 $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
             
             }
+            */
             
             // DB切断
             mysqli_close($link);

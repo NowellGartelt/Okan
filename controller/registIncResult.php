@@ -20,10 +20,10 @@ $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
 // 各モジュール使用フラグの取得
-$moduleFlg = $controller -> getModuleFlg();
-$moduleNameFlg = $moduleFlg['nameFlg'];
-$moduleCateFlg = $moduleFlg['cateFlg'];
-$moduleMemoFlg = $moduleFlg['memoFlg'];
+$moduleIncFlg = $controller -> getIncModuleFlg();
+$moduleIncNameFlg = $moduleIncFlg['incNameFlg'];
+$moduleIncCateFlg = $moduleIncFlg['incCateFlg'];
+$moduleIncMemoFlg = $moduleIncFlg['incMemoFlg'];
 
 $incName = $_POST['incName'];
 $income = $_POST['income'];
@@ -36,7 +36,7 @@ $_SESSION["errorInputInc"] = "";
 $errorInputInc = "";
 
 // 入力値チェック
-if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $income < 0){
+if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputInc"] = "minusInput";
@@ -76,14 +76,21 @@ if($incName == "" || $income == "" || $incCategory == "" || $incDate == "" || $i
     $income = htmlspecialchars($income, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
- 
+    
+    // 登録日時取得
     $registDate = date("Y-m-d H:i:s");
+    
+    // 支出カテゴリID取得
+    require_once '../model/searchIncCategoryByID.php';
+    $searchIncCategoryByID = new searchIncCategoryByID();
+    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $incCategory);
+    $cateID = $cateList['categoryID'];
     
     // 収入情報の登録
     require_once '../model/registIncByTrans.php';
     $registIncByTrans = new registIncByTrans();
     $regResult = $registIncByTrans -> registIncByTrans($userID, $incName, 
-            $income, $incCategory, $incState, $incDate, $registDate);
+            $income, $cateID, $incState, $incDate, $registDate);
     
     // 支出の小言取得
     require_once '../model/searchIncKogoto.php';

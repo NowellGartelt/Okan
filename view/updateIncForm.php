@@ -48,7 +48,7 @@ foreach ($cateList as &$categoryName) {
 ?>
          <option value=<?php 
             echo $categoryName['personalID'];
-            if ($incList['categoryName'] == $categoryName['categoryName']) {
+            if ($incList['incCategory'] == $categoryName['categoryID']) {
                 ?> selected <?php
 }
             ?>><?php echo $categoryName['categoryName'] ?></option>

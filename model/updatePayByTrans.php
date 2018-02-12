@@ -16,7 +16,8 @@
  * @var string payState 支出一言メモ(Stateなのはもともと場所情報を保持するためだったことに由来する)
  * @var int $id 支出ID
  * @var boolean $taxFlg 税別フラグ
- * @var int $tax 税率  
+ * @var int $tax 税率
+ * @var string $updateDate 更新日時
  * @var array $result クエリ実行結果
  */
 class updatePayByTrans 
@@ -32,6 +33,7 @@ class updatePayByTrans
     private $taxFlg = "";
     private $tax = "";
     private $methodOfPayment = "";
+    private $updateDate = "";
     private $result = array();
     
     /**
@@ -61,10 +63,12 @@ class updatePayByTrans
      * @param boolean $taxFlg 税別フラグ
      * @param int $tax 税率
      * @param int $methodOfPayment 支払方法
+     * @param string $updateDate 更新日時
      * @return array 更新クエリ実行結果
      */
     public function updatePayByTrans(int $userID, string $payName, int $payment, string $payCategory, 
-            string $payDate, string $payState, int $id, bool $taxFlg, int $tax, int $methodOfPayment)
+            string $payDate, string $payState, int $id, bool $taxFlg, int $tax, int $methodOfPayment,
+            string $updateDate)
     {
         // 引き渡された値の取得
         $this->userID = $userID;
@@ -77,9 +81,11 @@ class updatePayByTrans
         $this->taxFlg = $taxFlg;
         $this->tax = $tax;
         $this->methodOfPayment = $methodOfPayment;
+        $this->updateDate = $updateDate;
         
         // 必須の値が空だった場合、nullを返す
-        if ($userID == null || $payment == null || $payDate == null || $id == null) {
+        if ($userID == null || $payment == null || $payDate == null || $id == null 
+                || $updateDate == null) {
             $this->result = null;
             
         } else {
@@ -91,7 +97,7 @@ class updatePayByTrans
                 "UPDATE paymentTable 
                 SET payName = '$payName', payment = '$payment', payCategory = '$payCategory',
                 payDate = '$payDate', payState = '$payState', taxFlg = '$taxFlg', tax = '$tax', 
-                mopID = '$methodOfPayment' 
+                mopID = '$methodOfPayment', updateDate = '$updateDate' 
                 WHERE paymentID = '$id' AND userID = '$userID'";
             $queryResult = mysqli_query($link, $query);
             $this->result = mysqli_fetch_assoc($queryResult);

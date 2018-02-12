@@ -63,7 +63,7 @@ class searchSumIncByCategory
             $query = 
                 "SELECT categoryName, SUM(income) 
                 FROM incomeTable 
-                LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID  
+                LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.categoryID 
                 WHERE incomeTable.userID = '$userID' AND incDate >= '$incDateFrom' AND incDate <= '$incDateTo' 
                 GROUP BY categoryName 
                 ORDER BY SUM(income) DESC";

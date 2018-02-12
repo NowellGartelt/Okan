@@ -15,7 +15,19 @@
   </div>
   <div align="center">
    <p>Okan：更新完了(つかったお金)</p><br>
-   <p><?php echo $payName; ?>に<?php echo $paymentAfter; ?>円ね？</p>
+   <p>
+<?php 
+echo $payDate; 
+?>に
+<?php 
+if ($modulePayNameFlg == "1" && $payName !== "") {
+    echo $payName;
+?>
+で、
+<?php 
+}
+echo $paymentAfter; 
+?>円ね？</p>
    <p>覚えなおしたわよ</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>

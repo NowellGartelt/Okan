@@ -63,7 +63,7 @@ class searchSumPayByCategory
             $query = 
                 "SELECT categoryName, SUM(payment) 
                 FROM paymentTable 
-                LEFT OUTER JOIN payCategoryTable ON paymentTable.payCategory = payCategoryTable.personalID  
+                LEFT OUTER JOIN payCategoryTable ON paymentTable.payCategory = payCategoryTable.categoryID 
                 WHERE paymentTable.userID = '$userID' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo' 
                 GROUP BY categoryName 
                 ORDER BY SUM(payment) DESC";

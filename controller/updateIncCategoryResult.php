@@ -45,10 +45,14 @@ if ($categoryName == "") {
     // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $categoryName = htmlspecialchars($categoryName, ENT_QUOTES);
     
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
     // カテゴリ名更新
     require_once '../model/updateIncCategory.php';
     $updateIncCategory = new updateIncCategory();
-    $updResult = $updateIncCategory -> updateIncCategory($userID, $categoryName, $personalID);
+    $updResult = $updateIncCategory -> updateIncCategory($userID, $categoryName, 
+            $personalID, $updateDate);
     
     include '../view/updateIncCategoryResult.php';
 }

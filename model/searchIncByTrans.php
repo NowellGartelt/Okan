@@ -77,7 +77,7 @@ class searchIncByTrans
             
             $querySelect = "SELECT * FROM incomeTable ";
             $queryLeftOuterJoin = "LEFT OUTER JOIN incCategoryTable 
-                ON incomeTable.incCategory = incCategoryTable.personalID
+                ON incomeTable.incCategory = incCategoryTable.categoryID
                 AND incomeTable.userID = incCategoryTable.userID ";
             $queryWhere = "WHERE incomeTable.userID = '$userID' ";
             $queryOrderBy = "ORDER BY incDate, incomeID ASC";

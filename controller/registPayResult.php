@@ -21,12 +21,12 @@ $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
 // 各モジュール使用フラグの取得
-$moduleFlg = $controller -> getModuleFlg();
-$moduleTaxCalcFlg = $moduleFlg['taxCalcFlg'];
-$moduleNameFlg = $moduleFlg['nameFlg'];
-$moduleCateFlg = $moduleFlg['cateFlg'];
-$modulePayFlg = $moduleFlg['payFlg'];
-$moduleMemoFlg = $moduleFlg['memoFlg'];
+$modulePayFlg = $controller -> getPayModuleFlg();
+$moduleTaxCalcFlg = $modulePayFlg['taxCalcFlg'];
+$modulePayNameFlg = $modulePayFlg['payNameFlg'];
+$modulePayCateFlg = $modulePayFlg['payCateFlg'];
+$modulePaymentFlg = $modulePayFlg['paymentFlg'];
+$modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
 
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
@@ -42,7 +42,7 @@ $_SESSION["errorInputPay"] = "";
 $errorInputPay = "";
 
 // 入力値チェック
-if ($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || $payment < 0) {
+if ($payment == "" || $payDate == "" || $payment < 0) {
     if ($payment < 0) {
         // 入力値不正でエラー、入力画面に戻す
         $_SESSION["errorInputPay"] = "minusInput";
@@ -73,6 +73,7 @@ if ($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || 
     $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
     $count = $cateCount[0]["COUNT(*)"];
     
+    
     for ($i = 0; $i < $count; $i++) {
         // カテゴリ登録がなかった場合、空行を取り除く
         if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
@@ -91,7 +92,8 @@ if ($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || 
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $taxFlg = htmlspecialchars($taxFlg, ENT_QUOTES);
     $tax = htmlspecialchars($tax, ENT_QUOTES);
- 
+    
+    // 登録日時取得
     $registDate = date("Y-m-d H:i:s");
     
     // 税率が入力されてるとき、自動で税率計算を行う
@@ -107,11 +109,17 @@ if ($payName == "" || $payment == "" || $payCategory == "" || $payDate == "" || 
         
     }
     
+    // 支出カテゴリID取得
+    require_once '../model/searchPayCategoryByID.php';
+    $searchPayCategoryByID = new searchPayCategoryByID();
+    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $payCategory);
+    $cateID = $cateList['categoryID'];
+    
     // 支出情報の登録
     require_once '../model/registPayByTrans.php';
     $registPayByTrans = new registPayByTrans();
     $regiResult = $registPayByTrans -> registPayByTrans($userID, $payName, 
-            $payment, $payCategory, $payState, $payDate, $registDate, 
+            $payment, $cateID, $payState, $payDate, $registDate, 
             $taxFlg, $tax, $methodOfPayment);
     
     // 支出の小言取得

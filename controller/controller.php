@@ -67,11 +67,11 @@ class controller {
      * @return array
      */
     public function getPayModuleFlg() {
+        $modulePayFlg['taxCalcFlg'] = $_SESSION['taxCalcFlg'];
         $modulePayFlg['payNameFlg'] = $_SESSION['payNameFlg'];
         $modulePayFlg['payCateFlg'] = $_SESSION['payCateFlg'];
         $modulePayFlg['paymentFlg'] = $_SESSION['paymentFlg'];
         $modulePayFlg['payMemoFlg'] = $_SESSION['payMemoFlg'];
-        $modulePayFlg['taxCalcFlg'] = $_SESSION['taxCalcFlg'];
         
         return $modulePayFlg;
         

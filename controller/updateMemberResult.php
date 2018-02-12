@@ -65,6 +65,13 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
     include '../view/updateMemberForm.php';
     
 } else {
+    // スクリプト挿入攻撃、XSS対策
+    // 特殊文字をHTMLエンティティ文字へ変換する。
+    $nameAfter = htmlspecialchars($nameAfter, ENT_QUOTES);
+    $logIDAfter = htmlspecialchars($logIDAfter, ENT_QUOTES);
+    $passwordAfter = htmlspecialchars($passwordAfter, ENT_QUOTES);
+    $taxAfter = htmlspecialchars($taxAfter, ENT_QUOTES);
+    
     // 新名前と旧名前が一致しない場合
     // 名前変更チェックフラグを立てる
     if ($nameAfter !== "" && $nameAfter !== $nameBefore) {
@@ -195,13 +202,16 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             
         // エラーフラグが立っていない場合、ユーザ情報変更処理を行う
         } else {
+            // 更新日時取得
+            $updateDate = date("Y-m-d H:i:s");
+            
             // ユーザー情報変更処理呼び出し
             require_once '../model/updateMember.php';
             $updateMember= new updateMember();
             $updResult = $updateMember -> updateMember(
                     $nameAfter, $logIDAfter, $passwordAfter, $taxAfter, 
                     $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
-                    $userID, $logIDBefore
+                    $userID, $logIDBefore, $updateDate
                     );
             
             if ($chgLogIDFlg == true) {

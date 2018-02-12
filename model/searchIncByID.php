@@ -56,7 +56,7 @@ class searchIncByID
             
             // IDで一致する収入情報の取得
             $query = "SELECT * FROM incomeTable 
-                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.personalID 
+                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.categoryID 
                     AND incomeTable.userID = incCategoryTable.userID 
                     WHERE incomeID = '$id' 
                     AND incomeTable.userID = '$userID'";
