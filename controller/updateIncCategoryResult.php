@@ -33,8 +33,8 @@ if ($categoryName == "") {
     $searchIncCategoryByID = new searchIncCategoryByID();
     $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID);
     
-    if ($result['categoryName'] == null) {
-        $result['categoryName'] = "(未登録)";
+    if ($cateList['categoryName'] == null) {
+        $cateList['categoryName'] = "(未登録)";
     }
     
     // 画面の読み込み
