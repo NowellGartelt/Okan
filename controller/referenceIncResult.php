@@ -18,8 +18,7 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
-
-$page = $_POST['page'];
+$fromPage = $controller -> getFromPage();
 
 // 変数初期化
 $incName = null;
@@ -27,10 +26,16 @@ $incCategory = null;
 $incDateFrom = null;
 $incDateTo = null;
 $incState = null;
+
+// エラー変数初期化
 $errResult = null;
 
+// 移動元ページの設定
+$fromPage = "referenceIncResult";
+$controller -> setFromPage($fromPage);
+
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
-if ($page == "reference") {
+if ($fromPage == "referenceIncForm") {
      // ポストされた値の取得
     $incName = $_POST['incName'];
     $incCategory = $_POST['incCategory'];
@@ -87,31 +92,7 @@ if($incCount >= 101){
 
 // エラーがあった場合、入力画面へ戻す
 if ($errResult !== null) {
-    $_SESSION['incName'] = null;
-    $_SESSION['incCategory'] = null;
-    $_SESSION['incDateFrom'] = null;
-    $_SESSION['incDateTo'] = null;
-    $_SESSION['incState'] = null;
-    
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchIncCategory.php';
-    $searchIncCategory = new searchIncCategory();
-    $cateList = $searchIncCategory -> searchIncCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchIncCategoryCount.php';
-    $searchIncCategoryCount = new searchIncCategoryCount();
-    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
-    }
-    
-    include '../view/referenceIncForm.php';
+    require_once 'referenceIncForm.php';
     
 // エラーとならなかった場合は結果を表示する
 } else {
@@ -121,4 +102,5 @@ if ($errResult !== null) {
     }
 
     include '../view/referenceIncResult.php';
+    
 }

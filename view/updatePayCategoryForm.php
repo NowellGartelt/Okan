@@ -15,7 +15,7 @@
   </div>
   <div align="center">
    <p>Okan：更新(つかったお金のカテゴリ)</p><br>
-<?php if($errorInput == "nullInfo") { ?>
+<?php if($errInput == "nullInfo") { ?>
    <p>ちょっと、項目が間違ってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php } else { ?>

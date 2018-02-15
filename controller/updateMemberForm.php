@@ -18,6 +18,17 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage(); 
+
+if ($fromPage !== "updateMemberResult") {
+    $errInput = "";
+    $errFlg = false;
+    
+}
+
+// 移動元ページの設定
+$fromPage = "updateMemberForm";
+$controller -> setFromPage($fromPage);
 
 // ログイン中のメンバー情報の取得
 require_once '../model/searchMemberByMemberID.php';

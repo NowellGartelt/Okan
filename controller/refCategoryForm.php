@@ -19,5 +19,9 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 移動元ページの設定
+$fromPage = "refCategoryForm";
+$controller -> setFromPage($fromPage);
+
 // 画面の読み込み
 include '../view/refCategoryForm.php';

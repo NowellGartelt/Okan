@@ -20,24 +20,34 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
-// セッション関数へのセット
+// 値の受け取り
 $dateFrom = $_POST['dateFrom'];
 $dateTo = $_POST['dateTo'];
+
+// エラー変数の初期化
+$errInput = "";
+
+// 移動元ページの設定
+$fromPage = "refPayAndIncReportResult";
+$controller -> setFromPage($fromPage);
 
 // 期間開始日、終了日のいずれかが入力されていない場合
 if ($dateFrom == "" || $dateTo == "") {
     // 入力項目不足エラー、入力画面へ戻す
-    $errorNecessaryInfo = true;
+    $errInput = "lackInput";
  	
-    include '../view/refPayAndIncReportForm.php';
-
 // 指定された期間が367日以上の場合
 } elseif ((strtotime($dateTo) - strtotime($dateFrom))/60/60/24 >= 367) {
     // 期間設定エラー、入力画面へ戻す
-    $errorOverOneYear = true;
-    
-    include '../view/refPayAndIncReportForm.php';
+    $errInput = "overOneYear";
 
+} 
+
+// エラーがあった場合
+if ($errInput !== "") {
+    // 入力画面に戻す
+    include '../view/refPayAndIncReportForm.php';
+    
 // 指定された期間が問題なかった場合
 } else {
     // 指定された期間の総支出額の取得

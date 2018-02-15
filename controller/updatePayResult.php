@@ -30,8 +30,11 @@ $taxAfter = $_POST['tax'];
 $methodOfPayment = $_POST['methodOfPayment'];
 
 // エラー値の初期化
-$_SESSION["errorInputPay"] = "";
-$errorInputPay = "";
+$errInput = "";
+
+// 移動元ページの設定
+$fromPage = "updatePayResult";
+$controller -> setFromPage($fromPage);
 
 // フラグの初期化
 $taxCalcFlg = "";
@@ -41,42 +44,15 @@ $noChangeFlg = "";
 if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
     if ($paymentAfter < 0) {
         // 入力値不正でエラー、入力画面に戻す
-        $_SESSION["errorInputPay"] = "minusInput";
+        $errInput = "minusInput";
+        
     } else {
         // 入力項目不足でエラー、入力画面に戻す
-        $_SESSION["errorInputPay"] = "lackInput";
-    }
-    $errorInputPay = $_SESSION["errorInputPay"];
-    
-    // 支出情報の取得
-    require_once '../model/searchPayByID.php';
-    $searchPayByID = new searchPayByID();
-    $payList = $searchPayByID -> searchPayByID($userID, $id);
-    
-    // 支払方法一覧の取得
-    require_once '../model/searchMethodOfPayment.php';
-    $searchMethodOfPayment = new searchMethodOfPayment();
-    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
-    
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategory.php';
-    $searchPayCategory = new searchPayCategory();
-    $cateList = $searchPayCategory -> searchPayCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchPayCategoryCount.php';
-    $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
+        $errInput = "lackInput";
+        
     }
     
-    include '../view/updatePayForm.php';
+    require_once 'updatePayForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -137,14 +113,14 @@ if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
         
     }
     
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
     // 支出カテゴリID取得
     require_once '../model/searchPayCategoryByID.php';
     $searchPayCategoryByID = new searchPayCategoryByID();
     $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $payCategory);
     $cateID = $cateList['categoryID'];
-    
-    // 更新日時取得
-    $updateDate = date("Y-m-d H:i:s");
     
     // 支出情報の更新
     require_once '../model/updatePayByTrans.php';
@@ -154,4 +130,5 @@ if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
             $taxFlgAfter, $taxAfter, $methodOfPayment, $updateDate);
     
     include '../view/updatePayResult.php';
+    
 }

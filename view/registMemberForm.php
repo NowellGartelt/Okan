@@ -10,24 +10,26 @@
   <br><br>
   <div align="center">
    <p>Okan：メンバー登録</p><br>
-<?php if ($errorInputInfo == true) { ?>
+<?php if ($errFlg == true) { ?>
+<?php   if ($errInput == "lackInput") { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorShortLoginID == true) { ?>
-   <p>ちょっと、ログインIDの長さが足りてないわよ？</p>
+<?php   } elseif ($errInput == "errLengthLoginID") { ?>
+   <p>ちょっと、ログインIDの長さがおかしいわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorLongLoginID == true) { ?>
+<?php   } elseif ($errInput == "errTaxRange") { ?>
    <p>ちょっと、ログインIDが長すぎるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorRegistedLoginID == true) { ?>
+<?php   } elseif ($errInput == "registedLoginID") { ?>
    <p>そのログインIDは既に使われてて、登録できないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorPasswordCondition == true) { ?>
+<?php   } elseif ($errInput == "passwordCondition") { ?>
    <p>ちょっと、パスワードが条件に合ってないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } else { ?>
+<?php   } else { ?>
    <p>今日からいろいろと手伝ったげるわよ</p>
    <p>まずはあんたのことを教えなさいよね</p><br>
+<?php   } ?>
 <?php } ?>
    <img src="cosmetics/img/okan.gif">
    <br><br>
@@ -68,7 +70,7 @@
     <table>
       <tr>
        <td><h6>ログインID：</h6></td>
-       <td><h6>6文字以上、他ユーザーの使用済みのものは使用不可</h6></td>
+       <td><h6>6文字以上10文字以下、他ユーザーの使用済みのものは使用不可</h6></td>
       </tr>
       <tr>
        <td><h6>パスワード：</h6></td>

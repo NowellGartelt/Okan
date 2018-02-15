@@ -38,50 +38,26 @@ $tax = $_POST['tax'];
 $methodOfPayment = $_POST['methodOfPayment'];
 
 // エラー値の初期化
-$_SESSION["errorInputPay"] = "";
-$errorInputPay = "";
+$errInput = "";
+$errGetInfo = "";
+
+// 移動元ページの設定
+$fromPage = "registPayResult";
+$controller -> setFromPage($fromPage);
 
 // 入力値チェック
 if ($payment == "" || $payDate == "" || $payment < 0) {
     if ($payment < 0) {
         // 入力値不正でエラー、入力画面に戻す
-        $_SESSION["errorInputPay"] = "minusInput";
+        $errInput = "minusInput";
+        
     } else {
         // 入力項目不足でエラー、入力画面に戻す
-        $_SESSION["errorInputPay"] = "lackInput";
-    }
-    $errorInputPay = $_SESSION["errorInputPay"];
-    
-    // ユーザのデフォルト税率設定の取得
-    require_once '../model/searchDefTaxByID.php';
-    $searchDefTaxByID = new searchDefTaxByID();
-    $tax = $searchDefTaxByID -> searchDefTaxByID($userID);
-    
-    // 支払方法一覧の取得
-    require_once '../model/searchMethodOfPayment.php';
-    $searchMethodOfPayment = new searchMethodOfPayment();
-    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
-    
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategory.php';
-    $searchPayCategory = new searchPayCategory();
-    $cateList = $searchPayCategory -> searchPayCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchPayCategoryCount.php';
-    $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
+        $errInput = "lackInput";
+        
     }
     
-    include '../view/registPayForm.php';
+    require_once 'registPayForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -112,7 +88,7 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
     // 支出カテゴリID取得
     require_once '../model/searchPayCategoryByID.php';
     $searchPayCategoryByID = new searchPayCategoryByID();
-    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $payCategory);
+    $cateList = $searchPayCategoryByID -> searchPayCategoryByID((int)($userID), $payCategory);
     $cateID = $cateList['categoryID'];
     
     // 支出情報の登録
@@ -130,4 +106,3 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
     include '../view/registPayResult.php';
 
 }
-$_SESSION["errorInputPay"] = "";

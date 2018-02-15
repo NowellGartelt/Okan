@@ -24,6 +24,10 @@ $payDate = $_POST['payDate'];
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 
+// 移動元ページの設定
+$fromPage = "deletePayResult";
+$controller -> setFromPage($fromPage);
+
 // 支出情報の削除
 require_once '../model/deletePayByTrans.php';
 $deletePayByTrans = new deletePayByTrans();

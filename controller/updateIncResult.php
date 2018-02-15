@@ -27,44 +27,23 @@ $incState = $_POST['incState'];
 $id = $_POST['ID'];
 
 // エラー値の初期化
-$_SESSION["errorInputInc"] = "";
-$errorInputInc = "";
+$errInput = "";
+
+// 移動元ページの設定
+$fromPage = "updateIncResult";
+$controller -> setFromPage($fromPage);
 
 // 入力値チェック
 if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
-        $_SESSION["errorInputInc"] = "minusInput";
+        $errInput = "minusInput";
     } else {
         // 入力項目不足でエラー、入力画面に戻す
-        $_SESSION["errorInputInc"] = "lackInput";
-    }
-    $errorInputInc = $_SESSION["errorInputInc"];
-    
-    // 収入情報の取得
-    require_once '../model/searchIncByID.php';
-    $searchIncByID = new searchIncByID();
-    $incList = $searchIncByID -> searchIncByID($userID, $id);
-    
-    // 収入カテゴリ一覧の取得
-    require_once '../model/searchIncCategory.php';
-    $searchIncCategory = new searchIncCategory();
-    $cateList = $searchIncCategory -> searchIncCategory($userID);
-    
-    // 収入カテゴリ数取得
-    require_once '../model/searchIncCategoryCount.php';
-    $searchIncCategoryCount = new searchIncCategoryCount();
-    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
+        $errInput = "lackInput";
     }
     
-    include '../view/updateIncForm.php';
+    require_once 'updateIncForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策

@@ -15,10 +15,10 @@
   </div>
   <div align="center">
    <p>Okan：更新(つかったお金)</p><br>
-<?php if($errorInputPay == "lackInput") { ?>
+<?php if($errInput == "lackInput") { ?>
    <p>ちょっと、項目が間違ってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorInputPay == "minusInput") { ?>
+<?php } elseif ($errInput == "minusInput") { ?>
    <p>ちょっと、金額がマイナスになってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php } else { ?>
@@ -103,7 +103,6 @@ foreach ($mopList as &$methodOfPayment) {
     <button type="submit">オカンに教え直す</button>
    </form>
    <form action="../../Okan/referencePayResult.php" method="post">
-    <input type="hidden" name="page" value="update">
     <button type="submit">戻る</button>
    </form>
   </div>

@@ -18,11 +18,16 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
-$_SESSION['payName'] = null;
-$_SESSION['payCategory'] = null;
-$_SESSION['payDateFrom'] = null;
-$_SESSION['payDateTo'] = null;
-$_SESSION['payState'] = null;
+if ($fromPage !== "refPayAndIncReportResult") {
+    // エラー変数の初期化
+    $errInput = "";
+    
+}
+
+// 移動元ページの設定
+$fromPage = "refPayAndIncReportForm";
+$controller -> setFromPage($fromPage);
 
 include '../view/refPayAndIncReportForm.php';

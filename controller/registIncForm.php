@@ -18,6 +18,7 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
 // 各モジュール使用フラグの取得
 $moduleFlg = $controller -> getIncModuleFlg();
@@ -25,7 +26,15 @@ $moduleIncNameFlg = $moduleFlg['incNameFlg'];
 $moduleIncCateFlg = $moduleFlg['incCateFlg'];
 $moduleIncMemoFlg = $moduleFlg['incMemoFlg'];
 
-$errorInputInc = $_SESSION["errorInputInc"];
+if ($fromPage !== "registIncForm") {
+    // エラー変数の初期化
+    $errorInput = "";
+    
+}
+
+// 移動元ページの設定
+$fromPage = "registIncForm";
+$controller -> setFromPage($fromPage);
 
 // 収入カテゴリ一覧の取得
 require_once '../model/searchIncCategory.php';

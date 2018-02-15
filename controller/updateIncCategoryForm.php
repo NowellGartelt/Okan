@@ -18,9 +18,19 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
 // カテゴリーID取得
 $personalID = $_POST['personalID'];
+
+if ($fromPage !== "updateIncCategoryResult") {
+    $errInput = "";
+    
+}
+
+// 移動元ページの設定
+$fromPage = "updateIncCategoryForm";
+$controller -> setFromPage($fromPage);
 
 // 指定されたNoに登録されているカテゴリ情報の取得
 require_once '../model/searchIncCategoryByID.php';
@@ -31,8 +41,6 @@ $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID
 if ($cateList['categoryName'] == null) {
     $cateList['categoryName'] = "(未登録)";
 }
-
-$errorInput = null;
 
 // 画面の読み込み
 include '../view/updateIncCategoryForm.php';

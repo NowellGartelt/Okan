@@ -50,19 +50,20 @@ $errRegistedLoginID = false;
 $errPassCondition = false;
 $errTaxRange = false;
 
+$errInput = "";
+$errFlg = false;
+
+// 移動元ページの設定
+$fromPage = "updateMemberResult";
+$controller -> setFromPage($fromPage);
+
 // 名前、ログインID、パスワードのいずれも変更がなかった場合
 // 変更なしエラーで入力画面に戻す
 if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
-    $errNoStatusChg = true;
-    
-    // メンバー情報の取得
-    require_once '../model/searchMemberByMemberID.php';
-    $searchMemberByMemberID = new searchMemberByMemberID();
-    $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
-    
+    $errInput = "noStatusChg";
     $errFlg = true;
-
-    include '../view/updateMemberForm.php';
+    
+    require_once 'updateMemberForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -101,21 +102,19 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         $chkChgTaxFlg = false;
     }
     
+    var_dump($taxBefore);
+    var_dump($taxAfter);
+    var_dump($chkChgTaxFlg);
+    
     // フラグがひとつも立っていない場合
     // 変更なしエラーで入力画面に戻す
     if ($chkChgNameFlg == false && $chkChgLogIDFlg == false 
             && $chkChgPassFlg == false && $chkChgTaxFlg == false) {
-        $errNoStatusChg = true;
-        
-        // メンバー情報の取得
-        require_once '../model/searchMemberByMemberID.php';
-        $searchMemberByMemberID = new searchMemberByMemberID();
-        $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
-        
+        $errInput = "noStatusChg";
         $errFlg = true;
-
-        include '../view/updateMemberForm.php';
-
+        
+        require_once 'updateMemberForm.php';
+        
     // フラグがひとつ以上立っている場合
     } else {
         // 名前変更チェックフラグが立っている場合
@@ -130,8 +129,8 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             $chkLengthLoginID = strlen($logIDAfter);
             
             // ログインIDチェック、ログインIDが5文字以下の場合、エラーフラグを立てる
-            if ($chkLengthLoginID < 6) {
-                $errShortLoginID = true;
+            if ($chkLengthLoginID < 6 || $chkLengthLoginID >10) {
+                $errInput = "errLengthLoginID";
                 $errFlg = true;
             
             } else {
@@ -142,7 +141,7 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             
                 // ログインIDが登録済みだった場合、エラーフラグを立てる
                 if ($memberInfo !== null) {
-                    $errRegistedLoginID = true;
+                    $errInput = "registedLoginID";
                     $errFlg = true;
                     
                 // 妥当性チェックをクリアした場合
@@ -166,7 +165,7 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             
             // パスワードが条件に合致してなかった場合、エラーフラグを立てる
             if (!$chkPassworCondition) {
-                $errPassCondition = true;
+                $errInput = "passCondition";
                 $errFlg = true;
 
             // 妥当性チェックをクリアした場合、パスワード変更処理フラグを立てる
@@ -180,48 +179,47 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         // 税率チェックおよびアップデート準備をする
         if ($chkChgTaxFlg == true) {
             // 税率が0-100か確認、NGならエラー
-            if ($taxAfter < 0 && $taxAfter >100) {
-                $errTaxRange = true;
+            if ($taxAfter < 0 || $taxAfter >100) {
+                $errInput = "errTaxRange";
                 $errFlg = true;
+                
             } else {
                 $chgTaxFlg = true;
+                
                 // 税率が空欄の場合、0をセット
                 if ($taxAfter == "") {
                     $taxAfter = 0;
+                    
                 }
             }
         }
-        // エラーフラグが立っている場合、エラーで入力画面へ戻す
-        if ($errFlg == true) {
-            // メンバー情報の取得
-            require_once '../model/searchMemberByMemberID.php';
-            $searchMemberByMemberID = new searchMemberByMemberID();
-            $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
+    }
+}
+
+// エラーフラグが立っている場合、エラーで入力画面へ戻す
+if ($errFlg == true) {
+    require_once 'updateMemberForm.php';
+    
+// エラーフラグが立っていない場合、ユーザ情報変更処理を行う
+} else {
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
+    // ユーザー情報変更処理呼び出し
+    require_once '../model/updateMember.php';
+    $updateMember= new updateMember();
+    $updResult = $updateMember -> updateMember(
+            $nameAfter, $logIDAfter, $passwordAfter, $taxAfter, 
+            $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
+            $userID, $logIDBefore, $updateDate
+            );
             
-            include '../view/updateMemberForm.php';
-            
-        // エラーフラグが立っていない場合、ユーザ情報変更処理を行う
-        } else {
-            // 更新日時取得
-            $updateDate = date("Y-m-d H:i:s");
-            
-            // ユーザー情報変更処理呼び出し
-            require_once '../model/updateMember.php';
-            $updateMember= new updateMember();
-            $updResult = $updateMember -> updateMember(
-                    $nameAfter, $logIDAfter, $passwordAfter, $taxAfter, 
-                    $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
-                    $userID, $logIDBefore, $updateDate
-                    );
-            
-            if ($chgLogIDFlg == true) {
-                $_SESSION['loginID'] = $logIDAfter;
-                $loginID = $logIDAfter;
-                
-            }
-            
-            include '../view/updateMemberResult.php';
-            
-        }
-    }    
+    if ($chgLogIDFlg == true) {
+        $_SESSION['loginID'] = $logIDAfter;
+        $loginID = $logIDAfter;
+        
+    }
+    
+    include '../view/updateMemberResult.php';
+    
 }

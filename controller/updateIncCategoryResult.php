@@ -23,10 +23,17 @@ $personalID = $_POST['personalID'];
 $categoryName = $_POST['categoryName'];
 $categoryNameBefore = $_POST['categoryNameBefore'];
 
+// エラー変数の初期化
+$errInput = "";
+
+// 移動元ページの設定
+$fromPage = "updateIncCategoryResult";
+$controller -> setFromPage($fromPage);
+
 // カテゴリ名が入力されてなかった場合
 if ($categoryName == "") {
     // 入力項目不足でエラー、入力画面に戻す
-    $errorInput = "nullInfo";
+    $errInput = "nullInfo";
     
     // 指定されたNoに登録されているカテゴリ情報の取得
     require_once '../model/searchIncCategoryByID.php';

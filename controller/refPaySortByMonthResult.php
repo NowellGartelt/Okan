@@ -28,6 +28,10 @@ $payCount = null;
 // エラー変数のリセット
 $errInput = "";
 
+// 移動元ページの設定
+$fromPage = "refPaySortByDayResult";
+$controller -> setFromPage($fromPage);
+
 // セッション関数へのセット
 $payName = $_POST['payName'];
 $payCategory = $_POST['payCategory'];
@@ -72,37 +76,7 @@ if (($choiceKey == "payName" && $payName == "")
 
 // エラーがあった場合、入力画面に戻す
 if ($errInput !== "") {
-    $_SESSION['payName'] = null;
-    $_SESSION['payCategory'] = null;
-    $_SESSION['payDateFrom'] = null;
-    $_SESSION['payDateTo'] = null;
-    $_SESSION['choiceKey'] = null;
-    $_SESSION['methodOfPayment'] = null;
-
-    // 支払方法一覧の取得
-    require_once '../model/searchMethodOfPayment.php';
-    $searchMethodOfPayment = new searchMethodOfPayment();
-    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
-    
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategory.php';
-    $searchPayCategory = new searchPayCategory();
-    $cateList = $searchPayCategory -> searchPayCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchPayCategoryCount.php';
-    $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
-    }
-    
-    include '../view/refPaySortByMonthForm.php';
+    require_once 'refPaySortByMonthForm.php';
 
 // エラーとならなかった場合は結果を表示する
 } else {
@@ -112,4 +86,5 @@ if ($errInput !== "") {
     }
 
     include '../view/refPaySortByMonthResult.php';
+    
 }

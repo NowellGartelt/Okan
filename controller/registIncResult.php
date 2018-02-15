@@ -32,44 +32,25 @@ $incState = $_POST['incState'];
 $incDate = $_POST['incDate'];
 
 // エラー値の初期化
-$_SESSION["errorInputInc"] = "";
-$errorInputInc = "";
+$errInput = "";
+
+// 移動元ページの設定
+$fromPage = "registIncResult";
+$controller -> setFromPage($fromPage);
 
 // 入力値チェック
 if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
-        $_SESSION["errorInputInc"] = "minusInput";
+        $errInput = "minusInput";
     } else {
         // 入力項目不足でエラー、入力画面に戻す
-        $_SESSION["errorInputInc"] = "lackInput";
-    }
-    $errorInputInc = $_SESSION["errorInputInc"];
- 
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchIncCategory.php';
-    $searchIncCategory = new searchIncCategory();
-    $cateList = $searchIncCategory -> searchIncCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchIncCategoryCount.php';
-    $searchIncCategoryCount = new searchIncCategoryCount();
-    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
+        $errInput = "lackInput";
     }
     
-    include '../view/registIncForm.php';
-
+    require_once 'registIncForm.php';
+    
 } else {
-    $_SESSION["errorInputInc"] = false;
-    $errorInputInc = $_SESSION["errorInputInc"];
-
     // スクリプト挿入攻撃、XSS対策
     // パスワードの特殊文字をHTMLエンティティ文字へ変換する。
     $incName = htmlspecialchars($incName, ENT_QUOTES);
@@ -100,4 +81,3 @@ if($income == "" || $incDate == "" || $income < 0){
     include '../view/registIncResult.php';
 
 }
-$_SESSION["errorInputInc"] = "";

@@ -21,6 +21,10 @@ $userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
 
+// 移動元ページの設定
+$fromPage = "deleteIncForm";
+$controller -> setFromPage($fromPage);
+
 // 収入情報の取得
 require_once '../model/searchIncByID.php';
 $searchIncByID = new searchIncByID();

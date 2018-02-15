@@ -54,6 +54,8 @@ if (empty($loginID) || empty($password)) {
         $_SESSION['login'] = 'login';
         $_SESSION['loginID'] = $loginID;
         $_SESSION['userID'] = $userID;
+        $_SESSION['fromPage'] = "loginAction";
+        
         $_SESSION["errorInputPay"] = false;
         
         $_SESSION['payNameFlg'] = $payNameFlg;

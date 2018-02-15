@@ -19,6 +19,10 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 移動元ページの設定
+$fromPage = "refPayCategoryForm";
+$controller -> setFromPage($fromPage);
+
 // 現在登録されているカテゴリの取得
 require_once '../model/searchPayCategory.php';
 $searchPayCategory = new searchPayCategory();

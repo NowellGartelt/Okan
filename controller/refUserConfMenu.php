@@ -19,4 +19,8 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 移動元ページの設定
+$fromPage = "refUserConfMenu";
+$controller -> setFromPage($fromPage);
+
 include '../view/refUserConfMenu.php';

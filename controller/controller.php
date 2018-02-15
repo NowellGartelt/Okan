@@ -60,6 +60,33 @@ class controller {
     }
     
     /**
+     * 移動元ページ名取得関数
+     * 
+     * 移動元のページ名を返す
+     * 
+     * @return string
+     */
+    public function getFromPage() {
+        //　移動元のページ名の取得
+        $fromPage = $_SESSION['fromPage'];
+        
+        return $fromPage;
+        
+    }
+    
+    /**
+     * 移動元ページ名更新関数
+     * 
+     * 移動元のページ名を更新する
+     * 
+     * @param string $fromPage
+     */
+    public function setFromPage(string $fromPage) {
+        $_SESSION['fromPage'] = $fromPage;
+        
+    }
+    
+    /**
      * 各支出モジュールフラグ取得関数
      * 
      * 各支出モジュール使用フラグを取得する
@@ -126,8 +153,12 @@ class controller {
     }
     
     /**
+     * viewクラスフルパス取得関数
      * 
-     * @param unknown $viewPass
+     * viewクラスのファイル名を受け取り、viewクラスのフルパスを返す
+     * ※現在はまだ使用しない
+     * 
+     * @param string $viewPass
      */
     public function loadView(string $viewPass) {
         $this->$viewPass = $viewPass;
@@ -137,6 +168,10 @@ class controller {
     }
     
     /**
+     * modelクラスフルパス取得関数
+     * 
+     * modelクラスのファイル名を受け取り、viewクラスのフルパスを返す
+     * ※現在はまだ使用しない
      * 
      * @param string $modelPass
      */

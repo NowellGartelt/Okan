@@ -18,9 +18,18 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
 // カテゴリーID取得
 $personalID = $_POST['personalID'];
+
+if ($fromPage !== "updateCategoryResult") {
+    $errInput = "";
+}
+
+// 移動元ページの設定
+$fromPage = "updatePayCategoryForm";
+$controller -> setFromPage($fromPage);
 
 // 指定されたNoに登録されているカテゴリ情報の取得
 require_once '../model/searchPayCategoryByID.php';

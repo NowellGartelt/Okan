@@ -23,22 +23,16 @@ $personalID = $_POST['personalID'];
 $categoryName = $_POST['categoryName'];
 $categoryNameBefore = $_POST['categoryNameBefore'];
 
+// 移動元ページの設定
+$fromPage = "updatePayCategoryResult";
+$controller -> setFromPage($fromPage);
+
 // カテゴリ名が入力されてなかった場合
 if($categoryName == ""){
     // 入力項目不足でエラー、入力画面に戻す
-    $errorInput = "nullInfo";
+    $errInput = "nullInfo";
     
-    // 指定されたNoに登録されているカテゴリ情報の取得
-    require_once '../model/searchPayCategoryByID.php';
-    $searchPayCategoryByID = new searchPayCategoryByID();
-    $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $personalID);
-    
-    if ($cateList['categoryName'] == null) {
-        $cateList['categoryName'] = "(未登録)";
-    }
-    
-    // 画面の読み込み
-    include '../view/updatePayCategoryForm.php';
+    require_once 'updatePayCategoryForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -54,5 +48,7 @@ if($categoryName == ""){
     $updResult = $updatePayCategory-> updatePayCategory($userID, $categoryName, 
             $personalID, $updateDate);
     
+    // 画面の読み込み
     include '../view/updatePayCategoryResult.php';
+    
 }

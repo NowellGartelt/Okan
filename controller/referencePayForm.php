@@ -15,17 +15,21 @@ session_start();
 require_once 'controller.php';
 $controller = new controller();
 
-// ログインIDとユーザID取得
+// ログインIDとユーザID、移動前のページ名取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
-$_SESSION['payName'] = null;
-$_SESSION['payCategory'] = null;
-$_SESSION['payDateFrom'] = null;
-$_SESSION['payDateTo'] = null;
-$_SESSION['payState'] = null;
+unset($_SESSION['refPay']);
 
-$errResult = null;
+if ($fromPage !== "referencePayResult") {
+    $errResult = null;
+    
+}
+
+// 移動元ページの設定
+$fromPage = "referencePayForm";
+$controller -> setFromPage($fromPage);
 
 // 支払方法一覧の取得
 require_once '../model/searchMethodOfPayment.php';

@@ -81,7 +81,6 @@ foreach ($mopList as &$methodOfPayment) {
      </tbody>
     </table>
     <br>
-    <input type="hidden" name="page" value="reference">
     <button type="submit">オカンに訊く</button>
    </form>
    <form action="../../Okan/menu.php" method="post">

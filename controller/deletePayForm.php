@@ -21,6 +21,10 @@ $userID = $controller -> getUserID();
 
 $id = $_POST['ID'];
 
+// 移動元ページの設定
+$fromPage = "deletePayForm";
+$controller -> setFromPage($fromPage);
+
 // 支出情報の取得
 require_once '../model/searchPayByID.php';
 $searchPayByID = new searchPayByID();

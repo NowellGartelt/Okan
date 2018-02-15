@@ -19,6 +19,10 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 移動元ページの設定
+$fromPage = "updateModuleForm";
+$controller -> setFromPage($fromPage);
+
 // 各支出モジュール使用フラグの取得
 $payModuleFlg = $controller -> getPayModuleFlg();
 $moduleTaxCalcFlg = $payModuleFlg['taxCalcFlg'];

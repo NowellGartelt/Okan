@@ -17,17 +17,14 @@ $password = $_POST['password'];
 $passwordCheck = $_POST['passwordCheck'];
 
 // 再表示の判断のエラーフラグの初期化。
-$errorFlg = false;
-$errorPasswordUnmatch = false; 
-$errorPasswordCondition = false;
+$errFlg = false;
+$errInput = "";
 
 // ログインID、パスワード、名前のいずれかの項目が未入力の場合
 if ($password == "" || $passwordCheck == "" ) {
     // 入力項目不足でエラー、入力画面に戻す
-    $errorNoInput = true;
-    $errorFlg = true;
-    
-    include '../view/reRegistMemberForm.php';
+    $errInput = "lackInput";
+    $errFlg = true;
 
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -37,10 +34,8 @@ if ($password == "" || $passwordCheck == "" ) {
     
     if (strcasecmp($password, $passwordCheck) !== 0) {
         // パスワードとパスワード(確認)が一致しない場合、入力画面に戻す
-        $errorPasswordUnmatch = true;
-        $errorFlg = true;
-        
-        include '../view/reRegistMemberForm.php';
+        $errInput = "passwordUnmach";
+        $errFlg = true;
         
     } else {
         // Passwordチェック、規定の文字数やフォーマットを満たしているか確認
@@ -50,25 +45,31 @@ if ($password == "" || $passwordCheck == "" ) {
             
         if (!$checkPassworCondition) {
             // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
-            $errorPasswordCondition = true;
-            $errorFlg = true;
-            
-            include '../view/reRegistMemberForm.php';
-                
-        } else {
-            // パスワード暗号化
-            $password = password_hash($password, PASSWORD_DEFAULT);
-            
-            // 更新日時取得
-            $updateDate = date("Y-m-d H:i:s");
-            
-            // メンバー情報登録処理
-            require_once '../model/updatePassWord.php';
-            $updatePassWord = new updatePassWord();
-            $updResult = $updatePassWord -> updatePassWord($loginID, $password, $updateDate);
-            
-            include '../view/reRegistMemberResult.php';
+            $errInput = "passwordCondition";
+            $errFlg = true;
                 
         }
     }
+}
+
+// エラーがあった場合
+if ($errFlg !== false) {
+    // 入力画面に戻す
+    include '../view/reRegistMemberForm.php';
+    
+} else {
+    // パスワード暗号化
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    
+    // 更新日時取得
+    $updateDate = date("Y-m-d H:i:s");
+    
+    // メンバー情報登録処理
+    require_once '../model/updatePassWord.php';
+    $updatePassWord = new updatePassWord();
+    $updResult = $updatePassWord -> updatePassWord($loginID, $password, $updateDate);
+    
+    // 画面の表示
+    include '../view/reRegistMemberResult.php';
+    
 }

@@ -18,8 +18,19 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
 $id = $_POST['ID'];
+
+if ($fromPage !== "updateIncResult") {
+    // エラー値の初期化
+    $errInput = "";
+    
+}
+
+// 移動元ページの設定
+$fromPage = "updateIncForm";
+$controller -> setFromPage($fromPage);
 
 // 収入情報の取得
 require_once '../model/searchIncByID.php';

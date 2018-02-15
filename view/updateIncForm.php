@@ -15,10 +15,10 @@
   </div>
   <div align="center">
    <p>Okan：更新(もらったお金)</p><br>
-<?php if($errorInputInc == "lackInput") { ?>
+<?php if($errorInput == "lackInput") { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorInputInc == "minusInput") { ?>
+<?php } elseif ($errorInput == "minusInput") { ?>
    <p>ちょっと、金額がマイナスになってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php } else { ?>

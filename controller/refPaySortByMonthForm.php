@@ -18,16 +18,19 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
-$_SESSION['payName'] = null;
-$_SESSION['payCategory'] = null;
-$_SESSION['payDateFrom'] = null;
-$_SESSION['payDateTo'] = null;
-$_SESSION['payState'] = null;
-$_SESSION['methodOfPayment'] = null;
+unset($_SESSION['refPay']);
 
-// エラー変数のリセット
-$errInput = null;
+if ($fromPage !== "refPaySortByDayResult") {
+    // エラー変数のリセット
+    $errInput = null;
+    
+}
+
+// 移動元ページの設定
+$fromPage = "refPaySortByDayForm";
+$controller -> setFromPage($fromPage);
 
 // 支払方法一覧の取得
 require_once '../model/searchMethodOfPayment.php';

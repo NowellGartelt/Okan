@@ -16,16 +16,16 @@
   <div align="center">
    <p>Okan：メンバー情報更新</p><br>
 <?php if ($errFlg == true) {?>
-<?php     if ($errNoStatusChg == true) { ?>
+<?php     if ($errInput == "noStatusChg") { ?>
    <p>ちょっと、今のヤツと何も変わってないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errShortLoginID == true) {?>
-   <p>ちょっと、ログインIDの長さが足りないわよ？</p>
+<?php     } elseif ($errInput == "errLengthLoginID") {?>
+   <p>ちょっと、ログインIDの長さがおかしいわよ？</p>
    <p>ログインID6文字以上よ。もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errRegistedLoginID == true) {?>
+<?php     } elseif ($errInput == "registedLoginID") {?>
    <p>そのログインIDはもう使われちゃってるみたいよ？</p>
    <p>他のにしないとダメよ</p><br>
-<?php     } elseif ($errPassCondition == true) { ?>
+<?php     } elseif ($errInput == "passCondition") { ?>
    <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php     } else {?>
@@ -64,7 +64,7 @@
     <table>
       <tr>
        <td><h6>ログインID：</h6></td>
-       <td><h6>6文字以上、他ユーザーの使用済みのものは使用不可</h6></td>
+       <td><h6>6文字以上10文字以下、他ユーザーの使用済みのものは使用不可</h6></td>
       </tr>
       <tr>
        <td><h6>パスワード：</h6></td>

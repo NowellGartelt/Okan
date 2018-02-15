@@ -18,14 +18,18 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
-$_SESSION['incName'] = null;
-$_SESSION['incCategory'] = null;
-$_SESSION['incDateFrom'] = null;
-$_SESSION['incDateTo'] = null;
-$_SESSION['incState'] = null;
+unset($_SESSION['refPay']);
 
-$errResult = null;
+if ($fromPage !== "referenceIncResult") {
+    $errResult = null;
+    
+}
+
+// 移動元ページの設定
+$fromPage = "referenceIncForm";
+$controller -> setFromPage($fromPage);
 
 // 支出カテゴリ一覧の取得
 require_once '../model/searchIncCategory.php';

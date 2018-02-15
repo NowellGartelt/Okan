@@ -23,15 +23,13 @@ $defTax = $_POST['defTax'];
 $isAdmin = "0";
 
 // 再表示の判断のエラーフラグの初期化。
-$errorFlg = false;
+$errFlg = false;
 
 // ログインID、パスワード、名前のいずれかの項目が未入力の場合
 if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answer == "") {
     // 入力項目不足でエラー、入力画面に戻す
-    $errorInputInfo = true;
-
-    $errorFlg = true;
-    include '../view/registMemberForm.php';
+    $errInput = "lackInput";
+    $errFlg = true;
 
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -45,19 +43,15 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
     // loginIDチェック、規定の文字数に足りてるか確認
     $checkLengthLoginID = strlen($loginID);
     
-    if ($checkLengthLoginID < 6) {
-        // ログインIDが5文字以下の場合、入力画面に戻す
-        $errorShortLoginID = true;
+    if ($checkLengthLoginID < 6 || $checkLengthLoginID > 10) {
+        // ログインIDが5文字以下11文字以上の場合、入力画面に戻す
+        $errInput = "errLengthLoginID";
+        $errFlg = true;
         
-        $errorFlg = true;
-        include '../view/registMemberForm.php';
-        
-    } elseif ($checkLengthLoginID > 10) {    
-        // ログインIDが11文字以上の場合、入力画面に戻す
-        $errorLongLoginID = true;
-        
-        $errorFlg = true;
-        include '../view/registMemberForm.php';
+    } elseif ($defTax < 0 || $defTax > 100) {
+        // デフォルト税率の値が不正の場合、入力画面に戻す
+        $errInput = "errTaxRange";
+        $errFlg = true;
         
     } else {
         // ログインIDチェック、ログインIDが登録済みかどうか確認する。
@@ -67,10 +61,8 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
 
         if ($memberInfo !== null) {
             // ログインIDが登録済みだった場合、入力画面に戻す
-            $errorRegistedLoginID = true;
-        
-            $errorFlg = true;
-            include '../view/registMemberForm.php';
+            $errInput = "registedLoginID";
+            $errFlg = true;
         
         } else {
             // Passwordチェック、規定の文字数やフォーマットを満たしているか確認
@@ -80,42 +72,46 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
             
             if (!$checkPassworCondition) {
                 // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
-                $errorPasswordCondition = true;
-                
-                $errorFlg = true;
-                include '../view/registMemberForm.php';
-                
-            } else {
-                // パスワード暗号化
-                $password = password_hash($password, PASSWORD_DEFAULT);
- 
-                // 登録日時取得
-                $registDate = date("Y-m-d H:i:s");
-
-                // メンバー情報登録処理
-                require_once '../model/registMember.php';
-                $registMember = new registMember();
-                $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, 
-                        $isAdmin, $question, $answer, $defTax);
-                
-                // ユーザID取得処理
-                $searchMemberIDByID = new searchMemberByID();
-                $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
-                $userID = $userInfo['userID'];
-                
-                // 支出カテゴリ初期登録処理
-                require_once '../model/registPayCategory.php';
-                $registPayCategory = new registpayCategory();
-                $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
-                
-                // 収入カテゴリ初期登録処理
-                require_once '../model/registIncCategory.php';
-                $registIncCategory = new registIncCategory();
-                $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
-                
-                include '../view/registMemberResult.php';
+                $errInput = "passwordCondition";
+                $errFlg = true;
                 
             }
         }
     }
+}
+
+if ($errFlg !== false) {
+    include '../view/registMemberForm.php';
+    
+} else {
+    // パスワード暗号化
+    $password = password_hash($password, PASSWORD_DEFAULT);
+    
+    // 登録日時取得
+    $registDate = date("Y-m-d H:i:s");
+    
+    // メンバー情報登録処理
+    require_once '../model/registMember.php';
+    $registMember = new registMember();
+    $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, 
+            $isAdmin, $question, $answer, $defTax);
+    
+    // ユーザID取得処理
+    $searchMemberIDByID = new searchMemberByID();
+    $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
+    $userID = $userInfo['userID'];
+    
+    // 支出カテゴリ初期登録処理
+    require_once '../model/registPayCategory.php';
+    $registPayCategory = new registpayCategory();
+    $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
+    
+    // 収入カテゴリ初期登録処理
+    require_once '../model/registIncCategory.php';
+    $registIncCategory = new registIncCategory();
+    $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
+    
+    // 画面の表示
+    include '../view/registMemberResult.php';
+    
 }

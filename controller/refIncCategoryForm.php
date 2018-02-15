@@ -19,12 +19,16 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 移動元ページの設定
+$fromPage = "refIncCategoryForm";
+$controller -> setFromPage($fromPage);
+
 // 現在登録されているカテゴリの取得
 require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($userID);
 
-// カテゴリ数の取得
+// 現在登録されているカテゴリ数の取得
 require_once '../model/searchIncCategoryCount.php';
 $searchIncCategoryCount = new searchIncCategoryCount();
 $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);

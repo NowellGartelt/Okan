@@ -15,11 +15,10 @@ session_start();
 require 'controller.php';
 $controller = new controller();
 
-// ログインIDとユーザID取得
+// ログインIDとユーザID、移動前のページ名取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
-
-$page = $_POST['page'];
+$fromPage = $controller -> getFromPage();
 
 // 変数初期化
 $payName = null;
@@ -27,10 +26,16 @@ $payCategory = null;
 $payDateFrom = null;
 $payDateTo = null;
 $payState = null;
+
+// エラー変数初期化
 $errResult = null;
 
+// 移動元ページの設定
+$fromPage = "referencePayResult";
+$controller -> setFromPage($fromPage);
+
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
-if ($page == "reference") {
+if ($fromPage == "referencePayForm") {
      // ポストされた値の取得
     $payName = $_POST['payName'];
     $payCategory = $_POST['payCategory'];
@@ -55,22 +60,22 @@ if ($page == "reference") {
     }
     
     // セッション関数へのセット
-    $_SESSION['payName'] = $payName;
-    $_SESSION['payCategory'] = $payCategory;
-    $_SESSION['payDateFrom'] = $payDateFrom;
-    $_SESSION['payDateTo'] = $payDateTo;
-    $_SESSION['payState'] = $payState;
-    $_SESSION['methodOfPayment'] = $methodOfPayment;
+    $_SESSION['refPay']['payName'] = $payName;
+    $_SESSION['refPay']['payCategory'] = $payCategory;
+    $_SESSION['refPay']['payDateFrom'] = $payDateFrom;
+    $_SESSION['refPay']['payDateTo'] = $payDateTo;
+    $_SESSION['refPay']['payState'] = $payState;
+    $_SESSION['refPay']['methodOfPayment'] = $methodOfPayment;
 
 // 参照の検索初期画面以外からの遷移の場合、セッション関数から値を取得する
 } else {
     // セッション関数からの値の読み込み
-    $payName = $_SESSION['payName'];
-    $payCategory = $_SESSION['payCategory'];
-    $payDateFrom = $_SESSION['payDateFrom'];
-    $payDateTo = $_SESSION['payDateTo'];
-    $payState = $_SESSION['payState'];
-    $methodOfPayment = $_SESSION['methodOfPayment'];
+    $payName = $_SESSION['refPay']['payName'];
+    $payCategory = $_SESSION['refPay']['payCategory'];
+    $payDateFrom = $_SESSION['refPay']['payDateFrom'];
+    $payDateTo = $_SESSION['refPay']['payDateTo'];
+    $payState = $_SESSION['refPay']['payState'];
+    $methodOfPayment = $_SESSION['refPay']['methodOfPayment'];
 
 }
 
@@ -93,37 +98,7 @@ if($payCount >= 101){
 
 // エラーがあった場合、入力画面に戻す
 if ($errResult !== null) {
-    $_SESSION['payName'] = null;
-    $_SESSION['payCategory'] = null;
-    $_SESSION['payDateFrom'] = null;
-    $_SESSION['payDateTo'] = null;
-    $_SESSION['payState'] = null;
-    $_SESSION['methodOfPayment'] = null;
-    
-    // 支払方法一覧の取得
-    require_once '../model/searchMethodOfPayment.php';
-    $searchMethodOfPayment = new searchMethodOfPayment();
-    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
-    
-    // 支出カテゴリ一覧の取得
-    require_once '../model/searchPayCategory.php';
-    $searchPayCategory = new searchPayCategory();
-    $cateList = $searchPayCategory -> searchPayCategory($userID);
-    
-    // 支出カテゴリ数取得
-    require_once '../model/searchPayCategoryCount.php';
-    $searchPayCategoryCount = new searchPayCategoryCount();
-    $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
-    
-    for ($i = 0; $i < $count; $i++) {
-        // カテゴリ登録がなかった場合、空行を取り除く
-        if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-            unset($cateList[$i]);
-        }
-    }
-    
-    include '../view/referencePayForm.php';
+    require_once 'referencePayForm.php';
     
 // エラーとならなかった場合は結果を表示する
 } else {
@@ -133,4 +108,5 @@ if ($errResult !== null) {
     }
 
     include '../view/referencePayResult.php';
+    
 }

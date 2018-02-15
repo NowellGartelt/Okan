@@ -10,14 +10,14 @@
   <br><br>
   <div align="center">
    <p>Okan：パスワード再登録</p><br>
-<?php if ($errorFlg == true) { ?>
-<?php     if ($errorNoInput == true) { ?>
+<?php if ($errFlg == true) { ?>
+<?php     if ($errInput == "lackInput") { ?>
    <p>ちょっと、何も入力されてないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errorPasswordUnmatch == true) { ?>
+<?php     } elseif ($errInput == "passwordUnmach") { ?>
    <p>ちょっと、パスワードと確認の方が一致しないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errorPasswordCondition == true) { ?>
+<?php     } elseif ($errInput == "passwordCondition") { ?>
    <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php     }?>

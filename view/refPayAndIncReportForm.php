@@ -15,10 +15,10 @@
   </div>
   <div align="center">
    <p>Okan：レポート</p><br>
-<?php if ($errorNecessaryInfo == true) { ?>
+<?php if ($errInput == "lackInput") { ?>
    <p>ちょっと、その条件だと不足してるわよ</p>
    <p>条件を見直しなさいよね</p><br>
-<?php } elseif ($errorOverOneYear == true) { ?>
+<?php } elseif ($errInput == "overOneYear") { ?>
    <p>ちょっと、その条件だと期間が長すぎるわよ</p>
    <p>366日以内に設定しなさいよね</p><br>
 <?php } else { ?>

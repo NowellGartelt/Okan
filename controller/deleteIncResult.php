@@ -24,6 +24,10 @@ $incName = $_POST['incName'];
 $incDate = $_POST['incDate'];
 $income = $_POST['income'];
 
+// 移動元ページの設定
+$fromPage = "deleteIncResult";
+$controller -> setFromPage($fromPage);
+
 // 収入情報の削除
 require_once '../model/deleteIncByTrans.php';
 $deleteIncByTrans = new deleteIncByTrans();

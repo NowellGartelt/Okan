@@ -18,9 +18,18 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+$fromPage = $controller -> getFromPage();
 
 $id = $_POST['ID'];
-$errorInputPay = $_SESSION["errorInputPay"];
+
+if ($fromPage !== "updatePayResult") {
+    $errInput = "";
+    
+}
+
+// 移動元ページの設定
+$fromPage = "updatePayForm";
+$controller -> setFromPage($fromPage);
 
 // 支出情報の取得
 require_once '../model/searchPayByID.php';
