@@ -62,7 +62,7 @@ class registPayByTrans
      * @param int $taxFlg 税別フラグ
      * @param int $tax 税率
      * @param int $methodOfPaymet 支払方法
-     * @return array 挿入クエリ実行結果
+     * @return boolean 挿入クエリ実行結果
      */
     public function registPayByTrans(int $userID, string $payName, int $payment, 
             string $payCategory, string $payState, string $payDate, string $registDate, 
@@ -88,16 +88,47 @@ class registPayByTrans
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
+            // 事前確認
+            $query = "
+                SELECT COUNT(*) 
+                FROM paymentTable 
+                WHERE userID = '$userID'
+                ";
+            $queryResult = mysqli_query($link, $query);
+            $result = mysqli_fetch_assoc($queryResult);
+            $countBefore = (int) $result['COUNT(*)'];
+            
             // 支出情報の登録
-            $query =
-                "INSERT INTO paymentTable (
+            $query = "
+                INSERT INTO paymentTable (
                 payName, payment, payCategory, payState, payDate, registDate, updateDate, 
                 userID, taxFlg, tax, mopID)
                 VALUES (
                 '$payName', '$payment', '$payCategory', '$payState', '$payDate', '$registDate', 
-                '$registDate', '$userID', $taxFlg, $tax, $methodOfPaymet)";
+                '$registDate', '$userID', $taxFlg, $tax, $methodOfPaymet)
+                ";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
+            $result = mysqli_fetch_assoc($queryResult);
+            
+            // 事後確認
+            $query = "
+                SELECT COUNT(*)
+                FROM paymentTable
+                WHERE userID = '$userID'
+                ";
+            $queryResult = mysqli_query($link, $query);
+            $result = mysqli_fetch_assoc($queryResult);
+            $countAfter = (int) $result['COUNT(*)'];
+            
+            $countDiff = $countAfter - $countBefore;
+            
+            if ($countDiff == 1) {
+                $this->result = true;
+                
+            } else {
+                $this->result = false;
+                
+            }
             
             // DB切断
             mysqli_close($link);

@@ -28,7 +28,9 @@ $moduleIncMemoFlg = $moduleFlg['incMemoFlg'];
 
 if ($fromPage !== "registIncForm") {
     // エラー変数の初期化
-    $errorInput = "";
+    $errFlg = false;
+    $errInput = "";
+    $errGetInfo = "";
     
 }
 
@@ -41,17 +43,30 @@ require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($userID);
 
-// 収入カテゴリ数取得
-require_once '../model/searchIncCategoryCount.php';
-$searchIncCategoryCount = new searchIncCategoryCount();
-$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-$count = $cateCount[0]["COUNT(*)"];
-
-for ($i = 0; $i < $count; $i++) {
-    // カテゴリ登録がなかった場合、空行を取り除く
-    if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-        unset($cateList[$i]);
+if (empty($cateList)) {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // 収入カテゴリ数取得
+    require_once '../model/searchIncCategoryCount.php';
+    $searchIncCategoryCount = new searchIncCategoryCount();
+    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
+    $count = $cateCount[0]["COUNT(*)"];
+    
+    if ($count == "") {
+        $errFlg = true;
+        $errGetInfo = "emptyProperties";
+        
+    } else {
+        for ($i = 0; $i < $count; $i++) {
+        // カテゴリ登録がなかった場合、空行を取り除く
+            if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+                unset($cateList[$i]);
+            
+            }
+        }
     }
 }
-
+// 画面の表示
 include '../view/registIncForm.php';

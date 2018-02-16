@@ -43,7 +43,7 @@ class searchPayCategory
         $this->userID = $userID;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($userID == null) {
+        if ($userID == "") {
             $this->result = null;
             
         } else {

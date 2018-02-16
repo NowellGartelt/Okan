@@ -32,6 +32,7 @@ $incState = $_POST['incState'];
 $incDate = $_POST['incDate'];
 
 // エラー値の初期化
+$errFlg = false;
 $errInput = "";
 
 // 移動元ページの設定
@@ -42,10 +43,14 @@ $controller -> setFromPage($fromPage);
 if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "minusInput";
+        
     } else {
         // 入力項目不足でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "lackInput";
+        
     }
     
     require_once 'registIncForm.php';
@@ -67,17 +72,39 @@ if($income == "" || $incDate == "" || $income < 0){
     $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $incCategory);
     $cateID = $cateList['categoryID'];
     
-    // 収入情報の登録
-    require_once '../model/registIncByTrans.php';
-    $registIncByTrans = new registIncByTrans();
-    $regResult = $registIncByTrans -> registIncByTrans($userID, $incName, 
-            $income, $cateID, $incState, $incDate, $registDate);
+    // 支出カテゴリIDが空だった場合
+    if ($cateID == "") {
+        $errFlg = true;
+        $errGetInfo = "emptyProperties";
+        
+    } else {
+        // 収入情報の登録
+        require_once '../model/registIncByTrans.php';
+        $registIncByTrans = new registIncByTrans();
+        $regResult = $registIncByTrans -> registIncByTrans($userID, $incName, 
+                $income, $cateID, $incState, $incDate, $registDate);
+        
+        // 登録失敗した場合
+        if ($regResult == false) {
+            $errFlg = true;
+            $errGetInfo = "errRegist";
+            
+        } else {
+            // 支出の小言取得
+            require_once '../model/searchIncKogoto.php';
+            $searchIncKogoto = new searchIncKotgoto();
+            $kogoto = $searchIncKogoto -> searchIncKogoto($income);
+            
+        }
+    }
     
-    // 支出の小言取得
-    require_once '../model/searchIncKogoto.php';
-    $searchIncKogoto = new searchIncKotgoto();
-    $kogoto = $searchIncKogoto -> searchIncKogoto($income);
+    if ($errFlg == true) {
+        // 画面の表示
+        include '../view/errRegistResult.php';
+        
+    } else {
+        // 画面の表示
+        include '../view/registIncResult.php';
     
-    include '../view/registIncResult.php';
-
+    }
 }

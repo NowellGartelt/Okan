@@ -28,6 +28,7 @@ $modulePayCateFlg = $modulePayFlg['payCateFlg'];
 $modulePaymentFlg = $modulePayFlg['paymentFlg'];
 $modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
 
+// 値の取得
 $payName = $_POST['payName'];
 $payment = $_POST['payment'];
 $payCategory = $_POST['payCategory'];
@@ -38,6 +39,7 @@ $tax = $_POST['tax'];
 $methodOfPayment = $_POST['methodOfPayment'];
 
 // エラー値の初期化
+$errFlg = false;
 $errInput = "";
 $errGetInfo = "";
 
@@ -57,6 +59,7 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
         
     }
     
+    // 入力画面呼び出し
     require_once 'registPayForm.php';
     
 } else {
@@ -91,18 +94,40 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
     $cateList = $searchPayCategoryByID -> searchPayCategoryByID((int)($userID), $payCategory);
     $cateID = $cateList['categoryID'];
     
-    // 支出情報の登録
-    require_once '../model/registPayByTrans.php';
-    $registPayByTrans = new registPayByTrans();
-    $regiResult = $registPayByTrans -> registPayByTrans($userID, $payName, 
-            $payment, $cateID, $payState, $payDate, $registDate, 
-            $taxFlg, $tax, $methodOfPayment);
+    // カテゴリ名取得に失敗したとき
+    if ($cateID == "") {
+        $errFlg = true;
+        $errGetInfo = "emptyProperties";
+        
+    } else {
+        // 支出情報の登録
+        require_once '../model/registPayByTrans.php';
+        $registPayByTrans = new registPayByTrans();
+        $regiResult = $registPayByTrans -> registPayByTrans($userID, $payName, 
+                $payment, $cateID, $payState, $payDate, $registDate, 
+                $taxFlg, $tax, $methodOfPayment);
+        
+        // 支出情報の登録に失敗したとき
+        if ($regiResult == false) {
+            $errFlg = true;
+            $errGetInfo = "errRegist";
+            
+        } else {
+            // 支出の小言取得
+            require_once '../model/searchPayKogoto.php';
+            $searchPayKogoto = new searchPayKotgoto();
+            $kogoto = $searchPayKogoto -> searchPayKogoto($payment);
+            
+        }
+    }
     
-    // 支出の小言取得
-    require_once '../model/searchPayKogoto.php';
-    $searchPayKogoto = new searchPayKotgoto();
-    $kogoto = $searchPayKogoto -> searchPayKogoto($payment);
+    if ($errFlg == true) {
+        // 画面表示
+        include '../view/errRegistResult.php';
+        
+    } else {
+        // 画面表示
+        include '../view/registPayResult.php';
     
-    include '../view/registPayResult.php';
-
+    }
 }

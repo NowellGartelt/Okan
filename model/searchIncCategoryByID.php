@@ -47,7 +47,7 @@ class searchIncCategoryByID
         $this->personalID = $personalID;
         
         // いずれかの値がnullだった場合、nullを戻り値とする
-        if ($userID == null || $personalID == null) {
+        if ($userID == "" || $personalID == "") {
             $this->result = null;
             
         } else {

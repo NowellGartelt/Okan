@@ -31,6 +31,7 @@ $modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
 // 移動前ページが支出登録結果クラス以外だった場合
 if ($fromPage !== "registPayResult") {
     // エラー変数の初期化
+    $errFlg = false;
     $errInput = "";
     $errGetInfo = "";
     
@@ -47,6 +48,7 @@ $tax = $searchDefTaxByID -> searchDefTaxByID($userID);
 
 // デフォルト税率の取得に失敗したとき
 if ($tax == "") {
+    $errFlg = true;
     $errGetInfo = "emptyProperties";
     
 } else {
@@ -57,6 +59,7 @@ if ($tax == "") {
     
     // 支払方法一覧取得に失敗したとき
     if (empty($mopList)) {
+        $errFlg = true;
         $errGetInfo = "emptyList";
         
     } else {
@@ -67,6 +70,7 @@ if ($tax == "") {
         
         // 支出カテゴリ一覧取得に失敗したとき
         if (empty($mopList)) {
+            $errFlg = true;
             $errGetInfo = "emptyList";
             
         } else {
@@ -86,5 +90,5 @@ if ($tax == "") {
         }
     }    
 }
-    
+// 画面の表示
 include '../view/registPayForm.php';

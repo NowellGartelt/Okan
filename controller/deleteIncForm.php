@@ -9,6 +9,8 @@
 * @package controller
 * @name deleteIncForm
 */
+/* controller準備ここから */
+
 session_start();
 
 // コントローラの共通処理取得
@@ -19,11 +21,16 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 値の取得
 $id = $_POST['ID'];
 
 // 移動元ページの設定
 $fromPage = "deleteIncForm";
 $controller -> setFromPage($fromPage);
+
+/* controller準備ここまで */
+
+/* 画面表示準備ここから */
 
 // 収入情報の取得
 require_once '../model/searchIncByID.php';
@@ -43,8 +50,12 @@ if ($incList['categoryName'] == "") {
     $incList['categoryName'] = "(登録なし)";
 }
 
+// 日付の分割
 $incInfoDateYear = mb_substr($incList['incDate'], 0, 4);
 $incInfoDateMonth = mb_substr($incList['incDate'], 5, 2);
 $incInfoDateDay = mb_substr($incList['incDate'], 8, 2);
 
+// 画面表示
 include '../view/deleteIncForm.php';
+
+/* 画面表示準備ここまで */

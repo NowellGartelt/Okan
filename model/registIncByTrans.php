@@ -67,12 +67,22 @@ class registIncByTrans
         $this->registDate = $registDate;
         
         // 必須の値がnullだった場合、nullを返す
-        if ($userID == null || $income == null || $incDate == null || $registDate == null) {
+        if ($userID == "" || $income == "" || $incDate == "" || $registDate == "") {
             $this->result = null;
             
         } else {
             // DB接続情報取得
             include 'tools/databaseConnect.php';
+            
+            // 事前確認
+            $query = "
+                SELECT COUNT(*) 
+                FROM incomeTable
+                WHERE userID = '$userID'
+                ";
+            $queryResult = mysqli_query($link, $query);
+            $result = mysqli_fetch_assoc($queryResult);
+            $countBefore = (int) $result['COUNT(*)'];
             
             // 収入情報の登録
             $query =
@@ -81,7 +91,27 @@ class registIncByTrans
                 VALUES (
                 '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', '$registDate', '$userID')";
             $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
+            $result = mysqli_fetch_assoc($queryResult);
+            
+            // 事後確認
+            $query = "
+                SELECT COUNT(*)
+                FROM incomeTable
+                WHERE userID = '$userID'
+                ";
+            $queryResult = mysqli_query($link, $query);
+            $result = mysqli_fetch_assoc($queryResult);
+            $countAfter = (int) $result['COUNT(*)'];
+            
+            $countDiff = $countAfter - $countBefore;
+            
+            if ($countDiff == 1) {
+                $this->result = true;
+                
+            } else {
+                $this->result = false;
+                
+            }
             
             // DB切断
             mysqli_close($link);

@@ -9,6 +9,8 @@
  * @package controller
  * @name deletePayResult
  */
+/* controller準備ここから */
+
 session_start();
 
 // コントローラの共通処理取得
@@ -28,9 +30,16 @@ $payment = $_POST['payment'];
 $fromPage = "deletePayResult";
 $controller -> setFromPage($fromPage);
 
+/* controller準備ここまで */
+
+/* 画面表示ここから */
+
 // 支出情報の削除
 require_once '../model/deletePayByTrans.php';
 $deletePayByTrans = new deletePayByTrans();
 $payInfo = $deletePayByTrans -> deletePayByTrans($userID, $id);
 
+// 画面表示
 include '../view/deletePayResult.php';
+
+/* 画面表示ここまで */
