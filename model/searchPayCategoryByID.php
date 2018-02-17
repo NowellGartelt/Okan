@@ -28,6 +28,9 @@ class searchPayCategoryByID
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     

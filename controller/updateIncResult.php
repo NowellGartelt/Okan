@@ -27,7 +27,10 @@ $incState = $_POST['incState'];
 $id = $_POST['ID'];
 
 // エラー値の初期化
+$errFlg = false;
 $errInput = "";
+$errGetInfo = "";
+$errResult = "";
 
 // 移動元ページの設定
 $fromPage = "updateIncResult";
@@ -62,11 +65,34 @@ if($income == "" || $incDate == "" || $income < 0){
     $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $incCategory);
     $cateID = $cateList['categoryID'];
     
-    // 収入情報の更新
-    require_once '../model/updateIncByTrans.php';
-    $updateIncByTrans = new updateIncByTrans();
-    $updResult = $updateIncByTrans -> updateIncByTrans($userID, 
-            $incName, $income, $cateID, $incDate, $incState, $id, $updateDate);
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errGetInfo = "emptyList";
+            
+    } else {
+        // 収入情報の更新
+        require_once '../model/updateIncByTrans.php';
+        $updateIncByTrans = new updateIncByTrans();
+        $updResult = $updateIncByTrans -> updateIncByTrans($userID, 
+                $incName, $income, $cateID, $incDate, $incState, $id, $updateDate);
+        
+        // DB接続に失敗した場合
+        if ($DBConnect == "failed") {
+            $errFlg = true;
+            $errResult = "failedUpdate";
+            
+        }
+    }
     
-    include '../view/updateIncResult.php';
+    // エラーがあった場合
+    if ($errFlg == true && ($errGetInfo !== "" || $errInput !== "" || $errResult !== "")) {
+        // エラー画面の表示
+        include '../view/errUpdateResult.php';
+        
+    } else {
+        // 画面の表示
+        include '../view/updateIncResult.php';
+        
+    }
 }

@@ -20,7 +20,6 @@ class searchDefTaxByID
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
@@ -74,7 +73,6 @@ class searchDefTaxByID
             mysqli_close($link);
             
         }
-        
         return $this->defTax;
         
     }

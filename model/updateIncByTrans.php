@@ -21,6 +21,7 @@
 class updateIncByTrans 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $incName = "";
     private $income = "";
@@ -33,12 +34,14 @@ class updateIncByTrans
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -80,20 +83,32 @@ class updateIncByTrans
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // 入力された情報で収入情報の更新
-            $query =
-                "UPDATE incomeTable 
-                SET incName = '$incName', income = '$income', incCategory = '$incCategory',
-                incDate = '$incDate', incState = '$incState', updateDate = '$updateDate' 
-                WHERE incomeID = '$id' AND userID = '$userID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
-            
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // 入力された情報で収入情報の更新
+                $query = "
+                    UPDATE incomeTable 
+                    SET incName = '$incName', income = '$income', incCategory = '$incCategory',
+                    incDate = '$incDate', incState = '$incState', updateDate = '$updateDate' 
+                    WHERE incomeID = '$id' AND userID = '$userID'
+                    ";
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_assoc($queryResult);
+                
+            }
             // DB切断
             mysqli_close($link);
         
         }
-        
         return $this->result;
         
     }

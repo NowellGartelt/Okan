@@ -1,9 +1,9 @@
-<!-- view/errReferencePayResult.php -->
+<!-- view/errRegistPayResult.php -->
 <html>
  <head>
-  <title>Okan：参照失敗</title>
+  <title>Okan：更新失敗</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の参照失敗画面。">
+  <meta name="description" content="収支管理システム「Okan」の更新失敗画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
@@ -14,9 +14,9 @@
    </form>
   </div>
   <div align="center">
-   <p>Okan：参照失敗</p><br>
-   <p>悪いわねぇ、探すのに失敗しちゃったわ</p>
-   <p>参照画面から、もういっかい探し直してくれる？</p><br>
+   <p>Okan：更新失敗</p><br>
+   <p>悪いわねぇ、覚え直すのに失敗しちゃったわ</p>
+   <p>更新画面から、もういっかい更新し直してくれる？</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>
    <p></p>

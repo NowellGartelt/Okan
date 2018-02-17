@@ -22,6 +22,7 @@
 class registPayByTrans 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $query = "";
     private $payName = "";
@@ -37,12 +38,14 @@ class registPayByTrans
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     

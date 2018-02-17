@@ -96,6 +96,7 @@ if($income == "" || $incDate == "" || $income < 0){
             require_once '../model/searchIncKogoto.php';
             $searchIncKogoto = new searchIncKotgoto();
             $kogoto = $searchIncKogoto -> searchIncKogoto($income);
+            $DBConnect = $controller -> getDBConnectResult();
             
         }
     }

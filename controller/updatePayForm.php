@@ -23,7 +23,9 @@ $fromPage = $controller -> getFromPage();
 $id = $_POST['ID'];
 
 if ($fromPage !== "updatePayResult") {
+    $errFlg = false;
     $errInput = "";
+    $errGetInfo = "";
     
 }
 
@@ -35,28 +37,54 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchPayByID.php';
 $searchPayByID = new searchPayByID();
 $payList = $searchPayByID -> searchPayByID($userID, $id);
+$DBConnect = $controller -> getDBConnectResult();
 
-// 支払方法一覧の取得
-require_once '../model/searchMethodOfPayment.php';
-$searchMethodOfPayment = new searchMethodOfPayment();
-$mopList = $searchMethodOfPayment -> getMethodOfPayment();
-
-// 支出カテゴリ一覧の取得
-require_once '../model/searchPayCategory.php';
-$searchPayCategory = new searchPayCategory();
-$cateList = $searchPayCategory -> searchPayCategory($userID);
-
-// 支出カテゴリ数取得
-require_once '../model/searchPayCategoryCount.php';
-$searchPayCategoryCount = new searchPayCategoryCount();
-$cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-$count = $cateCount[0]["COUNT(*)"];
-
-for ($i = 0; $i < $count; $i++) {
-    // カテゴリ登録がなかった場合、空行を取り除く
-    if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-        unset($cateList[$i]);
+// DB接続に失敗した場合
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errGetInfo= "emptyList";
+    
+} else {
+    // 支払方法一覧の取得
+    require_once '../model/searchMethodOfPayment.php';
+    $searchMethodOfPayment = new searchMethodOfPayment();
+    $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+    $DBConnect = $controller -> getDBConnectResult();
+    
+    // DB接続に失敗した場合
+    if ($DBConnect == false) {
+        $errFlg = true;
+        $errGetInfo= "emptyList";
+        
+    } else {
+        // 支出カテゴリ一覧の取得
+        require_once '../model/searchPayCategory.php';
+        $searchPayCategory = new searchPayCategory();
+        $cateList = $searchPayCategory -> searchPayCategory($userID);
+        $DBConnect = $controller -> getDBConnectResult();
+        
+        // DB接続に失敗した場合
+        if ($DBConnect == false) {
+            $errFlg = true;
+            $errGetInfo= "emptyList";
+            
+        } else {
+            // 支出カテゴリ数取得
+            require_once '../model/searchPayCategoryCount.php';
+            $searchPayCategoryCount = new searchPayCategoryCount();
+            $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
+            $count = $cateCount[0]["COUNT(*)"];
+            $DBConnect = $controller -> getDBConnectResult();
+            
+            for ($i = 0; $i < $count; $i++) {
+                // カテゴリ登録がなかった場合、空行を取り除く
+                if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+                    unset($cateList[$i]);
+                    
+                }
+            }
+        }
     }
 }
-
+// 画面の表示
 include '../view/updatePayForm.php';

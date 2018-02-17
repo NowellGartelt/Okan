@@ -3,7 +3,7 @@
  <head>
   <title>Okan：登録失敗</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」の支出の登録完了画面。">
+  <meta name="description" content="収支管理システム「Okan」の登録失敗画面。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>

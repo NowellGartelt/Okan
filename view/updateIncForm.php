@@ -15,12 +15,17 @@
   </div>
   <div align="center">
    <p>Okan：更新(もらったお金)</p><br>
-<?php if($errorInput == "lackInput") { ?>
+<?php if ($errFlg == true) { ?>
+<?php   if ($errGetInfo == "emptyList") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php   } elseif($errInput == "lackInput") { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php } elseif ($errorInput == "minusInput") { ?>
+<?php   } elseif ($errInput == "minusInput") { ?>
    <p>ちょっと、金額がマイナスになってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
+<?php   } ?>
 <?php } else { ?>
    <p>前の収入を直したいの？？</p>
    <p>もう、ちゃんと教えなさいよ</p><br>
