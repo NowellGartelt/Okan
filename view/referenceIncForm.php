@@ -15,12 +15,17 @@
   </div>
   <div align="center">
    <p>Okan：検索(もらったお金)</p><br>
-<?php if ($errResult == "OverCapacity") { ?>
+<?php if ($errFlg == true) { ?>
+<?php   if ($errResult == "emptyList" || $errResult == "emptyProperties") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php   } elseif ($errResult == "OverCapacity") { ?>
    <p>ちょっと、その条件じゃ件数が多すぎるわよ</p>
    <p>もっと少ない件数になりそうな条件にしなさいよね</p><br>
-<?php } elseif ($errResult == "noneResult") { ?>
+<?php   } elseif ($errResult == "noneResult") { ?>
    <p>ちょっと、その条件じゃ1件も引っかからないわよ</p>
    <p>条件を見直しなさいよね</p><br>
+<?php   }?>
 <?php } else { ?>
    <p>いつのを見たいの？？</p>
    <p>お金の使い方を振り返って、次は無駄遣いするんじゃないわよ</p><br>

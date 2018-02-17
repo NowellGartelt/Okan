@@ -20,6 +20,7 @@
 class searchPayByTrans 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $payName = "";
     private $payCategory = "";
@@ -69,56 +70,69 @@ class searchPayByTrans
         
         if (($payName == "" && $payCategory == "" && $payState == ""
                 && $payDateFrom == "" && $payDateTo == "" && $methodOfPayment == "") 
-                || $userID == null) {
+                || $userID == "") {
             $this->result = null;
             
         } else {
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // SQL文初期設定
-            $query = "";
-            
-            $querySelect = "SELECT * FROM paymentTable ";
-            $queryLeftOuterJoin = "LEFT OUTER JOIN methodOfPayment 
-                    ON paymentTable.mopID = methodOfPayment.mopID 
-                    LEFT OUTER JOIN payCategoryTable 
-                    ON paymentTable.payCategory = payCategoryTable.categoryID 
-                    AND paymentTable.userID = payCategoryTable.userID ";
-            $queryWhere = "WHERE paymentTable.userID = '$userID' ";
-            $queryOrderBy = "ORDER BY payDate, paymentID ASC";
-            
-            // 名前が記入されていた場合、名前を条件に追加
-            if ($payName !== "") {
-                $queryWhere .= "AND payName LIKE '%{$payName}%' ";
-            }
-            // カテゴリが記入されていた場合、カテゴリを条件に追加
-            if ($payCategory !== "") {
-                $queryWhere .= "AND payCategory = '$payCategory' ";
-            }
-            // 一言メモが記入されていた場合、一言メモを条件に追加
-            if ($payState !== "") {
-                $queryWhere .= "AND payState LIKE '%{$payState}%' ";
-            }
-            // 開始日が記入されていた場合、開始日を条件に追加
-            if ($payDateFrom !== "") {
-                $queryWhere .= "AND payDate >= '$payDateFrom' ";
-            }
-            // 終了日が記入されていた場合、終了日を条件に追加
-            if ($payDateTo !== "") {
-                $queryWhere .= "AND payDate <= '$payDateTo' ";
-            }
-            // 支払方法が選択されていた場合、支払方法を条件に追記
-            if ($methodOfPayment !== "") {
-                $queryWhere .= "AND paymentTable.mopID = '$methodOfPayment' ";
-            }
-            
-            // SQL文連結作成
-            $query = $querySelect.$queryLeftOuterJoin.$queryWhere.$queryOrderBy;
-            $queryResult = mysqli_query($link, $query);
-            
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($this->result, $row);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // SQL文初期設定
+                $query = "";
+                
+                $querySelect = "SELECT * FROM paymentTable ";
+                $queryLeftOuterJoin = "LEFT OUTER JOIN methodOfPayment 
+                        ON paymentTable.mopID = methodOfPayment.mopID 
+                        LEFT OUTER JOIN payCategoryTable 
+                        ON paymentTable.payCategory = payCategoryTable.categoryID 
+                        AND paymentTable.userID = payCategoryTable.userID ";
+                $queryWhere = "WHERE paymentTable.userID = '$userID' ";
+                $queryOrderBy = "ORDER BY payDate, paymentID ASC";
+                
+                // 名前が記入されていた場合、名前を条件に追加
+                if ($payName !== "") {
+                    $queryWhere .= "AND payName LIKE '%{$payName}%' ";
+                }
+                // カテゴリが記入されていた場合、カテゴリを条件に追加
+                if ($payCategory !== "") {
+                    $queryWhere .= "AND payCategory = '$payCategory' ";
+                }
+                // 一言メモが記入されていた場合、一言メモを条件に追加
+                if ($payState !== "") {
+                    $queryWhere .= "AND payState LIKE '%{$payState}%' ";
+                }
+                // 開始日が記入されていた場合、開始日を条件に追加
+                if ($payDateFrom !== "") {
+                    $queryWhere .= "AND payDate >= '$payDateFrom' ";
+                }
+                // 終了日が記入されていた場合、終了日を条件に追加
+                if ($payDateTo !== "") {
+                    $queryWhere .= "AND payDate <= '$payDateTo' ";
+                }
+                // 支払方法が選択されていた場合、支払方法を条件に追記
+                if ($methodOfPayment !== "") {
+                    $queryWhere .= "AND paymentTable.mopID = '$methodOfPayment' ";
+                }
+                
+                // SQL文連結作成
+                $query = $querySelect.$queryLeftOuterJoin.$queryWhere.$queryOrderBy;
+                $queryResult = mysqli_query($link, $query);
+                
+                while ($row = mysqli_fetch_assoc($queryResult)) {
+                    array_push($this->result, $row);
+                    
+                }
             }
             
             // DB切断

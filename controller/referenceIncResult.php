@@ -28,11 +28,8 @@ $incDateTo = null;
 $incState = null;
 
 // エラー変数初期化
-$errResult = null;
-
-// 移動元ページの設定
-$fromPage = "referenceIncResult";
-$controller -> setFromPage($fromPage);
+$errFlg = false;
+$errResult = "";
 
 // 参照の検索初期画面からの遷移の場合、ポストされた値を取得する
 if ($fromPage == "referenceIncForm") {
@@ -72,26 +69,44 @@ if ($fromPage == "referenceIncForm") {
 
 }
 
+// 移動元ページの設定
+$fromPage = "referenceIncResult";
+$controller -> setFromPage($fromPage);
+
 // 収入情報の取得
 require_once '../model/searchIncByTrans.php';
 $searchIncByTrans = new searchIncByTrans();
 $incList = $searchIncByTrans -> searchIncByTrans($userID, $incName, 
         $incCategory, $incState, $incDateFrom, $incDateTo);
+$DBConnect = $controller -> getDBConnectResult();
 
-$incCount = count($incList);
+// DB接続に失敗した場合
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errResult = "failedDBConnect";
+    
+} else {
+    $incCount = count($incList);
 
-// 結果が100行以上だった場合、検索結果過多でエラーとする
-if($incCount >= 101){
-    $errResult = "OverCapacity";
-
-// 結果が0行だった場合、検索結果なしでエラーとする
-} elseif ($incCount == 0) {
-    $errResult = "noneResult";
-
+    // 結果が100行以上だった場合、検索結果過多でエラーとする
+    if($incCount >= 101){
+        $errFlg = true;
+        $errResult = "OverCapacity";
+        
+    // 結果が0行だった場合、検索結果なしでエラーとする
+    } elseif ($incCount == 0) {
+        $errFlg = true;
+        $errResult = "noneResult";
+        
+    }
 }
 
-// エラーがあった場合、入力画面へ戻す
-if ($errResult !== null) {
+// 取得時にエラーがあった場合、エラー画面を表示する
+if ($errFlg == true && $errResult == "failedDBConnect") {
+    include '../view/errReferenceResult.php';
+    
+// 所得後のエラーがあった場合、入力画面へ戻す
+} elseif ($errFlg == true && ($errResult == "OverCapacity" || $errResult == "noneResult")) {
     require_once 'referenceIncForm.php';
     
 // エラーとならなかった場合は結果を表示する
