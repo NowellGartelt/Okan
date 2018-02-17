@@ -45,9 +45,10 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchDefTaxByID.php';
 $searchDefTaxByID = new searchDefTaxByID();
 $tax = $searchDefTaxByID -> searchDefTaxByID($userID);
+$DBConnect = $controller -> getDBConnectResult();
 
 // デフォルト税率の取得に失敗したとき
-if ($tax == "") {
+if ($DBConnect == "failed") {
     $errFlg = true;
     $errGetInfo = "emptyProperties";
     
@@ -56,9 +57,10 @@ if ($tax == "") {
     require_once '../model/searchMethodOfPayment.php';
     $searchMethodOfPayment = new searchMethodOfPayment();
     $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+    $DBConnect = $controller -> getDBConnectResult();
     
     // 支払方法一覧取得に失敗したとき
-    if (empty($mopList)) {
+    if ($DBConnect == "failed") {
         $errFlg = true;
         $errGetInfo = "emptyList";
         
@@ -67,9 +69,10 @@ if ($tax == "") {
         require_once '../model/searchPayCategory.php';
         $searchPayCategory = new searchPayCategory();
         $cateList = $searchPayCategory -> searchPayCategory($userID);
+        $DBConnect = $controller -> getDBConnectResult();
         
         // 支出カテゴリ一覧取得に失敗したとき
-        if (empty($mopList)) {
+        if ($DBConnect == "failed") {
             $errFlg = true;
             $errGetInfo = "emptyList";
             
@@ -78,7 +81,8 @@ if ($tax == "") {
             require_once '../model/searchPayCategoryCount.php';
             $searchPayCategoryCount = new searchPayCategoryCount();
             $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-            $count = $cateCount[0]["COUNT(*)"];
+            $count = $cateCount["COUNT(*)"];
+            $DBConnect = $controller -> getDBConnectResult();
             
             for ($i = 0; $i < $count; $i++) {
                 // カテゴリ登録がなかった場合、空行を取り除く

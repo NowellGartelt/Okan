@@ -14,6 +14,7 @@
 class searchDefTaxByID 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $defTax = "";
     
@@ -25,6 +26,9 @@ class searchDefTaxByID
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -43,18 +47,29 @@ class searchDefTaxByID
         $this->userID = $userID;
         
         // いずれかの値がnullだった場合、nullを返す
-        if ($userID == null) {
+        if ($userID == "") {
             $this->defTax = null;
             
         } else {
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            $query = "SELECT * FROM usertable WHERE userID = '$userID'";
-            $queryResult = mysqli_query($link, $query);
-            $row = mysqli_fetch_assoc($queryResult);
-            $this->defTax = $row['defTax'];
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->defTax = null;
+                
+            } else {            
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                $query = "SELECT * FROM usertable WHERE userID = '$userID'";
+                $queryResult = mysqli_query($link, $query);
+                $row = mysqli_fetch_assoc($queryResult);
+                $this->defTax = $row['defTax'];
             
+            }
             // DB切断
             mysqli_close($link);
             

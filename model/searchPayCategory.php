@@ -14,6 +14,7 @@
 class searchPayCategory 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $result = array();
     
@@ -50,17 +51,30 @@ class searchPayCategory
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // IDで一致するカテゴリ情報の取得
-            $query = "
-                SELECT * FROM payCategoryTable 
-                WHERE userID = '$userID' ORDER BY personalID";
-            $queryResult = mysqli_query($link, $query);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // IDで一致するカテゴリ情報の取得
+                $query = "
+                    SELECT * FROM payCategoryTable 
+                    WHERE userID = '$userID' ORDER BY personalID
+                    ";
+                $queryResult = mysqli_query($link, $query);
             
-            //連想配列として取得した値を配列変数に格納する
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($this->result, $row);
+                // 連想配列として取得した値を配列変数に格納する
+                while ($row = mysqli_fetch_assoc($queryResult)) {
+                    array_push($this->result, $row);
+                    
+                }
             }
-            
             // DB切断
             mysqli_close($link);
             

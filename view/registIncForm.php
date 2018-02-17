@@ -25,10 +25,10 @@
 <?php   } elseif ($errInput == "minusInput") { ?>
    <p>ちょっと、金額がマイナスになってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php   } else { ?>
+<?php   } ?>
+<?php } else { ?>
    <p>いくら稼いだの？？</p>
    <p>まっとうにちゃんと働きなさいよね</p><br>
-<?php   } ?>
 <?php } ?>
    <img src="cosmetics/img/okan.gif">
    <br><br>

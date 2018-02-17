@@ -42,8 +42,9 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($userID);
+$DBConnect = $controller -> getDBConnectResult();
 
-if (empty($cateList)) {
+if ($DBConnect == "failed") {
     $errFlg = true;
     $errGetInfo = "emptyList";
     
@@ -52,9 +53,10 @@ if (empty($cateList)) {
     require_once '../model/searchIncCategoryCount.php';
     $searchIncCategoryCount = new searchIncCategoryCount();
     $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
+    $count = $cateCount["COUNT(*)"];
+    $DBConnect = $controller -> getDBConnectResult();
     
-    if ($count == "") {
+    if ($DBConnect == "failed") {
         $errFlg = true;
         $errGetInfo = "emptyProperties";
         

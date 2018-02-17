@@ -15,6 +15,7 @@
 class searchIncCategoryByID 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $personalID = "";
     private $result = array();
@@ -54,13 +55,26 @@ class searchIncCategoryByID
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // IDで一致する収入情報の取得
-            $query = "
-                SELECT * FROM incCategoryTable 
-                WHERE userID = '$userID' AND personalID = '$personalID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // IDで一致する収入情報の取得
+                $query = "
+                    SELECT * FROM incCategoryTable 
+                    WHERE userID = '$userID' AND personalID = '$personalID'
+                    ";
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_assoc($queryResult);
             
+            }
             // DB切断
             mysqli_close($link);
             

@@ -13,6 +13,7 @@
 class searchMethodOfPayment 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $result = array();
     
     /**
@@ -27,13 +28,25 @@ class searchMethodOfPayment
         // DB接続情報取得
         include 'tools/databaseConnect.php';
         
-        $query = "SELECT * FROM methodOfPayment";
-        $queryResult = mysqli_query($link, $query);
-        
-        while ($row = mysqli_fetch_assoc($queryResult)) {
-            array_push($this->result, $row);
+        // DB接続に失敗した場合
+        if ($link == false) {
+            $DBConnect = "failed";
+            $this->model -> setDBConnectResult($DBConnect);
+            $this->result = null;
+            
+            
+        } else {
+            $DBConnect = "success";
+            $this->model -> setDBConnectResult($DBConnect);
+
+            $query = "SELECT * FROM methodOfPayment";
+            $queryResult = mysqli_query($link, $query);
+            
+            while ($row = mysqli_fetch_assoc($queryResult)) {
+                array_push($this->result, $row);
+                
+            }
         }
-        
         // DB切断
         mysqli_close($link);
         

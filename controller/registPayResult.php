@@ -93,9 +93,10 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
     $searchPayCategoryByID = new searchPayCategoryByID();
     $cateList = $searchPayCategoryByID -> searchPayCategoryByID((int)($userID), $payCategory);
     $cateID = $cateList['categoryID'];
+    $DBConnect = $controller -> getDBConnectResult();
     
     // カテゴリ名取得に失敗したとき
-    if ($cateID == "") {
+    if ($DBConnect == "failed") {
         $errFlg = true;
         $errGetInfo = "emptyProperties";
         
@@ -106,9 +107,10 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
         $regiResult = $registPayByTrans -> registPayByTrans($userID, $payName, 
                 $payment, $cateID, $payState, $payDate, $registDate, 
                 $taxFlg, $tax, $methodOfPayment);
+        $DBConnect = $controller -> getDBConnectResult();
         
         // 支出情報の登録に失敗したとき
-        if ($regiResult == false) {
+        if ($DBConnect == "failed" || $regiResult == false) {
             $errFlg = true;
             $errGetInfo = "errRegist";
             

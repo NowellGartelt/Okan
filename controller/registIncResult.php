@@ -71,9 +71,10 @@ if($income == "" || $incDate == "" || $income < 0){
     $searchIncCategoryByID = new searchIncCategoryByID();
     $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $incCategory);
     $cateID = $cateList['categoryID'];
+    $DBConnect = $controller -> getDBConnectResult();
     
-    // 支出カテゴリIDが空だった場合
-    if ($cateID == "") {
+    // カテゴリ名取得に失敗したとき
+    if ($DBConnect == "failed") {
         $errFlg = true;
         $errGetInfo = "emptyProperties";
         
@@ -83,9 +84,10 @@ if($income == "" || $incDate == "" || $income < 0){
         $registIncByTrans = new registIncByTrans();
         $regResult = $registIncByTrans -> registIncByTrans($userID, $incName, 
                 $income, $cateID, $incState, $incDate, $registDate);
+        $DBConnect = $controller -> getDBConnectResult();
         
-        // 登録失敗した場合
-        if ($regResult == false) {
+        // 登録に失敗したとき
+        if ($DBConnect == "failed" || $regiResult == false) {
             $errFlg = true;
             $errGetInfo = "errRegist";
             

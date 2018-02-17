@@ -89,7 +89,7 @@ class controller {
     /**
      * 各支出モジュールフラグ取得関数
      * 
-     * 各支出モジュール使用フラグを取得する
+     * 各支出モジュール使用フラグを返す
      * 
      * @return array
      */
@@ -107,7 +107,7 @@ class controller {
     /**
      * 各収入モジュールフラグ取得関数
      *
-     * 各収入モジュール使用フラグを取得する
+     * 各収入モジュール使用フラグを返す
      *
      * @return array
      */
@@ -149,6 +149,19 @@ class controller {
         $_SESSION['incNameFlg'] = $moduleIncNameFlg;
         $_SESSION['incCateFlg'] = $moduleIncCateFlg;
         $_SESSION['incMemoFlg'] = $moduleIncMemoFlg;
+        
+    }
+    
+    /**
+     * DB接続結果取得関数
+     * 
+     * DBに接続した結果を返す
+     * 
+     * @return string $databaseConnect DB接続結果
+     */
+    public function getDBConnectResult() {
+        $DBConnect = $_SESSION['databaseConnect'];
+        return $DBConnect;
         
     }
     

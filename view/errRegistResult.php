@@ -15,7 +15,7 @@
   </div>
   <div align="center">
    <p>Okan：登録失敗</p><br>
-   <p>悪いわねぇ、登録に失敗しちゃったわ</p>
+   <p>悪いわねぇ、覚えるのに失敗しちゃったわ</p>
    <p>登録画面から、もういっかい登録し直してくれる？</p><br>
    <img src="cosmetics/img/okan.gif">
    <br><br>
