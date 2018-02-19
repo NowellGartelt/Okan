@@ -21,6 +21,7 @@
 class searchPayByMonth 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $payName = "";
     private $payCategory = "";
@@ -77,95 +78,105 @@ class searchPayByMonth
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // 年と月の分割
-            // 検索範囲の開始日と終了日の両方で行う
-            $payDateFromYear = mb_substr((string) $payDateFrom, 0, 4);
-            $payDateFromMonth = mb_substr((string) $payDateFrom, 5, 2);
-            $payDateToYear = mb_substr((string) $payDateTo, 0, 4);
-            $payDateToMonth = mb_substr((string) $payDateTo, 5, 2);
-            
-            // 検索範囲の分の回数だけ繰り返しSQL実行
-            do {
-                // 検索範囲の値が空値だった場合、繰り返しは行わない
-                // include時に実行および引数なしで無限ループになるのを防ぐため
-                if ($payDateFromYear == "" || $payDateFromMonth == "") {
-                    break;
-                }
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
                 
-                // SQLによる検索のため、検索対象の文字列の結合
-                $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
                 
-                // SQL文初期設定
-                $query = "";
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
                 
-                $querySelect = "SELECT SUM(payment) FROM paymentTable ";
-                $queryWhere = "WHERE userID = '$userID' AND payDate LIKE '{$payDateFrom}%'";
+                // 年と月の分割
+                // 検索範囲の開始日と終了日の両方で行う
+                $payDateFromYear = mb_substr((string) $payDateFrom, 0, 4);
+                $payDateFromMonth = mb_substr((string) $payDateFrom, 5, 2);
+                $payDateToYear = mb_substr((string) $payDateTo, 0, 4);
+                $payDateToMonth = mb_substr((string) $payDateTo, 5, 2);
                 
-                // 条件で名前を指定された場合、名前を条件に追記
-                if ($choiceKey == "payName") {
-                    $queryWhere .= " AND payName LIKE '%{$payName}%'";
-                    
-                // 条件でカテゴリを指定された場合、カテゴリを条件に追記
-                } elseif ($choiceKey == "payCategory") {
-                    $queryWhere .= " AND payCategory LIKE '%{$payCategory}%'";
-                    
-                // 条件で支払方法を指定された場合、支払方法を条件に追記
-                } elseif ($choiceKey == "payment") {
-                    $querySelect .= "LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID ";
-                    $queryWhere .= " AND paymentTable.mopID LIKE '%{$methodOfPayment}%'";
-                    
-                // 条件で何も指定されなかった場合、何も追記しない
-                } else {
-                }
-                
-                // SQL文連結作成
-                $query = $querySelect.$queryWhere;
-                $queryResult = mysqli_query($link, $query);
-                
-                while ($row = mysqli_fetch_assoc($queryResult)) {
-                    // 該当月が検索対象になく、変数にnullがセットされていた場合、0をセットする
-                    if ($row["SUM(payment)"] == null) {
-                        $row["SUM(payment)"] = 0;
+                // 検索範囲の分の回数だけ繰り返しSQL実行
+                do {
+                    // 検索範囲の値が空値だった場合、繰り返しは行わない
+                    // include時に実行および引数なしで無限ループになるのを防ぐため
+                    if ($payDateFromYear == "" || $payDateFromMonth == "") {
+                        break;
                     }
                     
-   	                // キーとして検索対象月を配列にセットする
-                    $row["payDateMonth"] = $payDateFrom;
-                    array_push($this->result, $row);
-                }
-
-                // while文の評価のため、それぞれ文字列の結合を行う
-                (string) $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
-                (string) $payDateTo = $payDateToYear."-".$payDateToMonth;
-                
-                // 検索対象範囲にまだ対象の月が残っていた場合、検索対象月を一月ズラす
-                if ($payDateFrom !== $payDateTo) {
-                    // 検索対象月を一月ズラす
-                    $payDateFromMonth = (int) $payDateFromMonth + 1;
+                    // SQLによる検索のため、検索対象の文字列の結合
+                    $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
                     
-                    //  足した結果13月となってしまった場合、年を加算し、13月を1月へ変更する。
-                    if ($payDateFromMonth > 12) {
-                        $payDateFromYear = (int) $payDateFromYear + 1;
-                        $payDateFromMonth = 1;
+                    // SQL文初期設定
+                    $query = "";
+                    
+                    $querySelect = "SELECT SUM(payment) FROM paymentTable ";
+                    $queryWhere = "WHERE userID = '$userID' AND payDate LIKE '{$payDateFrom}%'";
+                    
+                    // 条件で名前を指定された場合、名前を条件に追記
+                    if ($choiceKey == "payName") {
+                        $queryWhere .= " AND payName LIKE '%{$payName}%'";
+                        
+                    // 条件でカテゴリを指定された場合、カテゴリを条件に追記
+                    } elseif ($choiceKey == "payCategory") {
+                        $queryWhere .= " AND payCategory LIKE '%{$payCategory}%'";
+                        
+                    // 条件で支払方法を指定された場合、支払方法を条件に追記
+                    } elseif ($choiceKey == "payment") {
+                        $querySelect .= "LEFT OUTER JOIN methodOfPayment ON  paymentTable.mopID = methodOfPayment.mopID ";
+                        $queryWhere .= " AND paymentTable.mopID LIKE '%{$methodOfPayment}%'";
+                        
+                    // 条件で何も指定されなかった場合、何も追記しない
+                    } else {
                     }
                     
-                    // 検索対象月が1〜9月の場合、0を頭につけて桁埋めをする
-                    if ($payDateFromMonth <= 9) {
-                        $payDateFromMonth = sprintf("%02d", (string) $payDateFromMonth);
+                    // SQL文連結作成
+                    $query = $querySelect.$queryWhere;
+                    $queryResult = mysqli_query($link, $query);
+                    
+                    while ($row = mysqli_fetch_assoc($queryResult)) {
+                        // 該当月が検索対象になく、変数にnullがセットされていた場合、0をセットする
+                        if ($row["SUM(payment)"] == null) {
+                            $row["SUM(payment)"] = 0;
+                        }
+                        
+   	                    // キーとして検索対象月を配列にセットする
+                        $row["payDateMonth"] = $payDateFrom;
+                        array_push($this->result, $row);
                     }
                     
-                // 検索対象月が末端までたどり着いた時、ループを終了する。
-                } else {
-                    break;
-                }
-                
-            // 開始日と終了日が一致しない限り繰り返し実行する
-            } while ($payDateFrom !== $payDateTo);
-        
+                    // while文の評価のため、それぞれ文字列の結合を行う
+                    (string) $payDateFrom = $payDateFromYear."-".$payDateFromMonth;
+                    (string) $payDateTo = $payDateToYear."-".$payDateToMonth;
+                    
+                    // 検索対象範囲にまだ対象の月が残っていた場合、検索対象月を一月ズラす
+                    if ($payDateFrom !== $payDateTo) {
+                        // 検索対象月を一月ズラす
+                        $payDateFromMonth = (int) $payDateFromMonth + 1;
+                        
+                        //  足した結果13月となってしまった場合、年を加算し、13月を1月へ変更する。
+                        if ($payDateFromMonth > 12) {
+                            $payDateFromYear = (int) $payDateFromYear + 1;
+                            $payDateFromMonth = 1;
+                        }
+                        
+                        // 検索対象月が1〜9月の場合、0を頭につけて桁埋めをする
+                        if ($payDateFromMonth <= 9) {
+                            $payDateFromMonth = sprintf("%02d", (string) $payDateFromMonth);
+                        }
+                        
+                    // 検索対象月が末端までたどり着いた時、ループを終了する。
+                    } else {
+                        break;
+                    }
+                                    
+                // 開始日と終了日が一致しない限り繰り返し実行する
+                } while ($payDateFrom !== $payDateTo);
+            }
             // DB切断
             mysqli_close($link);
         
         }
-
         return $this->result;
         
     }

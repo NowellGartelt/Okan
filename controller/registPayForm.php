@@ -84,11 +84,18 @@ if ($DBConnect == "failed") {
             $count = $cateCount["COUNT(*)"];
             $DBConnect = $controller -> getDBConnectResult();
             
-            for ($i = 0; $i < $count; $i++) {
-                // カテゴリ登録がなかった場合、空行を取り除く
-                if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-                    unset($cateList[$i]);
+            // DB接続に失敗したとき
+            if ($DBConnect == "failed") {
+                $errFlg = true;
+                $errGetInfo = "emptyProperties";
+                
+            } else {
+                for ($i = 0; $i < $count; $i++) {
+                    // カテゴリ登録がなかった場合、空行を取り除く
+                    if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+                        unset($cateList[$i]);
                     
+                    }
                 }
             }
         }

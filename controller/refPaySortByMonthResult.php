@@ -67,15 +67,27 @@ if (($choiceKey == "payName" && $payName == "")
  
     $payCount = count($payList);
     
-    // 結果が100行以上だった場合、検索結果過多でエラー
-    if ($payCount >= 101) {
-        $errInput = "errReferencePayCount";
+    // DB接続に失敗した場合
+    if ($DBConnect == false) {
+        $errFlg = true;
+        $errResult = "failedDBConnect";
         
+    } else {
+        // 結果が100行以上だった場合、検索結果過多でエラー
+        if ($payCount >= 101) {
+            $errInput = "errReferencePayCount";
+            
+        }
     }
 }
 
+// 取得時にエラーがあった場合、エラー画面を表示する
+if ($errFlg == true && $errResult == "failedDBConnect") {
+    // エラー画面の表示
+    include '../view/errReferenceResult.php';
+    
 // エラーがあった場合、入力画面に戻す
-if ($errInput !== "") {
+} elseif ($errInput !== "") {
     require_once 'refPaySortByMonthForm.php';
 
 // エラーとならなかった場合は結果を表示する
@@ -84,7 +96,7 @@ if ($errInput !== "") {
     foreach ($payList as $SumPay) {
         $sumPayment += $SumPay['SUM(payment)'];
     }
-
+    // 画面の表示
     include '../view/refPaySortByMonthResult.php';
     
 }

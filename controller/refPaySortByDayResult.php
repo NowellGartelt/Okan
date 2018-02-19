@@ -26,7 +26,9 @@ $payment = null;
 $payCount = null;
 
 // エラー変数のリセット
+$errFlg = false;
 $errInput = "";
+$errResult = "";
 
 // 移動元ページの設定
 $fromPage = "refPaySortByDayResult";
@@ -65,22 +67,37 @@ if (($choiceKey == "payName" && $payName == "")
     $payList = $searchPayByDay -> searchPayByDay(
             $userID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment);
+    $DBConnect = $controller -> getDBConnectResult();
  
     $payCount = count($payList);
     
-    // 結果が100行以上だった場合、検索結果過多でエラー
-    if ($payCount >= 101) {
-        $errInput = "errReferencePayCount";
+    // DB接続に失敗した場合
+    if ($DBConnect == false) {
+        $errFlg = true;
+        $errResult = "failedDBConnect";
         
+    } else {
+        // 結果が100行以上だった場合、検索結果過多でエラー
+        if ($payCount >= 101) {
+            $errFlg = true;
+            $errInput = "errReferencePayCount";
+            
         // 結果が0行だった場合、検索結果なしでエラー
-    } elseif ($payCount == 0) {
-        $errInput = "errReferencePayNone";
-        
+        } elseif ($payCount == 0) {
+            $errFlg = true;
+            $errInput = "errReferencePayNone";
+            
+        }
     }
 }
 
+// 取得時にエラーがあった場合、エラー画面を表示する
+if ($errFlg == true && $errResult == "failedDBConnect") {
+    // エラー画面の表示
+    include '../view/errReferenceResult.php';
+    
 // エラーがあった場合、入力画面に戻す
-if ($errInput !== "") {
+} elseif ($errInput !== "") {
     require_once 'refPaySortByDayForm.php';
         
 // エラーとならなかった場合は結果を表示する
@@ -89,6 +106,7 @@ if ($errInput !== "") {
     foreach ($payList as $SumPay) {
         $sumPayment += $SumPay['SUM(payment)'];
     }
-
+    // 画面の表示
     include '../view/refPaySortByDayResult.php';
+    
 }

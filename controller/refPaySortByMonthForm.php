@@ -36,23 +36,48 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchMethodOfPayment.php';
 $searchMethodOfPayment = new searchMethodOfPayment();
 $mopList = $searchMethodOfPayment -> getMethodOfPayment();
+$DBConnect = $controller -> getDBConnectResult();
 
-// 支出カテゴリ一覧の取得
-require_once '../model/searchPayCategory.php';
-$searchPayCategory = new searchPayCategory();
-$cateList = $searchPayCategory -> searchPayCategory($userID);
-
-// 支出カテゴリ数取得
-require_once '../model/searchPayCategoryCount.php';
-$searchPayCategoryCount = new searchPayCategoryCount();
-$cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
-$count = $cateCount[0]["COUNT(*)"];
-
-for ($i = 0; $i < $count; $i++) {
-    // カテゴリ登録がなかった場合、空行を取り除く
-    if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-        unset($cateList[$i]);
+// デフォルト税率の取得に失敗したとき
+if ($DBConnect == "failed") {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // 支出カテゴリ一覧の取得
+    require_once '../model/searchPayCategory.php';
+    $searchPayCategory = new searchPayCategory();
+    $cateList = $searchPayCategory -> searchPayCategory($userID);
+    $DBConnect = $controller -> getDBConnectResult();
+    
+    // デフォルト税率の取得に失敗したとき
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errGetInfo = "emptyList";
+        
+    } else {
+        // 支出カテゴリ数取得
+        require_once '../model/searchPayCategoryCount.php';
+        $searchPayCategoryCount = new searchPayCategoryCount();
+        $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID);
+        $count = $cateCount[0]["COUNT(*)"];
+        $DBConnect = $controller -> getDBConnectResult();
+        
+        // 支出カテゴリ数取得に失敗したとき
+        if ($DBConnect == "failed") {
+            $errFlg = true;
+            $errGetInfo = "emptyProperties";
+            
+        } else {
+            for ($i = 0; $i < $count; $i++) {
+                // カテゴリ登録がなかった場合、空行を取り除く
+                if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+                    unset($cateList[$i]);
+                    
+                }
+            }
+        }
     }
 }
-
+// 画面の表示
 include '../view/refPaySortByMonthForm.php';
