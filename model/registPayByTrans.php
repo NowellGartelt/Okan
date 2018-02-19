@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name registPayByTrans
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $payName 支出名
  * @var int $payment 支出額
@@ -97,7 +98,6 @@ class registPayByTrans
                 $this->model -> setDBConnectResult($DBConnect);
                 $this->result = null;
                 
-                
             } else {
                 $DBConnect = "success";
                 $this->model -> setDBConnectResult($DBConnect);
@@ -148,7 +148,6 @@ class registPayByTrans
             mysqli_close($link);
         
         }
-        
         return $this->result;
         
     }

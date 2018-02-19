@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchSumPayByPayment
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $payDateFrom 支出日(開始)
  * @var string $payDateTo 支出日(終了)
@@ -16,6 +17,7 @@
 class searchSumPayByPayment 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $payDateFrom = "";
     private $payDateTo = "";
@@ -23,12 +25,14 @@ class searchSumPayByPayment
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -58,26 +62,36 @@ class searchSumPayByPayment
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // IDで対象のデータを引き当て
-            // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
-            $query =
-                "SELECT paymentName, SUM(payment)
-                FROM paymentTable 
-                LEFT OUTER JOIN methodOfPayment ON paymentTable.mopID = methodOfPayment.mopID 
-                WHERE userID = '$userID' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo'
-                GROUP BY paymentName
-                ORDER BY SUM(payment) DESC";
-            $queryResult = mysqli_query($link, $query);
-            
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($this->result, $row);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // IDで対象のデータを引き当て
+                // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
+                $query =
+                    "SELECT paymentName, SUM(payment)
+                    FROM paymentTable 
+                    LEFT OUTER JOIN methodOfPayment ON paymentTable.mopID = methodOfPayment.mopID 
+                    WHERE userID = '$userID' AND payDate >= '$payDateFrom' AND payDate <= '$payDateTo'
+                    GROUP BY paymentName
+                    ORDER BY SUM(payment) DESC";
+                $queryResult = mysqli_query($link, $query);
+                
+                while ($row = mysqli_fetch_assoc($queryResult)) {
+                    array_push($this->result, $row);
+                    
+                }
             }
-        
             // DB切断
             mysqli_close($link);
             
         }
-        
         return $this->result;
         
     }

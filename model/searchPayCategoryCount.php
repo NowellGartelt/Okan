@@ -8,6 +8,7 @@
  * @category model
  * @name searchPayCategory
  * @method searchPayCategory
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var array $result クエリ実行結果
  */
@@ -20,7 +21,6 @@ class searchPayCategoryCount
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */

@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchPayByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var int $id 支出情報ID
  * @var array $result クエリ実行結果

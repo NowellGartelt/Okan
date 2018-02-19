@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name updateIncByTrans
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $incName 収入名
  * @var int $income 収入額

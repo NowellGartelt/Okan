@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name updatePayByTrans
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $payName 支出名
  * @var int $payment 支出額

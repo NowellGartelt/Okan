@@ -8,6 +8,7 @@
  * @category model
  * @name searchIncCategory
  * @method searchIncCategoryName
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var array $result クエリ実行結果
  */

@@ -9,6 +9,7 @@
  * @access public
  * @package model
  * @name searchPayByDay
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $payName 支出名
  * @var string $payCategory 支出カテゴリ 
@@ -33,7 +34,6 @@ class searchPayByDay
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */

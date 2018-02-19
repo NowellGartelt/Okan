@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchSumIncByCategory
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $incDateFrom 収入日(開始)
  * @var string $incDateTo 収入日(終了)
@@ -16,6 +17,7 @@
 class searchSumIncByCategory 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $incDateFrom = "";
     private $incDateTo = "";
@@ -23,12 +25,14 @@ class searchSumIncByCategory
   
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -58,26 +62,36 @@ class searchSumIncByCategory
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // IDで対象のデータを引き当て
-            // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
-            $query = 
-                "SELECT categoryName, SUM(income) 
-                FROM incomeTable 
-                LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.categoryID 
-                WHERE incomeTable.userID = '$userID' AND incDate >= '$incDateFrom' AND incDate <= '$incDateTo' 
-                GROUP BY categoryName 
-                ORDER BY SUM(income) DESC";
-            $queryResult = mysqli_query($link, $query);
-            
-            while ($row = mysqli_fetch_assoc($queryResult)) {
-                array_push($this->result, $row);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // IDで対象のデータを引き当て
+                // 指定された期間のカテゴリごとの支出額の取得、支出の多い順に並べる
+                $query = 
+                    "SELECT categoryName, SUM(income) 
+                    FROM incomeTable 
+                    LEFT OUTER JOIN incCategoryTable ON incomeTable.incCategory = incCategoryTable.categoryID 
+                    WHERE incomeTable.userID = '$userID' AND incDate >= '$incDateFrom' AND incDate <= '$incDateTo' 
+                    GROUP BY categoryName 
+                    ORDER BY SUM(income) DESC";
+                $queryResult = mysqli_query($link, $query);
+                
+                while ($row = mysqli_fetch_assoc($queryResult)) {
+                    array_push($this->result, $row);
+                    
+                }
             }
-            
             // DB切断
             mysqli_close($link);
             
         }
-        
         return $this->result;
         
     }

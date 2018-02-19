@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchDefTaxByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var int $defTax デフォルト税率
  */

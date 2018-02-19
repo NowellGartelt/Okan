@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchMethodOfPayment
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var array $result クエリ実行結果
  */
 class searchMethodOfPayment 

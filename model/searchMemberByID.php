@@ -8,18 +8,19 @@
  * @access public
  * @package model
  * @name searchMemberByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var string $loginID ログインID
  * @var array $result クエリ実行結果
  */
 class searchMemberByID 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $loginID = "";
     private $result = array();
  
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */

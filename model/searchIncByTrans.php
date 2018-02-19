@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchIncByTrans
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $query 収入情報検索クエリ
  * @var string $incName 収入名
@@ -31,12 +32,14 @@ class searchIncByTrans
   
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     

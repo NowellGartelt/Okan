@@ -8,6 +8,7 @@
  * @category model
  * @name searchIncCategoryByID
  * @method searchIncCategoryByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var int $personalID 個人用カテゴリID
  * @var array $result クエリ実行結果
@@ -22,12 +23,14 @@ class searchIncCategoryByID
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     

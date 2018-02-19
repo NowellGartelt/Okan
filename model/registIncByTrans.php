@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name registIncByTrans
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var string $incName 収入情報名
  * @var int $income 収入金額
@@ -82,7 +83,6 @@ class registIncByTrans
                 $DBConnect = "failed";
                 $this->model -> setDBConnectResult($DBConnect);
                 $this->result = null;
-                
                 
             } else {
                 $DBConnect = "success";

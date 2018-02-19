@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name searchIncByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var int $id 収入情報ID
  * @var array $result クエリ実行結果
