@@ -68,6 +68,10 @@ if (empty($loginID) || empty($password)) {
         $_SESSION['incCateFlg'] = $incCateFlg;
         $_SESSION['incMemoFlg'] = $incMemoFlg;
         
+        // 移動元ページの設定
+        $fromPage = "loginAction";
+        $controller -> setFromPage($fromPage);
+        
         include '../view/menu.php';
         
     } else {

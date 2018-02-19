@@ -25,6 +25,10 @@ class searchMethodOfPayment
      */
     public function __construct()
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
+        
         // DB接続情報取得
         include 'tools/databaseConnect.php';
         

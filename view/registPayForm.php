@@ -15,7 +15,7 @@
   </div>
   <div align="center">
    <p>Okan：登録(つかったお金)</p><br>
-<?php if ($errFlg = true) { ?>
+<?php if ($errFlg == true) { ?>
 <?php   if ($errGetInfo == "emptyList" || $errGetInfo == "emptyProperties") { ?>
    <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
    <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>

@@ -28,6 +28,10 @@ $id = $_POST['ID'];
 $fromPage = "deleteIncForm";
 $controller -> setFromPage($fromPage);
 
+// エラー変数の初期化
+$errFlg = false;
+$errGetInfo = "";
+
 /* controller準備ここまで */
 
 /* 画面表示準備ここから */
@@ -36,26 +40,41 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchIncByID.php';
 $searchIncByID = new searchIncByID();
 $incList = $searchIncByID -> searchIncByID($userID, $id);
+$DBConnect = $controller -> getDBConnectResult();
 
-// 使ったものの名前が空のとき、(登録なし)を入れる
-if ($incList['incName'] == "") {
-    $incList['incName'] = "(登録なし)";
+// DB接続に失敗した場合
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // 使ったものの名前が空のとき、(登録なし)を入れる
+    if ($incList['incName'] == "") {
+        $incList['incName'] = "(登録なし)";
+    }
+    // 一言メモが空のとき、(登録なし)を入れる
+    if ($incList['incState'] == "") {
+        $incList['incState'] = "(登録なし)";
+    }
+    // カテゴリ名が空のとき、(登録なし)を入れる
+    if ($incList['categoryName'] == "") {
+        $incList['categoryName'] = "(登録なし)";
+    }
+    
+    // 日付の分割
+    $incInfoDateYear = mb_substr($incList['incDate'], 0, 4);
+    $incInfoDateMonth = mb_substr($incList['incDate'], 5, 2);
+    $incInfoDateDay = mb_substr($incList['incDate'], 8, 2);
+    
 }
-// 一言メモが空のとき、(登録なし)を入れる
-if ($incList['incState'] == "") {
-    $incList['incState'] = "(登録なし)";
+
+if ($errFlg == true && $errGetInfo !== "") {
+    // エラー画面表示
+    include '../view/errDeleteResult.php';
+    
+} else {
+    // 画面表示
+    include '../view/deleteIncForm.php';
+    
 }
-// カテゴリ名が空のとき、(登録なし)を入れる
-if ($incList['categoryName'] == "") {
-    $incList['categoryName'] = "(登録なし)";
-}
-
-// 日付の分割
-$incInfoDateYear = mb_substr($incList['incDate'], 0, 4);
-$incInfoDateMonth = mb_substr($incList['incDate'], 5, 2);
-$incInfoDateDay = mb_substr($incList['incDate'], 8, 2);
-
-// 画面表示
-include '../view/deleteIncForm.php';
-
 /* 画面表示準備ここまで */

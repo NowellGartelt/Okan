@@ -25,6 +25,9 @@ class searchMemberByID
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -50,11 +53,22 @@ class searchMemberByID
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // ログインIDと一致するメンバー情報の取得
-            $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->defTax = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // ログインIDと一致するメンバー情報の取得
+                $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_assoc($queryResult);
             
+            }
             // DB切断
             mysqli_close($link);
             

@@ -21,6 +21,7 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 
+// 値の取得
 $id = $_POST['ID'];
 $payDate = $_POST['payDate'];
 $payName = $_POST['payName'];
@@ -30,6 +31,10 @@ $payment = $_POST['payment'];
 $fromPage = "deletePayResult";
 $controller -> setFromPage($fromPage);
 
+// エラー変数の初期化
+$errFlg = false;
+$errResult = "";
+
 /* controller準備ここまで */
 
 /* 画面表示ここから */
@@ -38,8 +43,24 @@ $controller -> setFromPage($fromPage);
 require_once '../model/deletePayByTrans.php';
 $deletePayByTrans = new deletePayByTrans();
 $payInfo = $deletePayByTrans -> deletePayByTrans($userID, $id);
+$DBConnect = $controller -> getDBConnectResult();
 
-// 画面表示
-include '../view/deletePayResult.php';
+// DB接続に失敗した場合
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errResult = "failedDelete";
+    
+}
+
+// エラーがあった場合
+if ($errFlg == true && $errResult !== "") {
+    // エラー画面表示
+    include '../view/errDeleteResult.php';
+    
+} else {
+    // 画面表示
+    include '../view/deletePayResult.php';
+    
+}
 
 /* 画面表示ここまで */

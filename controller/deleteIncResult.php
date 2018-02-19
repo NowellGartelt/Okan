@@ -31,6 +31,10 @@ $income = $_POST['income'];
 $fromPage = "deleteIncResult";
 $controller -> setFromPage($fromPage);
 
+// エラー変数の初期化
+$errFlg = false;
+$errResult = "";
+
 /* controller準備ここまで */
 
 /* 画面表示準備ここから */
@@ -39,8 +43,24 @@ $controller -> setFromPage($fromPage);
 require_once '../model/deleteIncByTrans.php';
 $deleteIncByTrans = new deleteIncByTrans();
 $incInfo = $deleteIncByTrans -> deleteIncByTrans($userID, $id);
+$DBConnect = $controller -> getDBConnectResult();
+    
+// DB接続に失敗した場合
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errResult = "failedDelete";
+    
+}
 
-// 画面表示
-include '../view/deleteIncResult.php';
+// エラーがあった場合
+if ($errFlg == true && $errResult !== "") {
+    // エラー画面表示
+    include '../view/errDeleteResult.php';
+    
+} else {
+    // 画面表示
+    include '../view/deleteIncResult.php';
+
+}
 
 /* 画面表示準備ここまで */
