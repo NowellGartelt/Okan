@@ -34,5 +34,14 @@ $controller -> setFromPage($fromPage);
 require_once '../model/searchMemberByMemberID.php';
 $searchMemberByMemberID = new searchMemberByMemberID();
 $memberInfo = $searchMemberByMemberID -> searchMemberByMemberID($userID);
+$DBConnect = $controller -> getDBConnectResult();
 
+if ($DBConnect == false) {
+    $errFlg = true;
+    $errGetInfo= "emptyList";
+    
+} else {
+    
+}
+// 画面の表示
 include '../view/updateMemberForm.php';

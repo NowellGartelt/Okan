@@ -24,7 +24,9 @@ $categoryName = $_POST['categoryName'];
 $categoryNameBefore = $_POST['categoryNameBefore'];
 
 // エラー変数の初期化
+$errFlg = false;
 $errInput = "";
+$errResult = "";
 
 // 移動元ページの設定
 $fromPage = "updateIncCategoryResult";
@@ -35,17 +37,7 @@ if ($categoryName == "") {
     // 入力項目不足でエラー、入力画面に戻す
     $errInput = "nullInfo";
     
-    // 指定されたNoに登録されているカテゴリ情報の取得
-    require_once '../model/searchIncCategoryByID.php';
-    $searchIncCategoryByID = new searchIncCategoryByID();
-    $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID);
-    
-    if ($cateList['categoryName'] == null) {
-        $cateList['categoryName'] = "(未登録)";
-    }
-    
-    // 画面の読み込み
-    include '../view/updateIncCategoryForm.php';
+    require_once 'updateIncCategoryForm.php';
     
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -55,11 +47,29 @@ if ($categoryName == "") {
     // 更新日時取得
     $updateDate = date("Y-m-d H:i:s");
     
-    // カテゴリ名更新
-    require_once '../model/updateIncCategory.php';
-    $updateIncCategory = new updateIncCategory();
-    $updResult = $updateIncCategory -> updateIncCategory($userID, $categoryName, 
-            $personalID, $updateDate);
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errResult = "failedUpdate";
+        
+    } else {
+        // カテゴリ名更新
+        require_once '../model/updateIncCategory.php';
+        $updateIncCategory = new updateIncCategory();
+        $updResult = $updateIncCategory -> updateIncCategory($userID, $categoryName, 
+                $personalID, $updateDate);
+        $DBConnect = $controller -> getDBConnectResult();
+        
+    }
     
-    include '../view/updateIncCategoryResult.php';
+    // エラーがあった場合
+    if ($errFlg == true && ($errInput !== "" || $errResult !== "")) {
+        // エラー画面の表示
+        include '../view/errUpdateResult.php';
+        
+    } else {
+        // エラー画面の表示
+        include '../view/updateIncCategoryResult.php';
+        
+    }
 }

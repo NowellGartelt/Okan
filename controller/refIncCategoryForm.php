@@ -28,19 +28,33 @@ require_once '../model/searchIncCategory.php';
 $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($userID);
 
-// 現在登録されているカテゴリ数の取得
-require_once '../model/searchIncCategoryCount.php';
-$searchIncCategoryCount = new searchIncCategoryCount();
-$cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-$count = $cateCount[0]["COUNT(*)"];
-
-for ($i = 0; $i < $count; $i++) {
-    // カテゴリ登録がなかった場合、personalIDとcategoryNameに仮値を入れる
-    if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
-        $cateList[$i]['personalID'] = $i + 1;
-        $cateList[$i]['categoryName'] = "(未登録)";
+// DBアクセスに失敗したとき
+if ($DBConnect == "failed") {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // 現在登録されているカテゴリ数の取得
+    require_once '../model/searchIncCategoryCount.php';
+    $searchIncCategoryCount = new searchIncCategoryCount();
+    $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
+    $count = $cateCount[0]["COUNT(*)"];
+    
+    // DBアクセスに失敗したとき
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errGetInfo = "emptyProperties";
+        
+    } else {
+        for ($i = 0; $i < $count; $i++) {
+            // カテゴリ登録がなかった場合、personalIDとcategoryNameに仮値を入れる
+            if ($cateList[$i]['categoryName'] == false || $cateList[$i]['categoryName'] == "") {
+                $cateList[$i]['personalID'] = $i + 1;
+                $cateList[$i]['categoryName'] = "(未登録)";
+                
+            }
+        }
     }
 }
-
 // 画面の読み込み
 include '../view/refIncCategoryForm.php';

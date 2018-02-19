@@ -15,9 +15,14 @@
   </div>
   <div align="center">
    <p>Okan：更新(もらったお金のカテゴリ)</p><br>
-<?php if($errorInput == "nullInfo") { ?>
+<?php if ($errFlg == true) { ?>
+<?php   if ($errGetInfo == "emptyList") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php   } elseif($errorInput == "nullInfo") { ?>
    <p>ちょっと、項目が間違ってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
+<?php   } ?>
 <?php } else { ?>
    <p>カテゴリ名を直したいの？？</p>
    <p>新しいカテゴリ名を教えなさいよね</p><br>

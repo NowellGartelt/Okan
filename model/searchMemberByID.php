@@ -74,7 +74,6 @@ class searchMemberByID
             mysqli_close($link);
             
         }
-        
         return $this->result;
         
     }

@@ -24,7 +24,9 @@ $fromPage = $controller -> getFromPage();
 $personalID = $_POST['personalID'];
 
 if ($fromPage !== "updateIncCategoryResult") {
+    $errFlg = false;
     $errInput = "";
+    $errGetInfo = "";
     
 }
 
@@ -37,10 +39,17 @@ require_once '../model/searchIncCategoryByID.php';
 $searchIncCategoryByID = new searchIncCategoryByID();
 $cateList = $searchIncCategoryByID -> searchIncCategoryByID($userID, $personalID);
 
-// カテゴリが空行だった場合、(未登録)を挿入
-if ($cateList['categoryName'] == null) {
-    $cateList['categoryName'] = "(未登録)";
+// DBアクセスに失敗したとき
+if ($DBConnect == "failed") {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // カテゴリが空行だった場合、(未登録)を挿入
+    if ($cateList['categoryName'] == null) {
+        $cateList['categoryName'] = "(未登録)";
+        
+    }
 }
-
 // 画面の読み込み
 include '../view/updateIncCategoryForm.php';

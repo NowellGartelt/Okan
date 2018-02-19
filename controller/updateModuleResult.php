@@ -35,6 +35,10 @@ $moduleIncNameFlg = $_POST['incName'];
 $moduleIncCateFlg = $_POST['incCategory'];
 $moduleIncMemoFlg = $_POST['incMemo'];
 
+// エラー変数の初期化
+$errFlg = true;
+$errResult = "failedUpdate";
+
 if ($moduleTaxCalcFlg == null) {
     $moduleTaxCalcFlg = "0";
     $taxCalcFlg = "なし";
@@ -103,10 +107,27 @@ $updResult = $updateModule -> updateModule($userID,
         $modulePayMemoFlg, $moduleIncNameFlg, $moduleIncCateFlg, $moduleIncMemoFlg,
         $updateDate);
 
-// セッションのモジュールフラグ更新
-$setPayModuleFlg = $controller -> setPayModuleFlg($moduleTaxCalcFlg, $modulePayNameFlg, 
-        $modulePayCateFlg, $modulePaymentFlg, $modulePayMemoFlg);
-$setIncModuleFlg = $controller -> setIncModuleFlg($moduleIncNameFlg, $moduleIncCateFlg, 
-        $moduleIncMemoFlg);
+// DB接続に失敗した場合
+if ($DBConnect == "failed") {
+    $errFlg = true;
+    $errResult = "failedUpdate";
+    
+} else {
+    // セッションのモジュールフラグ更新
+    $setPayModuleFlg = $controller -> setPayModuleFlg($moduleTaxCalcFlg, $modulePayNameFlg, 
+            $modulePayCateFlg, $modulePaymentFlg, $modulePayMemoFlg);
+    $setIncModuleFlg = $controller -> setIncModuleFlg($moduleIncNameFlg, $moduleIncCateFlg, 
+            $moduleIncMemoFlg);
+    
+}
 
-include '../view/updateModuleResult.php';
+// エラーがあった場合
+if ($errFlg == true && $errResult !== "") {
+    // エラー画面の表示
+    include '../view/errUpdateResult.php';
+    
+} else {
+    // 画面の表示
+    include '../view/updateModuleResult.php';
+    
+}

@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name updateModule
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var int $userID ユーザID
  * @var int $moduleTaxCalcFlg 消費税自動計算機能使用フラグ
  * @var int $modulePayNameFlg 支出名使用フラグ
@@ -22,6 +23,8 @@
  */
 class updateModule 
 {
+    // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $moduleTaxCalcFlg = "";
     private $modulePayNameFlg = "";
@@ -36,12 +39,14 @@ class updateModule
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -88,21 +93,31 @@ class updateModule
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // 入力された情報で支出情報の更新
-            $query = "
-                UPDATE usertable 
-                SET taxCalcFlg = '$taxCalcFlg', payNameFlg = '$payNameFlg', payCateFlg = '$payCateFlg', 
-                paymentFlg = '$paymentFlg', payMemoFlg = '$payMemoFlg', incNameFlg = '$incNameFlg', 
-                incCateFlg = '$incCateFlg', incMemoFlg = '$incMemoFlg', updateDate = '$updateDate'  
-                WHERE userID = '$userID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
-            
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // 入力された情報で支出情報の更新
+                $query = "
+                    UPDATE usertable 
+                    SET taxCalcFlg = '$taxCalcFlg', payNameFlg = '$payNameFlg', payCateFlg = '$payCateFlg', 
+                    paymentFlg = '$paymentFlg', payMemoFlg = '$payMemoFlg', incNameFlg = '$incNameFlg', 
+                    incCateFlg = '$incCateFlg', incMemoFlg = '$incMemoFlg', updateDate = '$updateDate'  
+                    WHERE userID = '$userID'";
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_assoc($queryResult);
+                
+            }
             // DB切断
             mysqli_close($link);
             
         }
-        
         return $this->result;
 
     }

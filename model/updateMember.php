@@ -8,6 +8,7 @@
  * @access public
  * @package model
  * @name updateMember
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var string $name ユーザ名(更新後)
  * @var string $loginID ログインID(更新後)
  * @var string $logIDBefore ログインID(更新前)
@@ -24,6 +25,7 @@
 class updateMember 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $query = "";
     private $name = "";
     private $loginID = "";
@@ -40,12 +42,14 @@ class updateMember
     
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -95,63 +99,54 @@ class updateMember
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // SQL文初期設定
-            $query = "";
-            
-            $queryUpdate = "UPDATE usertable ";
-            $querySet = "SET updateDate = '$updateDate'";
-            $queryWhere = " WHERE userID = '$userID'";
-            
-            // 名前変更フラグが立ってる場合、名前を条件に追記
-            if ($chgNameFlg == true) {
-                $querySet .= ", name = '$name'";
-            }
-            // ログインID変更フラグが立ってる場合、ログインIDを条件に追記
-            if ($chgLogIDFlg == true) {
-                $querySet .= ", loginID = '$loginID'";
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // SQL文初期設定
+                $query = "";
+                
+                $queryUpdate = "UPDATE usertable ";
+                $querySet = "SET updateDate = '$updateDate'";
+                $queryWhere = " WHERE userID = '$userID'";
+                
+                // 名前変更フラグが立ってる場合、名前を条件に追記
+                if ($chgNameFlg == true) {
+                    $querySet .= ", name = '$name'";
+                    
+                }
+                // ログインID変更フラグが立ってる場合、ログインIDを条件に追記
+                if ($chgLogIDFlg == true) {
+                    $querySet .= ", loginID = '$loginID'";
+                                    
+                }
+                // パスワード変更フラグが立ってる場合、パスワードを条件に追記
+                if ($chgPassFlg == true) {
+                    $querySet .= ", loginPassword = '$password'";
+                    
+                }
+                // デフォルト税率変更フラグが立ってる場合、デフォルト税率を条件に追記
+                if ($chgTaxFlg == true) {
+                    $querySet .= ", defTax = '$tax'";
+                    
+                }
+                
+                // SQL文連結作成
+                $query = $queryUpdate.$querySet.$queryWhere;
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_array($queryResult);
                 
             }
-            // パスワード変更フラグが立ってる場合、パスワードを条件に追記
-            if ($chgPassFlg == true) {
-                $querySet .= ", loginPassword = '$password'";
-                
-            }
-            // デフォルト税率変更フラグが立ってる場合、デフォルト税率を条件に追記
-            if ($chgTaxFlg == true) {
-                $querySet .= ", defTax = '$tax'";
-                
-            }
-            
-            // SQL文連結作成
-            $query = $queryUpdate.$querySet.$queryWhere;
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_array($queryResult);
-            
-            /*
-            if ($chgLogIDFlg == true) {
-                // ログインIDを変更する場合、これまでの支払い情報と収入情報をすべて変更する
-                $query_updatePaymentInfo =
-                    "UPDATE paymentTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updatePaymentInfo = mysqli_query($link, $query_updatePaymentInfo);
-                $paymentInfo = mysqli_fetch_array($result_updatePaymentInfo);
-                
-                $query_updateIncomeInfo =
-                    "UPDATE incomeTable
-                    SET loginID = '$loginID'
-                    WHERE loginID = '$logIDBefore'";
-                $result_updateIncomeInfo = mysqli_query($link, $query_updateIncomeInfo);
-                $incomeInfo = mysqli_fetch_array($result_updateIncomeInfo);
-            
-            }
-            */
-            
             // DB切断
             mysqli_close($link);
             
         }
-
         return $this->result;
         
     }

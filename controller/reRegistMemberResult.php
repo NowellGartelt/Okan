@@ -23,8 +23,8 @@ $errInput = "";
 // ログインID、パスワード、名前のいずれかの項目が未入力の場合
 if ($password == "" || $passwordCheck == "" ) {
     // 入力項目不足でエラー、入力画面に戻す
-    $errInput = "lackInput";
     $errFlg = true;
+    $errInput = "lackInput";
 
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -34,8 +34,8 @@ if ($password == "" || $passwordCheck == "" ) {
     
     if (strcasecmp($password, $passwordCheck) !== 0) {
         // パスワードとパスワード(確認)が一致しない場合、入力画面に戻す
-        $errInput = "passwordUnmach";
         $errFlg = true;
+        $errInput = "passwordUnmach";
         
     } else {
         // Passwordチェック、規定の文字数やフォーマットを満たしているか確認
@@ -45,15 +45,15 @@ if ($password == "" || $passwordCheck == "" ) {
             
         if (!$checkPassworCondition) {
             // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
-            $errInput = "passwordCondition";
             $errFlg = true;
+            $errInput = "passwordCondition";
                 
         }
     }
 }
 
 // エラーがあった場合
-if ($errFlg !== false) {
+if ($errFlg == true && $errInput !== "") {
     // 入力画面に戻す
     include '../view/reRegistMemberForm.php';
     
@@ -68,8 +68,22 @@ if ($errFlg !== false) {
     require_once '../model/updatePassWord.php';
     $updatePassWord = new updatePassWord();
     $updResult = $updatePassWord -> updatePassWord($loginID, $password, $updateDate);
+    $DBConnect = $controller -> getDBConnectResult();
     
-    // 画面の表示
-    include '../view/reRegistMemberResult.php';
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errResult = "failedRegist";
+        
+    }
     
+    if ($errFlg == true && $errResult !== "") {
+        // エラー画面の表示
+        include '../view/errRegistResult.php';
+        
+    } else {
+        // 画面の表示
+        include '../view/reRegistMemberResult.php';
+    
+    }
 }

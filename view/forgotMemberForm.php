@@ -13,11 +13,15 @@ view/forgotMemberForm.php
   <div align="center">
    <p>Okan：メンバー情報忘れ</p><br>
 <?php if ($errorFlg == true) {?>
-<?php     if ($errorNoInput == true) { ?>
+<?php     if ($errGetInfo == "emptyList") { ?>
+   <p>悪いわねぇ、画面開くの失敗しちゃったわ</p>
+   <p>もういっかい入れ直してくれる？</p><br>
+<?php     } elseif ($errInput == "noInput") { ?>
    <p>ちょっと、項目が足りてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errorNoRegistration == true || 
-        $errorQuestionNotMatch == true || $errorAnswerNotMatch == true) {?>
+<?php     } elseif ($errInput == "noRegistration" 
+                || $errInput == "errQuestionNoMatch" 
+                || $errInput == "errAnswerNotMatch") {?>
    <p>ちょっと、その情報じゃ登録されてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php     } ?>

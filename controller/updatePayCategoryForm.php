@@ -24,7 +24,10 @@ $fromPage = $controller -> getFromPage();
 $personalID = $_POST['personalID'];
 
 if ($fromPage !== "updateCategoryResult") {
+    $errFlg = false;
     $errInput = "";
+    $errGetInfo = "";
+    
 }
 
 // 移動元ページの設定
@@ -36,10 +39,17 @@ require_once '../model/searchPayCategoryByID.php';
 $searchPayCategoryByID = new searchPayCategoryByID();
 $cateList = $searchPayCategoryByID -> searchPayCategoryByID($userID, $personalID);
 
-// カテゴリが空行だった場合、(未登録)を挿入
-if ($cateList['categoryName'] == null) {
-    $cateList['categoryName'] = "(未登録)";
+// DBアクセスに失敗したとき
+if ($DBConnect == "failed") {
+    $errFlg = true;
+    $errGetInfo = "emptyList";
+    
+} else {
+    // カテゴリが空行だった場合、(未登録)を挿入
+    if ($cateList['categoryName'] == null) {
+        $cateList['categoryName'] = "(未登録)";
+        
+    }
 }
-
 // 画面の読み込み
 include '../view/updatePayCategoryForm.php';

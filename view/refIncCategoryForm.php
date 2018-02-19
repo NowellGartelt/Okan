@@ -16,8 +16,15 @@
   </div>
   <div align="center">
    <p>Okan：カテゴリ検索結果(もらったお金)</p><br>
+<?php if ($errFlg == true) { ?>
+<?php   if ($errGetInfo == "emptyList" || $errGetInfo == "emptyProperties") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php   } ?>
+<?php } else { ?>
    <p>これが今のもらったお金のカテゴリよ</p>
    <p>変更したいなら、「教えなおす」ボタンで変更しなさいよね</p><br>
+<?php } ?>
    <img src="cosmetics/img/okan.gif">
    <br><br>
    <br>

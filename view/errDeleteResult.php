@@ -1,4 +1,4 @@
-<!-- view/errRegistPayResult.php -->
+<!-- view/errDeletePayResult.php -->
 <html>
  <head>
   <title>Okan：削除失敗</title>
@@ -27,11 +27,13 @@
    <p></p>
 <?php if ($fromPage == "deleteIncForm" || $fromPage == "deleteIncResult") { ?>
    <form action="../../Okan/referenceIncResult.php" method="post">
-<?php } elseif ($fromPage == "deletePayForm"|| $fromPage == "deletePayResult") {?>
-   <form action="../../Okan/referencePayResult.php" method="post">
-<?php } ?>
     <button type="submit">戻る</button>
    </form>
+<?php } elseif ($fromPage == "deletePayForm"|| $fromPage == "deletePayResult") {?>
+   <form action="../../Okan/referencePayResult.php" method="post">
+    <button type="submit">戻る</button>
+   </form>
+<?php } ?>
   </div>
  </body>
 </html>

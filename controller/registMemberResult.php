@@ -45,42 +45,50 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
     
     if ($checkLengthLoginID < 6 || $checkLengthLoginID > 10) {
         // ログインIDが5文字以下11文字以上の場合、入力画面に戻す
-        $errInput = "errLengthLoginID";
         $errFlg = true;
+        $errInput = "errLengthLoginID";
         
     } elseif ($defTax < 0 || $defTax > 100) {
         // デフォルト税率の値が不正の場合、入力画面に戻す
-        $errInput = "errTaxRange";
         $errFlg = true;
+        $errInput = "errTaxRange";
         
     } else {
         // ログインIDチェック、ログインIDが登録済みかどうか確認する。
         require_once '../model/searchMemberByID.php';
         $searchMemberByID = new searchMemberByID();
         $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
-
-        if ($memberInfo !== null) {
-            // ログインIDが登録済みだった場合、入力画面に戻す
-            $errInput = "registedLoginID";
-            $errFlg = true;
+        $DBConnect = $controller -> getDBConnectResult();
         
-        } else {
-            // Passwordチェック、規定の文字数やフォーマットを満たしているか確認
-            // 0〜9、a〜z、A〜Z、記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使用すること
-            // 計6文字以上であること
-            $checkPassworCondition = preg_match('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?-_@+&])[0-9a-zA-Z!?-_@+&]{6,}$/', $password);
+        // DB接続に失敗した場合
+        if ($DBConnect == "failed") {
+            $errFlg = true;
+            $errGetInfo = "emptyList";
             
-            if (!$checkPassworCondition) {
-                // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
-                $errInput = "passwordCondition";
+        } else {
+            if ($memberInfo !== null) {
+                // ログインIDが登録済みだった場合、入力画面に戻す
                 $errFlg = true;
+                $errInput = "registedLoginID";
                 
+            } else {
+                // Passwordチェック、規定の文字数やフォーマットを満たしているか確認
+                // 0〜9、a〜z、A〜Z、記号(!, ?, -, _, @, +, &)からそれぞれ1文字づつ使用すること
+                // 計6文字以上であること
+                $checkPassworCondition = preg_match('/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!?-_@+&])[0-9a-zA-Z!?-_@+&]{6,}$/', $password);
+                
+                if (!$checkPassworCondition) {
+                    // パスワードチェック、パスワードが条件に合致してなかった場合、入力画面に戻す
+                    $errFlg = true;
+                    $errInput = "passwordCondition";
+                    
+                }
             }
         }
     }
 }
 
-if ($errFlg !== false) {
+if ($errFlg == true && $errInput !== "") {
     include '../view/registMemberForm.php';
     
 } else {
@@ -95,23 +103,61 @@ if ($errFlg !== false) {
     $registMember = new registMember();
     $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, 
             $isAdmin, $question, $answer, $defTax);
+    $DBConnect = $controller -> getDBConnectResult();
     
-    // ユーザID取得処理
-    $searchMemberIDByID = new searchMemberByID();
-    $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
-    $userID = $userInfo['userID'];
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errResult = "failedRegist";
+        
+    } else {
+        // ユーザID取得処理
+        $searchMemberIDByID = new searchMemberByID();
+        $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
+        $userID = $userInfo['userID'];
+        $DBConnect = $controller -> getDBConnectResult();
+        
+        // DB接続に失敗した場合
+        if ($DBConnect == "failed") {
+            $errFlg = true;
+            $errResult = "failedRegist";
+            
+        } else {
+            // 支出カテゴリ初期登録処理
+            require_once '../model/registPayCategory.php';
+            $registPayCategory = new registpayCategory();
+            $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
+            $DBConnect = $controller -> getDBConnectResult();
+            
+            // DB接続に失敗した場合
+            if ($DBConnect == "failed") {
+                $errFlg = true;
+                $errResult = "failedRegist";
+                
+            } else {
+                // 収入カテゴリ初期登録処理
+                require_once '../model/registIncCategory.php';
+                $registIncCategory = new registIncCategory();
+                $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
+                $DBConnect = $controller -> getDBConnectResult();
+                
+                // DB接続に失敗した場合
+                if ($DBConnect == "failed") {
+                    $errFlg = true;
+                    $errResult = "failedRegist";
+                    
+                }
+            }
+        }
+    }
     
-    // 支出カテゴリ初期登録処理
-    require_once '../model/registPayCategory.php';
-    $registPayCategory = new registpayCategory();
-    $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
+    if ($errFlg == true && $errResult !== "") {
+        // エラー画面の表示
+        include '../view/errRegistResult.php';
+        
+    } else {
+        // 画面の表示
+        include '../view/registMemberResult.php';
     
-    // 収入カテゴリ初期登録処理
-    require_once '../model/registIncCategory.php';
-    $registIncCategory = new registIncCategory();
-    $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
-    
-    // 画面の表示
-    include '../view/registMemberResult.php';
-    
+    }
 }

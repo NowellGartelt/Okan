@@ -8,24 +8,28 @@
  * @access public
  * @package model
  * @name searchMemberByLogIdAndPass
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var string $loginID ログインID
  * @var string $password パスワード
  */
 class searchMemberByLogIdAndPass 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $loginID = "";
     private $password = "";
     private $getPassword = "";
  
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -53,17 +57,27 @@ class searchMemberByLogIdAndPass
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // ログインIDから登録されたパスワードの取得
-            $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
-            $queryResult = mysqli_query($link, $query);
-            $row = mysqli_fetch_assoc($queryResult);
-            $this->getPassword = $row['loginPassword'];
-            
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // ログインIDから登録されたパスワードの取得
+                $query = "SELECT * FROM usertable WHERE loginID = '$loginID'";
+                $queryResult = mysqli_query($link, $query);
+                $row = mysqli_fetch_assoc($queryResult);
+                $this->getPassword = $row['loginPassword'];
+                
+            }
             // DB切断
             mysqli_close($link);
         
         }
-        
         return $this->getPassword;
         
     }

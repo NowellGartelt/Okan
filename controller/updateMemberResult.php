@@ -50,8 +50,9 @@ $errRegistedLoginID = false;
 $errPassCondition = false;
 $errTaxRange = false;
 
-$errInput = "";
 $errFlg = false;
+$errInput = "";
+$errGetInfo = "";
 
 // 移動元ページの設定
 $fromPage = "updateMemberResult";
@@ -60,8 +61,8 @@ $controller -> setFromPage($fromPage);
 // 名前、ログインID、パスワードのいずれも変更がなかった場合
 // 変更なしエラーで入力画面に戻す
 if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
-    $errInput = "noStatusChg";
     $errFlg = true;
+    $errInput = "noStatusChg";
     
     require_once 'updateMemberForm.php';
     
@@ -102,16 +103,12 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         $chkChgTaxFlg = false;
     }
     
-    var_dump($taxBefore);
-    var_dump($taxAfter);
-    var_dump($chkChgTaxFlg);
-    
     // フラグがひとつも立っていない場合
     // 変更なしエラーで入力画面に戻す
     if ($chkChgNameFlg == false && $chkChgLogIDFlg == false 
             && $chkChgPassFlg == false && $chkChgTaxFlg == false) {
-        $errInput = "noStatusChg";
         $errFlg = true;
+        $errInput = "noStatusChg";
         
         require_once 'updateMemberForm.php';
         
@@ -130,25 +127,33 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             
             // ログインIDチェック、ログインIDが5文字以下の場合、エラーフラグを立てる
             if ($chkLengthLoginID < 6 || $chkLengthLoginID >10) {
-                $errInput = "errLengthLoginID";
                 $errFlg = true;
+                $errInput = "errLengthLoginID";
             
             } else {
                 // ログインIDチェック、ログインIDが登録済みかどうか確認する。
                 require_once '../model/searchMemberByID.php';
                 $result = new searchMemberByID();
                 $memberInfo = $searchMemberByID-> searchMemberByID($logIDAfter);
-            
-                // ログインIDが登録済みだった場合、エラーフラグを立てる
-                if ($memberInfo !== null) {
-                    $errInput = "registedLoginID";
+                $DBConnect = $controller -> getDBConnectResult();
+                
+                // DB接続に失敗した場合
+                if ($DBConnect == "failed") {
                     $errFlg = true;
+                    $errGetInfo = "emptyList";
                     
-                // 妥当性チェックをクリアした場合
-                // ログインID変更処理フラグを立てる
                 } else {
-                    $chgLogIDFlg = true;
-                    
+                    // ログインIDが登録済みだった場合、エラーフラグを立てる
+                    if ($memberInfo !== null) {
+                        $errFlg = true;
+                        $errInput = "registedLoginID";
+                        
+                    // 妥当性チェックをクリアした場合
+                    // ログインID変更処理フラグを立てる
+                    } else {
+                        $chgLogIDFlg = true;
+                        
+                    }
                 }
             }
         }
@@ -165,8 +170,8 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
             
             // パスワードが条件に合致してなかった場合、エラーフラグを立てる
             if (!$chkPassworCondition) {
-                $errInput = "passCondition";
                 $errFlg = true;
+                $errInput = "passCondition";
 
             // 妥当性チェックをクリアした場合、パスワード変更処理フラグを立てる
             } else {
@@ -180,8 +185,8 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
         if ($chkChgTaxFlg == true) {
             // 税率が0-100か確認、NGならエラー
             if ($taxAfter < 0 || $taxAfter >100) {
-                $errInput = "errTaxRange";
                 $errFlg = true;
+                $errInput = "errTaxRange";
                 
             } else {
                 $chgTaxFlg = true;
@@ -198,8 +203,13 @@ if ($nameAfter == "" && $logIDAfter == "" && $passwordAfter == "") {
 
 // エラーフラグが立っている場合、エラーで入力画面へ戻す
 if ($errFlg == true) {
-    require_once 'updateMemberForm.php';
+    if ($errGetInfo !== "") {
+        include '../view/updateMemberResult.php';
+        
+    } else {
+        require_once 'updateMemberForm.php';
     
+    } 
 // エラーフラグが立っていない場合、ユーザ情報変更処理を行う
 } else {
     // 更新日時取得
@@ -213,13 +223,28 @@ if ($errFlg == true) {
             $chgNameFlg, $chgLogIDFlg, $chgPassFlg, $chgTaxFlg, 
             $userID, $logIDBefore, $updateDate
             );
-            
-    if ($chgLogIDFlg == true) {
-        $_SESSION['loginID'] = $logIDAfter;
-        $loginID = $logIDAfter;
+    $DBConnect = $controller -> getDBConnectResult();
+    
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errResult = "failedUpdate";
         
+    } else {
+        if ($chgLogIDFlg == true) {
+            $_SESSION['loginID'] = $logIDAfter;
+            $loginID = $logIDAfter;
+            
+        }
     }
     
-    include '../view/updateMemberResult.php';
-    
+    if ($errFlg == true && $errResult !== "") {
+        // エラー画面の表示
+        include '../view/errUpdateResult.php';
+        
+    } else {
+       // 画面の表示
+        include '../view/updateMemberResult.php';
+        
+    }
 }

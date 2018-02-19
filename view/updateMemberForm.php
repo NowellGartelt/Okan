@@ -16,22 +16,25 @@
   <div align="center">
    <p>Okan：メンバー情報更新</p><br>
 <?php if ($errFlg == true) {?>
-<?php     if ($errInput == "noStatusChg") { ?>
+<?php   if ($errGetInfo == "emptyList") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php   } elseif ($errInput == "noStatusChg") { ?>
    <p>ちょっと、今のヤツと何も変わってないじゃない</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errInput == "errLengthLoginID") {?>
+<?php   } elseif ($errInput == "errLengthLoginID") {?>
    <p>ちょっと、ログインIDの長さがおかしいわよ？</p>
    <p>ログインID6文字以上よ。もういっかい確認しなさいよね</p><br>
-<?php     } elseif ($errInput == "registedLoginID") {?>
+<?php   } elseif ($errInput == "registedLoginID") {?>
    <p>そのログインIDはもう使われちゃってるみたいよ？</p>
    <p>他のにしないとダメよ</p><br>
-<?php     } elseif ($errInput == "passCondition") { ?>
+<?php   } elseif ($errInput == "passCondition") { ?>
    <p>ちょっと、パスワードが条件を満たしてないわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } else {?>
+<?php   } else {?>
    <p>ちょっと、デフォルト税率がおかしな値になってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
-<?php     } ?>
+<?php   } ?>
 <?php } else {?>
    <p>メンバー情報を変更するのね？</p>
    <p>新しいのをどうするのか、ちゃんと考えなさいよね</p><br>

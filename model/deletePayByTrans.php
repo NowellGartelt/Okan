@@ -16,6 +16,7 @@
 class deletePayByTrans 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $userID = "";
     private $id = "";
     private $result = array();
@@ -27,6 +28,9 @@ class deletePayByTrans
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     

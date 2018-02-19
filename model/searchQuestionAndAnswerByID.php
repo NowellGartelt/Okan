@@ -8,23 +8,27 @@
  * @access public
  * @package model
  * @name searchQuestionAndAnswerByID
+ * @var object $model モデルクラス共通処理オブジェクト
  * @var string $loginID ログインID
  * @var array $result クエリ実行結果
  */
 class searchQuestionAndAnswerByID 
 {
     // インスタンス変数の定義
+    private $model = "";
     private $loginID = "";
     private $result = array();
  
     /**
      * コンストラクタ
-     * 何もしない
      *
      * @access public
      */
     public function __construct() 
     {
+        // モデルの共通処理取得
+        require_once 'model.php';
+        $this->model = new model();
         
     }
     
@@ -49,16 +53,26 @@ class searchQuestionAndAnswerByID
             // DB接続情報取得
             include 'tools/databaseConnect.php';
             
-            // メンバー情報に設定された秘密の質問と答えの取得
-            $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";
-            $queryResult = mysqli_query($link, $query);
-            $this->result = mysqli_fetch_assoc($queryResult);
-            
+            // DB接続に失敗した場合
+            if ($link == false) {
+                $DBConnect = "failed";
+                $this->model -> setDBConnectResult($DBConnect);
+                $this->result = null;
+                
+            } else {
+                $DBConnect = "success";
+                $this->model -> setDBConnectResult($DBConnect);
+                
+                // メンバー情報に設定された秘密の質問と答えの取得
+                $query = "SELECT question, answer FROM usertable WHERE loginID = '$loginID'";
+                $queryResult = mysqli_query($link, $query);
+                $this->result = mysqli_fetch_assoc($queryResult);
+                
+            }
             // DB切断
             mysqli_close($link);
         
         }
-        
         return $this->result;
         
     }

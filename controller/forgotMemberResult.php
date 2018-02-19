@@ -33,11 +33,9 @@ $errorAnswerNotMatch = false;
 
 // ログインID、秘密の質問、答えのいずれかが入力がなかった場合
 if ($loginID == "" || $question == "" || $answer == "") {
-    // 変更なしエラーで入力画面に戻す
-    $errorNoInput = true;
+    // エラーで入力画面に戻す
     $errorFlg = true;
-    
-    include '../view/forgotMemberForm.php';
+    $errInput = "noInput";
     
 // すべて入力されていた場合
 } else {
@@ -51,46 +49,64 @@ if ($loginID == "" || $question == "" || $answer == "") {
     require_once '../model/searchMemberByID.php';
     $searchMemberByID = new searchMemberByID();
     $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
+    $DBConnect = $controller -> getDBConnectResult();
     
-    // メンバー登録がなかった場合
-    if ($memberInfo == null) {
-        // メンバー登録なしエラー、入力画面へ戻す
-        $errorNoRegistration = true;
-        $errorFlg = true;
-
-        include '../view/forgotMemberForm.php';
+    // DB接続に失敗した場合
+    if ($DBConnect == "failed") {
+        $errFlg = true;
+        $errResult = "emptyList";
         
-    // メンバー登録があった場合
     } else {
-        // ログインIDから秘密の質問、答えの取得
-        require_once '../model/searchQuestionAndAnswerByID.php';
-        $searchQuestionAndAnswerByID = new searchQuestionAndAnswerByID();
-        $memberInfo = $searchQuestionAndAnswerByID -> searchQuestionAndAnswerByID($loginID);
-    
-        // 登録済みの秘密の質問と入力された質問が一致しなかった場合
-        if ($question !== $memberInfo['question']) {
-            // 秘密の質問の不一致エラー、入力画面へ戻す
-            $errorQuestionNotMatch = true;
+        // メンバー登録がなかった場合
+        if ($memberInfo == null) {
+            // メンバー登録なしエラー、入力画面へ戻す
             $errorFlg = true;
-
-            include '../view/forgotMemberForm.php';
+            $errInput = "noRegistration";
             
-        // 一致した場合
+        // メンバー登録があった場合
         } else {
-            // 登録済みの答えと入力された答えが一致しなかった場合
-            if ($answer !== $memberInfo['answer']) {
-                // 質問の答え不一致エラー、入力画面へ戻す
-                $errorAnswerNotMatch = true;
-                $errorFlg = true;
+            // ログインIDから秘密の質問、答えの取得
+            require_once '../model/searchQuestionAndAnswerByID.php';
+            $searchQuestionAndAnswerByID = new searchQuestionAndAnswerByID();
+            $memberInfo = $searchQuestionAndAnswerByID -> searchQuestionAndAnswerByID($loginID);
+            $DBConnect = $controller -> getDBConnectResult();
             
-                include '../view/forgotMemberForm.php';
+            // DB接続に失敗した場合
+            if ($DBConnect == "failed") {
+                $errFlg = true;
+                $errGetInfo = "emptyList";
                 
-            // 一致した場合
             } else {
-                // パスワード再登録画面を表示する
-                include '../view/reRegistMemberForm.php';
-                
+                // 登録済みの秘密の質問と入力された質問が一致しなかった場合
+                if ($question !== $memberInfo['question']) {
+                    // 秘密の質問の不一致エラー、入力画面へ戻す
+                    $errorFlg = true;
+                    $errInput = "errQuestionNoMatch";
+                    
+                // 一致した場合
+                } else {
+                    // 登録済みの答えと入力された答えが一致しなかった場合
+                    if ($answer !== $memberInfo['answer']) {
+                        // 質問の答え不一致エラー、入力画面へ戻す
+                        $errorFlg = true;
+                        $errInput = "errAnswerNotMatch";
+                        
+                    }
+                }
             }
         }
     }
+}
+
+// エラーがあった場合
+if ($errFlg == true) {
+    if ($errInput !== "" || $errGetInfo == "") {
+        // エラー画面の表示
+        include '../view/forgotMemberForm.php';
+        
+    }            
+} else {
+    // パスワード再登録画面を表示する
+    include '../view/reRegistMemberForm.php';
+    
 }
