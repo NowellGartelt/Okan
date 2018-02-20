@@ -3,7 +3,7 @@
  <head>
   <title>Okan：ログイン</title>
   <meta charset="UTF-8">
-  <meta name="description" content="収支管理システム「Okan」のログイン画面。">
+  <meta name="description" content="「Okan」は毎日のお金の収入と支出を記録したり、記録した収支を検索・収支レポートを見ることができるサービスです。">
   <meta name="keywords" content="収支管理,おかん">
  </head>
  <body>
