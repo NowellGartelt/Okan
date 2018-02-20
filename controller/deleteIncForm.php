@@ -68,6 +68,7 @@ if ($DBConnect == false) {
     
 }
 
+// エラーがあった場合
 if ($errFlg == true && $errGetInfo !== "") {
     // エラー画面表示
     include '../view/errDeleteResult.php';

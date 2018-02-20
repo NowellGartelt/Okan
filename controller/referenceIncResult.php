@@ -114,8 +114,8 @@ if ($errFlg == true && $errResult == "failedDBConnect") {
     $sumIncome = null;
     foreach ($incList as $SumInc) {
         $sumIncome += $SumInc['income'];
+        
     }
-
     include '../view/referenceIncResult.php';
     
 }

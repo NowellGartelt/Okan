@@ -38,7 +38,7 @@ $searchIncCategory = new searchIncCategory();
 $cateList = $searchIncCategory -> searchIncCategory($userID);
 $DBConnect = $controller -> getDBConnectResult();
 
-// 取得に失敗したとき
+// DB接続に失敗したとき
 if ($DBConnect == "failed") {
     $errFlg = true;
     $errResult = "emptyList";
@@ -51,7 +51,7 @@ if ($DBConnect == "failed") {
     $count = $cateCount["COUNT(*)"];
     $DBConnect = $controller -> getDBConnectResult();
     
-    // 取得に失敗したとき
+    // DB接続に失敗したとき
     if ($DBConnect == "failed") {
         $errFlg = true;
         $errResult = "emptyProperties";

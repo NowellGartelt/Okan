@@ -18,7 +18,6 @@ $question = $_POST['question'];
 $answer = $_POST['answer'];
 
 // 変更実施の有無のフラグリセット
-$errorFlg = false;
 $chkChangeNameFlg = false;
 $changelogIDFlg = false;
 $chkChangePassFlg = false;
@@ -26,15 +25,15 @@ $changeNameFlg = false;
 $changelogIDFlg = false;
 $changePasswordFlg = false;
 
-$errorNoInput = false;
-$errorNoRegistration = false;
-$errorQuestionNotMatch = false;
-$errorAnswerNotMatch = false;
+// エラー変数の初期化
+$errFlg = false;
+$errInput = "";
+$errGetInfo = "";
 
 // ログインID、秘密の質問、答えのいずれかが入力がなかった場合
 if ($loginID == "" || $question == "" || $answer == "") {
     // エラーで入力画面に戻す
-    $errorFlg = true;
+    $errFlg = true;
     $errInput = "noInput";
     
 // すべて入力されていた場合
@@ -60,7 +59,7 @@ if ($loginID == "" || $question == "" || $answer == "") {
         // メンバー登録がなかった場合
         if ($memberInfo == null) {
             // メンバー登録なしエラー、入力画面へ戻す
-            $errorFlg = true;
+            $errFlg = true;
             $errInput = "noRegistration";
             
         // メンバー登録があった場合
@@ -80,7 +79,7 @@ if ($loginID == "" || $question == "" || $answer == "") {
                 // 登録済みの秘密の質問と入力された質問が一致しなかった場合
                 if ($question !== $memberInfo['question']) {
                     // 秘密の質問の不一致エラー、入力画面へ戻す
-                    $errorFlg = true;
+                    $errFlg = true;
                     $errInput = "errQuestionNoMatch";
                     
                 // 一致した場合
@@ -88,7 +87,7 @@ if ($loginID == "" || $question == "" || $answer == "") {
                     // 登録済みの答えと入力された答えが一致しなかった場合
                     if ($answer !== $memberInfo['answer']) {
                         // 質問の答え不一致エラー、入力画面へ戻す
-                        $errorFlg = true;
+                        $errFlg = true;
                         $errInput = "errAnswerNotMatch";
                         
                     }

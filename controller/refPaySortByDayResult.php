@@ -57,6 +57,7 @@ $_SESSION['refPay']['methodOfPayment'] = $methodOfPayment;
 // 項目不足だった場合、入力項目不足エラー
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
+    $errFlg = true;
     $errInput = "luckNecessaryInfo";
     
 // 項目が十分であれば取得実施

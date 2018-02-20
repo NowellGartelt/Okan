@@ -47,10 +47,12 @@ $noChangeFlg = "";
 if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
     if ($paymentAfter < 0) {
         // 入力値不正でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "minusInput";
         
     } else {
         // 入力項目不足でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "lackInput";
         
     }

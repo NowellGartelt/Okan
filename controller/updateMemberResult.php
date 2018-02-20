@@ -50,6 +50,7 @@ $errRegistedLoginID = false;
 $errPassCondition = false;
 $errTaxRange = false;
 
+// エラー変数の初期化
 $errFlg = false;
 $errInput = "";
 $errGetInfo = "";

@@ -36,7 +36,7 @@ $moduleIncCateFlg = $_POST['incCategory'];
 $moduleIncMemoFlg = $_POST['incMemo'];
 
 // エラー変数の初期化
-$errFlg = true;
+$errFlg = false;
 $errResult = "failedUpdate";
 
 if ($moduleTaxCalcFlg == null) {

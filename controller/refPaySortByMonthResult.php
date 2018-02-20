@@ -26,6 +26,7 @@ $payment = null;
 $payCount = null;
 
 // エラー変数のリセット
+$errFlg = false;
 $errInput = "";
 
 // 移動元ページの設定

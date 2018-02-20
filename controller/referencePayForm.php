@@ -38,7 +38,7 @@ $searchMethodOfPayment = new searchMethodOfPayment();
 $mopList = $searchMethodOfPayment -> getMethodOfPayment();
 $DBConnect = $controller -> getDBConnectResult();
 
-// 取得に失敗したとき
+// DB接続に失敗したとき
 if ($DBConnect == "failed") {
     $errFlg = true;
     $errResult = "emptyList";
@@ -50,7 +50,7 @@ if ($DBConnect == "failed") {
     $cateList = $searchPayCategory -> searchPayCategory($userID);
     $DBConnect = $controller -> getDBConnectResult();
     
-    // 取得に失敗したとき
+    // DB接続に失敗したとき
     if ($DBConnect == "failed") {
         $errFlg = true;
         $errResult = "emptyList";

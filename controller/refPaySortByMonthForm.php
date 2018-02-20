@@ -24,6 +24,7 @@ unset($_SESSION['refPay']);
 
 if ($fromPage !== "refPaySortByDayResult") {
     // エラー変数のリセット
+    $errFlg = false;
     $errInput = null;
     
 }

@@ -61,7 +61,6 @@ class searchIncCategory
                 $this->model -> setDBConnectResult($DBConnect);
                 $this->result = null;
                 
-                
             } else {
                 $DBConnect = "success";
                 $this->model -> setDBConnectResult($DBConnect);

@@ -25,6 +25,7 @@ $dateFrom = $_POST['dateFrom'];
 $dateTo = $_POST['dateTo'];
 
 // エラー変数の初期化
+$errFlg = false;
 $errInput = "";
 
 // 移動元ページの設定
@@ -34,11 +35,13 @@ $controller -> setFromPage($fromPage);
 // 期間開始日、終了日のいずれかが入力されていない場合
 if ($dateFrom == "" || $dateTo == "") {
     // 入力項目不足エラー、入力画面へ戻す
+    $errFlg = true;
     $errInput = "lackInput";
  	
 // 指定された期間が367日以上の場合
 } elseif ((strtotime($dateTo) - strtotime($dateFrom))/60/60/24 >= 367) {
     // 期間設定エラー、入力画面へ戻す
+    $errFlg = true;
     $errInput = "overOneYear";
 
 } 

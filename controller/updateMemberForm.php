@@ -21,8 +21,8 @@ $userID = $controller -> getUserID();
 $fromPage = $controller -> getFromPage(); 
 
 if ($fromPage !== "updateMemberResult") {
-    $errInput = "";
     $errFlg = false;
+    $errInput = "";
     
 }
 

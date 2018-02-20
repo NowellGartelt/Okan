@@ -10,7 +10,10 @@
   <div align="center">
    <br><br>
    <p>Okan：ログイン</p><br>
-<?php if ($login == "emptyIDorPass") { ?>
+<?php if ($errGetInfo == "emptyList") { ?>
+   <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
+   <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
+<?php } elseif ($login == "emptyIDorPass") { ?>
    <p>ちょっと、何も入力してないじゃない</p>
    <p>もう一回確認しなさいよね</p><br>
 <?php } elseif ($login == "noRegistration") { ?>

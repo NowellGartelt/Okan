@@ -60,7 +60,6 @@ class searchPayCategory
                 $this->model -> setDBConnectResult($DBConnect);
                 $this->result = null;
                 
-                
             } else {
                 $DBConnect = "success";
                 $this->model -> setDBConnectResult($DBConnect);
