@@ -19,7 +19,7 @@
 <?php   if ($errGetInfo == "emptyList") { ?>
    <p>悪いわねぇ、画面の表示に失敗しちゃったわ</p>
    <p>再読み込みして、もういっかい画面を開き直してくれる？</p><br>
-<?php   } elseif($errorInput == "nullInfo") { ?>
+<?php   } elseif($errInput == "nullInfo") { ?>
    <p>ちょっと、項目が間違ってるわよ？</p>
    <p>もういっかい確認しなさいよね</p><br>
 <?php   } ?>
@@ -45,7 +45,7 @@
     </table>
     <br>
     <input type="hidden" name="personalID" value=<?php echo $personalID; ?>>
-    <input type="hidden" name="categoryNameBefore" value=<?php echo $cateList[0]['categoryName'];?>>
+    <input type="hidden" name="categoryNameBefore" value="<?php echo $cateList['categoryName'];?>">
     <button type="submit">オカンに教え直す</button>
    </form>
    <form action="../../Okan/refIncCategoryForm.php" method="post">

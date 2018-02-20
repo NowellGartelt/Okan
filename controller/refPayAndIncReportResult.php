@@ -9,8 +9,10 @@
  * @package controller
  * @name refPayAndIncReportResult
  */
-
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -190,10 +192,14 @@ if ($errInput !== "") {
             }
         }
     }
-    // 取得時にエラーがあった場合、エラー画面を表示する
-    if ($errFlg == true && $errResult == "failedDBConnect") {
-        include '../view/errReferenceResult.php';
-        
+    
+    // エラーがあった場合
+    if ($errFlg == true) {
+        // 取得時にエラーがあった場合、エラー画面を表示する
+        if ($errResult == "failedDBConnect") {
+            include '../view/errReferenceResult.php';
+            
+        }
     } else {   
         // 画面の表示
         include '../view/refPayAndIncReportResult.php';

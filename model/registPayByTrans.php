@@ -122,7 +122,6 @@ class registPayByTrans
                     '$registDate', '$userID', $taxFlg, $tax, $methodOfPaymet)
                     ";
                 $queryResult = mysqli_query($link, $query);
-                $result = mysqli_fetch_assoc($queryResult);
                 
                 // 事後確認
                 $query = "

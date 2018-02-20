@@ -81,7 +81,6 @@ class searchPayCategory
             mysqli_close($link);
             
         }
-        
         return $this->result;
 
     }

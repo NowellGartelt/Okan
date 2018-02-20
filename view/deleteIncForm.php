@@ -49,14 +49,14 @@
     </table>
     <br>
     <input type="hidden" name="ID" value=<?php echo $id; ?>>
-    <input type="hidden" name="incName" value=<?php echo $incList['incName']; ?>>
+    <input type="hidden" name="incName" value="<?php echo $incList['incName']; ?>">
     <input type="hidden" name="income" value=<?php echo $incList['income']; ?>>
-    <input type="hidden" name="incCategory" value=<?php echo $incList['incCategory']; ?>>
-    <input type="hidden" name="incDate" value=<?php echo $incList['incDate']; ?>>
-    <input type="hidden" name="incDateYear" value=<?php echo $incInfoDateYear; ?>>
-    <input type="hidden" name="incDateMonth" value=<?php echo $incInfoDateMonth; ?>>
-    <input type="hidden" name="incDateDay" value=<?php echo $incInfoDateDay; ?>>
-    <input type="hidden" name="incState" value=<?php echo $incList['incState']; ?>>
+    <input type="hidden" name="incCategory" value="<?php echo $incList['incCategory']; ?>">
+    <input type="hidden" name="incDate" value="<?php echo $incList['incDate']; ?>">
+    <input type="hidden" name="incDateYear" value="<?php echo $incInfoDateYear; ?>">
+    <input type="hidden" name="incDateMonth" value="<?php echo $incInfoDateMonth; ?>">
+    <input type="hidden" name="incDateDay" value="<?php echo $incInfoDateDay; ?>">
+    <input type="hidden" name="incState" value="<?php echo $incList['incState']; ?>">
     <button type="submit">オカンに取り消してもらう</button>
    </form>
    <form action="../../Okan/referenceIncResult.php" method="post">

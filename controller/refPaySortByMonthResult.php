@@ -9,7 +9,10 @@
  * @package controller
  * @name refPaySortByMonthResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -28,6 +31,7 @@ $payCount = null;
 // エラー変数のリセット
 $errFlg = false;
 $errInput = "";
+$errResult = "";
 
 // 移動元ページの設定
 $fromPage = "refPaySortByDayResult";
@@ -56,6 +60,7 @@ $_SESSION['$methodOfPayment'] = $methodOfPayment;
 // 項目不足だった場合、入力項目不足エラー
 if (($choiceKey == "payName" && $payName == "") 
         || ($choiceKey == "payCategory" && $payCategory == "")) {
+    $errFlg = true;
     $errInput = "luckNecessaryInfo";
     
 } else {
@@ -65,7 +70,8 @@ if (($choiceKey == "payName" && $payName == "")
     $payList = $searchPayByMonth -> searchPayByMonth(
             $userID, $payName, $payCategory, 
             $payDateFrom, $payDateTo, $choiceKey, $methodOfPayment);
- 
+    $DBConnect = $controller -> getDBConnectResult();
+    
     $payCount = count($payList);
     
     // DB接続に失敗した場合
@@ -76,21 +82,24 @@ if (($choiceKey == "payName" && $payName == "")
     } else {
         // 結果が100行以上だった場合、検索結果過多でエラー
         if ($payCount >= 101) {
+            $errFlg = true;
             $errInput = "errReferencePayCount";
             
         }
     }
 }
 
-// 取得時にエラーがあった場合、エラー画面を表示する
-if ($errFlg == true && $errResult == "failedDBConnect") {
-    // エラー画面の表示
-    include '../view/errReferenceResult.php';
+// エラーがあった場合
+if ($errFlg == true) {
+    // 取得時にエラーがあった場合、エラー画面を表示する
+    if ($errResult == "failedDBConnect") {
+        include '../view/errReferenceResult.php';
     
-// エラーがあった場合、入力画面に戻す
-} elseif ($errInput !== "") {
-    require_once 'refPaySortByMonthForm.php';
-
+    // エラーがあった場合、入力画面に戻す
+    } elseif ($errInput !== "") {
+        require_once 'refPaySortByMonthForm.php';
+        
+    }
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumPayment = null;

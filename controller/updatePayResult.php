@@ -9,7 +9,10 @@
  * @package controller
  * @name updatePayResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -18,6 +21,14 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+
+// 各モジュール使用フラグの取得
+$modulePayFlg = $controller -> getPayModuleFlg();
+$moduleTaxCalcFlg = $modulePayFlg['taxCalcFlg'];
+$modulePayNameFlg = $modulePayFlg['payNameFlg'];
+$modulePayCateFlg = $modulePayFlg['payCateFlg'];
+$modulePaymentFlg = $modulePayFlg['paymentFlg'];
+$modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
 
 $payName = $_POST['payName'];
 $paymentAfter = $_POST['payment'];
@@ -69,6 +80,23 @@ if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
     $taxFlgAfter = htmlspecialchars($taxFlgAfter, ENT_QUOTES);
     $taxAfter = htmlspecialchars($taxAfter, ENT_QUOTES);
 
+    // null値が入力された場合
+    if ($payName == null) {
+        $payName = "";
+    }
+    if ($payState == null) {
+        $payState = "";
+    }
+    if ($payCategory == null) {
+        $payCategory = 0;
+    }
+    if ($tax == null) {
+        $tax = 0;
+    }
+    if ($methodOfPayment == null) {
+        $methodOfPayment = 0;
+    }
+    
     // 税率が入力されてるとき、自動で税率計算を行う
     require_once '../model/searchPayByID.php';
     $searchPayByID = new searchPayByID();
@@ -159,10 +187,12 @@ if ($paymentAfter == "" || $payDate == "" || $paymentAfter < 0) {
     }
 
     // エラーがあった場合
-    if ($errFlg == true && ($errGetInfo !== "" || $errInput !== "" || $errResult !== "")) {
+    if ($errFlg == true) {
         // エラー画面の表示
-        include '../view/errUpdateResult.php';
-        
+        if ($errGetInfo !== "" || $errResult !== "") {
+            include '../view/errUpdateResult.php';
+            
+        }
     } else {
         // 画面の表示
         include '../view/updatePayResult.php';

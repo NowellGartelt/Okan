@@ -113,8 +113,8 @@ foreach ($mopList as &$methodOfPayment) {
       </tr>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="month" name="payDateFrom" style="width: 150px" value=<?php echo date("Y-m"); ?>>  ～  
-       <input type="month" name="payDateTo" style="width: 150px" value=<?php echo date("Y-m"); ?>></td>
+       <td><input type="month" name="payDateFrom" style="width: 150px" value="<?php echo date("Y-m"); ?>">  ～  
+       <input type="month" name="payDateTo" style="width: 150px" value="<?php echo date("Y-m"); ?>"></td>
       </tr>
      </tbody>
     </table>

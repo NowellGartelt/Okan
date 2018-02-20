@@ -9,7 +9,10 @@
  * @package controller
  * @name updatePayForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -19,6 +22,14 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 $fromPage = $controller -> getFromPage();
+
+// 各モジュール使用フラグの取得
+$modulePayFlg = $controller -> getPayModuleFlg();
+$moduleTaxCalcFlg = $modulePayFlg['taxCalcFlg'];
+$modulePayNameFlg = $modulePayFlg['payNameFlg'];
+$modulePayCateFlg = $modulePayFlg['payCateFlg'];
+$modulePaymentFlg = $modulePayFlg['paymentFlg'];
+$modulePayMemoFlg = $modulePayFlg['payMemoFlg'];
 
 $id = $_POST['ID'];
 

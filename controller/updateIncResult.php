@@ -9,7 +9,10 @@
  * @package controller
  * @name updateIncResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -18,6 +21,12 @@ $controller = new controller();
 // ログインIDとユーザID取得
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
+
+// 各モジュール使用フラグの取得
+$moduleFlg = $controller -> getIncModuleFlg();
+$moduleIncNameFlg = $moduleFlg['incNameFlg'];
+$moduleIncCateFlg = $moduleFlg['incCateFlg'];
+$moduleIncMemoFlg = $moduleFlg['incMemoFlg'];
 
 $incName = $_POST['incName'];
 $income = $_POST['income'];
@@ -40,9 +49,11 @@ $controller -> setFromPage($fromPage);
 if($income == "" || $incDate == "" || $income < 0){
     if ($income < 0) {
         // 入力値不正でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "minusInput";
     } else {
         // 入力項目不足でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "lackInput";
     }
     
@@ -55,6 +66,17 @@ if($income == "" || $incDate == "" || $income < 0){
     $income = htmlspecialchars($income, ENT_QUOTES);
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
     $incState = htmlspecialchars($incState, ENT_QUOTES);
+    
+    // null値が与えられた場合
+    if ($incName == null) {
+        $incName = "";
+    }
+    if ($incState == null) {
+        $incState = "";
+    }
+    if ($incCategory == null) {
+        $incCategory = 0;
+    }
     
     // 更新日時取得
     $updateDate = date("Y-m-d H:i:s");
@@ -86,10 +108,12 @@ if($income == "" || $incDate == "" || $income < 0){
     }
     
     // エラーがあった場合
-    if ($errFlg == true && ($errGetInfo !== "" || $errInput !== "" || $errResult !== "")) {
+    if ($errFlg == true) {
         // エラー画面の表示
-        include '../view/errUpdateResult.php';
-        
+        if ($errGetInfo !== "" || $errResult !== "") {
+            include '../view/errUpdateResult.php';
+            
+        }
     } else {
         // 画面の表示
         include '../view/updateIncResult.php';

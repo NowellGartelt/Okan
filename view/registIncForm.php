@@ -38,7 +38,7 @@
      <tbody>
       <tr>
        <td>いつ？※：</td>
-       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="incDate" style="width: 150px" value="<?php echo date("Y-m-d"); ?>"></td>
       </tr>
       <tr>
        <td>いくら？※：</td>

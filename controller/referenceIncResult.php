@@ -9,7 +9,10 @@
  * @package controller
  * @name referenceIncResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -101,14 +104,17 @@ if ($DBConnect == false) {
     }
 }
 
-// 取得時にエラーがあった場合、エラー画面を表示する
-if ($errFlg == true && $errResult == "failedDBConnect") {
-    include '../view/errReferenceResult.php';
+//エラーがあった場合
+if ($errFlg == true) {
+    // 取得時にエラーがあった場合、エラー画面を表示する
+    if ($errResult == "failedDBConnect") {
+        include '../view/errReferenceResult.php';
     
-// 所得後のエラーがあった場合、入力画面へ戻す
-} elseif ($errFlg == true && ($errResult == "OverCapacity" || $errResult == "noneResult")) {
-    require_once 'referenceIncForm.php';
+    // 所得後のエラーがあった場合、入力画面へ戻す
+    } elseif ($errResult == "OverCapacity" || $errResult == "noneResult") {
+        require_once 'referenceIncForm.php';
     
+}
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumIncome = null;

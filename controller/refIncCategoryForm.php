@@ -9,7 +9,10 @@
  * @package controller
  * @name refIncCategory
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -38,7 +41,7 @@ if ($DBConnect == "failed") {
     require_once '../model/searchIncCategoryCount.php';
     $searchIncCategoryCount = new searchIncCategoryCount();
     $cateCount = $searchIncCategoryCount -> searchIncCategoryCount($userID);
-    $count = $cateCount[0]["COUNT(*)"];
+    $count = $cateCount["COUNT(*)"];
     
     // DBアクセスに失敗したとき
     if ($DBConnect == "failed") {

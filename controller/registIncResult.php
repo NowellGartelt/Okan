@@ -9,7 +9,10 @@
  * @package controller
  * @name registIncResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -34,6 +37,7 @@ $incDate = $_POST['incDate'];
 // エラー値の初期化
 $errFlg = false;
 $errInput = "";
+$errGetInfo = "";
 
 // 移動元ページの設定
 $fromPage = "registIncResult";
@@ -63,6 +67,17 @@ if($income == "" || $incDate == "" || $income < 0){
     $incState = htmlspecialchars($incState, ENT_QUOTES);
     $incCategory = htmlspecialchars($incCategory, ENT_QUOTES);
     
+    // null値が与えられた場合
+    if ($incName == null) {
+        $incName = "";
+    }
+    if ($incState == null) {
+        $incState = "";
+    }
+    if ($incCategory == null) {
+        $incCategory = 0;
+    }
+    
     // 登録日時取得
     $registDate = date("Y-m-d H:i:s");
     
@@ -87,7 +102,7 @@ if($income == "" || $incDate == "" || $income < 0){
         $DBConnect = $controller -> getDBConnectResult();
         
         // 登録に失敗したとき
-        if ($DBConnect == "failed" || $regiResult == false) {
+        if ($DBConnect == "failed" || $regResult == false) {
             $errFlg = true;
             $errGetInfo = "errRegist";
             
@@ -101,10 +116,13 @@ if($income == "" || $incDate == "" || $income < 0){
         }
     }
     
+    // エラーがあった場合
     if ($errFlg == true) {
-        // 画面の表示
-        include '../view/errRegistResult.php';
-        
+        // 取得時にエラーがあった場合、エラー画面を表示する
+        if ($errGetInfo !== "") {
+            include '../view/errRegistResult.php';
+            
+        }
     } else {
         // 画面の表示
         include '../view/registIncResult.php';

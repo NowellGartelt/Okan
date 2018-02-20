@@ -9,7 +9,10 @@
  * @package controller
  * @name forgotMemberForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 if (!$errorFlg) {
     $errorNoInput = false;
@@ -19,4 +22,5 @@ if (!$errorFlg) {
     
 }
 
+// 画面の表示
 include '../view/forgotMemberForm.php';

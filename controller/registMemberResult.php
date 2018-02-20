@@ -9,7 +9,10 @@
  * @package controller
  * @name registMemberResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // 入力値の取得
 $loginID = $_POST['loginID'];
@@ -28,8 +31,8 @@ $errFlg = false;
 // ログインID、パスワード、名前のいずれかの項目が未入力の場合
 if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answer == "") {
     // 入力項目不足でエラー、入力画面に戻す
-    $errInput = "lackInput";
     $errFlg = true;
+    $errInput = "lackInput";
 
 } else {
     // スクリプト挿入攻撃、XSS対策
@@ -58,7 +61,7 @@ if ($loginID == "" || $password == "" || $name == "" || $question == "" || $answ
         require_once '../model/searchMemberByID.php';
         $searchMemberByID = new searchMemberByID();
         $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
-        $DBConnect = $controller -> getDBConnectResult();
+        $DBConnect = $_SESSION['databaseConnect'];
         
         // DB接続に失敗した場合
         if ($DBConnect == "failed") {
@@ -103,7 +106,7 @@ if ($errFlg == true && $errInput !== "") {
     $registMember = new registMember();
     $regMemberResult = $registMember -> registMember($loginID, $password, $name, $registDate, 
             $isAdmin, $question, $answer, $defTax);
-    $DBConnect = $controller -> getDBConnectResult();
+    $DBConnect = $_SESSION['databaseConnect'];
     
     // DB接続に失敗した場合
     if ($DBConnect == "failed") {
@@ -115,7 +118,7 @@ if ($errFlg == true && $errInput !== "") {
         $searchMemberIDByID = new searchMemberByID();
         $userInfo = $searchMemberIDByID -> searchMemberByID($loginID);
         $userID = $userInfo['userID'];
-        $DBConnect = $controller -> getDBConnectResult();
+        $DBConnect = $_SESSION['databaseConnect'];
         
         // DB接続に失敗した場合
         if ($DBConnect == "failed") {
@@ -127,7 +130,7 @@ if ($errFlg == true && $errInput !== "") {
             require_once '../model/registPayCategory.php';
             $registPayCategory = new registpayCategory();
             $regPayCategoryResult = $registPayCategory -> registPayCategory($userID, $registDate);
-            $DBConnect = $controller -> getDBConnectResult();
+            $DBConnect = $_SESSION['databaseConnect'];
             
             // DB接続に失敗した場合
             if ($DBConnect == "failed") {
@@ -139,7 +142,7 @@ if ($errFlg == true && $errInput !== "") {
                 require_once '../model/registIncCategory.php';
                 $registIncCategory = new registIncCategory();
                 $regIncCategoryResult = $registIncCategory -> registIncCategory($userID, $registDate);
-                $DBConnect = $controller -> getDBConnectResult();
+                $DBConnect = $_SESSION['databaseConnect'];
                 
                 // DB接続に失敗した場合
                 if ($DBConnect == "failed") {
@@ -151,10 +154,13 @@ if ($errFlg == true && $errInput !== "") {
         }
     }
     
-    if ($errFlg == true && $errResult !== "") {
+    // エラーがあった場合
+    if ($errFlg == true) {
         // エラー画面の表示
-        include '../view/errRegistResult.php';
-        
+        if ($errResult !== "") {
+            include '../view/errRegistResult.php';
+            
+        }
     } else {
         // 画面の表示
         include '../view/registMemberResult.php';

@@ -99,13 +99,13 @@ class registIncByTrans
                 $countBefore = (int) $result['COUNT(*)'];
                 
                 // 収入情報の登録
-                $query =
-                    "INSERT INTO incomeTable (
+                $query = "
+                    INSERT INTO incomeTable (
                     incName, income, incCategory, incState, incDate, registDate, updateDate, userID)
                     VALUES (
-                    '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', '$registDate', '$userID')";
+                    '$incName', '$income', '$incCategory', '$incState', '$incDate', '$registDate', '$registDate', '$userID')
+                    ";
                 $queryResult = mysqli_query($link, $query);
-                $result = mysqli_fetch_assoc($queryResult);
                 
                 // 事後確認
                 $query = "

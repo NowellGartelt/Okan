@@ -81,7 +81,6 @@ class deleteIncByTrans
                 // 収入情報の削除
                 $query = "DELETE FROM incomeTable WHERE incomeID = '$id' AND userID = '$userID'";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
                 // 事後確認
                 $query = "

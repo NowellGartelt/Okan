@@ -38,7 +38,7 @@
      <tbody>
       <tr>
        <td>使ったものは？：</td>
-       <td><input type="text" name="incName" style="width: 150px" value=<?php echo $incList['incName']; ?>></td>
+       <td><input type="text" name="incName" style="width: 150px" value="<?php echo $incList['incName']; ?>"></td>
       </tr>
       <tr>
        <td>いくら？：</td>
@@ -65,11 +65,11 @@ foreach ($cateList as &$categoryName) {
       </tr>
       <tr>
        <td>いつ？：</td>
-       <td><input type="date" name="incDate" style="width: 150px" value=<?php echo $incList['incDate']; ?>></td>
+       <td><input type="date" name="incDate" style="width: 150px" value="<?php echo $incList['incDate']; ?>"></td>
       </tr>
       <tr>
        <td>どこで？：</td>
-       <td><input type="text" name="incState" style="width: 150px" value=<?php echo $incList['incState']; ?>></td>
+       <td><input type="text" name="incState" style="width: 150px" value="<?php echo $incList['incState']; ?>"></td>
       </tr>
      </tbody>
     </table>

@@ -9,7 +9,10 @@
  * @package controller
  * @name refPaySortByForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -23,4 +26,5 @@ $userID = $controller -> getUserID();
 $fromPage = "refPaySortByForm";
 $controller -> setFromPage($fromPage);
 
+// 画面の表示
 include '../view/refPaySortByForm.php';

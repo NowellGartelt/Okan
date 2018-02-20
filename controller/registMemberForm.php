@@ -9,7 +9,10 @@
  * @package contoller
  * @name registPayForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // 入力内容エラーによる再表示ではない場合、エラーフラグをすべてリセットする。
 if (!$errFlg) {
@@ -17,4 +20,5 @@ if (!$errFlg) {
     
 }
 
+// 画面の表示
 include '../view/registMemberForm.php';

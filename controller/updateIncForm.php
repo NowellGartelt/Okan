@@ -9,7 +9,10 @@
  * @package controller
  * @name updateIncForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -19,6 +22,12 @@ $controller = new controller();
 $loginID = $controller -> getLoginID();
 $userID = $controller -> getUserID();
 $fromPage = $controller -> getFromPage();
+
+// 各モジュール使用フラグの取得
+$moduleFlg = $controller -> getIncModuleFlg();
+$moduleIncNameFlg = $moduleFlg['incNameFlg'];
+$moduleIncCateFlg = $moduleFlg['incCateFlg'];
+$moduleIncMemoFlg = $moduleFlg['incMemoFlg'];
 
 $id = $_POST['ID'];
 

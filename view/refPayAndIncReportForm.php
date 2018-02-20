@@ -34,8 +34,8 @@
      <tbody>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="date" name="dateFrom" value=<?php echo date("Y-m-d"); ?>>  ～  
-       <input type="date" name="dateTo" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="dateFrom" value="<?php echo date("Y-m-d"); ?>">  ～  
+       <input type="date" name="dateTo" value="<?php echo date("Y-m-d"); ?>"></td>
       </tr>
      </tbody>
     </table>

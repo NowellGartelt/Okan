@@ -39,7 +39,7 @@
       <tr>
        <td>いつ？※：</td>
        <td></td>
-       <td><input type="date" name="payDate" value=<?php echo date("Y-m-d"); ?> style="width: 150px"></td>
+       <td><input type="date" name="payDate" value="<?php echo date("Y-m-d"); ?>" style="width: 150px"></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
@@ -52,7 +52,7 @@ if ($moduleTaxCalcFlg == "1") {
       <tr>
        <td>税率？：</td>
        <td><input type="checkbox" name="taxFlg" value="1"></td>
-       <td><input type="number" name="tax" value="<?php echo $tax; ?>" style="width: 150px"> %</td>
+       <td><input type="number" name="tax" value=<?php echo $tax; ?> style="width: 150px"> %</td>
       </tr>
 <?php 
 }

@@ -9,7 +9,10 @@
  * @package controller
  * @name loginActon
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 $loginID = $_POST['loginID'];
 $password = $_POST['loginPassword'];
@@ -17,6 +20,9 @@ $password = $_POST['loginPassword'];
 $loginID = htmlspecialchars($loginID, ENT_QUOTES);
 $password = htmlspecialchars($password, ENT_QUOTES);
 
+// 変数初期化
+$errFlg = false;
+$errGetInfo = "";
 $login = "";
 unset($_SESSION['login']);
 
@@ -29,7 +35,7 @@ if (empty($loginID) || empty($password)) {
     require_once '../model/searchMemberByLogIdAndPass.php';
     $searchMemberByLogIdAndPass = new searchMemberByLogIdAndPass();
     $getPassword = $searchMemberByLogIdAndPass -> searchMemberByLogIdAndPass($loginID, $password);
-    $DBConnect = $controller -> getDBConnectResult();
+    $DBConnect = $_SESSION['databaseConnect'];
     
     // DB接続に失敗した場合
     if ($DBConnect == "failed") {
@@ -43,7 +49,7 @@ if (empty($loginID) || empty($password)) {
             $searchMemberIDByID = new searchMemberIDByID();
             $result = $searchMemberIDByID -> searchMemberIDByID($loginID);
             $userID = $result['userID'];
-            $DBConnect = $controller -> getDBConnectResult();
+            $DBConnect = $_SESSION['databaseConnect'];
             
             // DB接続に失敗した場合
             if ($DBConnect == "failed") {
@@ -83,10 +89,6 @@ if (empty($loginID) || empty($password)) {
                 $_SESSION['incCateFlg'] = $incCateFlg;
                 $_SESSION['incMemoFlg'] = $incMemoFlg;
                 
-                // 移動元ページの設定
-                $fromPage = "loginAction";
-                $controller -> setFromPage($fromPage);
-                
             }
         } else {
             $login = "noRegistration";
@@ -96,10 +98,12 @@ if (empty($loginID) || empty($password)) {
 }
 
 // エラーがあった場合
-if ($login !== "login" || $errFlg !== "") {
-    // ログイン画面に戻す
-    include '../../Okan/controller/login.php';
+if ($errFlg == true) {
+    if ($login !== "login") {
+        // ログイン画面に戻す
+        require_once '../../Okan/controller/login.php';
     
+    }
 // エラーがなかった場合    
 } else {
     // ログイン完了、メニュー表示

@@ -9,7 +9,10 @@
  * @package controller
  * @name menu
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -23,4 +26,5 @@ $userID = $controller -> getUserID();
 $fromPage = "menu";
 $controller -> setFromPage($fromPage);
 
+// 画面の表示
 include '../view/menu.php';

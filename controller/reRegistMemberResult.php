@@ -9,7 +9,10 @@
  * @package controller
  * @name reRegistMemberResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // 入力値の取得
 $loginID = $_POST['loginID'];
@@ -68,7 +71,7 @@ if ($errFlg == true && $errInput !== "") {
     require_once '../model/updatePassWord.php';
     $updatePassWord = new updatePassWord();
     $updResult = $updatePassWord -> updatePassWord($loginID, $password, $updateDate);
-    $DBConnect = $controller -> getDBConnectResult();
+    $DBConnect = $_SESSION['databaseConnect'];
     
     // DB接続に失敗した場合
     if ($DBConnect == "failed") {
@@ -77,10 +80,13 @@ if ($errFlg == true && $errInput !== "") {
         
     }
     
-    if ($errFlg == true && $errResult !== "") {
+    // エラーがあった場合
+    if ($errFlg == true) {
         // エラー画面の表示
-        include '../view/errRegistResult.php';
-        
+        if ($errResult !== "") {
+            include '../view/errRegistResult.php';
+            
+        }
     } else {
         // 画面の表示
         include '../view/reRegistMemberResult.php';

@@ -83,7 +83,6 @@ class updateIncCategory
                     SET categoryName = '$categoryName', updateDate = '$updateDate' 
                     WHERE personalID = '$categoryID' AND userID = '$userID'";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
             }
             // DB切断

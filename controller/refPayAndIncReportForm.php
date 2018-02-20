@@ -9,7 +9,10 @@
  * @package controller
  * @name refPayAndIncReportForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -30,4 +33,5 @@ if ($fromPage !== "refPayAndIncReportResult") {
 $fromPage = "refPayAndIncReportForm";
 $controller -> setFromPage($fromPage);
 
+// 画面の表示
 include '../view/refPayAndIncReportForm.php';

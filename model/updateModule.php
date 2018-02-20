@@ -111,7 +111,6 @@ class updateModule
                     incCateFlg = '$incCateFlg', incMemoFlg = '$incMemoFlg', updateDate = '$updateDate'  
                     WHERE userID = '$userID'";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
             }
             // DB切断

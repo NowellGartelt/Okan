@@ -57,14 +57,14 @@
     </table>
     <br>
     <input type="hidden" name="ID" value=<?php echo $id; ?>>
-    <input type="hidden" name="payName" value=<?php echo $payList['payName']; ?>>
+    <input type="hidden" name="payName" value="<?php echo $payList['payName']; ?>">
     <input type="hidden" name="payment" value=<?php echo $payList['payment']; ?>>
-    <input type="hidden" name="payCategory" value=<?php echo $payList['payCategory']; ?>>
-    <input type="hidden" name="payDate" value=<?php echo $payList['payDate']; ?>>
-    <input type="hidden" name="payDateYear" value=<?php echo $payInfoDateYear; ?>>
-    <input type="hidden" name="payDateMonth" value=<?php echo $payInfoDateMonth; ?>>
-    <input type="hidden" name="payDateDay" value=<?php echo $payInfoDateDay; ?>>
-    <input type="hidden" name="payState" value=<?php echo $payList['payState']; ?>>
+    <input type="hidden" name="payCategory" value="<?php echo $payList['payCategory']; ?>">
+    <input type="hidden" name="payDate" value="<?php echo $payList['payDate']; ?>">
+    <input type="hidden" name="payDateYear" value="<?php echo $payInfoDateYear; ?>">
+    <input type="hidden" name="payDateMonth" value="<?php echo $payInfoDateMonth; ?>">
+    <input type="hidden" name="payDateDay" value="<?php echo $payInfoDateDay; ?>">
+    <input type="hidden" name="payState" value="<?php echo $payList['payState']; ?>">
     <button type="submit">オカンに取り消してもらう</button>
    </form>
    <form action="../../Okan/referencePayResult.php" method="post">

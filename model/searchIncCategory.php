@@ -82,7 +82,6 @@ class searchIncCategory
             mysqli_close($link);
             
         }
-
         return $this->result;
 
     }

@@ -79,7 +79,6 @@ class updatePassWord
                     updateDate = '$updateDate'
                     WHERE loginID = '$loginID'";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
             }
             // DB切断

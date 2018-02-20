@@ -53,7 +53,7 @@
        計6文字以上であること</h6></td>
       </tr>
     </table>
-    <input type="hidden" name="loginID" value=<?php echo $loginID; ?>>
+    <input type="hidden" name="loginID" value="<?php echo $loginID; ?>">
     <button type="submit">オカンに教える</button>
    </form>
    <form action="../../Okan/login.php" method="post">

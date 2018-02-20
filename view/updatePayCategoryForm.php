@@ -45,7 +45,7 @@
     </table>
     <br>
     <input type="hidden" name="personalID" value=<?php echo $personalID; ?>>
-    <input type="hidden" name="categoryNameBefore" value=<?php echo $cateList['categoryName'];?>>
+    <input type="hidden" name="categoryNameBefore" value="<?php echo $cateList['categoryName'];?>">
     <button type="submit">オカンに教え直す</button>
    </form>
    <form action="../../Okan/refPayCategoryForm.php" method="post">

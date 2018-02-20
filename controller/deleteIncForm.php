@@ -11,7 +11,10 @@
 */
 /* controller準備ここから */
 
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -69,10 +72,12 @@ if ($DBConnect == false) {
 }
 
 // エラーがあった場合
-if ($errFlg == true && $errGetInfo !== "") {
-    // エラー画面表示
-    include '../view/errDeleteResult.php';
+if ($errFlg == true) {
+    if ($errGetInfo !== "") {
+        // エラー画面表示
+        include '../view/errDeleteResult.php';
     
+    }
 } else {
     // 画面表示
     include '../view/deleteIncForm.php';

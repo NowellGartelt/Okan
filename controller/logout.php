@@ -9,10 +9,15 @@
  * @package controller
  * @neme logout
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 $_SESSION["login"] = null;
 
+// セッション破棄
 session_destroy();
 
+// 画面の表示
 include '../view/logout.php';

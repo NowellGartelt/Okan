@@ -140,7 +140,6 @@ class updateMember
                 // SQL文連結作成
                 $query = $queryUpdate.$querySet.$queryWhere;
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_array($queryResult);
                 
             }
             // DB切断

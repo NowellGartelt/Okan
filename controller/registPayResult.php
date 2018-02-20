@@ -10,7 +10,10 @@
  * @package controller
  * @name registPayResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -51,10 +54,12 @@ $controller -> setFromPage($fromPage);
 if ($payment == "" || $payDate == "" || $payment < 0) {
     if ($payment < 0) {
         // 入力値不正でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "minusInput";
         
     } else {
         // 入力項目不足でエラー、入力画面に戻す
+        $errFlg = true;
         $errInput = "lackInput";
         
     }
@@ -71,6 +76,23 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
     $payCategory = htmlspecialchars($payCategory, ENT_QUOTES);
     $taxFlg = htmlspecialchars($taxFlg, ENT_QUOTES);
     $tax = htmlspecialchars($tax, ENT_QUOTES);
+    
+    // null値が入力された場合
+    if ($payName == null) {
+        $payName = "";
+    }
+    if ($payState == null) {
+        $payState = "";
+    }
+    if ($payCategory == null) {
+        $payCategory = 0;
+    }
+    if ($tax == null) {
+        $tax = 0;
+    }
+    if ($methodOfPayment == null) {
+        $methodOfPayment = 0;
+    }
     
     // 登録日時取得
     $registDate = date("Y-m-d H:i:s");
@@ -123,10 +145,13 @@ if ($payment == "" || $payDate == "" || $payment < 0) {
         }
     }
     
+    // エラーがあった場合
     if ($errFlg == true) {
-        // 画面表示
-        include '../view/errRegistResult.php';
-        
+        // エラー画面表示
+        if ($errGetInfo !== "") {
+            include '../view/errRegistResult.php';
+            
+        }
     } else {
         // 画面表示
         include '../view/registPayResult.php';

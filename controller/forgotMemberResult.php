@@ -10,7 +10,10 @@
  * @package controller
  * @name forgotMemberResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // 入力情報の取得
 $loginID = $_POST['loginID'];
@@ -48,7 +51,7 @@ if ($loginID == "" || $question == "" || $answer == "") {
     require_once '../model/searchMemberByID.php';
     $searchMemberByID = new searchMemberByID();
     $memberInfo = $searchMemberByID -> searchMemberByID($loginID);
-    $DBConnect = $controller -> getDBConnectResult();
+    $DBConnect = $_SESSION['databaseConnect'];
     
     // DB接続に失敗した場合
     if ($DBConnect == "failed") {
@@ -68,7 +71,7 @@ if ($loginID == "" || $question == "" || $answer == "") {
             require_once '../model/searchQuestionAndAnswerByID.php';
             $searchQuestionAndAnswerByID = new searchQuestionAndAnswerByID();
             $memberInfo = $searchQuestionAndAnswerByID -> searchQuestionAndAnswerByID($loginID);
-            $DBConnect = $controller -> getDBConnectResult();
+            $DBConnect = $_SESSION['databaseConnect'];
             
             // DB接続に失敗した場合
             if ($DBConnect == "failed") {
@@ -99,8 +102,8 @@ if ($loginID == "" || $question == "" || $answer == "") {
 
 // エラーがあった場合
 if ($errFlg == true) {
-    if ($errInput !== "" || $errGetInfo == "") {
-        // エラー画面の表示
+    if ($errInput !== "" || $errGetInfo !== "") {
+        // 入力フォームの再表示
         include '../view/forgotMemberForm.php';
         
     }            

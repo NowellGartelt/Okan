@@ -39,22 +39,22 @@
       <tr>
        <td>いつ？※：</td>
        <td></td>
-       <td><input type="date" name="payDate" style="width: 150px" value=<?php echo $payList['payDate']; ?>></td>
+       <td><input type="date" name="payDate" style="width: 150px" value="<?php echo $payList['payDate']; ?>"></td>
       </tr>
       <tr>
        <td>いくら？※：</td>
        <td></td>
-       <td><input type="number" name="payment"  style="width: 150px"value=<?php echo $payList['payment']; ?>></td>
+       <td><input type="number" name="payment"  style="width: 150px" value=<?php echo $payList['payment']; ?>></td>
       </tr>
       <tr>
        <td>税別？：</td>
        <td><input type="checkbox" name="taxFlg" value=1 <?php if ($payList['taxFlg'] == 1) { ?> checked <?php } ?>></td>
-       <td><input type="number" name="tax" style="width: 150px" value="<?php echo $payList['tax']; ?>"> %</td>
+       <td><input type="number" name="tax" style="width: 150px" value=<?php echo $payList['tax']; ?>> %</td>
       </tr>
       <tr>
        <td>使ったものは？※：</td>
        <td></td>
-       <td><input type="text" name="payName" style="width: 150px" value=<?php echo $payList['payName']; ?>></td>
+       <td><input type="text" name="payName" style="width: 150px" value="<?php echo $payList['payName']; ?>"></td>
       </tr>
       <tr>
        <td>カテゴリは？※：</td>
@@ -99,7 +99,7 @@ foreach ($mopList as &$methodOfPayment) {
       <tr>
        <td>一言メモ：</td>
        <td></td>
-       <td><input type="text" name="payState" style="width: 150px" value=<?php echo $payList['payState']; ?>></td>
+       <td><input type="text" name="payState" style="width: 150px" value="<?php echo $payList['payState']; ?>"></td>
       </tr>
      </tbody>
     </table>

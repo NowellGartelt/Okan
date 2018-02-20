@@ -9,7 +9,10 @@
  * @package controller
  * @name updateMemberForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -40,8 +43,7 @@ if ($DBConnect == false) {
     $errFlg = true;
     $errGetInfo= "emptyList";
     
-} else {
-    
 }
+
 // 画面の表示
 include '../view/updateMemberForm.php';

@@ -129,7 +129,6 @@ class registMember
                     '$taxCalcFlg', '$incNameFlg', '$incCateFlg', '$incMemoFlg'
                     )";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
                 // 事後確認
                 $query = "

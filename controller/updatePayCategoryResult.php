@@ -9,7 +9,10 @@
  * @package controller
  * @name updatePayCategoryResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -35,6 +38,7 @@ $controller -> setFromPage($fromPage);
 // カテゴリ名が入力されてなかった場合
 if ($categoryName == ""){
     // 入力項目不足でエラー、入力画面に戻す
+    $errFlg = true;
     $errInput = "nullInfo";
     
     require_once 'updatePayCategoryForm.php';
@@ -63,10 +67,12 @@ if ($categoryName == ""){
     }
     
     // エラーがあった場合
-    if ($errFlg == true && ($errInput !== "" || $errResult !== "")) {
+    if ($errFlg == true) {
         // エラー画面の表示
-        include '../view/errUpdateResult.php';
-        
+        if ($errResult !== "") {
+            include '../view/errUpdateResult.php';
+            
+        }
     } else {
         // 画面の読み込み
         include '../view/updatePayCategoryResult.php';

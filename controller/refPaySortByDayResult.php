@@ -9,7 +9,10 @@
  * @package controller
  * @name refPaySortByDayResult
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -92,15 +95,17 @@ if (($choiceKey == "payName" && $payName == "")
     }
 }
 
-// 取得時にエラーがあった場合、エラー画面を表示する
-if ($errFlg == true && $errResult == "failedDBConnect") {
-    // エラー画面の表示
-    include '../view/errReferenceResult.php';
+// エラーがあった場合
+if ($errFlg == true) {
+    // 取得時にエラーがあった場合、エラー画面を表示する
+    if ($errResult == "failedDBConnect") {
+        include '../view/errReferenceResult.php';
     
-// エラーがあった場合、入力画面に戻す
-} elseif ($errInput !== "") {
-    require_once 'refPaySortByDayForm.php';
-        
+    // エラーがあった場合、入力画面に戻す
+    } elseif ($errInput !== "") {
+        require_once 'refPaySortByDayForm.php';
+    
+}
 // エラーとならなかった場合は結果を表示する
 } else {
     $sumPayment = null;

@@ -38,8 +38,8 @@
      <tbody>
       <tr>
        <td>いつからいつまで？：</td>
-       <td><input type="date" name="payDateFrom" style="width: 150px" value=<?php echo date("Y-m-d"); ?>>  ～  
-        <input type="date" name="payDateTo" style="width: 150px" value=<?php echo date("Y-m-d"); ?>></td>
+       <td><input type="date" name="payDateFrom" style="width: 150px" value="<?php echo date("Y-m-d"); ?>">  ～  
+        <input type="date" name="payDateTo" style="width: 150px" value="<?php echo date("Y-m-d"); ?>"></td>
       </tr>
       <tr>
        <td>使ったものの名前は？：</td>

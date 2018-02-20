@@ -9,12 +9,15 @@
  * @package controller
  * @name login
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 $hat = array(
     'title' => 'Okan：ログイン',
-    'description' => 'Fuen-Works全体のログイン画面',
-    'keywords' => 'Fuen-Works',
+    'description' => '「Okan」は毎日のお金の収入と支出を記録したり、記録した収支を検索・収支レポートを見ることができるサービスです。',
+    'keywords' => '収支管理,おかん',
 );
 
 if (!$_POST['fromPage']) {
@@ -25,6 +28,7 @@ if (!$_POST['fromPage']) {
     
 }
 
+// 画面の表示
 include '../closet/view/hat.php';
 include '../view/login.php';
 include '../closet/view/shoes.php';

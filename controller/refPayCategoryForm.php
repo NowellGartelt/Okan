@@ -9,7 +9,10 @@
  * @package controller
  * @name refPayCategory
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -42,7 +45,7 @@ if ($DBConnect == "failed") {
     require_once '../model/searchPayCategoryCount.php';
     $searchPayCategoryCount = new searchPayCategoryCount();
     $cateCount = $searchPayCategoryCount -> searchPayCategoryCount($userID); 
-    $count = $cateCount[0]["COUNT(*)"];
+    $count = $cateCount["COUNT(*)"];
     
     // DBアクセスに失敗したとき
     if ($DBConnect == "failed") {

@@ -9,7 +9,10 @@
  * @package controller
  * @name updatePayCategoryForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';
@@ -23,7 +26,7 @@ $fromPage = $controller -> getFromPage();
 // カテゴリーID取得
 $personalID = $_POST['personalID'];
 
-if ($fromPage !== "updateCategoryResult") {
+if ($fromPage !== "updatePayCategoryResult") {
     $errFlg = false;
     $errInput = "";
     $errGetInfo = "";

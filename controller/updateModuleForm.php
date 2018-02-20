@@ -9,7 +9,10 @@
  * @package controller
  * @name updateModuleForm
  */
-session_start();
+if (!isset($_SESSION)) {
+    session_start();
+    
+}
 
 // コントローラの共通処理取得
 require_once 'controller.php';

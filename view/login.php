@@ -1,12 +1,4 @@
 <!-- view/login.php -->
-<html>
- <head>
-  <title>Okan：ログイン</title>
-  <meta charset="UTF-8">
-  <meta name="description" content="「Okan」は毎日のお金の収入と支出を記録したり、記録した収支を検索・収支レポートを見ることができるサービスです。">
-  <meta name="keywords" content="収支管理,おかん">
- </head>
- <body>
   <div align="center">
    <br><br>
    <p>Okan：ログイン</p><br>
@@ -60,9 +52,7 @@
     <button type="submit">おかんに意見する</button>
    </form>
   </div>
- </body>
-</html>
-<script type="text/javascript">
+  <script type="text/javascript">
 function checkForm($this)
 {
 	var str=$this.value;
@@ -72,4 +62,4 @@ function checkForm($this)
 	}
 	$this.value=str;
 }
-</script>
+  </script>

@@ -47,11 +47,11 @@
      <tbody>
       <tr>
        <td>名前は？：</td>
-       <td><input type="text" name="name" style="width: 150px" value=<?php echo $memberInfo['name']; ?>></td>
+       <td><input type="text" name="name" style="width: 150px" value="<?php echo $memberInfo['name']; ?>"></td>
       </tr>
       <tr>
        <td>ログインIDは？：</td>
-       <td><input type="text" name="loginID" style="width: 150px" value=<?php echo $memberInfo['loginID']; ?> onInput="checkForm(this)"></td>
+       <td><input type="text" name="loginID" style="width: 150px" value="<?php echo $memberInfo['loginID']; ?>" onInput="checkForm(this)"></td>
       </tr>
       <tr>
        <td>パスワードは？：</td>
@@ -59,7 +59,7 @@
       </tr>
       <tr>
        <td>デフォルトの税率は？：</td>
-       <td><input type="number" name="tax" style="width: 150px" value="<?php echo $memberInfo['defTax']; ?>"> %</td>
+       <td><input type="number" name="tax" style="width: 150px" value=<?php echo $memberInfo['defTax']; ?>> %</td>
       </tr>
      </tbody>
     </table>
@@ -78,9 +78,9 @@
     </table>
     <br>
     <input type="hidden" name="userID" value=<?php echo $memberInfo['userID']; ?>>
-    <input type="hidden" name="nameBefore" value=<?php echo $memberInfo['name']; ?>>
-    <input type="hidden" name="loginIDBefore" value=<?php echo $memberInfo['loginID']; ?>>
-    <input type="hidden" name="passwordBefore" value=<?php echo $memberInfo['loginPassword']; ?>>
+    <input type="hidden" name="nameBefore" value="<?php echo $memberInfo['name']; ?>">
+    <input type="hidden" name="loginIDBefore" value="<?php echo $memberInfo['loginID']; ?>">
+    <input type="hidden" name="passwordBefore" value="<?php echo $memberInfo['loginPassword']; ?>">
     <input type="hidden" name="taxBefore" value=<?php echo $memberInfo['defTax']; ?>>
     <button type="submit">オカンに教え直す</button>
    </form>

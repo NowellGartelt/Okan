@@ -102,7 +102,6 @@ class updateIncByTrans
                     WHERE incomeID = '$id' AND userID = '$userID'
                     ";
                 $queryResult = mysqli_query($link, $query);
-                $this->result = mysqli_fetch_assoc($queryResult);
                 
             }
             // DB切断

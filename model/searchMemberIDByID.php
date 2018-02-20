@@ -15,12 +15,12 @@
 class searchMemberIDByID 
 {
     // インスタンス変数の定義
-    private $model = ""; 
     private $loginID = "";
     private $result = array();
  
     /**
      * コンストラクタ
+     * 何もしない
      *
      * @access public
      */
